@@ -135,7 +135,7 @@ private extension StudyViewController {
                 self?.present(TestStatsViewController.make(userTestId: userTestId, testType: type), animated: true)
             })
         }
-        present(controller, animated: true)
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     func openPaygate() {

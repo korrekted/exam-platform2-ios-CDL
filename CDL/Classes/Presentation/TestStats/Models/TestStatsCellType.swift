@@ -12,4 +12,5 @@ enum TestStatsCellType {
     case description(TestStatsDescriptionElement)
     case filter(TestStatsFilter)
     case answer(TestStatsAnswerElement)
+    case comunityResult(TestStatsComunityResult)
 }

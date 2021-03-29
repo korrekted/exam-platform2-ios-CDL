@@ -8,7 +8,6 @@ import UIKit
 import RxCocoa
 
 final class AnswerView: UIView {
-    private lazy var iconView = makeIconView()
     private lazy var answerLabel = makeAnswerLabel()
     private lazy var imageView = makeImageView()
     private let tapGesture = UITapGestureRecognizer()
@@ -40,7 +39,6 @@ extension AnswerView {
     func setAnswer(answer: String, image: URL?) {
         let attrs = TextAttributes()
             .font(Fonts.SFProRounded.regular(size: 17.scale))
-            .textColor(.black)
             .lineHeight(20.scale)
         
         if let imageUrl = image {
@@ -65,7 +63,7 @@ extension AnswerView {
 // MARK: Private
 private extension AnswerView {
     func initialize() {
-        layer.cornerRadius = 20.scale
+        layer.cornerRadius = 12.scale
         addGestureRecognizer(tapGesture)
         state = .initial
     }
@@ -73,60 +71,47 @@ private extension AnswerView {
     func setState(state: State) {
         switch state {
         case .initial:
-            layer.borderWidth = 0
-            layer.borderColor = UIColor.clear.cgColor
+            layer.borderColor = UIColor(integralRed: 232, green: 234, blue: 237).cgColor
             backgroundColor = .white
-            iconView.image = nil
+            answerLabel.textColor = Self.blackTextColor
+            layer.borderWidth = 2.scale
         case .selected:
-            layer.borderWidth = 3.scale
-            layer.borderColor = UIColor(integralRed: 95, green: 70, blue: 245).cgColor
+            layer.borderColor = UIColor(integralRed: 41, green: 55, blue: 137).cgColor
             backgroundColor = .white
-            iconView.image = nil
+            answerLabel.textColor = Self.blackTextColor
+            layer.borderWidth = 2.scale
         case .correct:
-            let correctColor = UIColor(integralRed: 46, green: 190, blue: 161)
-            layer.borderWidth = 3.scale
-            layer.borderColor = correctColor.cgColor
-            backgroundColor = correctColor.withAlphaComponent(0.15)
-            iconView.tintColor = correctColor
-            iconView.image = UIImage(named: "Question.Correct")
+            backgroundColor = UIColor(integralRed: 143, green: 207, blue: 99)
+            answerLabel.textColor = Self.whiteTextColor
+            layer.borderWidth = 0
         case .error:
-            let errorColor = UIColor(integralRed: 254, green: 105, blue: 88)
-            layer.borderWidth = 3.scale
-            layer.borderColor = errorColor.cgColor
-            backgroundColor = errorColor.withAlphaComponent(0.15)
-            iconView.tintColor = errorColor
-            iconView.image = UIImage(named: "Question.Error")
+            backgroundColor = UIColor(integralRed: 241, green: 104, blue: 91)
+            answerLabel.textColor = Self.whiteTextColor
+            layer.borderWidth = 0
         case .warning:
-            let warningColor = UIColor(integralRed: 254, green: 168, blue: 88)
-            layer.borderWidth = 3.scale
+            let warningColor = UIColor(integralRed: 143, green: 207, blue: 99)
+            backgroundColor = warningColor.withAlphaComponent(0.2)
+            answerLabel.textColor = Self.blackTextColor
+            layer.borderWidth = 2.scale
             layer.borderColor = warningColor.cgColor
-            backgroundColor = warningColor.withAlphaComponent(0.15)
-            iconView.tintColor = warningColor
-            iconView.image = UIImage(named: "Question.Warning")
         }
     }
+    
+    static let blackTextColor = UIColor(integralRed: 31, green: 31, blue: 31)
+    static let whiteTextColor = UIColor(integralRed: 245, green: 245, blue: 245)
 }
 
 // MARK: Make constraints
 private extension AnswerView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            answerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15.scale),
-            answerLabel.topAnchor.constraint(equalTo: topAnchor, constant: 19.scale),
-            answerLabel.trailingAnchor.constraint(equalTo: iconView.leadingAnchor, constant: -20.scale)
+            answerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12.scale),
+            answerLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16.scale),
+            answerLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.scale)
         ])
         
-        labelBottomConstraint = answerLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -19.scale)
+        labelBottomConstraint = answerLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.scale)
         labelBottomConstraint?.isActive = true
-        
-        NSLayoutConstraint.activate([
-            iconView.heightAnchor.constraint(equalToConstant: 24.scale),
-            iconView.widthAnchor.constraint(equalTo: iconView.heightAnchor),
-            iconView.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -20.scale),
-            iconView.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
-        
-        
     }
     
     func needUpdateConstraints() {
@@ -135,7 +120,7 @@ private extension AnswerView {
             imageView.heightAnchor.constraint(equalToConstant: 124.scale),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15.scale),
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 44.scale),
-            imageView.trailingAnchor.constraint(equalTo: iconView.leadingAnchor)
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -44.scale)
         ])
         
         labelBottomConstraint = imageView.topAnchor.constraint(equalTo: answerLabel.bottomAnchor, constant: 10.scale)
@@ -148,14 +133,6 @@ private extension AnswerView {
     func makeAnswerLabel() -> UILabel {
         let view = UILabel()
         view.numberOfLines = 0
-        view.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(view)
-        return view
-    }
-    
-    func makeIconView() -> UIImageView {
-        let view = UIImageView()
-        view.contentMode = .center
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view

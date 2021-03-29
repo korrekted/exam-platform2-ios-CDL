@@ -50,6 +50,8 @@ private extension TestStatsViewModel {
                 
                 let initial: [TestStatsCellType] = [
                     .progress(.init(stats: stats)),
+                    // Временно до исправления бизнес-логики
+                    .comunityResult(TestStatsComunityResult(userTime: "14:00", communityAverage: "12:10", communityScore: "20%")),
                     .description(.init(stats: stats)),
                     .filter(filter)
                 ]
@@ -79,22 +81,7 @@ private extension TestStatsViewModel {
     
     func makeTestName() -> Driver<String> {
         testType
-            .map { type -> String in
-                switch type {
-                case .get:
-                    return "Study.TakeTest".localized
-                case .tenSet:
-                    return "Study.Mode.TenQuestions".localized
-                case .failedSet:
-                    return "Study.Mode.MissedQuestions".localized
-                case .qotd:
-                    return "Study.Mode.TodaysQuestion".localized
-                case .randomSet:
-                    return "Study.Mode.RandomSet".localized
-                case .none:
-                    return ""
-                }
-            }
+            .map { $0?.name ?? "" }
             .asDriver(onErrorJustReturn: "")
     }
 }

@@ -7,12 +7,14 @@
 import UIKit
 
 final class TestView: UIView {
-    lazy var progressView = makeProgressView()
-    lazy var closeButton = makeCloseButton()
     lazy var bottomButton = makeBottomButton()
     lazy var nextButton = makeNextButton()
     lazy var tableView = makeTableView()
     lazy var gradientView = makeGradientView()
+    lazy var navigationView = makeNavigationView()
+    lazy var counter = makeCounterView()
+    
+    private var navigationHeightConstraint: NSLayoutConstraint?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,18 +45,37 @@ extension TestView {
             $0.isHidden = state == .hidden
         }
     }
+    
+    func test(isOne: Bool) {
+        if !isOne {
+            addSubview(counter)
+            NSLayoutConstraint.activate([
+                counter.leftAnchor.constraint(equalTo: leftAnchor, constant: 16.scale),
+                counter.bottomAnchor.constraint(equalTo: navigationView.bottomAnchor, constant: 36)
+            ])
+            
+            tableView.contentInset = UIEdgeInsets(
+                top: 35.scale,
+                left: tableView.contentInset.left,
+                bottom: tableView.contentInset.bottom,
+                right: tableView.contentInset.right
+            )
+            
+            navigationHeightConstraint?.constant = 167.scale
+            navigationView.setNeedsDisplay()
+        }
+    }
 }
 
 // MARK: Private
 private extension TestView {
     func initialize() {
-        backgroundColor = UIColor(integralRed: 242, green: 245, blue: 252)
+        backgroundColor = .white
     }
     
     static let buttonAttr = TextAttributes()
-        .font(Fonts.SFProRounded.regular(size: 20.scale))
-        .lineHeight(23.scale)
-        .textColor(.white)
+        .font(Fonts.SFProRounded.regular(size: 18.scale))
+        .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
         .textAlignment(.center)
 }
 
@@ -62,18 +83,14 @@ private extension TestView {
 private extension TestView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            closeButton.heightAnchor.constraint(equalToConstant: 30.scale),
-            closeButton.widthAnchor.constraint(equalTo: closeButton.heightAnchor),
-            closeButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -10.scale),
-            closeButton.centerYAnchor.constraint(equalTo: progressView.centerYAnchor)
+            navigationView.topAnchor.constraint(equalTo: topAnchor),
+            navigationView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            navigationView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            navigationView.bottomAnchor.constraint(equalTo: tableView.topAnchor),
         ])
         
-        NSLayoutConstraint.activate([
-            progressView.topAnchor.constraint(equalTo: topAnchor, constant: ScreenSize.isIphoneXFamily ? 61.scale : 33.scale),
-            progressView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16.scale),
-            progressView.rightAnchor.constraint(equalTo: closeButton.leftAnchor),
-            progressView.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -20.scale)
-        ])
+        navigationHeightConstraint = navigationView.heightAnchor.constraint(equalToConstant: 125.scale)
+        navigationHeightConstraint?.isActive = true
         
         NSLayoutConstraint.activate([
             tableView.leftAnchor.constraint(equalTo: leftAnchor),
@@ -82,24 +99,24 @@ private extension TestView {
         ])
         
         NSLayoutConstraint.activate([
-            gradientView.heightAnchor.constraint(equalToConstant: 195.scale),
+            gradientView.heightAnchor.constraint(equalToConstant: 177.scale),
             gradientView.leftAnchor.constraint(equalTo: leftAnchor),
             gradientView.rightAnchor.constraint(equalTo: rightAnchor),
             gradientView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            bottomButton.heightAnchor.constraint(equalToConstant: 60.scale),
-            bottomButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 26.scale),
-            bottomButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -26.scale),
-            bottomButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -70.scale)
+            bottomButton.heightAnchor.constraint(equalToConstant: 53.scale),
+            bottomButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
+            bottomButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
+            bottomButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -59.scale)
         ])
         
         NSLayoutConstraint.activate([
             nextButton.heightAnchor.constraint(equalToConstant: 40.scale),
             nextButton.widthAnchor.constraint(equalTo: nextButton.heightAnchor),
             nextButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -16.scale),
-            nextButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -67.scale)
+            nextButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -59.scale)
         ])
         
     }
@@ -117,42 +134,21 @@ private extension TestView {
         return view
     }
     
-    func makeProgressView() -> UIProgressView {
-        let view = UIProgressView()
-        let color = UIColor(integralRed: 95, green: 70, blue: 245)
-        view.trackTintColor = color.withAlphaComponent(0.3)
-        view.progressTintColor = color
-        view.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(view)
-        return view
-    }
-    
-    func makeCloseButton() -> UIButton {
-        let view = UIButton()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.setImage(UIImage(named: "Question.Close"), for: .normal)
-        view.tintColor = .black
-        addSubview(view)
-        return view
-    }
-    
     func makeBottomButton() -> UIButton {
         let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 30.scale
-        view.backgroundColor = UIColor(integralRed: 95, green: 70, blue: 245)
+        view.layer.cornerRadius = 12.scale
+        view.backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
         addSubview(view)
         return view
     }
     
     func makeNextButton() -> UIButton {
         let view = UIButton()
-        let color = UIColor(integralRed: 30, green: 39, blue: 85)
-        
         view.setImage(UIImage(named: "Question.Next"), for: .normal)
-        view.tintColor = color
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 20.scale
+        view.tintColor = .white
+        view.backgroundColor = UIColor(integralRed: 41, green: 55, blue: 137)
+        view.layer.cornerRadius = 7.scale
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
@@ -173,6 +169,24 @@ private extension TestView {
         view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
+        return view
+    }
+    
+    func makeNavigationView() -> NavigationBar {
+        let view = NavigationBar()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(integralRed: 41, green: 55, blue: 137)
+        view.leftAction.setImage(UIImage(named: "General.Pop"), for: .normal)
+        view.leftAction.tintColor = UIColor(integralRed: 245, green: 245, blue: 245)
+        view.rightAction.setImage(UIImage(named: "Question.Bookmark.Uncheck"), for: .normal)
+        view.rightAction.tintColor = UIColor(integralRed: 245, green: 245, blue: 245)
+        addSubview(view)
+        return view
+    }
+    
+    func makeCounterView() -> TestProgressView {
+        let view = TestProgressView()
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }
 }

@@ -57,7 +57,21 @@ private extension TestStatsFilterView {
         } else {
             selectorView.frame = CGRect(x: sender.frame.minX, y: frame.height - 2.scale, width: sender.frame.width, height: 2.scale)
         }
+        
+        allButton.isSelected = sender === allButton
+        incorrectButton.isSelected = sender === incorrectButton
+        correctButton.isSelected = sender === correctButton
     }
+    
+    static let selectedAttr = TextAttributes()
+        .font(Fonts.SFProRounded.bold(size: 18.scale))
+        .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+        .lineHeight(25.2.scale)
+    
+    static let initialAttr = TextAttributes()
+        .font(Fonts.SFProRounded.regular(size: 18.scale))
+        .textColor(UIColor(integralRed: 31, green: 31, blue: 31, alpha: 0.6))
+        .lineHeight(25.2.scale)
 }
 
 // MARK: Make constraints
@@ -65,21 +79,21 @@ private extension TestStatsFilterView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
             allButton.topAnchor.constraint(equalTo: topAnchor),
-            allButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5.scale),
+            allButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -7.scale),
             allButton.leftAnchor.constraint(equalTo: leftAnchor),
-            allButton.rightAnchor.constraint(equalTo: correctButton.leftAnchor, constant: -25.scale)
+            allButton.rightAnchor.constraint(equalTo: correctButton.leftAnchor, constant: -24.scale)
         ])
         
         NSLayoutConstraint.activate([
             correctButton.topAnchor.constraint(equalTo: topAnchor),
-            correctButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5.scale),
-            correctButton.rightAnchor.constraint(equalTo: incorrectButton.leftAnchor, constant: -25.scale)
+            correctButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -7.scale),
+            correctButton.rightAnchor.constraint(equalTo: incorrectButton.leftAnchor, constant: -24.scale)
         ])
         
         NSLayoutConstraint.activate([
             incorrectButton.topAnchor.constraint(equalTo: topAnchor),
-            incorrectButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5.scale),
-            incorrectButton.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -25.scale)
+            incorrectButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -7.scale),
+            incorrectButton.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -24.scale)
         ])
     }
 }
@@ -87,13 +101,9 @@ private extension TestStatsFilterView {
 // MARK: Lazy initialization
 private extension TestStatsFilterView {
     func makeFilterButton(title: String) -> UIButton {
-        let attr = TextAttributes()
-            .font(Fonts.SFProRounded.regular(size: 17.scale))
-            .textColor(.black)
-            .lineHeight(20.scale)
-        
         let view = UIButton()
-        view.setAttributedTitle(title.attributed(with: attr), for: .normal)
+        view.setAttributedTitle(title.attributed(with: Self.initialAttr), for: .normal)
+        view.setAttributedTitle(title.attributed(with: Self.selectedAttr), for: .selected)
         view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addTarget(self, action: #selector(didTap(sender:)), for: .touchUpInside)
@@ -104,7 +114,7 @@ private extension TestStatsFilterView {
     func makeSelectorView() -> UIView {
         let view = UIView()
         view.layer.cornerRadius = 1.scale
-        view.backgroundColor = .black
+        view.backgroundColor = UIColor(integralRed: 31, green: 31, blue: 31)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view

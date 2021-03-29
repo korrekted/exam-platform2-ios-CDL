@@ -121,13 +121,13 @@ private extension AnswersCell {
 private extension AnswersCell {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10.scale),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16.scale),
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.scale),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.scale)
         ])
         
         
-        let anchor = stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10.scale)
+        let anchor = stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -14.scale)
         anchor.priority = .init(999)
         anchor.isActive = true
     }
@@ -137,7 +137,7 @@ private extension AnswersCell {
 private extension AnswersCell {
     func makeStackView() -> UIStackView {
         let view = UIStackView()
-        view.spacing = 15.scale
+        view.spacing = 10.scale
         view.axis = .vertical
         view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(view)

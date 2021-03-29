@@ -11,7 +11,6 @@ class TestStatsProgressCell: UITableViewCell {
 
     lazy var progressView = makeProgressView()
     lazy var percentLabel = makePercentLabel()
-    lazy var answerLabel = makeAnswersLabel()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -30,7 +29,6 @@ extension TestStatsProgressCell {
         let progress = min(CGFloat(element.percent) / 100, 1)
         progressView.progress(progress: progress)
         percentLabel.text = "\(element.percent) %"
-        answerLabel.text = String(format: "TestStats.QuestionsStats".localized, element.correctNumbers, element.incorrectNumbers)
     }
 }
 
@@ -49,20 +47,13 @@ private extension TestStatsProgressCell {
             progressView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20.scale),
             progressView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -25.scale),
             progressView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            progressView.heightAnchor.constraint(equalToConstant: 194.scale),
-            progressView.widthAnchor.constraint(equalToConstant: 194.scale)
+            progressView.heightAnchor.constraint(equalToConstant: 150.scale),
+            progressView.widthAnchor.constraint(equalTo: progressView.heightAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            percentLabel.bottomAnchor.constraint(equalTo: contentView.centerYAnchor),
-            percentLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            percentLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            answerLabel.topAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 5.scale),
-            answerLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            answerLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor)
+            percentLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            percentLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
 }
@@ -79,19 +70,8 @@ private extension TestStatsProgressCell {
     func makePercentLabel() -> UILabel {
         let view = UILabel()
         view.textAlignment = .center
-        view.font = Fonts.SFProRounded.bold(size: 45.scale)
-        view.textColor = UIColor.black
-        view.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(view)
-        return view
-    }
-    
-    func makeAnswersLabel() -> UILabel {
-        let view = UILabel()
-        view.textAlignment = .center
-        view.font = Fonts.SFProRounded.regular(size: 17.scale)
-        view.textColor = UIColor.black
-        view.numberOfLines = 0
+        view.font = Fonts.SFProRounded.bold(size: 36.scale)
+        view.textColor = UIColor(integralRed: 31, green: 31, blue: 31)
         view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(view)
         return view

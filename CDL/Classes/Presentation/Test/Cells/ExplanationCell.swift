@@ -27,9 +27,9 @@ class ExplanationCell: UITableViewCell {
 extension ExplanationCell {
     func confugure(explanation: String) {
         let attr = TextAttributes()
-            .font(Fonts.SFProRounded.bold(size: 17.scale))
+            .font(Fonts.SFProRounded.regular(size: 16.scale))
             .textColor(.black)
-            .lineHeight(20.scale)
+            .lineHeight(22.4.scale)
         
         explanationLabel.attributedText = explanation.attributed(with: attr)
     }
@@ -48,14 +48,14 @@ private extension ExplanationCell {
     func makeConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20.scale),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.scale),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.scale),
-            titleLabel.bottomAnchor.constraint(equalTo: explanationLabel.topAnchor, constant: -15.scale)
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 28.scale),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24.scale),
+            titleLabel.bottomAnchor.constraint(equalTo: explanationLabel.topAnchor, constant: -8.scale)
         ])
         
         NSLayoutConstraint.activate([
-            explanationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.scale),
-            explanationLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.scale),
+            explanationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 28.scale),
+            explanationLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24.scale),
             explanationLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
@@ -66,9 +66,9 @@ private extension ExplanationCell {
     func makeTitleLabel() -> UILabel {
         let view = UILabel()
         let attr = TextAttributes()
-            .font(Fonts.SFProRounded.bold(size: 17.scale))
-            .textColor(UIColor(integralRed: 95, green: 70, blue: 245))
-            .lineHeight(20.scale)
+            .font(Fonts.SFProRounded.regular(size: 18.scale))
+            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .lineHeight(25.2.scale)
         
         view.attributedText = "Question.Explanation".localized.attributed(with: attr)
         view.translatesAutoresizingMaskIntoConstraints = false

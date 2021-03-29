@@ -13,7 +13,7 @@ class MainStatsDescriptionLineView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        initialize()
         makeConstraints()
     }
     
@@ -26,15 +26,15 @@ class MainStatsDescriptionLineView: UIView {
 extension MainStatsDescriptionLineView {
     func setup(title: String, value: String) {
         let titleAttributes = TextAttributes()
-            .font(Fonts.SFProRounded.bold(size: 17.scale))
-            .lineHeight(20.scale)
+            .font(Fonts.SFProRounded.regular(size: 18.scale))
+            .lineHeight(25.2.scale)
             .textAlignment(.left)
-            .textColor(UIColor.black)
+            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
         
         let valueAttributes = TextAttributes()
-            .font(Fonts.SFProRounded.bold(size: 17.scale))
-            .lineHeight(20.scale)
-            .textColor(UIColor(integralRed: 95, green: 70, blue: 245))
+            .font(Fonts.SFProRounded.bold(size: 18.scale))
+            .lineHeight(25.2.scale)
+            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
             .textAlignment(.right)
         
         titleLabel.attributedText = title.attributed(with: titleAttributes)
@@ -42,20 +42,27 @@ extension MainStatsDescriptionLineView {
     }
 }
 
+// MARK: Private
+private extension MainStatsDescriptionLineView {
+    func initialize() {
+        backgroundColor = .clear
+    }
+}
+
 // MARK: Make constraints
 private extension MainStatsDescriptionLineView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 15.scale),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16.scale),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15.scale),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.scale),
             titleLabel.trailingAnchor.constraint(equalTo: valueLabel.leadingAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            valueLabel.topAnchor.constraint(equalTo: topAnchor, constant: 15.scale),
-            valueLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15.scale),
-            valueLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15.scale)
+            valueLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16.scale),
+            valueLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
+            valueLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.scale)
         ])
     }
 }

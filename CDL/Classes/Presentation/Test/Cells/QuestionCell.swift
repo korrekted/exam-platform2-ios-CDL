@@ -26,9 +26,9 @@ class QuestionCell: UITableViewCell {
 extension QuestionCell {
     func configure(question: String, questionHtml: String) {
         let attr = TextAttributes()
-            .font(Fonts.SFProRounded.regular(size: 25.scale))
-            .textColor(.black)
-            .lineHeight(30.scale)
+            .font(Fonts.SFProRounded.bold(size: 18.scale))
+            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .lineHeight(25.2.scale)
         
         questionLabel.attributedText = attributedString(for: questionHtml) ?? question.attributed(with: attr)
     }
@@ -36,7 +36,7 @@ extension QuestionCell {
     func attributedString(for htmlString: String) -> NSAttributedString? {
         guard !htmlString.isEmpty else { return nil }
         
-        let font = Fonts.SFProRounded.regular(size: 25.scale)
+        let font = Fonts.SFProRounded.regular(size: 18.scale)
         let htmlWithStyle = "<span style=\"font-family: \(font.fontName); font-style: regular; font-size: \(font.pointSize); line-height: 30px;\">\(htmlString)</span>"
         let data = Data(htmlWithStyle.utf8)
         
@@ -62,10 +62,10 @@ private extension QuestionCell {
 private extension QuestionCell {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            questionLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            questionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30.scale),
-            questionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.scale),
-            questionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.scale)
+            questionLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16.scale),
+            questionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            questionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24.scale),
+            questionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24.scale)
         ])
     }
 }

@@ -30,7 +30,9 @@ class TestStatsViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.testName
-            .drive(mainView.titleLabel.rx.text)
+            .drive(Binder(mainView.navigationView){
+                $0.setTitle(title: $1)
+            })
             .disposed(by: disposeBag)
         
         mainView.tableView
@@ -38,7 +40,7 @@ class TestStatsViewController: UIViewController {
             .bind(to: viewModel.filterRelay)
             .disposed(by: disposeBag)
         
-        mainView.closeButton.rx.tap
+        mainView.navigationView.rightAction.rx.tap
             .bind(to: Binder(self) { base, _ in
                 base.dismiss(animated: true)
             })
