@@ -1,5 +1,5 @@
 //
-//  TestStatsDescriptioCell.swift
+//  TestStatsResultCell.swift
 //  Nursing
 //
 //  Created by Vitaliy Zagorodnov on 12.02.2021.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class TestStatsDescriptioCell: UITableViewCell {
+class TestStatsResultCell: UITableViewCell {
     
-    private lazy var descriptionView = makeDescriptionView()
+    private lazy var descriptionView = makeResultView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -23,14 +23,14 @@ class TestStatsDescriptioCell: UITableViewCell {
 }
 
 // MARK: Public
-extension TestStatsDescriptioCell {
+extension TestStatsResultCell {
     func setup(element: TestStatsDescriptionElement) {
         descriptionView.setup(element: element)
     }
 }
 
 // MARK: Private
-private extension TestStatsDescriptioCell {
+private extension TestStatsResultCell {
     func initialize() {
         backgroundColor = .clear
         selectionStyle = .none
@@ -38,7 +38,7 @@ private extension TestStatsDescriptioCell {
 }
 
 // MARK: Make constraints
-private extension TestStatsDescriptioCell {
+private extension TestStatsResultCell {
     func makeConstraints() {
         NSLayoutConstraint.activate([
             descriptionView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16.scale),
@@ -50,10 +50,10 @@ private extension TestStatsDescriptioCell {
 }
 
 // MARK: Lazy initialization
-private extension TestStatsDescriptioCell {
-    func makeDescriptionView() -> TestStatsDescriptionView {
-        let view = TestStatsDescriptionView()
-        view.backgroundColor = .white
+private extension TestStatsResultCell {
+    func makeResultView() -> TestStatsResultView {
+        let view = TestStatsResultView()
+        view.backgroundColor = UIColor(integralRed: 232, green: 234, blue: 237)
         view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(view)
         return view

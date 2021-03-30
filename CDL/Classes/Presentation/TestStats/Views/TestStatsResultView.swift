@@ -1,5 +1,5 @@
 //
-//  TestStatsDescriptionView.swift
+//  TestStatsResultView.swift
 //  Nursing
 //
 //  Created by Vitaliy Zagorodnov on 12.02.2021.
@@ -7,16 +7,15 @@
 
 import UIKit
 
-class TestStatsDescriptionView: UIView {
+class TestStatsResultView: UIView {
         
     private lazy var stackView = makeStackView()
-    private lazy var testTimeLineView = makeLineView()
-    private lazy var communityAverageLineView = makeLineView()
-    private lazy var averageScoreLineView = makeLineView()
+    private lazy var attemptedLineView = makeLineView()
+    private lazy var correctLineView = makeLineView()
+    private lazy var incorrectLineView = makeLineView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         configure()
         makeConstraints()
     }
@@ -27,24 +26,24 @@ class TestStatsDescriptionView: UIView {
 }
 
 // MARK: Public
-extension TestStatsDescriptionView {
+extension TestStatsResultView {
     func setup(element: TestStatsDescriptionElement) {
-        testTimeLineView.setup(title: "TestStats.TestTime".localized, value: element.userTime)
-        communityAverageLineView.setup(title: "TestStats.CommunityAverage".localized, value: element.communityTime)
-        averageScoreLineView.setup(title: "TestStats.AverageScore".localized, value: "\(element.communityScore) %")
+        attemptedLineView.setup(title: "TestStats.Attempted".localized, value: element.userTime)
+        correctLineView.setup(title: "TestStats.Correct".localized, value: element.communityTime)
+        incorrectLineView.setup(title: "TestStats.Incorrect".localized, value: "\(element.communityScore) %")
     }
 }
 
 // MARK: Private
-private extension TestStatsDescriptionView {
+private extension TestStatsResultView {
     func configure() {
-        layer.cornerRadius = 20.scale
-        [testTimeLineView, makeSeparatorView(), communityAverageLineView, makeSeparatorView(), averageScoreLineView].forEach(stackView.addArrangedSubview)
+        layer.cornerRadius = 12.scale
+        [attemptedLineView, makeSeparatorView(), correctLineView, makeSeparatorView(), incorrectLineView].forEach(stackView.addArrangedSubview)
     }
 }
 
 // MARK: Make constraints
-private extension TestStatsDescriptionView {
+private extension TestStatsResultView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15.scale),
@@ -56,7 +55,7 @@ private extension TestStatsDescriptionView {
 }
 
 // MARK: Lazy initialization
-private extension TestStatsDescriptionView {
+private extension TestStatsResultView {
     func makeLineView() -> MainStatsDescriptionLineView {
         let view = MainStatsDescriptionLineView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -65,7 +64,7 @@ private extension TestStatsDescriptionView {
     
     func makeSeparatorView() -> UIView {
         let view = UIView()
-        view.backgroundColor = UIColor(integralRed: 95, green: 70, blue: 245).withAlphaComponent(0.1)
+        view.backgroundColor = UIColor(integralRed: 68, green: 68, blue: 68, alpha: 0.05)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.heightAnchor.constraint(equalToConstant: 1.scale).isActive = true
         return view

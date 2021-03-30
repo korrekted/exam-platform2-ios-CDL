@@ -145,11 +145,12 @@
 
 // MARK: Test Stats
 "TestStats.Title" = "";
-"TestStats.TestTime" = "Your time";
-"TestStats.CommunityAverage" = "Community average";
-"TestStats.AverageScore" = "Average score";
-"TestStats.Filter.Title" = "Questions";
+"TestStats.TestTime" = "your time";
+"TestStats.ComunityAverage" = "comunity average";
+"TestStats.ComunityScore" = "comunity score";
+"TestStats.Attempted" = "Attempted";
+"TestStats.Correct" = "Correct";
+"TestStats.Incorrect" = "Incorrect";
 "TestStats.Filter.Incorrect" = "Incorrect";
 "TestStats.Filter.Correct" = "Correct";
 "TestStats.Filter.All" = "All";
-"TestStats.QuestionsStats" = "%u correct\n%u incorrect";

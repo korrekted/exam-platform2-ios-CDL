@@ -9,8 +9,8 @@ import UIKit
 
 class TestStatsView: UIView {
     lazy var tableView = makeTableView()
-    lazy var closeButton = makeCloseButton()
     lazy var titleLabel = makeTitleLabel()
+    lazy var navigationView = makeNavigationView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,17 +36,11 @@ private extension TestStatsView {
 private extension TestStatsView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            closeButton.heightAnchor.constraint(equalToConstant: 30.scale),
-            closeButton.widthAnchor.constraint(equalTo: closeButton.heightAnchor),
-            closeButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -10.scale),
-            closeButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: ScreenSize.isIphoneXFamily ? 59.scale : 31.scale),
-            titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16.scale),
-            titleLabel.rightAnchor.constraint(equalTo: closeButton.leftAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -20.scale)
+            navigationView.topAnchor.constraint(equalTo: topAnchor),
+            navigationView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            navigationView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            navigationView.bottomAnchor.constraint(equalTo: tableView.topAnchor),
+            navigationView.heightAnchor.constraint(equalToConstant: 125.scale)
         ])
         
         NSLayoutConstraint.activate([
@@ -84,6 +78,16 @@ private extension TestStatsView {
         view.textAlignment = .center
         view.textColor = UIColor.black
         view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }
+    
+    func makeNavigationView() -> NavigationBar {
+        let view = NavigationBar()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(integralRed: 41, green: 55, blue: 137)
+        view.rightAction.setImage(UIImage(named: "General.Close"), for: .normal)
+        view.rightAction.tintColor = UIColor(integralRed: 245, green: 245, blue: 245)
         addSubview(view)
         return view
     }

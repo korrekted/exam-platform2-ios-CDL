@@ -10,7 +10,6 @@ import UIKit
 class TestStatsAnswerCell: UITableViewCell {
     
     private lazy var containerView = makeContainerView()
-    private lazy var iconView = makeIconView()
     private lazy var answerLabel = makeAnswerLabel()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -30,20 +29,16 @@ extension TestStatsAnswerCell {
     func setup(element: TestStatsAnswerElement) {
         let attr = TextAttributes()
             .font(Fonts.SFProRounded.regular(size: 17.scale))
-            .lineHeight(20).textColor(.black)
+            .lineHeight(23.8)
+            .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
         
         answerLabel.attributedText = element.question.attributed(with: attr)
-        iconView.image = element.isCorrect
-            ? UIImage(named: "Question.Correct")
-            : UIImage(named: "Question.Error")
         
         let color = element.isCorrect
-            ? UIColor(integralRed: 46, green: 190, blue: 161)
-            : UIColor(integralRed: 254, green: 105, blue: 88)
+            ? UIColor(integralRed: 143, green: 207, blue: 99)
+            : UIColor(integralRed: 241, green: 104, blue: 91)
         
-        iconView.tintColor = color
-        
-        containerView.backgroundColor = color.withAlphaComponent(0.15)
+        containerView.backgroundColor = color
     }
 }
 
@@ -59,24 +54,17 @@ private extension TestStatsAnswerCell {
 private extension TestStatsAnswerCell {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15.scale),
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10.scale),
             containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             containerView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16.scale),
             containerView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16.scale)
         ])
         
         NSLayoutConstraint.activate([
-            answerLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15.scale),
-            answerLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 19.scale),
-            answerLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -19.scale),
-            answerLabel.trailingAnchor.constraint(equalTo: iconView.leadingAnchor, constant: -20.scale)
-        ])
-        
-        NSLayoutConstraint.activate([
-            iconView.heightAnchor.constraint(equalToConstant: 24.scale),
-            iconView.widthAnchor.constraint(equalTo: iconView.heightAnchor),
-            iconView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor,constant: -20.scale),
-            iconView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
+            answerLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 12.scale),
+            answerLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16.scale),
+            answerLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16.scale),
+            answerLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.scale)
         ])
     }
 }

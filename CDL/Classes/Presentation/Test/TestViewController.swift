@@ -24,8 +24,19 @@ final class TestViewController: UIViewController {
         view = mainView
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        mainView.navigationView.leftAction.addTarget(self, action: #selector(popAction), for: .touchUpInside)
         
         let courseName = viewModel.courseName
         
@@ -63,7 +74,7 @@ final class TestViewController: UIViewController {
         currentButtonState
             .filter { $0 == .back }
             .bind(to: Binder(self) { base, _ in
-                base.dismiss(animated: true)
+                base.navigationController?.popViewController(animated: true)
             })
             .disposed(by: disposeBag)
         
@@ -75,24 +86,23 @@ final class TestViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        mainView.closeButton.rx.tap
-            .withLatestFrom(courseName)
-            .bind(to: Binder(self) { base, name in
-                base.logTapAnalytics(courseName: name, what: "close")
-                
-                base.dismiss(animated: true)
+        viewModel.question
+            .map { $0.questionsCount == 1 }
+            .distinctUntilChanged()
+            .drive(Binder(mainView) {
+                $0.test(isOne: $1)
             })
             .disposed(by: disposeBag)
         
         viewModel.question
-            .map { $0.questionsCount == 1 }
-            .distinctUntilChanged()
-            .drive(mainView.progressView.rx.isHidden)
+            .drive(Binder(mainView) { base, element in
+                base.counter.setProgress(progress: "\(element.index)/\(element.questionsCount)")
+            })
             .disposed(by: disposeBag)
         
-        viewModel.question
-            .drive(Binder(mainView) { view, element in
-                view.progressView.setProgress(Float(element.index) / Float(element.questionsCount), animated: true)
+        viewModel.score
+            .drive(Binder(mainView) { base, element in
+                base.counter.setScore(score: element)
             })
             .disposed(by: disposeBag)
         
@@ -118,7 +128,7 @@ final class TestViewController: UIViewController {
             .merge(nextOffset, bottomButtonOffset)
             .distinctUntilChanged()
             .drive(Binder(mainView.tableView) {
-                $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: $1, right: 0)
+                $0.contentInset = UIEdgeInsets(top: $0.contentInset.top, left: 0, bottom: $1, right: 0)
             })
             .disposed(by: disposeBag)
         
@@ -217,6 +227,7 @@ extension TestViewController {
         controller.modalPresentationStyle = .fullScreen
         controller.viewModel.activeSubscription = activeSubscription
         controller.viewModel.testType.accept(testType)
+        controller.mainView.navigationView.setTitle(title: testType.name)
         return controller
     }
 }
@@ -248,5 +259,9 @@ private extension TestViewController {
             .logEvent(name: "Question Tap", parameters: ["course": courseName,
                                                          "mode": name,
                                                          "what": what])
+    }
+    
+    @objc func popAction() {
+        navigationController?.popViewController(animated: true)
     }
 }

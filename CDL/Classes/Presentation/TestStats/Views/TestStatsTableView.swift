@@ -46,7 +46,7 @@ extension TestStatsTableView: UITableViewDataSource {
             cell.setup(element: element)
             return cell
         case let .description(element):
-            let cell = dequeueReusableCell(withIdentifier: String(describing: TestStatsDescriptioCell.self), for: indexPath) as! TestStatsDescriptioCell
+            let cell = dequeueReusableCell(withIdentifier: String(describing: TestStatsResultCell.self), for: indexPath) as! TestStatsResultCell
             cell.setup(element: element)
             return cell
         case let .filter(filter):
@@ -59,6 +59,10 @@ extension TestStatsTableView: UITableViewDataSource {
             let cell = dequeueReusableCell(withIdentifier: String(describing: TestStatsAnswerCell.self), for: indexPath) as! TestStatsAnswerCell
             cell.setup(element: element)
             return cell
+        case let .comunityResult(element):
+            let cell = dequeueReusableCell(withIdentifier: String(describing: TestStatsComunityResultCell.self), for: indexPath) as! TestStatsComunityResultCell
+            cell.setup(element: element)
+            return cell
         }
     }
 }
@@ -67,9 +71,10 @@ extension TestStatsTableView: UITableViewDataSource {
 private extension TestStatsTableView {
     func initialize() {
         register(TestStatsProgressCell.self, forCellReuseIdentifier: String(describing: TestStatsProgressCell.self))
-        register(TestStatsDescriptioCell.self, forCellReuseIdentifier: String(describing: TestStatsDescriptioCell.self))
+        register(TestStatsResultCell.self, forCellReuseIdentifier: String(describing: TestStatsResultCell.self))
         register(TestStatsFilterCell.self, forCellReuseIdentifier: String(describing: TestStatsFilterCell.self))
         register(TestStatsAnswerCell.self, forCellReuseIdentifier: String(describing: TestStatsAnswerCell.self))
+        register(TestStatsComunityResultCell.self, forCellReuseIdentifier: String(describing: TestStatsComunityResultCell.self))
         
         dataSource = self
     }

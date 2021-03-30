@@ -14,3 +14,20 @@ enum TestType {
     case qotd
     case randomSet
 }
+
+extension TestType {
+    var name: String {
+        switch self {
+        case .get:
+            return "Study.TakeTest".localized
+        case .tenSet:
+            return "Study.Mode.TenQuestions".localized
+        case .failedSet:
+            return "Study.Mode.MissedQuestions".localized
+        case .qotd:
+            return "Study.Mode.TodaysQuestion".localized
+        case .randomSet:
+            return "Study.Mode.RandomSet".localized
+        }
+    }
+}

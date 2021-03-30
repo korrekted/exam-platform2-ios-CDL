@@ -25,9 +25,11 @@ final class TestViewModel {
     lazy var bottomViewState = makeBottomState()
     lazy var errorMessage = makeErrorMessage()
     lazy var needPayment = makeNeedPayment()
+    lazy var score = makeScore()
     
     private lazy var questionManager = QuestionManagerCore()
     private lazy var courseManager = CoursesManagerCore()
+    private lazy var scoreRelay = BehaviorRelay<Bool>(value: false)
     
     private lazy var testElement = loadTest().share(replay: 1, scope: .forever)
     private lazy var selectedAnswers = makeSelectedAnswers().share(replay: 1, scope: .forever)
@@ -183,6 +185,17 @@ private extension TestViewModel {
             .startWith(.hidden)
             .distinctUntilChanged()
     }
+    
+    func makeScore() -> Driver<String> {
+        scoreRelay
+            .scan(0) { $1 ? $0 + 1 : $0 }
+            .map { score -> String in
+                score < 10 ? "0\(score)" : "\(score)"
+            }
+            .startWith("00")
+            .distinctUntilChanged()
+            .asDriver(onErrorJustReturn: "00")
+    }
 }
 
 // MARK: Additional
@@ -206,7 +219,6 @@ private extension TestViewModel {
                     ].compactMap { $0 }
                     
                     let elements: [TestingCellType] = [
-                        questions.count > 1 ? .questionsProgress(String(format: "Question.QuestionProgress".localized, index + 1, questions.count)) : nil,
                         !content.isEmpty ? .content(content) : nil,
                         .question(question.question, html: question.questionHtml),
                         .answers(answers)
@@ -244,9 +256,11 @@ private extension TestViewModel {
                 
                 if currentQuestion.multiple {
                     let isCorrect = !result.contains(where: { $0.state == .warning || $0.state == .error })
+                    self?.scoreRelay.accept(isCorrect)
                     self?.logAnswerAnalitycs(isCorrect: isCorrect)
                 } else {
-                    let isCorrect = result.contains(where: { $0.state == .correct })
+                    let isCorrect = !result.contains(where: { $0.state == .error })
+                    self?.scoreRelay.accept(isCorrect)
                     self?.logAnswerAnalitycs(isCorrect: isCorrect)
                 }
                 

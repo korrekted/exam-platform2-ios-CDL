@@ -12,7 +12,6 @@ import RxCocoa
 class TestStatsFilterCell: UITableViewCell {
     
     lazy var filterView = makeFilterView()
-    lazy var titleLabel = makeTitleLabel()
     private var disposeBag = DisposeBag()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -59,35 +58,16 @@ private extension TestStatsFilterCell {
 private extension TestStatsFilterCell {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20.scale),
-            titleLabel.bottomAnchor.constraint(equalTo: filterView.topAnchor, constant: -15.scale),
-            titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20.scale),
-        ])
-        
-        NSLayoutConstraint.activate([
+            filterView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24.scale),
             filterView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             filterView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            filterView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20.scale),
+            filterView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 24.scale),
         ])
     }
 }
 
 // MARK: Lazy initialization
 private extension TestStatsFilterCell {
-    func makeTitleLabel() -> UILabel {
-        let attr = TextAttributes()
-            .font(Fonts.SFProRounded.regular(size: 25.scale))
-            .lineHeight(30.scale)
-            .textAlignment(.left)
-            .textColor(.black)
-        
-        let view = UILabel()
-        view.attributedText = "TestStats.Filter.Title".localized.attributed(with: attr)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(view)
-        return view
-    }
     func makeFilterView() -> TestStatsFilterView {
         let view = TestStatsFilterView()
         view.translatesAutoresizingMaskIntoConstraints = false
