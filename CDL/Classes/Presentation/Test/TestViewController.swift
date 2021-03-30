@@ -222,11 +222,12 @@ final class TestViewController: UIViewController {
 
 // MARK: Make
 extension TestViewController {
-    static func make(testType: TestType, activeSubscription: Bool) -> TestViewController {
+    static func make(testType: TestType, activeSubscription: Bool, courseId: Int) -> TestViewController {
         let controller = TestViewController()
         controller.modalPresentationStyle = .fullScreen
         controller.viewModel.activeSubscription = activeSubscription
         controller.viewModel.testType.accept(testType)
+        controller.viewModel.courseId.accept(courseId)
         controller.mainView.navigationView.setTitle(title: testType.name)
         return controller
     }

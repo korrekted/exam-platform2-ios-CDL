@@ -10,9 +10,10 @@ import RxCocoa
 
 final class TestViewModel {
     
-    var activeSubscription = false
+    var activeSubscription = true
     
     let testType = BehaviorRelay<TestType?>(value: nil)
+    let courseId = BehaviorRelay<Int?>(value: nil)
     let didTapNext = PublishRelay<Void>()
     let didTapConfirm = PublishRelay<Void>()
     let didTapSubmit = PublishRelay<Void>()
@@ -74,14 +75,13 @@ private extension TestViewModel {
     }
     
     func loadTest() -> Observable<Event<Test>> {
-        guard let courseId = courseManager.getSelectedCourse()?.id else {
-            return .empty()
-        }
-        
-        return testType
-            .compactMap { $0 }
-            .flatMapLatest { [weak self] type -> Observable<Event<Test>> in
-                guard let self = self else { return .empty() }
+        Observable.zip(courseId, testType)
+            .flatMapLatest { [weak self] courseId, type -> Observable<Event<Test>> in
+                guard
+                    let self = self,
+                    let courseId = courseId,
+                    let type = type
+                else { return .empty() }
                 
                 let test: Single<Test?>
                 
