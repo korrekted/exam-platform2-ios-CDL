@@ -16,15 +16,15 @@ final class StudyViewModel {
     
     lazy var sections = makeSections()
     lazy var activeSubscription = makeActiveSubscription()
-    lazy var courseName = makeCourseName()
+    lazy var course = makeCourseName()
 }
 
 // MARK: Private
 private extension StudyViewModel {
-    func makeCourseName() -> Driver<String> {
+    func makeCourseName() -> Driver<Course> {
         courseManager
             .rxGetSelectedCourse()
-            .compactMap { $0?.name }
+            .compactMap { $0 }
             .asDriver(onErrorDriveWith: .empty())
     }
     

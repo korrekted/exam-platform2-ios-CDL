@@ -25,7 +25,8 @@ final class StudyViewController: UIViewController {
         let activeSubscription = viewModel.activeSubscription
         
         viewModel
-            .courseName
+            .course
+            .map { $0.name }
             .drive(onNext: { name in
                 SDKStorage.shared
                     .amplitudeManager
@@ -50,10 +51,11 @@ final class StudyViewController: UIViewController {
         mainView
             .collectionView.selected
             .withLatestFrom(activeSubscription) { ($0, $1) }
+            .withLatestFrom(viewModel.course) { ($0, $1) }
             .subscribe(onNext: { [weak self] stub in
-                let (element, activeSubscription) = stub
+                let ((element, activeSubscription), course) = stub
  
-                self?.selected(element: element, activeSubscription: activeSubscription)
+                self?.selected(element: element, activeSubscription: activeSubscription, courseId: course.id)
             })
             .disposed(by: disposeBag)
     }
@@ -78,7 +80,7 @@ private extension StudyViewController {
             .logEvent(name: "Study Tap", parameters: ["what": "settings"])
     }
     
-    func selected(element: StudyCollectionElement, activeSubscription: Bool) {
+    func selected(element: StudyCollectionElement, activeSubscription: Bool, courseId: Int) {
         switch element {
         case .brief, .title:
             break
@@ -89,38 +91,38 @@ private extension StudyViewController {
                 .amplitudeManager
                 .logEvent(name: "Study Tap", parameters: ["what": "unlock all questions"])
         case .takeTest(let activeSubscription):
-            openTest(type: .get(testId: nil), activeSubscription: activeSubscription)
+            openTest(type: .get(testId: nil), activeSubscription: activeSubscription, courseId: courseId)
             
             SDKStorage.shared
                 .amplitudeManager
                 .logEvent(name: "Study Tap", parameters: ["what": "take a free test"])
         case .mode(let mode):
-            tapped(mode: mode.mode, activeSubscription: activeSubscription)
+            tapped(mode: mode.mode, activeSubscription: activeSubscription, courseId: courseId)
         }
     }
     
-    func tapped(mode: SCEMode.Mode, activeSubscription: Bool) {
+    func tapped(mode: SCEMode.Mode, activeSubscription: Bool, courseId: Int) {
         switch mode {
         case .ten:
-            openTest(type: .tenSet, activeSubscription: activeSubscription)
+            openTest(type: .tenSet, activeSubscription: activeSubscription, courseId: courseId)
             
             SDKStorage.shared
                 .amplitudeManager
                 .logEvent(name: "Study Tap", parameters: ["what": "10 questions"])
         case .random:
-            openTest(type: .randomSet, activeSubscription: activeSubscription)
+            openTest(type: .randomSet, activeSubscription: activeSubscription, courseId: courseId)
             
             SDKStorage.shared
                 .amplitudeManager
                 .logEvent(name: "Study Tap", parameters: ["what": "random set"])
         case .missed:
-            openTest(type: .failedSet, activeSubscription: activeSubscription)
+            openTest(type: .failedSet, activeSubscription: activeSubscription, courseId: courseId)
             
             SDKStorage.shared
                 .amplitudeManager
                 .logEvent(name: "Study Tap", parameters: ["what": "missed questions"])
         case .today:
-            openTest(type: .qotd, activeSubscription: activeSubscription)
+            openTest(type: .qotd, activeSubscription: activeSubscription, courseId: courseId)
             
             SDKStorage.shared
                 .amplitudeManager
@@ -128,8 +130,8 @@ private extension StudyViewController {
         }
     }
     
-    func openTest(type: TestType, activeSubscription: Bool) {
-        let controller = TestViewController.make(testType: type, activeSubscription: activeSubscription)
+    func openTest(type: TestType, activeSubscription: Bool, courseId: Int) {
+        let controller = TestViewController.make(testType: type, activeSubscription: activeSubscription, courseId: courseId)
         controller.didTapSubmit = { [weak self] userTestId in
             self?.dismiss(animated: false, completion: { [weak self] in
                 self?.present(TestStatsViewController.make(userTestId: userTestId, testType: type), animated: true)
