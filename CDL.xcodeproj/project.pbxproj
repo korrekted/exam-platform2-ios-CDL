@@ -437,7 +437,6 @@
 		967AD589260FD0F9008E8175 /* SF-Pro-Rounded-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Bold.otf"; sourceTree = "<group>"; };
 		967AD58E260FD103008E8175 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		967AD593260FD11B008E8175 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
-		967AD596260FD171008E8175 /* ATITEAS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ATITEAS-Bridging-Header.h"; sourceTree = "<group>"; };
 		967AD597260FD181008E8175 /* CDL-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CDL-Bridging-Header.h"; sourceTree = "<group>"; };
 		967AD598260FD19E008E8175 /* CDL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CDL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		996829E936A18A730988E157 /* Pods-CDL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDL.debug.xcconfig"; path = "Target Support Files/Pods-CDL/Pods-CDL.debug.xcconfig"; sourceTree = "<group>"; };
@@ -500,7 +499,6 @@
 				967AD37D260FCFAF008E8175 /* Info.plist */,
 				967AD58E260FD103008E8175 /* LaunchScreen.storyboard */,
 				967AD378260FCFAF008E8175 /* Assets.xcassets */,
-				967AD596260FD171008E8175 /* ATITEAS-Bridging-Header.h */,
 				967AD597260FD181008E8175 /* CDL-Bridging-Header.h */,
 			);
 			path = Resource;
