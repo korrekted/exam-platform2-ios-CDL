@@ -50,8 +50,7 @@ private extension TestStatsViewModel {
                 
                 let initial: [TestStatsCellType] = [
                     .progress(.init(stats: stats)),
-                    // Временно до исправления бизнес-логики
-                    .comunityResult(TestStatsComunityResult(userTime: "14:00", communityAverage: "12:10", communityScore: "20%")),
+                    .comunityResult(.init(stats: stats)),
                     .description(.init(stats: stats)),
                     .filter(filter)
                 ]

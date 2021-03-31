@@ -125,4 +125,17 @@ extension QuestionManagerCore {
             .callServerApi(requestBody: request)
             .map(GetTestConfigResponseMapper.from(response:))
     }
+    
+    func finishTest(userTestId: Int) -> Completable {
+        guard let userToken = SessionManagerCore().getSession()?.userToken else {
+            return .error(SignError.tokenNotFound)
+        }
+        
+        let request = FinishTestRequest(userToken: userToken, userTestId: userTestId)
+        
+        return SDKStorage.shared
+            .restApiTransport
+            .callServerApi(requestBody: request)
+            .asCompletable()
+    }
 }

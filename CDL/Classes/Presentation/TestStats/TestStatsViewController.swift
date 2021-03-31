@@ -61,6 +61,9 @@ extension TestStatsViewController {
         controller.modalPresentationStyle = .fullScreen
         controller.viewModel.userTestId.accept(userTestId)
         controller.viewModel.testType.accept(testType)
+        if case .get = testType {
+            controller.mainView.configureAddingButtons()
+        }
         return controller
     }
 }

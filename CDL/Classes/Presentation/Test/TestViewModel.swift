@@ -26,7 +26,8 @@ final class TestViewModel {
     lazy var bottomViewState = makeBottomState()
     lazy var errorMessage = makeErrorMessage()
     lazy var needPayment = makeNeedPayment()
-    lazy var score = makeScore()
+    lazy var leftCounterValue = makeLeftCounterContent()
+    lazy var rightCounterValue = makeRightCounterContent()
     
     private lazy var questionManager = QuestionManagerCore()
     private lazy var courseManager = CoursesManagerCore()
@@ -35,6 +36,8 @@ final class TestViewModel {
     private lazy var testElement = loadTest().share(replay: 1, scope: .forever)
     private lazy var selectedAnswers = makeSelectedAnswers().share(replay: 1, scope: .forever)
     private lazy var currentAnswers = makeCurrentAnswers().share(replay: 1, scope: .forever)
+    private lazy var questionProgress = makeQuestionProgress().share(replay: 1, scope: .forever)
+    private lazy var timer = makeTimer().share(replay: 1, scope: .forever)
 }
 
 // MARK: Private
@@ -86,7 +89,7 @@ private extension TestViewModel {
                 let test: Single<Test?>
                 
                 switch type {
-                case let .get(testId):
+                case let .get(testId), let .timedQuizz(testId):
                     test = self.questionManager.retrieve(courseId: courseId,
                                                          testId: testId,
                                                          activeSubscription: self.activeSubscription)
@@ -131,9 +134,21 @@ private extension TestViewModel {
     }
 
     func makeUserTestId() -> Observable<Int> {
-        didTapSubmit
+        let didFinishTest = timer
+            .compactMap { $0 == 0 ? () : nil }
+            .withLatestFrom(testElement)
+            .flatMap { [weak self] value -> Observable<Int> in
+                guard let self = self, let userTestId  = value.element?.userTestId else { return .empty() }
+                return self.questionManager
+                    .finishTest(userTestId: userTestId)
+                    .andThen(.just(userTestId))
+            }
+        
+        let submit = didTapSubmit
             .withLatestFrom(testElement)
             .compactMap { $0.element?.userTestId }
+        
+        return Observable.merge(didFinishTest, submit)
     }
     
     func makeCurrentAnswers() -> Observable<AnswerElement?> {
@@ -186,7 +201,7 @@ private extension TestViewModel {
             .distinctUntilChanged()
     }
     
-    func makeScore() -> Driver<String> {
+    func makeScore() -> Observable<String> {
         scoreRelay
             .scan(0) { $1 ? $0 + 1 : $0 }
             .map { score -> String in
@@ -194,7 +209,73 @@ private extension TestViewModel {
             }
             .startWith("00")
             .distinctUntilChanged()
-            .asDriver(onErrorJustReturn: "00")
+    }
+    
+    func makeTimer() -> Observable<Int> {
+        testElement
+            .compactMap { $0.element }
+            .withLatestFrom(testType) { ($0.timeLeft, $1) }
+            .flatMapLatest { seconds, testType -> Observable<Int> in
+                guard let seconds = seconds, case .timedQuizz = testType else { return .empty() }
+                let startTime = CFAbsoluteTimeGetCurrent()
+                
+                return Observable<Int>
+                    .timer(.seconds(0), period: .seconds(1), scheduler: MainScheduler.instance)
+                    .map { _ in Int(CFAbsoluteTimeGetCurrent() - startTime) }
+                    .take(until: { $0 >= seconds }, behavior: .inclusive)
+                    .map { max(0, seconds - $0) }
+                    .distinctUntilChanged()
+            }
+    }
+    
+    func makeLeftCounterContent() -> Driver<String> {
+        testType
+            .flatMapLatest { [weak self] type -> Observable<String> in
+                guard
+                    let type = type,
+                    let self = self
+                else {
+                    return .just("00")
+                }
+                let result: Observable<String>
+                if case .timedQuizz = type {
+                    result = self.questionProgress
+                } else {
+                    result = self.makeScore()
+                }
+                
+                return result
+            }
+            .asDriver(onErrorDriveWith: .empty())
+    }
+    
+    func makeRightCounterContent() -> Driver<(value:String, isError: Bool)> {
+        testType
+            .flatMapLatest { [weak self] type -> Observable<(value: String, isError: Bool)> in
+                guard
+                    let type = type,
+                    let self = self
+                else {
+                    return .just((value: "00", isError: false))
+                }
+                
+                let result: Observable<(value: String, isError: Bool)>
+                if case .timedQuizz = type {
+                    result = self.timer
+                        .map { (value: $0.secondsToString(), isError: $0 < 10) }
+                } else {
+                    result = self.questionProgress.map { (value: $0, isError: false) }
+                }
+                
+                return result
+            }
+            .asDriver(onErrorDriveWith: .empty())
+    }
+    
+    func makeQuestionProgress() -> Observable<String> {
+        question
+            .map { "\($0.index)/\($0.questionsCount)" }
+            .asObservable()
     }
 }
 
@@ -319,5 +400,19 @@ private extension TestViewModel {
         SDKStorage.shared
             .amplitudeManager
             .logEvent(name: name, parameters: ["course" : courseName, "mode": mode])
+    }
+}
+
+private extension Int {
+    func secondsToString() -> String {
+        let seconds = self
+        var mins = 0
+        var secs = seconds
+        if seconds >= 60 {
+            mins = Int(seconds / 60)
+            secs = seconds - (mins * 60)
+        }
+        
+        return String(format: "%02d:%02d", mins, secs)
     }
 }

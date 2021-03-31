@@ -10,9 +10,6 @@ import UIKit
 class TestStatsResultView: UIView {
         
     private lazy var stackView = makeStackView()
-    private lazy var attemptedLineView = makeLineView()
-    private lazy var correctLineView = makeLineView()
-    private lazy var incorrectLineView = makeLineView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,9 +25,28 @@ class TestStatsResultView: UIView {
 // MARK: Public
 extension TestStatsResultView {
     func setup(element: TestStatsDescriptionElement) {
-        attemptedLineView.setup(title: "TestStats.Attempted".localized, value: element.userTime)
-        correctLineView.setup(title: "TestStats.Correct".localized, value: element.communityTime)
-        incorrectLineView.setup(title: "TestStats.Incorrect".localized, value: "\(element.communityScore) %")
+        stackView.arrangedSubviews.forEach {
+            stackView.removeArrangedSubview($0)
+            $0.removeFromSuperview()
+        }
+        
+        if let attemped = element.attempted {
+            let view = makeLineView()
+            view.setup(title: "TestStats.Attempted".localized, value: "\(attemped)")
+            stackView.addArrangedSubview(view)
+            stackView.addArrangedSubview(makeSeparatorView())
+        }
+        
+        let correct = makeLineView()
+        correct.setup(title: "TestStats.Correct".localized, value: "\(element.correctNumber)")
+        stackView.addArrangedSubview(correct)
+        stackView.addArrangedSubview(makeSeparatorView())
+        
+        let incorrect = makeLineView()
+        incorrect.setup(title: "TestStats.Incorrect".localized, value: "\(element.incorrectNumber)")
+        stackView.addArrangedSubview(incorrect)
+        
+        setNeedsLayout()
     }
 }
 
@@ -38,7 +54,6 @@ extension TestStatsResultView {
 private extension TestStatsResultView {
     func configure() {
         layer.cornerRadius = 12.scale
-        [attemptedLineView, makeSeparatorView(), correctLineView, makeSeparatorView(), incorrectLineView].forEach(stackView.addArrangedSubview)
     }
 }
 

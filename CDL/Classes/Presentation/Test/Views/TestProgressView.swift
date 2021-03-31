@@ -9,12 +9,12 @@ import UIKit
 
 class TestProgressView: UIView {
     
-    private lazy var scoreTitle = makeTitleLabel(title: "Score")
-    private lazy var progressTitle = makeTitleLabel(title: "Question")
-    private lazy var scoreContent = makeContentLabel()
-    private lazy var progressContent = makeContentLabel()
-    private lazy var scoreContentView = makeBackgroundView()
-    private lazy var progressContentView = makeBackgroundView()
+    private lazy var leftTitle = makeTitleLabel()
+    private lazy var rightTitle = makeTitleLabel()
+    private lazy var leftContent = makeContentLabel()
+    private lazy var rightContent = makeContentLabel()
+    private lazy var leftContentView = makeBackgroundView()
+    private lazy var rightContentView = makeBackgroundView()
     
     private override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,20 +29,31 @@ class TestProgressView: UIView {
 
 // MARK: API
 extension TestProgressView {
-    func setProgress(progress: String) {
-        progressContent.attributedText = progress.attributed(with: .contentAttr)
+    func setRightContent(value: String, isError: Bool) {
+        rightContent.attributedText = value.attributed(with: .contentAttr(isError))
     }
     
-    func setScore(score: String) {
-        scoreContent.attributedText = score.attributed(with: .contentAttr)
+    func setLeftContent(value: String) {
+        leftContent.attributedText = value.attributed(with: .contentAttr())
+    }
+    
+    func setup(leftTitle: String, rightTitle: String) {
+        let attr = TextAttributes()
+            .font(Fonts.SFProRounded.regular(size: 14.scale))
+            .lineHeight(19.6.scale)
+            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .textAlignment(.center)
+        
+        self.leftTitle.attributedText = leftTitle.attributed(with: attr)
+        self.rightTitle.attributedText = rightTitle.attributed(with: attr)
     }
 }
 
 // MARK: Private
 private extension TestProgressView {
     func initialize() {
-        scoreContentView.addSubview(scoreContent)
-        progressContentView.addSubview(progressContent)
+        leftContentView.addSubview(leftContent)
+        rightContentView.addSubview(rightContent)
         backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
         layer.cornerRadius = 12.scale
     }
@@ -58,42 +69,42 @@ private extension TestProgressView {
 private extension TestProgressView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            scoreTitle.topAnchor.constraint(equalTo: topAnchor, constant: 12.scale),
-            scoreTitle.leadingAnchor.constraint(equalTo: scoreContentView.leadingAnchor),
-            scoreTitle.trailingAnchor.constraint(equalTo: scoreContentView.trailingAnchor),
-            scoreTitle.bottomAnchor.constraint(equalTo: scoreContentView.topAnchor, constant: -4.scale)
+            leftTitle.topAnchor.constraint(equalTo: topAnchor, constant: 12.scale),
+            leftTitle.leadingAnchor.constraint(equalTo: leftContentView.leadingAnchor),
+            leftTitle.trailingAnchor.constraint(equalTo: leftContentView.trailingAnchor),
+            leftTitle.bottomAnchor.constraint(equalTo: leftContentView.topAnchor, constant: -4.scale)
         ])
         
         NSLayoutConstraint.activate([
-            progressTitle.topAnchor.constraint(equalTo: topAnchor, constant: 12.scale),
-            progressTitle.leadingAnchor.constraint(equalTo: progressContentView.leadingAnchor),
-            progressTitle.trailingAnchor.constraint(equalTo: progressContentView.trailingAnchor),
-            progressTitle.bottomAnchor.constraint(equalTo: progressContentView.topAnchor, constant: -4.scale)
+            rightTitle.topAnchor.constraint(equalTo: topAnchor, constant: 12.scale),
+            rightTitle.leadingAnchor.constraint(equalTo: rightContentView.leadingAnchor),
+            rightTitle.trailingAnchor.constraint(equalTo: rightContentView.trailingAnchor),
+            rightTitle.bottomAnchor.constraint(equalTo: rightContentView.topAnchor, constant: -4.scale)
         ])
         
         NSLayoutConstraint.activate([
-            scoreContentView.leftAnchor.constraint(equalTo: leftAnchor, constant: 24.scale),
-            scoreContentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12.scale),
-            scoreContentView.rightAnchor.constraint(equalTo: progressContentView.leftAnchor, constant: -16.scale)
+            leftContentView.leftAnchor.constraint(equalTo: leftAnchor, constant: 24.scale),
+            leftContentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12.scale),
+            leftContentView.rightAnchor.constraint(equalTo: rightContentView.leftAnchor, constant: -16.scale)
         ])
         
         NSLayoutConstraint.activate([
-            scoreContent.leadingAnchor.constraint(equalTo: scoreContentView.leadingAnchor, constant: 16.scale),
-            scoreContent.trailingAnchor.constraint(equalTo: scoreContentView.trailingAnchor, constant: -16.scale),
-            scoreContent.topAnchor.constraint(equalTo: scoreContentView.topAnchor, constant: 10.scale),
-            scoreContent.bottomAnchor.constraint(equalTo: scoreContentView.bottomAnchor, constant: -10.scale)
+            leftContent.leadingAnchor.constraint(equalTo: leftContentView.leadingAnchor, constant: 16.scale),
+            leftContent.trailingAnchor.constraint(equalTo: leftContentView.trailingAnchor, constant: -16.scale),
+            leftContent.topAnchor.constraint(equalTo: leftContentView.topAnchor, constant: 10.scale),
+            leftContent.bottomAnchor.constraint(equalTo: leftContentView.bottomAnchor, constant: -10.scale)
         ])
         
         NSLayoutConstraint.activate([
-            progressContentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12.scale),
-            progressContentView.rightAnchor.constraint(equalTo: rightAnchor, constant: -24.scale)
+            rightContentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12.scale),
+            rightContentView.rightAnchor.constraint(equalTo: rightAnchor, constant: -24.scale)
         ])
         
         NSLayoutConstraint.activate([
-            progressContent.leadingAnchor.constraint(equalTo: progressContentView.leadingAnchor, constant: 16.scale),
-            progressContent.trailingAnchor.constraint(equalTo: progressContentView.trailingAnchor, constant: -16.scale),
-            progressContent.topAnchor.constraint(equalTo: progressContentView.topAnchor, constant: 10.scale),
-            progressContent.bottomAnchor.constraint(equalTo: progressContentView.bottomAnchor, constant: -10.scale)
+            rightContent.leadingAnchor.constraint(equalTo: rightContentView.leadingAnchor, constant: 16.scale),
+            rightContent.trailingAnchor.constraint(equalTo: rightContentView.trailingAnchor, constant: -16.scale),
+            rightContent.topAnchor.constraint(equalTo: rightContentView.topAnchor, constant: 10.scale),
+            rightContent.bottomAnchor.constraint(equalTo: rightContentView.bottomAnchor, constant: -10.scale)
         ])
     }
 }
@@ -109,15 +120,9 @@ private extension TestProgressView {
         return view
     }
     
-    func makeTitleLabel(title: String) -> UILabel {
+    func makeTitleLabel() -> UILabel {
         let view = UILabel()
-        let attr = TextAttributes()
-            .font(Fonts.SFProRounded.regular(size: 14.scale))
-            .lineHeight(19.6.scale)
-            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
-            .textAlignment(.center)
         view.numberOfLines = 1
-        view.attributedText = title.attributed(with: attr)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
@@ -132,9 +137,15 @@ private extension TestProgressView {
 }
 
 private extension TextAttributes {
-    static let contentAttr = TextAttributes()
-        .font(Fonts.SFProRounded.bold(size: 18.scale))
-        .lineHeight(25.2.scale)
-        .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
-        .textAlignment(.center)
+    static func contentAttr(_ isError: Bool = false) -> TextAttributes {
+        let color = isError
+            ? UIColor(integralRed: 241, green: 104, blue: 91)
+            : UIColor(integralRed: 31, green: 31, blue: 31)
+        
+        return TextAttributes()
+            .font(Fonts.SFProRounded.bold(size: 18.scale))
+            .lineHeight(25.2.scale)
+            .textColor(color)
+            .textAlignment(.center)
+    }
 }

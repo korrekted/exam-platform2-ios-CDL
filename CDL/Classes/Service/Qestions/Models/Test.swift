@@ -10,6 +10,7 @@ import Foundation
 struct Test {
     let paid: Bool
     let userTestId: Int
+    let timeLeft: Int?
     let questions: [Question]
 }
 

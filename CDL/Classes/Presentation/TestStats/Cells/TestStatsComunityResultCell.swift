@@ -14,7 +14,7 @@ class TestStatsComunityResultCell: UITableViewCell {
     private lazy var scoreView = makeComunityLineView()
     private lazy var firstSeparator = makeSeparatorView()
     private lazy var secondSeparator = makeSeparatorView()
-    private lazy var containerView = UIView()
+    private lazy var stackView = makeStackView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -38,8 +38,8 @@ private extension TestStatsComunityResultCell {
     func initialize() {
         backgroundColor = .clear
         selectionStyle = .none
-        contentView.addSubview(containerView)
-        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        [timeView, makeSeparatorView(), averageView, makeSeparatorView(), scoreView].forEach(stackView.addArrangedSubview)
     }
 }
 
@@ -47,63 +47,37 @@ private extension TestStatsComunityResultCell {
 private extension TestStatsComunityResultCell {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -24.scale),
-            containerView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            timeView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            timeView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            timeView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            timeView.trailingAnchor.constraint(equalTo: firstSeparator.leadingAnchor, constant: -24.scale),
-            timeView.widthAnchor.constraint(equalToConstant: 65.scale)
-        ])
-        
-        NSLayoutConstraint.activate([
-            firstSeparator.topAnchor.constraint(equalTo: containerView.topAnchor),
-            firstSeparator.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            firstSeparator.widthAnchor.constraint(equalToConstant: 1.scale)
-        ])
-        
-        NSLayoutConstraint.activate([
-            averageView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            averageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            averageView.leadingAnchor.constraint(equalTo: firstSeparator.trailingAnchor, constant: 24.scale),
-            averageView.trailingAnchor.constraint(equalTo: secondSeparator.leadingAnchor, constant: -24.scale),
-            averageView.widthAnchor.constraint(equalToConstant: 65.scale)
-        ])
-        
-        NSLayoutConstraint.activate([
-            secondSeparator.topAnchor.constraint(equalTo: containerView.topAnchor),
-            secondSeparator.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            secondSeparator.widthAnchor.constraint(equalToConstant: 1.scale)
-        ])
-        
-        NSLayoutConstraint.activate([
-            scoreView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            scoreView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            scoreView.leadingAnchor.constraint(equalTo: secondSeparator.trailingAnchor, constant: 24.scale),
-            scoreView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            scoreView.widthAnchor.constraint(equalToConstant: 65.scale)
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -44.scale),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -24.scale),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 44.scale),
         ])
     }
 }
 
 // MARK: Lazy initialization
 private extension TestStatsComunityResultCell {
+    
+    func makeStackView() -> UIStackView {
+        let view = UIStackView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.axis = .horizontal
+        view.spacing = 22.scale
+        contentView.addSubview(view)
+        return view
+    }
+    
     func makeSeparatorView() -> UIView {
         let view = UIView()
         view.backgroundColor = UIColor(integralRed: 68, green: 68, blue: 68, alpha: 0.2)
         view.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(view)
+        view.widthAnchor.constraint(equalToConstant: 1.scale).isActive = true
         return view
     }
     
     func makeComunityLineView() -> TestComunityResultLineView {
         let view = TestComunityResultLineView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(view)
         return view
     }
 }

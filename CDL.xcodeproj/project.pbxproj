@@ -12,6 +12,7 @@
 		8686722B26120D7700B42D41 /* TestComunityResultLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8686722A26120D7700B42D41 /* TestComunityResultLineView.swift */; };
 		8686722E26121E5700B42D41 /* TestStatsComunityResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8686722D26121E5700B42D41 /* TestStatsComunityResultCell.swift */; };
 		86867232261224E400B42D41 /* TestStatsComunityResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86867231261224E400B42D41 /* TestStatsComunityResult.swift */; };
+		86E38DEC2613997200DFBAD8 /* FinishTestRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E38DEB2613997200DFBAD8 /* FinishTestRequest.swift */; };
 		967AD379260FCFAF008E8175 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 967AD378260FCFAF008E8175 /* Assets.xcassets */; };
 		967AD4B9260FD0AE008E8175 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD3A8260FD0AE008E8175 /* UIColorExtension.swift */; };
 		967AD4BA260FD0AE008E8175 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD3A9260FD0AE008E8175 /* Collection+Extension.swift */; };
@@ -229,6 +230,7 @@
 		8686722A26120D7700B42D41 /* TestComunityResultLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestComunityResultLineView.swift; sourceTree = "<group>"; };
 		8686722D26121E5700B42D41 /* TestStatsComunityResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStatsComunityResultCell.swift; sourceTree = "<group>"; };
 		86867231261224E400B42D41 /* TestStatsComunityResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStatsComunityResult.swift; sourceTree = "<group>"; };
+		86E38DEB2613997200DFBAD8 /* FinishTestRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishTestRequest.swift; sourceTree = "<group>"; };
 		967AD378260FCFAF008E8175 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		967AD37D260FCFAF008E8175 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		967AD3A8260FD0AE008E8175 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
@@ -740,6 +742,7 @@
 				967AD3F3260FD0AE008E8175 /* SendAnswerRequest.swift */,
 				967AD3F4260FD0AE008E8175 /* GetTestRequest.swift */,
 				967AD3F5260FD0AE008E8175 /* GetTenSetRequest.swift */,
+				86E38DEB2613997200DFBAD8 /* FinishTestRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -1483,6 +1486,7 @@
 				967AD4C2260FD0AE008E8175 /* ScreenSize.swift in Sources */,
 				967AD542260FD0AF008E8175 /* PaygateOptionView.swift in Sources */,
 				967AD529260FD0AF008E8175 /* QuestionCollectionCell.swift in Sources */,
+				86E38DEC2613997200DFBAD8 /* FinishTestRequest.swift in Sources */,
 				967AD561260FD0AF008E8175 /* CourseProgressCell.swift in Sources */,
 				967AD4C4260FD0AE008E8175 /* SignError.swift in Sources */,
 				967AD4C8260FD0AE008E8175 /* NursingNavigationController.swift in Sources */,
