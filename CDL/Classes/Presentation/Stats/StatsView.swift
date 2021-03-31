@@ -9,7 +9,8 @@ import UIKit
 
 final class StatsView: UIView {
     lazy var tableView = makeTableView()
-    lazy var titleLabel = makeTitleLabel()
+    lazy var navigationView = makeNavigationView()
+    lazy var progressView = makeProgressView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,7 +26,7 @@ final class StatsView: UIView {
 // MARK: Private
 private extension StatsView {
     func initialize() {
-        backgroundColor = UIColor(integralRed: 242, green: 245, blue: 252)
+        backgroundColor = UIColor(integralRed: 245, green: 245, blue: 245)
     }
 }
 
@@ -33,14 +34,21 @@ private extension StatsView {
 private extension StatsView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: ScreenSize.isIphoneXFamily ? 88.scale : 45.scale),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale)
+            navigationView.topAnchor.constraint(equalTo: topAnchor),
+            navigationView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            navigationView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            navigationView.heightAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 179.scale : 149.scale)
+        ])
+        
+        NSLayoutConstraint.activate([
+            progressView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
+            progressView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
+            progressView.bottomAnchor.constraint(equalTo: navigationView.bottomAnchor, constant: -32.scale)
         ])
         
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
-            tableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20.scale),
+            tableView.topAnchor.constraint(equalTo: navigationView.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
@@ -49,25 +57,28 @@ private extension StatsView {
 
 // MARK: Lazy initialization
 private extension StatsView {
-    func makeTitleLabel() -> UILabel {
-        let attrs = TextAttributes()
-            .textColor(UIColor.black)
-            .font(Fonts.SFProRounded.bold(size: 34.scale))
-            .lineHeight(40.scale)
-            .letterSpacing(0.37.scale)
-        
-        let view = UILabel()
-        view.attributedText = "Stats.Title".localized.attributed(with: attrs)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(view)
-        return view
-    }
-    
     func makeTableView() -> StatsTableView {
         let view = StatsTableView()
         view.backgroundColor = UIColor(integralRed: 242, green: 245, blue: 252)
         view.showsVerticalScrollIndicator = false
         view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }
+    
+    func makeNavigationView() -> NavigationBar {
+        let view = NavigationBar()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isBigTitle = true
+        view.setTitle(title: "Stats.Title".localized)
+        addSubview(view)
+        return view
+    }
+    
+    func makeProgressView() -> ProgressView {
+        let view = ProgressView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.setTitle(title: "Stats.PassRate.Title".localized)
         addSubview(view)
         return view
     }

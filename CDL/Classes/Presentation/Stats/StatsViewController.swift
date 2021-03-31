@@ -37,6 +37,20 @@ final class StatsViewController: UIViewController {
                 mainView.tableView.setup(elements: elements)
             })
             .disposed(by: disposeBag)
+        
+        viewModel.passRate
+            .drive(Binder(mainView.progressView) {
+                $0.setProgress(percent: $1)
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.tableView
+            .didTapLearnMore
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { _ in
+                UIApplication.shared.keyWindow?.rootViewController?.present(PaygateViewController.make(), animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 }
 

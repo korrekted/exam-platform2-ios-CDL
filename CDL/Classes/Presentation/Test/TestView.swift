@@ -86,7 +86,7 @@ private extension TestView {
             navigationView.topAnchor.constraint(equalTo: topAnchor),
             navigationView.leadingAnchor.constraint(equalTo: leadingAnchor),
             navigationView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            navigationView.bottomAnchor.constraint(equalTo: tableView.topAnchor),
+            navigationView.bottomAnchor.constraint(equalTo: tableView.topAnchor)
         ])
         
         navigationHeightConstraint = navigationView.heightAnchor.constraint(equalToConstant: 125.scale)

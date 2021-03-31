@@ -159,3 +159,7 @@
 "TestStats.Filter.All" = "All";
 "TestStats.NextTest" = "Next test";
 "TestStats.TryAgain" = "Try аgаin";
+
+// MARK: Trophy
+"Trophy.LearnMore" = "Learn more";
+"Trophy.Title" = "Pass your CDL exam with 100%";
