@@ -46,7 +46,7 @@ extension TestView {
         }
     }
     
-    func test(isOne: Bool) {
+    func needAddingCounter(isOne: Bool) {
         if !isOne {
             addSubview(counter)
             NSLayoutConstraint.activate([

@@ -35,11 +35,11 @@ private extension TestComunityResultLineView {
         NSLayoutConstraint.activate([
             valueLabel.topAnchor.constraint(equalTo: topAnchor),
             valueLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            valueLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            valueLabel.bottomAnchor.constraint(equalTo: subtitleLabel.topAnchor, constant: 4.scale)
+            valueLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
         
         NSLayoutConstraint.activate([
+            subtitleLabel.topAnchor.constraint(equalTo: valueLabel.bottomAnchor, constant: 4.scale),
             subtitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             subtitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             subtitleLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor)
@@ -53,9 +53,6 @@ private extension TestComunityResultLineView {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        view.font = Fonts.SFProRounded.bold(size: 24)
-        view.textAlignment = .center
-        view.textColor = UIColor(integralRed: 31, green: 31, blue: 31)
         addSubview(view)
         return view
     }
@@ -64,9 +61,6 @@ private extension TestComunityResultLineView {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.numberOfLines = 2
-        view.font = Fonts.SFProRounded.regular(size: 14)
-        view.textAlignment = .center
-        view.textColor = UIColor(integralRed: 31, green: 31, blue: 31)
         addSubview(view)
         return view
     }

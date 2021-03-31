@@ -90,19 +90,19 @@ final class TestViewController: UIViewController {
             .map { $0.questionsCount == 1 }
             .distinctUntilChanged()
             .drive(Binder(mainView) {
-                $0.test(isOne: $1)
+                $0.needAddingCounter(isOne: $1)
             })
             .disposed(by: disposeBag)
         
-        viewModel.question
+        viewModel.rightCounterValue
             .drive(Binder(mainView) { base, element in
-                base.counter.setProgress(progress: "\(element.index)/\(element.questionsCount)")
+                base.counter.setRightContent(value: element.value, isError: element.isError)
             })
             .disposed(by: disposeBag)
         
-        viewModel.score
+        viewModel.leftCounterValue
             .drive(Binder(mainView) { base, element in
-                base.counter.setScore(score: element)
+                base.counter.setLeftContent(value: element)
             })
             .disposed(by: disposeBag)
         
@@ -225,10 +225,22 @@ extension TestViewController {
     static func make(testType: TestType, activeSubscription: Bool, courseId: Int) -> TestViewController {
         let controller = TestViewController()
         controller.modalPresentationStyle = .fullScreen
-        controller.viewModel.activeSubscription = activeSubscription
+        controller.viewModel.activeSubscription = true
         controller.viewModel.testType.accept(testType)
         controller.viewModel.courseId.accept(courseId)
         controller.mainView.navigationView.setTitle(title: testType.name)
+        let leftCounterTitle: String
+        let rightCounterTitle: String
+        switch testType {
+        case .timedQuizz:
+            leftCounterTitle = "Question.Counter.Question".localized
+            rightCounterTitle = "Question.Counter.RemainingTime".localized
+        default:
+            leftCounterTitle = "Question.Counter.Score".localized
+            rightCounterTitle = "Question.Counter.Question".localized
+        }
+        
+        controller.mainView.counter.setup(leftTitle: leftCounterTitle, rightTitle: rightCounterTitle)
         return controller
     }
 }

@@ -16,4 +16,5 @@ protocol QuestionManager: class {
     func retrieveRandomSet(courseId: Int, activeSubscription: Bool) -> Single<Test?>
     func sendAnswer(questionId: Int, userTestId: Int, answerIds: [Int]) -> Single<Bool?>
     func retrieveConfig(courseId: Int) -> Single<[TestConfig]>
+    func finishTest(userTestId: Int) -> Completable
 }

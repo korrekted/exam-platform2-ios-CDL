@@ -12,3 +12,11 @@ struct TestStatsComunityResult {
     let communityAverage: String
     let communityScore: String
 }
+
+extension TestStatsComunityResult {
+    init(stats: TestStats) {
+        userTime = stats.userTime
+        communityAverage = stats.communityTime
+        communityScore = "\(stats.communityScore)%"
+    }
+}

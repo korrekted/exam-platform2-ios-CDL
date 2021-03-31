@@ -29,11 +29,14 @@ struct GetTestResponseMapper {
         
         let questions: [Question] = Self.map(from: questionsJSON)
         
+        let timeLeft = data["time_left"] as? Int
+        
         guard !questions.isEmpty else { return nil }
         
         return Test(
             paid: paid,
             userTestId: userTestId,
+            timeLeft: timeLeft,
             questions: questions
         )
     }
