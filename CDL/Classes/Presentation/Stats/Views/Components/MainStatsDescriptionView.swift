@@ -56,7 +56,7 @@ private extension MainStatsDescriptionView {
     
     func configure() {
         layer.cornerRadius = 20.scale
-        [testTakenLineView, makeSeparatorView(), longestStreakLineView, makeSeparatorView(), answeredQuestionsLineView, makeSeparatorView(), correctAnswersLineView].forEach(stackView.addArrangedSubview)
+        [testTakenLineView, makeSeparatorView(), correctAnswersLineView, makeSeparatorView(), answeredQuestionsLineView, makeSeparatorView(), longestStreakLineView].forEach(stackView.addArrangedSubview)
     }
 }
 

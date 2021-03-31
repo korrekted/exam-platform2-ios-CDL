@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import RxCocoa
 
 final class StatsTableView: UITableView {
     private lazy var elements = [StatsCellType]()
+    lazy var didTapLearnMore = PublishRelay<Void>()
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -39,12 +41,6 @@ extension StatsTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let element = elements[indexPath.row]
         switch element {
-        case let .passRate(value):
-            let cell = dequeueReusableCell(withIdentifier: String(describing: PassRateCell.self), for: indexPath) as! PassRateCell
-            cell.setup(percent: value)
-            cell.backgroundColor = .clear
-            cell.selectionStyle = .none
-            return cell
         case let .main(value):
             let cell = dequeueReusableCell(withIdentifier: String(describing: MainRateCell.self), for: indexPath) as! MainRateCell
             cell.setup(model: value)
@@ -57,6 +53,14 @@ extension StatsTableView: UITableViewDataSource {
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
             return cell
+        case .needPayment:
+            let cell = dequeueReusableCell(withIdentifier: String(describing: TrophyCell.self), for: indexPath) as! TrophyCell
+            cell.didTapButton = { [weak self] in
+                self?.didTapLearnMore.accept(())
+            }
+            cell.backgroundColor = .clear
+            cell.selectionStyle = .none
+            return cell
         }
     }
 }
@@ -64,9 +68,9 @@ extension StatsTableView: UITableViewDataSource {
 // MARK: Private
 private extension StatsTableView {
     func initialize() {
-        register(PassRateCell.self, forCellReuseIdentifier: String(describing: PassRateCell.self))
         register(MainRateCell.self, forCellReuseIdentifier: String(describing: MainRateCell.self))
         register(CourseProgressCell.self, forCellReuseIdentifier: String(describing: CourseProgressCell.self))
+        register(TrophyCell.self, forCellReuseIdentifier: String(describing: TrophyCell.self))
         separatorStyle = .none
         
         dataSource = self

@@ -225,7 +225,7 @@ extension TestViewController {
     static func make(testType: TestType, activeSubscription: Bool, courseId: Int) -> TestViewController {
         let controller = TestViewController()
         controller.modalPresentationStyle = .fullScreen
-        controller.viewModel.activeSubscription = true
+        controller.viewModel.activeSubscription = activeSubscription
         controller.viewModel.testType.accept(testType)
         controller.viewModel.courseId.accept(courseId)
         controller.mainView.navigationView.setTitle(title: testType.name)

@@ -11,9 +11,13 @@ import RxCocoa
 final class StatsViewModel {
     private lazy var statsManager = StatsManagerCore()
     private lazy var courseManager = CoursesManagerCore()
+    private lazy var sessionManager = SessionManagerCore()
+    private lazy var progressRelay = BehaviorRelay<Int>(value: 0)
+    private lazy var activeSubscription = makeActiveSubscription()
     
     lazy var courseName = makeCourseName()
     lazy var elements = makeElements()
+    lazy var passRate = progressRelay.asDriver()
 }
 
 // MARK: Private
@@ -30,7 +34,7 @@ private extension StatsViewModel {
             return .just([])
         }
         
-        return QuestionManagerMediator.shared.rxTestPassed
+        let elements = QuestionManagerMediator.shared.rxTestPassed
             .asObservable()
             .startWith(Void())
             .flatMapLatest { [weak self] _ -> Single<[StatsCellType]> in
@@ -40,18 +44,40 @@ private extension StatsViewModel {
                 
                 return this.statsManager
                     .retrieveStats(courseId: courseId)
-                    .map { stats -> [StatsCellType] in
+                    .map { [weak self] stats -> [StatsCellType] in
                         guard let stats = stats else { return [] }
-                        let passRate: StatsCellType = .passRate(stats.passRate)
+                        self?.progressRelay.accept(stats.passRate)
                         let main: StatsCellType = .main(.init(stats: stats))
                         
                         return stats
                             .courseStats
-                            .reduce(into: [passRate, main]) {
-                                $0.append(.course(.init(courseStats: $1)))
-                            }
+                            .reduce(into: [main]) { $0.append(.course(.init(courseStats: $1))) }
                     }
             }
             .asDriver(onErrorJustReturn: [])
+        
+        return Driver.combineLatest(elements, activeSubscription) { $1 ? $0 : $0 + [.needPayment] }
+    }
+    
+    func makeActiveSubscription() -> Driver<Bool> {
+        let updated = SDKStorage.shared
+            .purchaseMediator
+            .rxPurchaseMediatorDidValidateReceipt
+            .compactMap { $0?.activeSubscription }
+            .asDriver(onErrorJustReturn: false)
+        
+        let initial = Driver<Bool>
+            .deferred { [weak self] in
+                guard let this = self else {
+                    return .never()
+                }
+                
+                let activeSubscription = this.sessionManager.getSession()?.activeSubscription ?? false
+                
+                return .just(activeSubscription)
+            }
+        
+        return Driver
+            .merge(initial, updated)
     }
 }

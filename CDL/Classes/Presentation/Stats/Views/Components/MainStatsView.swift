@@ -28,9 +28,9 @@ class MainStatsView: UIView {
 extension MainStatsView {
     func setup(title: String, color: UIColor) {
         let titleAttibutes = TextAttributes()
-            .textColor(UIColor.black.withAlphaComponent(0.5))
-            .font(Fonts.SFProRounded.bold(size: 15.scale))
-            .lineHeight(18.scale)
+            .textColor(UIColor(integralRed: 68, green: 68, blue: 68))
+            .font(Fonts.SFProRounded.bold(size: 14.scale))
+            .lineHeight(19.6.scale)
             .textAlignment(.center)
         
         titleLabel.attributedText = title.attributed(with: titleAttibutes)
@@ -39,9 +39,9 @@ extension MainStatsView {
     
     func setPercent(percent: Int) {
         let percentAttributes = TextAttributes()
-            .textColor(.black)
-            .font(Fonts.SFProRounded.bold(size: 23.scale))
-            .lineHeight(27.scale)
+            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .font(Fonts.SFProRounded.bold(size: 24.scale))
+            .lineHeight(28.8.scale)
         
         percentLabel.attributedText = "\(percent)%".attributed(with: percentAttributes)
     }
