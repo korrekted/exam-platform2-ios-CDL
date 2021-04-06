@@ -10,6 +10,7 @@ import UIKit
 final class TestStatsProgressView: UIView {
     private lazy var circleLayer = CAShapeLayer()
     private lazy var progressLayer = CAShapeLayer()
+    private lazy var passingScoreLayer = CAShapeLayer()
     
     private var isConfigured = false
     
@@ -28,31 +29,37 @@ final class TestStatsProgressView: UIView {
 
 // MARK: Public
 extension TestStatsProgressView {
-    func progress(progress: CGFloat) {
+    func progress(progress: CGFloat, passingScore: CGFloat) {
         progressLayer.strokeEnd = progress
+        passingScoreLayer.transform = CATransform3DMakeRotation(.pi * 2 * passingScore, 0, 0, 1)
     }
 }
 
 // MARK: Private
 private extension TestStatsProgressView {
     func createCircularPath() {
-        let circularPath = UIBezierPath(arcCenter: CGPoint(x: frame.size.width / 2,
-                                                           y: frame.size.height / 2),
-                                        radius: frame.size.width / 2,
-                                        startAngle: -.pi / 2,
-                                        endAngle: 3 * .pi / 2,
-                                        clockwise: true)
-        circleLayer.path = circularPath.cgPath
+        let circleCenter = CGPoint(x: bounds.midX, y:bounds.midY)
+        let circleRadius = bounds.size.width / 2
+        let circularPath1 = UIBezierPath(roundedRect: CGRect(origin: CGPoint(x: -circleRadius, y: -circleRadius), size: bounds.size), cornerRadius: circleRadius)
+        
+        circleLayer.path = circularPath1.cgPath
         circleLayer.fillColor = UIColor.clear.cgColor
         circleLayer.lineWidth = 15.scale
         circleLayer.strokeColor = UIColor(integralRed: 241, green: 104, blue: 91).cgColor
+        circleLayer.position = circleCenter
         
-        progressLayer.path = circularPath.cgPath
+        progressLayer.path = circularPath1.cgPath
         progressLayer.fillColor = UIColor.clear.cgColor
         progressLayer.lineWidth = 15.scale
         progressLayer.strokeColor = UIColor(integralRed: 143, green: 207, blue: 99).cgColor
+        progressLayer.position = circleCenter
+        
+        passingScoreLayer.path = UIBezierPath(roundedRect: CGRect(x: -5.scale, y: -circleRadius - 5.scale, width: 2 * 5.scale, height: 2 * 5.scale), cornerRadius: 5.scale).cgPath
+        passingScoreLayer.backgroundColor = UIColor(integralRed: 31, green: 31, blue: 31).cgColor
+        passingScoreLayer.position = circleCenter
 
         layer.addSublayer(circleLayer)
         layer.addSublayer(progressLayer)
+        layer.addSublayer(passingScoreLayer)
     }
 }

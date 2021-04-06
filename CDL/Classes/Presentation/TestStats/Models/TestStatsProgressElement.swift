@@ -8,15 +8,13 @@
 import Foundation
 
 struct TestStatsProgressElement {
-    let correctNumbers: Int
-    let incorrectNumbers: Int
     let percent: Int
+    let passingScore: Int
 }
 
 extension TestStatsProgressElement {
     init(stats: TestStats) {
-        correctNumbers = stats.correctNumbers
-        incorrectNumbers = stats.incorrectNumbers
         percent = stats.userScore
+        passingScore = stats.passingScore
     }
 }

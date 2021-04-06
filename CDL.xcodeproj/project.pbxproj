@@ -950,9 +950,9 @@
 		967AD42B260FD0AE008E8175 /* Study */ = {
 			isa = PBXGroup;
 			children = (
+				967AD42E260FD0AE008E8175 /* Views */,
 				967AD42C260FD0AE008E8175 /* StudyViewModel.swift */,
 				967AD42D260FD0AE008E8175 /* StudyViewController.swift */,
-				967AD42E260FD0AE008E8175 /* Views */,
 				967AD43C260FD0AE008E8175 /* StudyView.swift */,
 			);
 			path = Study;

@@ -15,6 +15,7 @@ struct TestStats {
     let communityTime: String
     let communityScore: Int
     let passed: Bool
+    let passingScore: Int
     let questions: [TestStatsAnswer]
 }
 
