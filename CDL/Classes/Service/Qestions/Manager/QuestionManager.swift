@@ -17,4 +17,5 @@ protocol QuestionManager: class {
     func sendAnswer(questionId: Int, userTestId: Int, answerIds: [Int]) -> Single<Bool?>
     func retrieveConfig(courseId: Int) -> Single<[TestConfig]>
     func finishTest(userTestId: Int) -> Completable
+    func againTest(courseId: Int, testId: Int, activeSubscription: Bool) -> Single<Test?>
 }

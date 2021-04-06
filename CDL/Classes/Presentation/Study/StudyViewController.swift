@@ -91,7 +91,7 @@ private extension StudyViewController {
                 .amplitudeManager
                 .logEvent(name: "Study Tap", parameters: ["what": "unlock all questions"])
         case .takeTest(let activeSubscription):
-            openTest(type: .get(testId: nil), activeSubscription: activeSubscription, courseId: courseId)
+            openTest(types: [.get(testId: nil)], activeSubscription: activeSubscription, courseId: courseId)
             
             SDKStorage.shared
                 .amplitudeManager
@@ -104,25 +104,25 @@ private extension StudyViewController {
     func tapped(mode: SCEMode.Mode, activeSubscription: Bool, courseId: Int) {
         switch mode {
         case .ten:
-            openTest(type: .tenSet, activeSubscription: activeSubscription, courseId: courseId)
+            openTest(types: [.tenSet], activeSubscription: activeSubscription, courseId: courseId)
             
             SDKStorage.shared
                 .amplitudeManager
                 .logEvent(name: "Study Tap", parameters: ["what": "10 questions"])
         case .random:
-            openTest(type: .randomSet, activeSubscription: activeSubscription, courseId: courseId)
+            openTest(types: [.randomSet], activeSubscription: activeSubscription, courseId: courseId)
             
             SDKStorage.shared
                 .amplitudeManager
                 .logEvent(name: "Study Tap", parameters: ["what": "random set"])
         case .missed:
-            openTest(type: .failedSet, activeSubscription: activeSubscription, courseId: courseId)
+            openTest(types: [.failedSet], activeSubscription: activeSubscription, courseId: courseId)
             
             SDKStorage.shared
                 .amplitudeManager
                 .logEvent(name: "Study Tap", parameters: ["what": "missed questions"])
         case .today:
-            openTest(type: .qotd, activeSubscription: activeSubscription, courseId: courseId)
+            openTest(types: [.qotd], activeSubscription: activeSubscription, courseId: courseId)
             
             SDKStorage.shared
                 .amplitudeManager
@@ -130,12 +130,13 @@ private extension StudyViewController {
         }
     }
     
-    func openTest(type: TestType, activeSubscription: Bool, courseId: Int) {
-        let controller = TestViewController.make(testType: type, activeSubscription: activeSubscription, courseId: courseId)
-        controller.didTapSubmit = { [weak self] userTestId in
-            self?.dismiss(animated: false, completion: { [weak self] in
-                self?.present(TestStatsViewController.make(userTestId: userTestId, testType: type), animated: true)
-            })
+    func openTest(types: [TestType], activeSubscription: Bool, courseId: Int) {
+        let controller = TestViewController.make(testTypes: types, activeSubscription: activeSubscription, courseId: courseId)
+        controller.didTapSubmit = { [weak self, weak controller] element in
+            let testStatsController = TestStatsViewController.make(element: element)
+            testStatsController.didTapNext = controller?.loadNext
+            testStatsController.didTapTryAgain = controller?.tryAgain
+            self?.present(testStatsController, animated: true)
         }
         navigationController?.pushViewController(controller, animated: true)
     }

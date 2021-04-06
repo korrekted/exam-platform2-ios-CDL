@@ -18,7 +18,7 @@ final class TestViewController: UIViewController {
     
     private lazy var viewModel = TestViewModel()
     
-    var didTapSubmit: ((Int) -> Void)?
+    var didTapSubmit: ((TestStatsElement) -> Void)?
     
     override func loadView() {
         view = mainView
@@ -132,12 +132,12 @@ final class TestViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        viewModel.userTestId
+        viewModel.testStatsElement
             .withLatestFrom(courseName) { ($0, $1) }
             .bind(to: Binder(self) { base, stub in
-                let (id, name) = stub
+                let (element, name) = stub
                 
-                base.didTapSubmit?(id)
+                base.didTapSubmit?(element)
                 base.logTapAnalytics(courseName: name, what: "finish test")
             })
             .disposed(by: disposeBag)
@@ -201,6 +201,25 @@ final class TestViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        viewModel.currentTestType
+            .bind(to: Binder(mainView) { base, testType in
+                let leftCounterTitle: String
+                let rightCounterTitle: String
+                
+                switch testType {
+                case .timedQuizz:
+                    leftCounterTitle = "Question.Counter.Question".localized
+                    rightCounterTitle = "Question.Counter.RemainingTime".localized
+                default:
+                    leftCounterTitle = "Question.Counter.Score".localized
+                    rightCounterTitle = "Question.Counter.Question".localized
+                }
+                
+                base.navigationView.setTitle(title: testType.name)
+                base.counter.setup(leftTitle: leftCounterTitle, rightTitle: rightCounterTitle)
+            })
+            .disposed(by: disposeBag)
+        
         mainView.tableView
             .expandContent
             .withLatestFrom(courseName)
@@ -222,33 +241,31 @@ final class TestViewController: UIViewController {
 
 // MARK: Make
 extension TestViewController {
-    static func make(testType: TestType, activeSubscription: Bool, courseId: Int) -> TestViewController {
+    static func make(testTypes: [TestType], activeSubscription: Bool, courseId: Int) -> TestViewController {
         let controller = TestViewController()
         controller.modalPresentationStyle = .fullScreen
         controller.viewModel.activeSubscription = activeSubscription
-        controller.viewModel.testType.accept(testType)
+        controller.viewModel.testTypes = testTypes
         controller.viewModel.courseId.accept(courseId)
-        controller.mainView.navigationView.setTitle(title: testType.name)
-        let leftCounterTitle: String
-        let rightCounterTitle: String
-        switch testType {
-        case .timedQuizz:
-            leftCounterTitle = "Question.Counter.Question".localized
-            rightCounterTitle = "Question.Counter.RemainingTime".localized
-        default:
-            leftCounterTitle = "Question.Counter.Score".localized
-            rightCounterTitle = "Question.Counter.Question".localized
-        }
-        
-        controller.mainView.counter.setup(leftTitle: leftCounterTitle, rightTitle: rightCounterTitle)
+        controller.viewModel.loadNextTestSignal.accept(())
         return controller
+    }
+}
+
+extension TestViewController {
+    func loadNext() {
+        viewModel.loadNextTestSignal.accept(())
+    }
+    
+    func tryAgain() {
+        viewModel.tryAgainSignal.accept(())
     }
 }
 
 // MARK: Private
 private extension TestViewController {
     func logAnalytics(courseName: String) {
-        guard let type = viewModel.testType.value else {
+        guard let type = viewModel.testType else {
             return
         }
         
@@ -261,7 +278,7 @@ private extension TestViewController {
     }
     
     func logTapAnalytics(courseName: String, what: String) {
-        guard let type = viewModel.testType.value else {
+        guard let type = viewModel.testType else {
             return
         }
         

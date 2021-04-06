@@ -20,6 +20,9 @@ class TestStatsViewController: UIViewController {
         view = mainView
     }
     
+    var didTapNext: (() -> Void)?
+    var didTapTryAgain: (() -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,6 +38,10 @@ class TestStatsViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        viewModel.tryAgainIsHidden
+            .drive(mainView.tryAgainButton.rx.isHidden)
+            .disposed(by: disposeBag)
+        
         mainView.tableView
             .selectedFilter
             .bind(to: viewModel.filterRelay)
@@ -42,6 +49,20 @@ class TestStatsViewController: UIViewController {
         
         mainView.navigationView.rightAction.rx.tap
             .bind(to: Binder(self) { base, _ in
+                base.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.nextTestButton.rx.tap
+            .bind(to: Binder(self) { base, _ in
+                base.didTapNext?()
+                base.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.tryAgainButton.rx.tap
+            .bind(to: Binder(self) { base, _ in
+                base.didTapTryAgain?()
                 base.dismiss(animated: true)
             })
             .disposed(by: disposeBag)
@@ -56,13 +77,13 @@ class TestStatsViewController: UIViewController {
 
 // MARK: Make
 extension TestStatsViewController {
-    static func make(userTestId: Int, testType: TestType) -> TestStatsViewController {
+    static func make(element: TestStatsElement) -> TestStatsViewController {
         let controller = TestStatsViewController()
         controller.modalPresentationStyle = .fullScreen
-        controller.viewModel.userTestId.accept(userTestId)
-        controller.viewModel.testType.accept(testType)
-        if case .get = testType {
-            controller.mainView.configureAddingButtons()
+        controller.viewModel.userTestId.accept(element.userTestId)
+        controller.viewModel.testType.accept(element.testType)
+        if case .get = element.testType {
+            controller.mainView.configureAddingButtons(isNextEnabled: element.isEnableNext)
         }
         return controller
     }
