@@ -11,6 +11,7 @@ struct PossibleAnswerElement: Hashable {
     let id: Int
     let answer: String
     let image: URL?
+    let isCorrect: Bool
 }
 
 struct AnswerResultElement {
@@ -31,6 +32,7 @@ struct QuestionElement {
     let index: Int
     let isAnswered: Bool
     let questionsCount: Int
+    let explanation: String?
 }
 
 struct AnswerElement {

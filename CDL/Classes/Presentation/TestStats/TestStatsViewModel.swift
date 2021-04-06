@@ -12,13 +12,15 @@ final class TestStatsViewModel {
     lazy var userTestId = BehaviorRelay<Int?>(value: nil)
     lazy var testType = BehaviorRelay<TestType?>(value: nil)
     lazy var filterRelay = PublishRelay<TestStatsFilter>()
-    
+    lazy var tryAgainIsHidden = tryAgainIsHiddenRelay.asDriver()
+        
     lazy var courseName = makeCourseName()
     lazy var elements = makeElements()
     lazy var testName = makeTestName()
     
     private lazy var testStatsManager = TestStatsManagerCore()
     private lazy var courseManager = CoursesManagerCore()
+    private lazy var tryAgainIsHiddenRelay = BehaviorRelay<Bool>(value: true)
 }
 
 // MARK: Private
@@ -45,8 +47,10 @@ private extension TestStatsViewModel {
         
         return Observable
             .combineLatest(stats, filterRelay.asObservable())
-            .map { element, filter -> [TestStatsCellType] in
+            .map { [tryAgainIsHiddenRelay] element, filter -> [TestStatsCellType] in
                 guard let stats = element else { return [] }
+                
+                tryAgainIsHiddenRelay.accept(stats.passed)
                 
                 let initial: [TestStatsCellType] = [
                     .progress(.init(stats: stats)),

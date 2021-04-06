@@ -138,4 +138,17 @@ extension QuestionManagerCore {
             .callServerApi(requestBody: request)
             .asCompletable()
     }
+    
+    func againTest(courseId: Int, testId: Int, activeSubscription: Bool) -> Single<Test?> {
+        guard let userToken = SessionManagerCore().getSession()?.userToken else {
+            return .error(SignError.tokenNotFound)
+        }
+        
+        let request = GetAgainTestRequest(userToken: userToken, courseId: courseId, testId: testId, activeSubscription: activeSubscription)
+        
+        return SDKStorage.shared
+            .restApiTransport
+            .callServerApi(requestBody: request)
+            .map(GetTestResponseMapper.map(from:))
+    }
 }

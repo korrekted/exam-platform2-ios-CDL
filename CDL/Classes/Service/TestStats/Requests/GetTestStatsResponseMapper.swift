@@ -19,6 +19,7 @@ struct GetTestStatsResponseMapper {
             let userScore = stats["user_score"] as? Int,
             let communityTime = stats["community_time"] as? String,
             let communityScore = stats["community_score"] as? Int,
+            let passed = stats["passed"] as? Bool,
             let questions = stats["questions"] as? [[String: Any]]
         else {
             return nil
@@ -43,6 +44,7 @@ struct GetTestStatsResponseMapper {
             userScore: userScore,
             communityTime: communityTime,
             communityScore: communityScore,
+            passed: passed,
             questions: elements
         )
     }
