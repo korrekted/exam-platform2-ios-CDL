@@ -30,6 +30,7 @@ class QuestionCollectionCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        questionImageView.image = nil
         disposeBag = DisposeBag()
     }
 }
@@ -41,11 +42,14 @@ extension QuestionCollectionCell {
         case let .image(url):
             videoView.isHidden = true
             questionImageView.isHidden = false
-            do {
-                try questionImageView.image = UIImage(data: Data(contentsOf: url))
-            } catch {
-                
-            }
+            let queue = DispatchQueue.global(qos: .utility)
+                queue.async { [weak self] in
+                    if let data = try? Data(contentsOf: url){
+                        DispatchQueue.main.async {
+                            self?.questionImageView.image = UIImage(data: data)
+                        }
+                    }
+                }
         case let .video(url):
             let player = AVPlayer(url: url)
             videoView.player = player

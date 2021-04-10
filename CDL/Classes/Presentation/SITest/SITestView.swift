@@ -1,20 +1,17 @@
 //
-//  TestView.swift
-//  Nursing
+//  SITestView.swift
+//  CDL
 //
-//  Created by Vitaliy Zagorodnov on 30.01.2021.
+//  Created by Vitaliy Zagorodnov on 07.04.2021.
 //
-import UIKit
 
-final class TestView: UIView {
+final class SITestView: UIView {
     lazy var bottomButton = makeBottomButton()
     lazy var nextButton = makeNextButton()
     lazy var tableView = makeTableView()
     lazy var gradientView = makeGradientView()
     lazy var navigationView = makeNavigationView()
-    lazy var counter = makeCounterView()
-    
-    private var navigationHeightConstraint: NSLayoutConstraint?
+    lazy var progressView = makeCollectionView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,41 +25,19 @@ final class TestView: UIView {
 }
 
 //MARK: Public
-extension TestView {
-    func setupBottomButton(for state: TestBottomButtonState) {
+extension SITestView {
+    func setupBottomButton(for state: SIBottomButtonState) {
         switch state {
         case .confirm:
             bottomButton.setAttributedTitle("Question.Continue".localized.attributed(with: Self.buttonAttr), for: .normal)
-        case .submit:
-            bottomButton.setAttributedTitle("Question.Submit".localized.attributed(with: Self.buttonAttr), for: .normal)
-        case .back:
-            bottomButton.setAttributedTitle("Question.BackToStudying".localized.attributed(with: Self.buttonAttr), for: .normal)
+        case .finish:
+            bottomButton.setAttributedTitle("Question.Finish".localized.attributed(with: Self.buttonAttr), for: .normal)
         case .hidden:
             break
         }
         
         [bottomButton, gradientView].forEach {
             $0.isHidden = state == .hidden
-        }
-    }
-    
-    func needAddingCounter(isOne: Bool) {
-        if !isOne {
-            addSubview(counter)
-            NSLayoutConstraint.activate([
-                counter.leftAnchor.constraint(equalTo: leftAnchor, constant: 16.scale),
-                counter.bottomAnchor.constraint(equalTo: navigationView.bottomAnchor, constant: 36)
-            ])
-            
-            tableView.contentInset = UIEdgeInsets(
-                top: 35.scale,
-                left: tableView.contentInset.left,
-                bottom: tableView.contentInset.bottom,
-                right: tableView.contentInset.right
-            )
-            
-            navigationHeightConstraint?.constant = 167.scale
-            navigationView.setNeedsDisplay()
         }
     }
     
@@ -73,9 +48,10 @@ extension TestView {
 }
 
 // MARK: Private
-private extension TestView {
+private extension SITestView {
     func initialize() {
         backgroundColor = .white
+        nextButton.isHidden = true
     }
     
     static let buttonAttr = TextAttributes()
@@ -85,19 +61,24 @@ private extension TestView {
 }
 
 // MARK: Make constraints
-private extension TestView {
+private extension SITestView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
             navigationView.topAnchor.constraint(equalTo: topAnchor),
             navigationView.leadingAnchor.constraint(equalTo: leadingAnchor),
             navigationView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            navigationView.bottomAnchor.constraint(equalTo: tableView.topAnchor)
+            navigationView.heightAnchor.constraint(equalToConstant: 125.scale)
         ])
         
-        navigationHeightConstraint = navigationView.heightAnchor.constraint(equalToConstant: 125.scale)
-        navigationHeightConstraint?.isActive = true
+        NSLayoutConstraint.activate([
+            progressView.topAnchor.constraint(equalTo: navigationView.bottomAnchor),
+            progressView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            progressView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            progressView.heightAnchor.constraint(equalToConstant: 75.scale)
+        ])
         
         NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: progressView.bottomAnchor),
             tableView.leftAnchor.constraint(equalTo: leftAnchor),
             tableView.rightAnchor.constraint(equalTo: rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
@@ -128,9 +109,9 @@ private extension TestView {
 }
 
 // MARK: Lazy initialization
-private extension TestView {
-    func makeTableView() -> QuestionTableView {
-        let view = QuestionTableView()
+private extension SITestView {
+    func makeTableView() -> SITestTableView {
+        let view = SITestTableView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.showsVerticalScrollIndicator = false
         view.backgroundColor = .clear
@@ -188,9 +169,16 @@ private extension TestView {
         return view
     }
     
-    func makeCounterView() -> TestProgressView {
-        let view = TestProgressView()
+    func makeCollectionView() -> SIProgressCollectionView {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 9.scale
+        let view = SIProgressCollectionView(frame: .zero, collectionViewLayout: layout)
+        view.contentInset = UIEdgeInsets(top: 0, left: 24.scale, bottom: 0, right: 24.scale)
+        view.backgroundColor = .clear
+        view.showsHorizontalScrollIndicator = false
         view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
         return view
     }
 }

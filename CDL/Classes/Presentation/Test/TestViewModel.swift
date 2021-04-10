@@ -20,6 +20,7 @@ final class TestViewModel {
     let answers = BehaviorRelay<AnswerElement?>(value: nil)
     let loadNextTestSignal = BehaviorRelay<Void>(value: ())
     let tryAgainSignal = PublishRelay<Void>()
+    let didTapMark = PublishRelay<Bool>()
     
     lazy var courseName = makeCourseName()
     lazy var question = makeQuestion()
@@ -30,6 +31,7 @@ final class TestViewModel {
     lazy var leftCounterValue = makeLeftCounterContent()
     lazy var rightCounterValue = makeRightCounterContent()
     lazy var testStatsElement = makeTestStatsElement()
+    lazy var isSavedQuestion = makeIsSavedQuestion()
     private(set) lazy var currentTestType = makeCurrentTestType().share(replay: 1, scope: .forever)
     private(set) var testType: TestType? = nil
     
@@ -307,6 +309,32 @@ private extension TestViewModel {
         question
             .map { "\($0.index)/\($0.questionsCount)" }
             .asObservable()
+    }
+    
+    func makeIsSavedQuestion() -> Driver<Bool> {
+        let isSavedQuestion = didTapMark
+            .distinctUntilChanged()
+            .withLatestFrom(question.map { $0.id }) { ($0, $1) }
+            .flatMapFirst { [weak self] isSaved, questionId -> Observable<Bool> in
+                guard let self = self else { return .empty() }
+                
+                let request = isSaved
+                    ? self.questionManager.removeSavedQuestion(questionId: questionId)
+                    : self.questionManager.saveQuestion(questionId: questionId)
+                
+                return request
+                    .andThen(Observable.just(!isSaved))
+                    .catchAndReturn(isSaved)
+            }
+            .asDriver(onErrorJustReturn: false)
+        
+        let nextQuestion = didTapNext
+            .map { _ in false }
+            .asDriver(onErrorJustReturn: false)
+        
+        return Driver
+            .merge(isSavedQuestion, nextQuestion)
+            .startWith(false)
     }
 }
 
