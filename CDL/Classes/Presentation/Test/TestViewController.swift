@@ -220,12 +220,23 @@ final class TestViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        viewModel.isSavedQuestion
+            .drive(Binder(mainView) {
+                $0.saveQuestion($1)
+            })
+            .disposed(by: disposeBag)
+        
         mainView.tableView
             .expandContent
             .withLatestFrom(courseName)
             .subscribe(onNext: { [weak self] name in
                 self?.logTapAnalytics(courseName: name, what: "media")
             })
+            .disposed(by: disposeBag)
+        
+        mainView.navigationView.rightAction.rx.tap
+            .withLatestFrom(viewModel.isSavedQuestion)
+            .bind(to: viewModel.didTapMark)
             .disposed(by: disposeBag)
         
         currentButtonState

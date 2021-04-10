@@ -141,6 +141,7 @@
 "Question.Explanation" = "Explanation";
 "Question.Continue" = "Continue";
 "Question.Submit" = "Submit test";
+"Question.Finish" = "Finish";
 "Question.BackToStudying" = "Back to studying";
 "Question.Counter.Score" = "Score";
 "Question.Counter.Question" = "Question";
