@@ -10,9 +10,8 @@ struct StudyCollectionSection {
 }
 
 enum StudyCollectionElement {
-    case brief(SCEBrief)
-    case takeTest(activeSubscription: Bool)
-    case unlockAllQuestions
+    case courses([CourseElement])
+    case trophy
     case title(String)
     case mode(SCEMode)
 }

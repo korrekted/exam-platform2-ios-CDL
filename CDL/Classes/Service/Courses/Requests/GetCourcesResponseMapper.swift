@@ -21,7 +21,9 @@ final class GetCourcesResponseMapper {
                 let name = courseJSON["name"] as? String,
                 let subTitle = courseJSON["sub"] as? String,
                 let isMain = courseJSON["main"] as? Bool,
-                let sort = courseJSON["sort"] as? Int
+                let sort = courseJSON["sort"] as? Int,
+                let progress = courseJSON["progress"] as? Int,
+                let testCount = courseJSON["tests"] as? Int
             else {
                 return nil
             }
@@ -30,7 +32,9 @@ final class GetCourcesResponseMapper {
                           name: name,
                           subTitle: subTitle,
                           isMain: isMain,
-                          sort: sort)
+                          sort: sort,
+                          progress: progress,
+                          testCount: testCount)
         }
     }
 }

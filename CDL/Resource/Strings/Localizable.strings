@@ -94,13 +94,15 @@
 "Study.Streak" = "streak";
 "Study.TakeTest" = "Take a test";
 "Study.TakeFreeTest" = "Take a free test";
-"Study.UnlockQuestions" = "Unlock all questions";
+"Study.UnlockQuestions" = "Unlock all";
 "Study.QuizModes" = "Quiz Modes";
 "Study.Mode.TodaysQuestion" = "Today’s\nQuestion";
 "Study.Mode.TenQuestions" = "10 Questions\nQuick Quiz";
 "Study.Mode.MissedQuestions" = "Missed\nQuestions Quiz";
 "Study.Mode.RandomSet" = "Random\nSet Quiz";
 "Study.Mode.TimedQuizz" = "Timed\nQuizz";
+"Study.Course.CourseCount" = "%d tests";
+"Study.Course.Title" = " exam modes";
 
 // MARK: Settings
 "Settings.Title" = "Settings";

@@ -17,41 +17,69 @@ final class StudyViewModel {
     lazy var sections = makeSections()
     lazy var activeSubscription = makeActiveSubscription()
     lazy var course = makeCourseName()
+    lazy var brief = makeBrief()
+    
+    let selectedCourse = BehaviorRelay<Course?>(value: nil)
+    
+    private lazy var currentCourse = makeCcurrentCourse().share(replay: 1, scope: .forever)
 }
 
 // MARK: Private
 private extension StudyViewModel {
-    func makeCourseName() -> Driver<Course> {
-        courseManager
+    
+    func makeCcurrentCourse() -> Observable<Course> {
+        let saved = selectedCourse
+            .compactMap { $0 }
+            .do(onNext: { [weak self] in
+                self?.courseManager.select(course: $0)
+            })
+        
+        return courseManager
             .rxGetSelectedCourse()
             .compactMap { $0 }
+            .asObservable()
+            .concat(saved)
+    }
+    
+    func makeCourseName() -> Driver<Course> {
+        return currentCourse
             .asDriver(onErrorDriveWith: .empty())
     }
     
     func makeSections() -> Driver<[StudyCollectionSection]> {
-        let brief = makeBrief()
-        let unlockQuestions = makeUnlockQuestions()
-        let takeTest = makeTakeTest()
-        let modesTitle = makeTitle(string: "Study.QuizModes".localized)
+        let modesTitle = makeTitle()
         let modes = makeModes()
+        let trophy = makeTrophy()
+        let courses = makeCoursesElements()
         
         return Driver
-            .combineLatest(brief, unlockQuestions, takeTest, modesTitle, modes) { brief, unlockQuestions, takeTest, modesTitle, modes -> [StudyCollectionSection] in
+            .combineLatest(courses, modesTitle, modes, trophy) { courses, modesTitle, modes, trophy -> [StudyCollectionSection] in
                 var result = [StudyCollectionSection]()
                 
-                result.append(brief)
-                if let unlockQuestions = unlockQuestions {
-                    result.append(unlockQuestions)
-                }
-                result.append(takeTest)
+                result.append(courses)
                 result.append(modesTitle)
+                
+                if let trophy = trophy {
+                    result.append(trophy)
+                }
                 result.append(modes)
                 
                 return result
             }
     }
     
-    func makeBrief() -> Driver<StudyCollectionSection> {
+    func makeCoursesElements() -> Driver<StudyCollectionSection> {
+        Observable.combineLatest(courseManager.retrieveCourses().asObservable(), currentCourse)
+            .map { elements, currentCourse in
+                let courseElements = elements.map {
+                    (course: $0, isSelected: $0.id == currentCourse.id)
+                }
+                return StudyCollectionSection(elements: [.courses(courseElements)])
+            }
+            .asDriver(onErrorDriveWith: .empty())
+    }
+    
+    func makeBrief() -> Driver<SCEBrief> {
         QuestionManagerMediator.shared.rxTestPassed
             .asObservable()
             .startWith(())
@@ -64,7 +92,7 @@ private extension StudyViewModel {
                     .retrieveBrief(courseId: course.id)
                     .map { (course, $0) }
             }
-            .map { stub -> StudyCollectionSection in
+            .map { stub -> SCEBrief in
                 let (course, brief) = stub
                 
                 var calendar = [SCEBrief.Day]()
@@ -82,37 +110,17 @@ private extension StudyViewModel {
                 
                 calendar.reverse()
                 
-                let entity = SCEBrief(courseName: course.name,
+                return SCEBrief(courseName: course.name,
                                       streakDays: brief?.streak ?? 0,
                                       calendar: calendar)
-                
-                let element = StudyCollectionElement.brief(entity)
-                return StudyCollectionSection(elements: [element])
             }
             .asDriver(onErrorDriveWith: .empty())
     }
     
-    func makeUnlockQuestions() -> Driver<StudyCollectionSection?> {
-        activeSubscription
-            .map { activeSubscription -> StudyCollectionSection? in
-                activeSubscription ? nil : StudyCollectionSection(elements: [.unlockAllQuestions])
-            }
-    }
-    
-    func makeTakeTest() -> Driver<StudyCollectionSection> {
-        activeSubscription
-            .map { activeSubscription -> StudyCollectionSection in
-                StudyCollectionSection(elements: [.takeTest(activeSubscription: activeSubscription)])
-            }
-    }
-    
-    func makeTitle(string: String) -> Driver<StudyCollectionSection> {
-        Driver<StudyCollectionSection>.deferred {
-            let titleElement = StudyCollectionElement.title(string)
-            let section = StudyCollectionSection(elements: [titleElement])
-            
-            return .just(section)
-        }
+    func makeTitle() -> Driver<StudyCollectionSection> {
+        currentCourse
+            .map { StudyCollectionSection(elements: [.title($0.name)])}
+            .asDriver(onErrorDriveWith: .empty())
     }
     
     func makeModes() -> Driver<StudyCollectionSection> {
@@ -144,6 +152,11 @@ private extension StudyViewModel {
                 
                 return .just(section)
             }
+    }
+    
+    func makeTrophy() -> Driver<StudyCollectionSection?> {
+        activeSubscription
+            .compactMap { $0 ? nil : StudyCollectionSection(elements: [.trophy]) }
     }
     
     func makeActiveSubscription() -> Driver<Bool> {
