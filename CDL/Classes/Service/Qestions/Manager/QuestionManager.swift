@@ -18,4 +18,8 @@ protocol QuestionManager: class {
     func retrieveConfig(courseId: Int) -> Single<[TestConfig]>
     func finishTest(userTestId: Int) -> Completable
     func againTest(courseId: Int, testId: Int, activeSubscription: Bool) -> Single<Test?>
+    func saveQuestion(questionId: Int) -> Completable
+    func removeSavedQuestion(questionId: Int) -> Completable
+    func retrieveSaved(courseId: Int) -> Single<SITest?>
+    func retrieveIncorrect(courseId: Int) -> Single<SITest?>
 }

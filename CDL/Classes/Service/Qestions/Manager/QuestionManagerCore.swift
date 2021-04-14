@@ -151,4 +151,54 @@ extension QuestionManagerCore {
             .callServerApi(requestBody: request)
             .map(GetTestResponseMapper.map(from:))
     }
+    
+    func saveQuestion(questionId: Int) -> Completable {
+        guard let userToken = SessionManagerCore().getSession()?.userToken else {
+            return .error(SignError.tokenNotFound)
+        }
+        
+        let request = SaveQuestionRequest(userToken: userToken, questionId: questionId)
+        
+        return SDKStorage.shared
+            .restApiTransport
+            .callServerApi(requestBody: request)
+            .asCompletable()
+    }
+    
+    func removeSavedQuestion(questionId: Int) -> Completable {
+        guard let userToken = SessionManagerCore().getSession()?.userToken else {
+            return .error(SignError.tokenNotFound)
+        }
+        
+        let request = RemoveSavedQuestionRequest(userToken: userToken, questionId: questionId)
+        
+        return SDKStorage.shared
+            .restApiTransport
+            .callServerApi(requestBody: request)
+            .asCompletable()
+    }
+    
+    func retrieveSaved(courseId: Int) -> Single<SITest?> {
+        guard let userToken = SessionManagerCore().getSession()?.userToken else {
+            return .error(SignError.tokenNotFound)
+        }
+        
+        let request = GetSavedRequest(userToken: userToken, courseId: courseId)
+        
+        return SDKStorage.shared.restApiTransport
+            .callServerApi(requestBody: request)
+            .map(GetSavedAndIncorrectResponseMapper.map(from:))
+    }
+    
+    func retrieveIncorrect(courseId: Int) -> Single<SITest?> {
+        guard let userToken = SessionManagerCore().getSession()?.userToken else {
+            return .error(SignError.tokenNotFound)
+        }
+        
+        let request = GetIncorrectRequest(userToken: userToken, courseId: courseId)
+        
+        return SDKStorage.shared.restApiTransport
+            .callServerApi(requestBody: request)
+            .map(GetSavedAndIncorrectResponseMapper.map(from:))
+    }
 }

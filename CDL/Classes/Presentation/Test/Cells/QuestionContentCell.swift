@@ -45,8 +45,7 @@ private extension QuestionContentCell {
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20.scale),
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 213.scale)
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
     }
 }

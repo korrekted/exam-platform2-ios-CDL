@@ -83,6 +83,17 @@ extension QuestionTableView: UITableViewDataSource {
     }
 }
 
+// MARK: UITableViewDelegate
+extension QuestionTableView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if case .content = elements[indexPath.row] {
+            return 213.scale
+        } else {
+            return UITableView.automaticDimension
+        }
+    }
+}
+
 // MARK: Private
 private extension QuestionTableView {
     func initialize() {
@@ -93,6 +104,7 @@ private extension QuestionTableView {
         separatorStyle = .none
         
         dataSource = self
+        delegate = self
     }
 }
 
