@@ -73,14 +73,12 @@ private extension NavigationBar {
         NSLayoutConstraint.activate([
             leftAction.heightAnchor.constraint(equalToConstant: 24.scale),
             leftAction.widthAnchor.constraint(equalTo: leftAction.heightAnchor),
-            leftAction.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             leftAction.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale)
         ])
         
         NSLayoutConstraint.activate([
             rightAction.heightAnchor.constraint(equalToConstant: 24.scale),
             rightAction.widthAnchor.constraint(equalTo: rightAction.heightAnchor),
-            rightAction.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             rightAction.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale)
         ])
     }
@@ -90,8 +88,8 @@ private extension NavigationBar {
         addSubview(titleLabel)
         if isBigTitle {
             NSLayoutConstraint.activate([
-                titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 59.scale),
-                titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 22.scale)
+                titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 44.scale),
+                titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 22.scale),
             ])
         } else {
             NSLayoutConstraint.activate([
@@ -100,6 +98,10 @@ private extension NavigationBar {
             ])
         }
         
+        NSLayoutConstraint.activate([
+            leftAction.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            rightAction.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor)
+        ])
     }
 }
 

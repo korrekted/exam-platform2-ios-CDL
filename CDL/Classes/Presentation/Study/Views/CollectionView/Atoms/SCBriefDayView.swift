@@ -32,14 +32,14 @@ extension SCBriefDayView {
         let formatter = DateFormatter()
         formatter.locale = Locale.current
         
-        formatter.dateFormat = "EEE"
+        formatter.dateFormat = "EE"
         weekdayLabel.text = formatter.string(from: day.date)
         
         formatter.dateFormat = "dd"
         dayLabel.text = formatter.string(from: day.date)
         
-        weekdayLabel.alpha = day.activity ? 1 : 0.3
-        dayLabel.alpha = day.activity ? 1 : 0.3
+//        weekdayLabel.alpha = day.activity ? 1 : 0.3
+        dayLabel.backgroundColor = day.activity ? UIColor(integralRed: 60, green: 75, blue: 159) : .clear
     }
 }
 
@@ -64,8 +64,8 @@ private extension SCBriefDayView {
 private extension SCBriefDayView {
     func makeWeekdayLabel() -> UILabel {
         let view = UILabel()
-        view.font = Fonts.SFProRounded.semiBold(size: 13.scale)
-        view.textColor = UIColor(integralRed: 14, green: 0, blue: 43)
+        view.font = Fonts.SFProRounded.semiBold(size: 14.scale)
+        view.textColor = UIColor(integralRed: 245, green: 245, blue: 245)
         view.textAlignment = .center
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
@@ -79,10 +79,9 @@ private extension SCBriefDayView {
         view.topInset = 0
         view.bottomInset = 0
         view.textAlignment = .center
-        view.layer.cornerRadius = 17.5.scale
+        view.layer.cornerRadius = 10.scale
         view.layer.masksToBounds = true
-        view.textColor = UIColor.white
-        view.backgroundColor = UIColor(integralRed: 95, green: 70, blue: 245)
+        view.textColor = UIColor(integralRed: 245, green: 245, blue: 245)
         view.font = Fonts.SFProRounded.semiBold(size: 17.scale)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)

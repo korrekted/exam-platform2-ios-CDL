@@ -11,6 +11,8 @@ struct Course {
     let subTitle: String
     let isMain: Bool
     let sort: Int
+    let progress: Int
+    let testCount: Int
 }
 
 // MARK: Codable

@@ -26,10 +26,18 @@ final class SCTitleCell: UICollectionViewCell {
 extension SCTitleCell {
     func setup(title: String) {
         let attrs = TextAttributes()
-            .textColor(UIColor.black)
-            .font(Fonts.SFProRounded.semiBold(size: 17.scale))
-            .lineHeight(20.scale)
-        label.attributedText = title.attributed(with: attrs)
+            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .font(Fonts.SFProRounded.regular(size: 18.scale))
+        
+        let nameAttr = TextAttributes()
+            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .font(Fonts.SFProRounded.bold(size: 18.scale))
+        
+        let attributes = NSMutableAttributedString()
+        attributes.append(title.attributed(with: nameAttr))
+        attributes.append("Study.Course.Title".localized.attributed(with: attrs))
+        
+        label.attributedText = attributes
     }
 }
 
@@ -51,7 +59,8 @@ private extension SCTitleCell {
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            label.topAnchor.constraint(equalTo: contentView.topAnchor)
         ])
     }
 }
@@ -61,6 +70,7 @@ private extension SCTitleCell {
     func makeLabel() -> UILabel {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.numberOfLines = 0
         contentView.addSubview(view)
         return view
     }

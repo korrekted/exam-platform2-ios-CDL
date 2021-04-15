@@ -9,7 +9,10 @@ import UIKit
 import RxCocoa
 
 final class StudyCollectionView: UICollectionView {
-    lazy var selected = PublishRelay<StudyCollectionElement>()
+    lazy var selectedCourse = BehaviorRelay<Course?>(value: nil)
+    lazy var didTapAdd = PublishRelay<Void>()
+    lazy var didTapTrophy = PublishRelay<Void>()
+    lazy var selectedMode = PublishRelay<SCEMode.Mode>()
     
     private lazy var sections = [StudyCollectionSection]()
     
@@ -45,23 +48,30 @@ extension StudyCollectionView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch sections[indexPath.section].elements[indexPath.row] {
-        case .brief(let brief):
-            let cell = dequeueReusableCell(withReuseIdentifier: String(describing: SCBriefCell.self), for: indexPath) as! SCBriefCell
-            cell.setup(element: brief)
-            return cell
-        case .takeTest(let activeSubscription):
-            let cell = dequeueReusableCell(withReuseIdentifier: String(describing: SCTakeTestCell.self), for: indexPath) as! SCTakeTestCell
-            cell.setup(activeSubscription: activeSubscription)
-            return cell
-        case .unlockAllQuestions:
-            return dequeueReusableCell(withReuseIdentifier: String(describing: SCUnlockQuestionsCell.self), for: indexPath) as! SCUnlockQuestionsCell
         case .title(let title):
             let cell = dequeueReusableCell(withReuseIdentifier: String(describing: SCTitleCell.self), for: indexPath) as! SCTitleCell
             cell.setup(title: title)
             return cell
-        case .mode(let mode):
-            let cell = dequeueReusableCell(withReuseIdentifier: String(describing: SCModeCell.self), for: indexPath) as! SCModeCell
-            cell.setup(mode: mode)
+        case .mode(let activeSubscription):
+            let cell = dequeueReusableCell(withReuseIdentifier: String(describing: SCModesCell.self), for: indexPath) as! SCModesCell
+            cell.setup(activeSubscription: activeSubscription)
+            cell.selectedMode = { [weak self] in
+                self?.selectedMode.accept($0)
+            }
+            return cell
+        case .courses(let elements):
+            let cell = dequeueReusableCell(withReuseIdentifier: String(describing: SCCoursesCell.self), for: indexPath) as! SCCoursesCell
+            cell.setup(
+                elements: elements,
+                selectedCourse: { [weak self] in self?.selectedCourse.accept($0) },
+                didTapAdd: { [weak self] in self?.didTapAdd.accept(()) }
+            )
+            return cell
+        case .trophy:
+            let cell = dequeueReusableCell(withReuseIdentifier: String(describing: SCTrophyCollectionCell.self), for: indexPath) as! SCTrophyCollectionCell
+            cell.didTapButton = { [weak self] in
+                self?.didTapTrophy.accept(())
+            }
             return cell
         }
     }
@@ -69,40 +79,29 @@ extension StudyCollectionView: UICollectionViewDataSource {
 
 // MARK: UICollectionViewDelegate
 extension StudyCollectionView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selected.accept(sections[indexPath.section].elements[indexPath.row])
-    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = 375.scale - contentInset.left - contentInset.right
+        let width = collectionView.bounds.width - contentInset.left - contentInset.right
         
         switch sections[indexPath.section].elements[indexPath.row] {
-        case .brief:
-            return CGSize(width: width, height: 99.scale)
-        case .takeTest:
-            return CGSize(width: width, height: 75.scale)
-        case .unlockAllQuestions:
-            return CGSize(width: width, height: 75.scale)
         case .title:
-            return CGSize(width: width, height: 56.scale)
+            return CGSize(width: width, height: 24.scale)
         case .mode:
-            return CGSize(width: 164, height: 120.scale)
+            return CGSize(width: width, height: 322.scale)
+        case .courses:
+            return CGSize(width: collectionView.bounds.width, height: 232.scale)
+        case .trophy:
+            return CGSize(width: width, height: 168.scale)
         }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        15.scale
     }
 }
 
 // MARK: Private
 private extension StudyCollectionView {
     func initialize() {
-        register(SCBriefCell.self, forCellWithReuseIdentifier: String(describing: SCBriefCell.self))
-        register(SCTakeTestCell.self, forCellWithReuseIdentifier: String(describing: SCTakeTestCell.self))
-        register(SCUnlockQuestionsCell.self, forCellWithReuseIdentifier: String(describing: SCUnlockQuestionsCell.self))
         register(SCTitleCell.self, forCellWithReuseIdentifier: String(describing: SCTitleCell.self))
-        register(SCModeCell.self, forCellWithReuseIdentifier: String(describing: SCModeCell.self))
+        register(SCModesCell.self, forCellWithReuseIdentifier: String(describing: SCModesCell.self))
+        register(SCTrophyCollectionCell.self, forCellWithReuseIdentifier: String(describing: SCTrophyCollectionCell.self))
+        register(SCCoursesCell.self, forCellWithReuseIdentifier: String(describing: SCCoursesCell.self))
         
         dataSource = self
         delegate = self

@@ -41,23 +41,70 @@ final class StudyViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        viewModel.activeSubscription
+            .drive(Binder(mainView) {
+                $0.setupButtons($1)
+            })
+            .disposed(by: disposeBag)
+        
         mainView
-            .settingsButton.rx.tap
+            .navigationView.rightAction.rx.tap
             .subscribe(onNext: { [weak self] in
                 self?.settingsTapped()
             })
             .disposed(by: disposeBag)
         
-        mainView
-            .collectionView.selected
-            .withLatestFrom(activeSubscription) { ($0, $1) }
-            .withLatestFrom(viewModel.course) { ($0, $1) }
-            .subscribe(onNext: { [weak self] stub in
-                let ((element, activeSubscription), course) = stub
- 
-                self?.selected(element: element, activeSubscription: activeSubscription, courseId: course.id)
+        viewModel.brief
+            .drive(Binder(mainView) {
+                $0.setup(brief: $1)
             })
             .disposed(by: disposeBag)
+        
+        mainView.takeButton.rx.tap
+            .withLatestFrom(viewModel.activeSubscription)
+            .withLatestFrom(viewModel.course) { ($0, $1) }
+            .bind(to: Binder(self) { base, tuple in
+                let (activeSubscription, course) = tuple
+                base.openTest(types: [.get(testId: nil)], activeSubscription: activeSubscription, courseId: course.id)
+                
+                SDKStorage.shared
+                    .amplitudeManager
+                    .logEvent(name: "Study Tap", parameters: ["what": "take a free test"])
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.unlockButton.rx.tap
+            .bind(to: Binder(self) { base, _ in
+                base.openPaygate()
+                
+                SDKStorage.shared
+                    .amplitudeManager
+                    .logEvent(name: "Study Tap", parameters: ["what": "unlock all questions"])
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.collectionView
+            .selectedMode
+            .withLatestFrom(activeSubscription) { ($0, $1) }
+            .withLatestFrom(viewModel.course) { ($0.0, $0.1, $1) }
+            .bind(to: Binder(self) { base, tuple in
+                let (mode, activeSubscription, course) = tuple
+                base.tapped(mode: mode, activeSubscription: activeSubscription, courseId: course.id)
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.collectionView.didTapTrophy
+            .asSignal()
+            .emit(onNext: {
+                UIApplication.shared.keyWindow?.rootViewController?.present(PaygateViewController.make(), animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.collectionView
+            .selectedCourse
+            .bind(to: viewModel.selectedCourse)
+            .disposed(by: disposeBag)
+        
     }
 }
 
@@ -78,27 +125,6 @@ private extension StudyViewController {
         SDKStorage.shared
             .amplitudeManager
             .logEvent(name: "Study Tap", parameters: ["what": "settings"])
-    }
-    
-    func selected(element: StudyCollectionElement, activeSubscription: Bool, courseId: Int) {
-        switch element {
-        case .brief, .title:
-            break
-        case .unlockAllQuestions:
-            openPaygate()
-            
-            SDKStorage.shared
-                .amplitudeManager
-                .logEvent(name: "Study Tap", parameters: ["what": "unlock all questions"])
-        case .takeTest(let activeSubscription):
-            openTest(types: [.get(testId: nil)], activeSubscription: activeSubscription, courseId: courseId)
-            
-            SDKStorage.shared
-                .amplitudeManager
-                .logEvent(name: "Study Tap", parameters: ["what": "take a free test"])
-        case .mode(let mode):
-            tapped(mode: mode.mode, activeSubscription: activeSubscription, courseId: courseId)
-        }
     }
     
     func tapped(mode: SCEMode.Mode, activeSubscription: Bool, courseId: Int) {
