@@ -21,18 +21,18 @@ final class StudyViewModel {
     
     let selectedCourse = BehaviorRelay<Course?>(value: nil)
     
-    private lazy var currentCourse = makeCcurrentCourse().share(replay: 1, scope: .forever)
+    private lazy var currentCourse = makeCurrentCourse().share(replay: 1, scope: .forever)
 }
 
 // MARK: Private
 private extension StudyViewModel {
     
-    func makeCcurrentCourse() -> Observable<Course> {
+    func makeCurrentCourse() -> Observable<Course> {
         let saved = selectedCourse
             .compactMap { $0 }
             .do(onNext: { [weak self] in
                 self?.courseManager.select(course: $0)
-            })
+            }).debug()
         
         return courseManager
             .rxGetSelectedCourse()
@@ -124,34 +124,8 @@ private extension StudyViewModel {
     }
     
     func makeModes() -> Driver<StudyCollectionSection> {
-        Driver<StudyCollectionSection>
-            .deferred {
-                let today = SCEMode(mode: .today,
-                                    image: "Study.Mode.Todays",
-                                    title: "Study.Mode.TodaysQuestion".localized)
-                let todayElement = StudyCollectionElement.mode(today)
-                
-                let ten = SCEMode(mode: .ten,
-                                    image: "Study.Mode.Ten",
-                                    title: "Study.Mode.TenQuestions".localized)
-                let tenElement = StudyCollectionElement.mode(ten)
-                
-                let missed = SCEMode(mode: .missed,
-                                    image: "Study.Mode.Missed",
-                                    title: "Study.Mode.MissedQuestions".localized)
-                let missedElement = StudyCollectionElement.mode(missed)
-                
-                let random = SCEMode(mode: .random,
-                                    image: "Study.Mode.Random",
-                                    title: "Study.Mode.RandomSet".localized)
-                let randomElement = StudyCollectionElement.mode(random)
-                
-                let section = StudyCollectionSection(elements: [
-                    todayElement, tenElement, missedElement, randomElement
-                ])
-                
-                return .just(section)
-            }
+        activeSubscription
+            .map { StudyCollectionSection(elements: [.mode(activeSubscription: $0)]) }
     }
     
     func makeTrophy() -> Driver<StudyCollectionSection?> {

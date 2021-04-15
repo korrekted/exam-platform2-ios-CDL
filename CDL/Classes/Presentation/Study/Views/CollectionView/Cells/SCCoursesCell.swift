@@ -21,13 +21,16 @@ class SCCoursesCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private var isNeedScroll = true
 }
 
 extension SCCoursesCell {
     func setup(elements: [CourseElement], selectedCourse: @escaping (Course?) -> Void, didTapAdd: @escaping () -> Void) {
         collectionView.selectedCourse = selectedCourse
         collectionView.didTapAdd = didTapAdd
-        collectionView.setup(elements: elements)
+        collectionView.setup(elements: elements, isNeedScroll: isNeedScroll)
+        isNeedScroll = false
     }
 }
 
@@ -43,7 +46,7 @@ private extension SCCoursesCell {
     func makeConstraints() {
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16.scale),
-            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -32.scale),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20.scale),
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])

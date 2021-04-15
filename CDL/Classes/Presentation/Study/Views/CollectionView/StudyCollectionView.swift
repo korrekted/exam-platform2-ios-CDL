@@ -9,9 +9,10 @@ import UIKit
 import RxCocoa
 
 final class StudyCollectionView: UICollectionView {
-    lazy var selected = PublishRelay<StudyCollectionElement>()
     lazy var selectedCourse = BehaviorRelay<Course?>(value: nil)
     lazy var didTapAdd = PublishRelay<Void>()
+    lazy var didTapTrophy = PublishRelay<Void>()
+    lazy var selectedMode = PublishRelay<SCEMode.Mode>()
     
     private lazy var sections = [StudyCollectionSection]()
     
@@ -51,9 +52,12 @@ extension StudyCollectionView: UICollectionViewDataSource {
             let cell = dequeueReusableCell(withReuseIdentifier: String(describing: SCTitleCell.self), for: indexPath) as! SCTitleCell
             cell.setup(title: title)
             return cell
-        case .mode(let mode):
-            let cell = dequeueReusableCell(withReuseIdentifier: String(describing: SCModeCell.self), for: indexPath) as! SCModeCell
-            cell.setup(mode: mode)
+        case .mode(let activeSubscription):
+            let cell = dequeueReusableCell(withReuseIdentifier: String(describing: SCModesCell.self), for: indexPath) as! SCModesCell
+            cell.setup(activeSubscription: activeSubscription)
+            cell.selectedMode = { [weak self] in
+                self?.selectedMode.accept($0)
+            }
             return cell
         case .courses(let elements):
             let cell = dequeueReusableCell(withReuseIdentifier: String(describing: SCCoursesCell.self), for: indexPath) as! SCCoursesCell
@@ -65,6 +69,9 @@ extension StudyCollectionView: UICollectionViewDataSource {
             return cell
         case .trophy:
             let cell = dequeueReusableCell(withReuseIdentifier: String(describing: SCTrophyCollectionCell.self), for: indexPath) as! SCTrophyCollectionCell
+            cell.didTapButton = { [weak self] in
+                self?.didTapTrophy.accept(())
+            }
             return cell
         }
     }
@@ -72,36 +79,18 @@ extension StudyCollectionView: UICollectionViewDataSource {
 
 // MARK: UICollectionViewDelegate
 extension StudyCollectionView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selected.accept(sections[indexPath.section].elements[indexPath.row])
-    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { return .zero }
-        
-        let width = 375.scale - contentInset.left - contentInset.right
+        let width = collectionView.bounds.width - contentInset.left - contentInset.right
         
         switch sections[indexPath.section].elements[indexPath.row] {
         case .title:
-            return CGSize(width: width, height: 56.scale)
-        case .mode(let mode):
-            let height: CGFloat
-            switch mode.mode {
-            case .today:
-                height = 180.scale
-            case .ten:
-                height = 150.scale
-            case .missed:
-                height = 150.scale
-            case .random:
-                height = 126.scale
-            }
-            let width = (collectionView.bounds.width - collectionView.contentInset.left - collectionView.contentInset.right - layout.minimumLineSpacing) / 2
-            return CGSize(width: width, height: height)
+            return CGSize(width: width, height: 24.scale)
+        case .mode:
+            return CGSize(width: width, height: 322.scale)
         case .courses:
-            return CGSize(width: collectionView.bounds.width, height: 244.scale)
+            return CGSize(width: collectionView.bounds.width, height: 232.scale)
         case .trophy:
-            return CGSize(width: width, height: 156.scale)
+            return CGSize(width: width, height: 168.scale)
         }
     }
 }
@@ -110,7 +99,7 @@ extension StudyCollectionView: UICollectionViewDelegateFlowLayout {
 private extension StudyCollectionView {
     func initialize() {
         register(SCTitleCell.self, forCellWithReuseIdentifier: String(describing: SCTitleCell.self))
-        register(SCModeCell.self, forCellWithReuseIdentifier: String(describing: SCModeCell.self))
+        register(SCModesCell.self, forCellWithReuseIdentifier: String(describing: SCModesCell.self))
         register(SCTrophyCollectionCell.self, forCellWithReuseIdentifier: String(describing: SCTrophyCollectionCell.self))
         register(SCCoursesCell.self, forCellWithReuseIdentifier: String(describing: SCCoursesCell.self))
         

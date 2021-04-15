@@ -59,7 +59,8 @@ private extension SCTitleCell {
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            label.topAnchor.constraint(equalTo: contentView.topAnchor)
         ])
     }
 }

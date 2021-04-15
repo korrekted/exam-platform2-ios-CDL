@@ -13,7 +13,7 @@ enum StudyCollectionElement {
     case courses([CourseElement])
     case trophy
     case title(String)
-    case mode(SCEMode)
+    case mode(activeSubscription: Bool)
 }
 
 struct SCEBrief {
@@ -34,8 +34,4 @@ struct SCEMode {
         case missed
         case random
     }
-    
-    let mode: Mode
-    let image: String
-    let title: String
 }

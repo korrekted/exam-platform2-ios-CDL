@@ -83,14 +83,20 @@ final class StudyViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        mainView
-            .collectionView.selected
+        mainView.collectionView
+            .selectedMode
             .withLatestFrom(activeSubscription) { ($0, $1) }
-            .withLatestFrom(viewModel.course) { ($0, $1) }
-            .subscribe(onNext: { [weak self] stub in
-                let ((element, activeSubscription), course) = stub
- 
-                self?.selected(element: element, activeSubscription: activeSubscription, courseId: course.id)
+            .withLatestFrom(viewModel.course) { ($0.0, $0.1, $1) }
+            .bind(to: Binder(self) { base, tuple in
+                let (mode, activeSubscription, course) = tuple
+                base.tapped(mode: mode, activeSubscription: activeSubscription, courseId: course.id)
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.collectionView.didTapTrophy
+            .asSignal()
+            .emit(onNext: {
+                UIApplication.shared.keyWindow?.rootViewController?.present(PaygateViewController.make(), animated: true)
             })
             .disposed(by: disposeBag)
         
@@ -119,19 +125,6 @@ private extension StudyViewController {
         SDKStorage.shared
             .amplitudeManager
             .logEvent(name: "Study Tap", parameters: ["what": "settings"])
-    }
-    
-    func selected(element: StudyCollectionElement, activeSubscription: Bool, courseId: Int) {
-        switch element {
-        case .title:
-            break
-        case .mode(let mode):
-            tapped(mode: mode.mode, activeSubscription: activeSubscription, courseId: courseId)
-        case .courses:
-            break
-        case .trophy:
-            UIApplication.shared.keyWindow?.rootViewController?.present(PaygateViewController.make(), animated: true)
-        }
     }
     
     func tapped(mode: SCEMode.Mode, activeSubscription: Bool, courseId: Int) {

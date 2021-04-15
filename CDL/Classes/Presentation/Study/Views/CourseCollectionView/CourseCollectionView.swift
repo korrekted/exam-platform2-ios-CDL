@@ -35,9 +35,16 @@ class CourseCollectionView: UICollectionView {
 }
 
 extension CourseCollectionView {
-    func setup(elements: [CourseElement]) {
+    func setup(elements: [CourseElement], isNeedScroll: Bool) {
         self.elements = elements
+        CATransaction.setCompletionBlock { [weak self] in
+            if isNeedScroll, let index = elements.firstIndex(where: { $0.isSelected }) {
+                self?.scrollToItem(at: IndexPath(item: index, section: 0), at: .right, animated: false)
+            }
+        }
+        CATransaction.begin()
         reloadData()
+        CATransaction.commit()
     }
 }
 
@@ -55,7 +62,7 @@ extension CourseCollectionView: UICollectionViewDelegateFlowLayout {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if let cell = visibleCells.first as? CourseCell {
+        if let cell = visibleCells.first(where: { bounds.contains($0.frame) }) {
             let row = indexPath(for: cell)?.row ?? 0
             selectedCourse?(elements[safe: row]?.course)
         }
