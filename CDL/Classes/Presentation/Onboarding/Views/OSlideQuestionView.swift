@@ -32,29 +32,29 @@ final class OSlideQuestionView: OSlideView {
 private extension OSlideQuestionView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 17.scale),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -17.scale),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: ScreenSize.isIphoneXFamily ? 134.scale : 70.scale)
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
+            titleLabel.bottomAnchor.constraint(equalTo: questionLabel.topAnchor, constant: -24.scale)
         ])
         
         NSLayoutConstraint.activate([
             questionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
             questionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
-            questionLabel.topAnchor.constraint(equalTo: topAnchor, constant: ScreenSize.isIphoneXFamily ? 321.scale : 240.scale)
+            questionLabel.bottomAnchor.constraint(equalTo: yesButton.topAnchor, constant: -48.scale)
         ])
         
         NSLayoutConstraint.activate([
-            yesButton.widthAnchor.constraint(equalToConstant: 93.scale),
-            yesButton.heightAnchor.constraint(equalToConstant: 93.scale),
-            yesButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 65.scale),
-            yesButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -70.scale : -30.scale)
+            noButton.widthAnchor.constraint(equalToConstant: 165.scale),
+            noButton.heightAnchor.constraint(equalToConstant: 53.scale),
+            noButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
+            noButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -60.scale : -30.scale)
         ])
         
         NSLayoutConstraint.activate([
-            noButton.widthAnchor.constraint(equalToConstant: 93.scale),
-            noButton.heightAnchor.constraint(equalToConstant: 93.scale),
-            noButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -65.scale),
-            noButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -70.scale : -30.scale)
+            yesButton.widthAnchor.constraint(equalToConstant: 165.scale),
+            yesButton.heightAnchor.constraint(equalToConstant: 53.scale),
+            yesButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
+            yesButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -60.scale : -30.scale)
         ])
     }
 }
@@ -63,62 +63,60 @@ private extension OSlideQuestionView {
 private extension OSlideQuestionView {
     func makeTitleLabel() -> UILabel {
         let attrs = TextAttributes()
-            .textColor(UIColor.black)
-            .font(Fonts.SFProRounded.bold(size: 27.scale))
-            .lineHeight(32.scale)
+            .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+            .font(Fonts.SFProRounded.bold(size: 36.scale))
+            .lineHeight(43.scale)
             .textAlignment(.center)
         
         let view = UILabel()
         view.numberOfLines = 0
-        view.attributedText = "Onboarding.Slide10.Title".localized.attributed(with: attrs)
+        view.attributedText = "Onboarding.Question.Title".localized.attributed(with: attrs)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
     }
     
-    func makeQuestionLabel() -> PaddingLabel {
+    func makeQuestionLabel() -> OQuestionFormView {
         let attrs = TextAttributes()
-            .textColor(UIColor.black)
-            .font(Fonts.SFProRounded.bold(size: 27.scale))
-            .lineHeight(32.scale)
+            .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+            .font(Fonts.SFProRounded.regular(size: 24.scale))
+            .lineHeight(28.scale)
             .textAlignment(.center)
         
-        let view = PaddingLabel()
-        view.numberOfLines = 0
-        view.leftInset = 15.scale
-        view.rightInset = 15.scale
-        view.topInset = 36.scale
-        view.bottomInset = 36.scale
-        view.layer.cornerRadius = 20.scale
-        view.layer.masksToBounds = true
-        view.backgroundColor = UIColor.white
-        view.attributedText = questionKey.localized.attributed(with: attrs)
+        let view = OQuestionFormView()
+        view.label.attributedText = questionKey.localized.attributed(with: attrs)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
     }
     
-    func makeYesButton() -> OSlideQuestiionButton {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onNext))
+    func makeYesButton() -> UIButton {
+        let attrs = TextAttributes()
+            .font(Fonts.SFProRounded.regular(size: 18.scale))
+            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
         
-        let view = OSlideQuestiionButton()
-        view.isUserInteractionEnabled = true
-        view.addGestureRecognizer(tapGesture)
-        view.imageView.image = UIImage(named: "Onboarding.Slide10.Yes")
-        view.label.text = "Onboarding.Yes".localized
+        let view = UIButton()
+        view.layer.cornerRadius = 12.scale
+        view.setAttributedTitle("Onboarding.Yes".localized.attributed(with: attrs), for: .normal)
+        view.backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
+        view.addTarget(self, action: #selector(onNext), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
     }
     
-    func makeNoButton() -> OSlideQuestiionButton {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onNext))
+    func makeNoButton() -> UIButton {
+        let attrs = TextAttributes()
+            .font(Fonts.SFProRounded.regular(size: 18.scale))
+            .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
         
-        let view = OSlideQuestiionButton()
-        view.isUserInteractionEnabled = true
-        view.addGestureRecognizer(tapGesture)
-        view.imageView.image = UIImage(named: "Onboarding.Slide10.No")
-        view.label.text = "Onboarding.No".localized
+        let view = UIButton()
+        view.layer.cornerRadius = 12.scale
+        view.layer.borderWidth = 1.scale
+        view.layer.borderColor = UIColor(integralRed: 232, green: 234, blue: 237).cgColor
+        view.setAttributedTitle("Onboarding.No".localized.attributed(with: attrs), for: .normal)
+        view.backgroundColor = UIColor.clear
+        view.addTarget(self, action: #selector(onNext), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view

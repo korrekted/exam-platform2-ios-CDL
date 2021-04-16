@@ -35,16 +35,6 @@ final class OnboardingViewController: UIViewController {
             
             this.goToNext()
         }
-        
-        mainView.didChangedSlide = { [weak self] step in
-            guard let this = self else {
-                return
-            }
-            
-            if step == .slide1 {
-                this.goToCourses()
-            }
-        }
     }
 }
 
@@ -54,7 +44,6 @@ extension OnboardingViewController {
         OnboardingViewController()
     }
 }
-
 
 // MARK: API
 extension OnboardingViewController {
@@ -66,7 +55,7 @@ extension OnboardingViewController {
 // MARK: PaygateViewControllerDelegate
 extension OnboardingViewController: PaygateViewControllerDelegate {
     func paygateDidClosed(with result: PaygateViewControllerResult) {
-        goToCourseOrCourses()
+        goToCourse()
     }
 }
 
@@ -86,17 +75,8 @@ private extension OnboardingViewController {
             vc.delegate = self
             present(vc, animated: true)
         case .nextScreen:
-            goToCourseOrCourses()
+            goToCourse()
         }
-    }
-    
-    func goToCourseOrCourses() {
-        viewModel.hasSelectedCourse ? goToCourse() : goToCourses()
-    }
-    
-    func goToCourses() {
-        let vc = CoursesViewController.make(howOpen: .present)
-        present(vc, animated: true)
     }
     
     func goToCourse() {
