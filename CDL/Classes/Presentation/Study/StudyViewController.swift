@@ -21,6 +21,7 @@ final class StudyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.setNavigationBarHidden(true, animated: false)
         
         let activeSubscription = viewModel.activeSubscription
         

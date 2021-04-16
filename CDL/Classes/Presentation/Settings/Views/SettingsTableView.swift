@@ -10,7 +10,7 @@ import RxCocoa
 
 final class SettingsTableView: UITableView {
     enum Tapped {
-        case unlock, course, rateUs, contactUs, termsOfUse, privacyPoliicy
+        case unlock, rateUs, contactUs, termsOfUse, privacyPoliicy, state, topic, language
     }
     
     lazy var tapped = PublishRelay<Tapped>()
@@ -55,15 +55,14 @@ extension SettingsTableView: UITableViewDataSource {
                 self?.tapped.accept(.unlock)
             }
             return cell
-        case .selectedCourse(let course):
-            let cell = dequeueReusableCell(withIdentifier: String(describing: STCourseCell.self), for: indexPath) as! STCourseCell
-            cell.setup(course: course)
-            cell.tapped = { [weak self] in
-                self?.tapped.accept(.course)
-            }
-            return cell
         case .links:
             let cell = dequeueReusableCell(withIdentifier: String(describing: STLinksCell.self), for: indexPath) as! STLinksCell
+            cell.tapped = { [weak self] value in
+                self?.tapped.accept(value)
+            }
+            return cell
+        case .settings:
+            let cell = dequeueReusableCell(withIdentifier: String(describing: STSettingLinksCell.self), for: indexPath) as! STSettingLinksCell
             cell.tapped = { [weak self] value in
                 self?.tapped.accept(value)
             }
@@ -87,11 +86,11 @@ extension SettingsTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch sections[indexPath.section] {
         case .unlockPremium:
-            return 93.scale
-        case .selectedCourse:
-            return 75.scale
+            return 81.scale
         case .links:
-            return 200.scale
+            return UITableView.automaticDimension
+        case .settings:
+            return UITableView.automaticDimension
         }
     }
 }
@@ -100,8 +99,8 @@ extension SettingsTableView: UITableViewDelegate {
 private extension SettingsTableView {
     func initialize() {
         register(STUnlockCell.self, forCellReuseIdentifier: String(describing: STUnlockCell.self))
-        register(STCourseCell.self, forCellReuseIdentifier: String(describing: STCourseCell.self))
         register(STLinksCell.self, forCellReuseIdentifier: String(describing: STLinksCell.self))
+        register(STSettingLinksCell.self, forCellReuseIdentifier: String(describing: STSettingLinksCell.self))
         
         dataSource = self
         delegate = self

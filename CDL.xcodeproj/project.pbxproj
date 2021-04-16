@@ -21,6 +21,7 @@
 		86ACACE42625AFA40020C51C /* SCCoursesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ACACE32625AFA40020C51C /* SCCoursesCell.swift */; };
 		86ACAD072625E2E30020C51C /* SCTrophyCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ACAD062625E2E30020C51C /* SCTrophyCollectionCell.swift */; };
 		86ACAD0B2625F11A0020C51C /* CourseHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ACAD0A2625F11A0020C51C /* CourseHeader.swift */; };
+		86B712C92629B6A100297FFC /* STSettingLinksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B712C82629B6A000297FFC /* STSettingLinksCell.swift */; };
 		86BB2590261E0C8B00C6D2FA /* SaveQuestionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB258F261E0C8B00C6D2FA /* SaveQuestionRequest.swift */; };
 		86BB2593261E14D700C6D2FA /* GetSavedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB2592261E14D700C6D2FA /* GetSavedRequest.swift */; };
 		86BB2596261E1B3C00C6D2FA /* RemoveSavedQuestionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB2595261E1B3C00C6D2FA /* RemoveSavedQuestionRequest.swift */; };
@@ -133,7 +134,6 @@
 		967AD50B260FD0AF008E8175 /* RateUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD41D260FD0AE008E8175 /* RateUs.swift */; };
 		967AD50C260FD0AF008E8175 /* STLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD420260FD0AE008E8175 /* STLinkView.swift */; };
 		967AD50D260FD0AF008E8175 /* STLinksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD421260FD0AE008E8175 /* STLinksCell.swift */; };
-		967AD50E260FD0AF008E8175 /* STCourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD422260FD0AE008E8175 /* STCourseCell.swift */; };
 		967AD50F260FD0AF008E8175 /* STUnlockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD423260FD0AE008E8175 /* STUnlockCell.swift */; };
 		967AD510260FD0AF008E8175 /* SettingsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD424260FD0AE008E8175 /* SettingsTableView.swift */; };
 		967AD511260FD0AF008E8175 /* SettingsTableSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD425260FD0AE008E8175 /* SettingsTableSection.swift */; };
@@ -268,6 +268,7 @@
 		86ACACE32625AFA40020C51C /* SCCoursesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCCoursesCell.swift; sourceTree = "<group>"; };
 		86ACAD062625E2E30020C51C /* SCTrophyCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCTrophyCollectionCell.swift; sourceTree = "<group>"; };
 		86ACAD0A2625F11A0020C51C /* CourseHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseHeader.swift; sourceTree = "<group>"; };
+		86B712C82629B6A000297FFC /* STSettingLinksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STSettingLinksCell.swift; sourceTree = "<group>"; };
 		86BB258F261E0C8B00C6D2FA /* SaveQuestionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveQuestionRequest.swift; sourceTree = "<group>"; };
 		86BB2592261E14D700C6D2FA /* GetSavedRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSavedRequest.swift; sourceTree = "<group>"; };
 		86BB2595261E1B3C00C6D2FA /* RemoveSavedQuestionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveSavedQuestionRequest.swift; sourceTree = "<group>"; };
@@ -381,7 +382,6 @@
 		967AD41D260FD0AE008E8175 /* RateUs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateUs.swift; sourceTree = "<group>"; };
 		967AD420260FD0AE008E8175 /* STLinkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STLinkView.swift; sourceTree = "<group>"; };
 		967AD421260FD0AE008E8175 /* STLinksCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STLinksCell.swift; sourceTree = "<group>"; };
-		967AD422260FD0AE008E8175 /* STCourseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STCourseCell.swift; sourceTree = "<group>"; };
 		967AD423260FD0AE008E8175 /* STUnlockCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STUnlockCell.swift; sourceTree = "<group>"; };
 		967AD424260FD0AE008E8175 /* SettingsTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableView.swift; sourceTree = "<group>"; };
 		967AD425260FD0AE008E8175 /* SettingsTableSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableSection.swift; sourceTree = "<group>"; };
@@ -1060,8 +1060,8 @@
 			children = (
 				967AD420260FD0AE008E8175 /* STLinkView.swift */,
 				967AD421260FD0AE008E8175 /* STLinksCell.swift */,
-				967AD422260FD0AE008E8175 /* STCourseCell.swift */,
 				967AD423260FD0AE008E8175 /* STUnlockCell.swift */,
+				86B712C82629B6A000297FFC /* STSettingLinksCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1704,6 +1704,7 @@
 				967AD4E5260FD0AE008E8175 /* GetTestStatsResponseMapper.swift in Sources */,
 				967AD4C9260FD0AE008E8175 /* NursingNavigationControllerSettings.swift in Sources */,
 				967AD4D2260FD0AE008E8175 /* UIViewRxExtension.swift in Sources */,
+				86B712C92629B6A100297FFC /* STSettingLinksCell.swift in Sources */,
 				967AD53C260FD0AF008E8175 /* PaygateViewModel.swift in Sources */,
 				86CE872C2621F8E800FC7091 /* CourseCell.swift in Sources */,
 				967AD4BC260FD0AE008E8175 /* UIDeviceExtension.swift in Sources */,
@@ -1803,7 +1804,6 @@
 				967AD505260FD0AF008E8175 /* StatsManager.swift in Sources */,
 				86CD1E12261F5D2C000A2F49 /* SITestProgressCollectionCell.swift in Sources */,
 				967AD547260FD0AF008E8175 /* TestStatsAnswerCell.swift in Sources */,
-				967AD50E260FD0AF008E8175 /* STCourseCell.swift in Sources */,
 				967AD4FC260FD0AF008E8175 /* CoursesManager.swift in Sources */,
 				967AD500260FD0AF008E8175 /* GetBriefRequest.swift in Sources */,
 				967AD55A260FD0AF008E8175 /* StatsViewModel.swift in Sources */,

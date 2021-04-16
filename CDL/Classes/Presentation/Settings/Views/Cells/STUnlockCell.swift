@@ -13,6 +13,7 @@ final class STUnlockCell: UITableViewCell {
     lazy var container = makeContainer()
     lazy var titleLabel = makeTitleLabel()
     lazy var subTitleLabel = makeSubTitleLabel()
+    private lazy var lockIcon = makeIconView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -64,6 +65,13 @@ private extension STUnlockCell {
             subTitleLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -25.scale),
             subTitleLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -20.scale)
         ])
+        
+        NSLayoutConstraint.activate([
+            lockIcon.heightAnchor.constraint(equalToConstant: 24.scale),
+            lockIcon.widthAnchor.constraint(equalTo: lockIcon.heightAnchor),
+            lockIcon.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16.scale),
+            lockIcon.centerYAnchor.constraint(equalTo: container.centerYAnchor)
+        ])
     }
 }
 
@@ -71,8 +79,8 @@ private extension STUnlockCell {
 private extension STUnlockCell {
     func makeContainer() -> UIView {
         let view = UIView()
-        view.backgroundColor = UIColor(integralRed: 95, green: 70, blue: 245)
-        view.layer.cornerRadius = 15.scale
+        view.backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
+        view.layer.cornerRadius = 12.scale
         view.layer.masksToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(view)
@@ -81,10 +89,9 @@ private extension STUnlockCell {
     
     func makeTitleLabel() -> UILabel {
         let attrs = TextAttributes()
-            .textColor(UIColor.white)
-            .font(Fonts.SFProRounded.bold(size: 17.scale))
+            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .font(Fonts.SFProRounded.regular(size: 14.scale))
             .lineHeight(20.scale)
-            .letterSpacing(-0.24.scale)
         
         let view = UILabel()
         view.attributedText = "Settings.Unlock".localized.attributed(with: attrs)
@@ -95,14 +102,23 @@ private extension STUnlockCell {
     
     func makeSubTitleLabel() -> UILabel {
         let attrs = TextAttributes()
-            .textColor(UIColor.white)
-            .font(Fonts.SFProRounded.bold(size: 25.scale))
+            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .font(Fonts.SFProRounded.bold(size: 24.scale))
             .lineHeight(29.scale)
-            .letterSpacing(-0.24.scale)
         
         let view = UILabel()
         view.attributedText = "Settings.Premium".localized.attributed(with: attrs)
         view.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(view)
+        return view
+    }
+    
+    func makeIconView() -> UIImageView {
+        let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.image = UIImage(named: "Settings.Lock")
+        view.tintColor = UIColor(integralRed: 31, green: 31, blue: 31)
+        view.contentMode = .scaleAspectFit
         container.addSubview(view)
         return view
     }

@@ -26,13 +26,13 @@ private extension SettingsViewModel {
                 guard activeSubscription else {
                     return [
                         .unlockPremium,
-                        .selectedCourse(course),
+                        .settings,
                         .links
                     ]
                 }
                 
                 return [
-                    .selectedCourse(course),
+                    .settings,
                     .links
                 ]
             }
