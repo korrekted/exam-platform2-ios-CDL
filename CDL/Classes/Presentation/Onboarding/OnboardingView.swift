@@ -9,13 +9,13 @@ import UIKit
 
 final class OnboardingView: UIView {
     enum Step: Int {
-        case slide1, slide2, slide3, slide4, slide5, slide6, slide7, slide8, slide9, slide10, slide11, slide12, slide13, slide14, slide15
+        case started, topics, state, language, gender, age, goals, whenTaking, time, count, experience, question1, question2, question3, question4, preloader, plan
     }
     
     var didFinish: (() -> Void)?
     var didChangedSlide: ((Step) -> Void)?
     
-    var step = Step.slide1 {
+    var step = Step.started {
         didSet {
             scroll()
         }
@@ -25,21 +25,23 @@ final class OnboardingView: UIView {
     
     private lazy var contentViews: [OSlideView] = {
         [
-            OSlide1View(step: .slide1),
-            OSlide2View(step: .slide2),
-            OSlide3View(step: .slide3),
-            OSlide4View(step: .slide4),
-            OSlide5View(step: .slide5),
-            OSlide6View(step: .slide6),
-            OSlide7View(step: .slide7),
-            OSlide8View(step: .slide8),
-            OSlide9View(step: .slide9),
-            OSlideQuestionView(step: .slide10, questionKey: "Onboarding.Slide10.Question"),
-            OSlideQuestionView(step: .slide11, questionKey: "Onboarding.Slide11.Question"),
-            OSlideQuestionView(step: .slide12, questionKey: "Onboarding.Slide12.Question"),
-            OSlideQuestionView(step: .slide13, questionKey: "Onboarding.Slide13.Question"),
-            OSlide14View(step: .slide14),
-            OSlide15View(step: .slide15)
+            OSlideStartedView(step: .started),
+            OSlideTopicsView(step: .topics),
+            OSlideStateView(step: .state),
+            OSlideLanguageView(step: .language),
+            OSlideGenderView(step: .gender),
+            OSlideAgeView(step: .age),
+            OSlideGoalsView(step: .goals),
+            OSlideWhenTakingView(step: .whenTaking),
+            OSlideTimeView(step: .time),
+            OSlideCountView(step: .count),
+            OSlideExperienceView(step: .experience),
+            OSlideQuestionView(step: .question1, questionKey: "Onboarding.Question1"),
+            OSlideQuestionView(step: .question2, questionKey: "Onboarding.Question2"),
+            OSlideQuestionView(step: .question3, questionKey: "Onboarding.Question3"),
+            OSlideQuestionView(step: .question4, questionKey: "Onboarding.Question4"),
+            OSlidePreloaderView(step: .preloader),
+            OSlidePlanView(step: .plan)
         ]
     }()
     
@@ -77,7 +79,7 @@ extension OnboardingView: OSlideViewDelegate {
 // MARK: Private
 private extension OnboardingView {
     func initialize() {
-        backgroundColor = UIColor(integralRed: 242, green: 245, blue: 252)
+        backgroundColor = UIColor(integralRed: 41, green: 55, blue: 137)
         
         contentViews
             .enumerated()
