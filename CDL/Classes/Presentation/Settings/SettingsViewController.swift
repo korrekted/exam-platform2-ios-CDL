@@ -22,6 +22,8 @@ final class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mainView.navigationView.leftAction.addTarget(self, action: #selector(popAction), for: .touchUpInside)
+        
         SDKStorage.shared
             .amplitudeManager
             .logEvent(name: "Settings Screen", parameters: [:])
@@ -55,12 +57,6 @@ private extension SettingsViewController {
             SDKStorage.shared
                 .amplitudeManager
                 .logEvent(name: "Settings Tap", parameters: ["what": "unlock premium"])
-        case .course:
-            UIApplication.shared.keyWindow?.rootViewController = CoursesViewController.make(howOpen: .root)
-            
-            SDKStorage.shared
-                .amplitudeManager
-                .logEvent(name: "Settings Tap", parameters: ["what": "select exam"])
         case .rateUs:
             RateUs.requestReview()
             
@@ -85,6 +81,12 @@ private extension SettingsViewController {
             SDKStorage.shared
                 .amplitudeManager
                 .logEvent(name: "Settings Tap", parameters: ["what": "privacy policy"])
+        case .state:
+            break
+        case .topic:
+            break
+        case .language:
+            break
         }
     }
     
@@ -94,5 +96,9 @@ private extension SettingsViewController {
         }
         
         UIApplication.shared.open(url, options: [:])
+    }
+    
+    @objc func popAction() {
+        navigationController?.popViewController(animated: true)
     }
 }

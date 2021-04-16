@@ -61,29 +61,26 @@ private extension STLinksCell {
         NSLayoutConstraint.activate([
             rateUsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.scale),
             rateUsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.scale),
-            rateUsView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            rateUsView.heightAnchor.constraint(equalToConstant: 50.scale)
+            rateUsView.topAnchor.constraint(equalTo: contentView.topAnchor)
         ])
         
         NSLayoutConstraint.activate([
             contactUsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.scale),
             contactUsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.scale),
-            contactUsView.topAnchor.constraint(equalTo: rateUsView.bottomAnchor),
-            contactUsView.heightAnchor.constraint(equalToConstant: 50.scale)
+            contactUsView.topAnchor.constraint(equalTo: rateUsView.bottomAnchor, constant: 10.scale)
         ])
         
         NSLayoutConstraint.activate([
             termsOfUse.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.scale),
             termsOfUse.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.scale),
-            termsOfUse.topAnchor.constraint(equalTo: contactUsView.bottomAnchor),
-            termsOfUse.heightAnchor.constraint(equalToConstant: 50.scale)
+            termsOfUse.topAnchor.constraint(equalTo: contactUsView.bottomAnchor, constant: 10.scale)
         ])
         
         NSLayoutConstraint.activate([
             privacyPolicyView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.scale),
             privacyPolicyView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.scale),
-            privacyPolicyView.topAnchor.constraint(equalTo: termsOfUse.bottomAnchor),
-            privacyPolicyView.heightAnchor.constraint(equalToConstant: 50.scale)
+            privacyPolicyView.topAnchor.constraint(equalTo: termsOfUse.bottomAnchor, constant: 10.scale),
+            privacyPolicyView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }
@@ -97,10 +94,7 @@ private extension STLinksCell {
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(tapGesture)
         view.tag = 1
-        view.backgroundColor = UIColor.white
-        view.layer.cornerRadius = 15.scale
-        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        view.label.text = "Settings.RateUs".localized
+        view.label.attributedText = "Settings.RateUs".localized.attributed(with: .attr)
         view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(view)
         return view
@@ -113,8 +107,7 @@ private extension STLinksCell {
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(tapGesture)
         view.tag = 2
-        view.backgroundColor = UIColor.white
-        view.label.text = "Settings.ContactUs".localized
+        view.label.attributedText = "Settings.ContactUs".localized.attributed(with: .attr)
         view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(view)
         return view
@@ -127,8 +120,7 @@ private extension STLinksCell {
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(tapGesture)
         view.tag = 3
-        view.backgroundColor = UIColor.white
-        view.label.text = "Settings.TermsOfUse".localized
+        view.label.attributedText = "Settings.TermsOfUse".localized.attributed(with: .attr)
         view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(view)
         return view
@@ -141,13 +133,16 @@ private extension STLinksCell {
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(tapGesture)
         view.tag = 4
-        view.backgroundColor = UIColor.white
-        view.layer.cornerRadius = 15.scale
-        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        view.label.text = "Settings.PrivacyPolicy".localized
-        view.placeholder.isHidden = true
+        view.label.attributedText = "Settings.PrivacyPolicy".localized.attributed(with: .attr)
         view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(view)
         return view
     }
+}
+
+private extension TextAttributes {
+    static let attr = TextAttributes()
+        .font(Fonts.SFProRounded.regular(size: 18.scale))
+        .lineHeight(25.scale)
+        .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
 }

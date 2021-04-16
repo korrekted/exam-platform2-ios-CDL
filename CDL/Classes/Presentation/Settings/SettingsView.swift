@@ -8,8 +8,8 @@
 import UIKit
 
 final class SettingsView: UIView {
-    lazy var titleLabel = makeTitleLabel()
     lazy var tableView = makeTableView()
+    lazy var navigationView = makeNavigationView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,14 +34,15 @@ private extension SettingsView {
 private extension SettingsView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: ScreenSize.isIphoneXFamily ? 88.scale : 65.scale),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale)
+            navigationView.topAnchor.constraint(equalTo: topAnchor),
+            navigationView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            navigationView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            navigationView.heightAnchor.constraint(equalToConstant: 125.scale)
         ])
         
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20.scale),
+            tableView.topAnchor.constraint(equalTo: navigationView.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
@@ -50,20 +51,6 @@ private extension SettingsView {
 
 // MARK: Lazy initialization
 private extension SettingsView {
-    func makeTitleLabel() -> UILabel {
-        let attrs = TextAttributes()
-            .textColor(UIColor.black)
-            .font(Fonts.SFProRounded.bold(size: 34.scale))
-            .lineHeight(41.scale)
-            .letterSpacing(0.37.scale)
-        
-        let view = UILabel()
-        view.attributedText = "Settings.Title".localized.attributed(with: attrs)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(view)
-        return view
-    }
-    
     func makeTableView() -> SettingsTableView {
         let view = SettingsTableView()
         view.showsVerticalScrollIndicator = false
@@ -71,6 +58,18 @@ private extension SettingsView {
         view.allowsSelection = false
         view.separatorStyle = .none
         view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }
+    
+    func makeNavigationView() -> NavigationBar {
+        let view = NavigationBar()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(integralRed: 41, green: 55, blue: 137)
+        view.leftAction.setImage(UIImage(named: "General.Pop"), for: .normal)
+        view.leftAction.tintColor = UIColor(integralRed: 245, green: 245, blue: 245)
+        view.rightAction.tintColor = UIColor(integralRed: 245, green: 245, blue: 245)
+        view.setTitle(title: "Settings.Title".localized)
         addSubview(view)
         return view
     }
