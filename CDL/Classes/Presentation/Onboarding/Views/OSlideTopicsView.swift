@@ -9,16 +9,30 @@ import UIKit
 
 final class OSlideTopicsView: OSlideView {
     lazy var titleLabel = makeTitleLabel()
+    lazy var topicsView = makeTopicsCollectionView()
     lazy var button = makeButton()
     
     override init(step: OnboardingView.Step) {
         super.init(step: step)
         
         makeConstraints()
+        topicsCollectionViewDidChangeSelection()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: TopicsCollectionViewDelegate
+extension OSlideTopicsView: TopicsCollectionViewDelegate {
+    func topicsCollectionViewDidChangeSelection() {
+        let isEmpty = topicsView.elements
+            .filter { $0.isSelected }
+            .isEmpty
+        
+        button.isEnabled = !isEmpty
+        button.alpha = isEmpty ? 0.4 : 1
     }
 }
 
@@ -28,7 +42,14 @@ private extension OSlideTopicsView {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 250.scale)
+            titleLabel.bottomAnchor.constraint(equalTo: topicsView.topAnchor, constant: -24.scale)
+        ])
+        
+        NSLayoutConstraint.activate([
+            topicsView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            topicsView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            topicsView.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -48.scale),
+            topicsView.heightAnchor.constraint(equalToConstant: 335.scale)
         ])
         
         NSLayoutConstraint.activate([
@@ -52,6 +73,18 @@ private extension OSlideTopicsView {
         let view = UILabel()
         view.numberOfLines = 0
         view.attributedText = "Onboarding.SlideTopics.Title".localized.attributed(with: attrs)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }
+    
+    func makeTopicsCollectionView() -> TopicsCollectionView {
+        let view = TopicsCollectionView(frame: .zero, collectionViewLayout: TopicsCollectionLayout())
+        view.topicsCollectionViewDelegate = self
+        view.contentInset = UIEdgeInsets(top: 0, left: 16.scale, bottom: 0, right: 16.scale)
+        view.backgroundColor = UIColor.clear
+        view.showsVerticalScrollIndicator = false
+        view.showsHorizontalScrollIndicator = false
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view

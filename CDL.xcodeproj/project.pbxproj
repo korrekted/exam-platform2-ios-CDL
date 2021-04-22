@@ -252,6 +252,10 @@
 		96B67AEA2629BB100048DAB9 /* OSlideExperienceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67AE92629BB100048DAB9 /* OSlideExperienceView.swift */; };
 		96B67AED2629BDDB0048DAB9 /* OQuestionFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67AEC2629BDDB0048DAB9 /* OQuestionFormView.swift */; };
 		96B67AF5262A06900048DAB9 /* OPreloaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67AF4262A06900048DAB9 /* OPreloaderCell.swift */; };
+		96F44FB326317844000B77E3 /* TopicsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F44FB226317844000B77E3 /* TopicsCollectionView.swift */; };
+		96F44FB62631788D000B77E3 /* TopicsCollectionElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F44FB52631788D000B77E3 /* TopicsCollectionElement.swift */; };
+		96F44FB926317909000B77E3 /* TopicsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F44FB826317909000B77E3 /* TopicsCollectionCell.swift */; };
+		96F44FBD26319E2E000B77E3 /* TopicsCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F44FBC26319E2E000B77E3 /* TopicsCollectionLayout.swift */; };
 		B27352698CEF145A2B42A7FF /* Pods_CDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6B356CE2F93ECB3C836F43 /* Pods_CDL.framework */; };
 /* End PBXBuildFile section */
 
@@ -505,6 +509,10 @@
 		96B67AE92629BB100048DAB9 /* OSlideExperienceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSlideExperienceView.swift; sourceTree = "<group>"; };
 		96B67AEC2629BDDB0048DAB9 /* OQuestionFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OQuestionFormView.swift; sourceTree = "<group>"; };
 		96B67AF4262A06900048DAB9 /* OPreloaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPreloaderCell.swift; sourceTree = "<group>"; };
+		96F44FB226317844000B77E3 /* TopicsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsCollectionView.swift; sourceTree = "<group>"; };
+		96F44FB52631788D000B77E3 /* TopicsCollectionElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsCollectionElement.swift; sourceTree = "<group>"; };
+		96F44FB826317909000B77E3 /* TopicsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsCollectionCell.swift; sourceTree = "<group>"; };
+		96F44FBC26319E2E000B77E3 /* TopicsCollectionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsCollectionLayout.swift; sourceTree = "<group>"; };
 		996829E936A18A730988E157 /* Pods-CDL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDL.debug.xcconfig"; path = "Target Support Files/Pods-CDL/Pods-CDL.debug.xcconfig"; sourceTree = "<group>"; };
 		C0234E5B8A750872AFFD05A9 /* Pods-CDL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDL.release.xcconfig"; path = "Target Support Files/Pods-CDL/Pods-CDL.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1426,6 +1434,7 @@
 		967AD49F260FD0AE008E8175 /* Atoms */ = {
 			isa = PBXGroup;
 			children = (
+				96F44FB12631782C000B77E3 /* TopicsCollection */,
 				967AD4A2260FD0AE008E8175 /* Source */,
 				967AD4A0260FD0AE008E8175 /* OProgressView.swift */,
 				967AD4A1260FD0AE008E8175 /* OSlidePlanCell.swift */,
@@ -1480,6 +1489,17 @@
 				967AD593260FD11B008E8175 /* Localizable.strings */,
 			);
 			path = Strings;
+			sourceTree = "<group>";
+		};
+		96F44FB12631782C000B77E3 /* TopicsCollection */ = {
+			isa = PBXGroup;
+			children = (
+				96F44FB226317844000B77E3 /* TopicsCollectionView.swift */,
+				96F44FB52631788D000B77E3 /* TopicsCollectionElement.swift */,
+				96F44FB826317909000B77E3 /* TopicsCollectionCell.swift */,
+				96F44FBC26319E2E000B77E3 /* TopicsCollectionLayout.swift */,
+			);
+			path = TopicsCollection;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1663,6 +1683,7 @@
 				86ACAD072625E2E30020C51C /* SCTrophyCollectionCell.swift in Sources */,
 				967AD562260FD0AF008E8175 /* MainRateCell.swift in Sources */,
 				967AD4CE260FD0AE008E8175 /* CircleView.swift in Sources */,
+				96F44FB926317909000B77E3 /* TopicsCollectionCell.swift in Sources */,
 				967AD539260FD0AF008E8175 /* QuestionContentCollectionView.swift in Sources */,
 				967AD506260FD0AF008E8175 /* Session.swift in Sources */,
 				967AD522260FD0AF008E8175 /* CourseViewController.swift in Sources */,
@@ -1756,6 +1777,7 @@
 				967AD55E260FD0AF008E8175 /* CourseStatsElement.swift in Sources */,
 				967AD54B260FD0AF008E8175 /* TestStatsCellType.swift in Sources */,
 				967AD550260FD0AF008E8175 /* TestStatsTableView.swift in Sources */,
+				96F44FBD26319E2E000B77E3 /* TopicsCollectionLayout.swift in Sources */,
 				967AD4C1260FD0AE008E8175 /* TextAttributes.swift in Sources */,
 				86BB2593261E14D700C6D2FA /* GetSavedRequest.swift in Sources */,
 				967AD575260FD0AF008E8175 /* OSlideAgeView.swift in Sources */,
@@ -1791,6 +1813,7 @@
 				86CE871326216E0600FC7091 /* SIAnswerView.swift in Sources */,
 				967AD52D260FD0AF008E8175 /* QuestionsCollectionView.swift in Sources */,
 				967AD52A260FD0AF008E8175 /* QuestionCell.swift in Sources */,
+				96F44FB326317844000B77E3 /* TopicsCollectionView.swift in Sources */,
 				86CE870626216C8100FC7091 /* SITestTableView.swift in Sources */,
 				967AD4D1260FD0AE008E8175 /* RxActivityIndicator.swift in Sources */,
 				967AD4DD260FD0AE008E8175 /* PaygateMainOffer.swift in Sources */,
@@ -1823,6 +1846,7 @@
 				967AD4BF260FD0AE008E8175 /* GlobalDefinitions.swift in Sources */,
 				967AD511260FD0AF008E8175 /* SettingsTableSection.swift in Sources */,
 				967AD57D260FD0AF008E8175 /* OSlideTimeView.swift in Sources */,
+				96F44FB62631788D000B77E3 /* TopicsCollectionElement.swift in Sources */,
 				967AD537260FD0AF008E8175 /* TestViewController.swift in Sources */,
 				86BB25B1261E2F8D00C6D2FA /* SIProgressCollectionView.swift in Sources */,
 				967AD4CC260FD0AE008E8175 /* PaddingPickerView.swift in Sources */,
