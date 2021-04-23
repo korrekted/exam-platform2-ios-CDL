@@ -30,15 +30,19 @@ private extension StudyViewModel {
     func makeCurrentCourse() -> Observable<Course> {
         let saved = selectedCourse
             .compactMap { $0 }
-            .do(onNext: { [weak self] in
-                self?.courseManager.select(course: $0)
-            }).debug()
         
-        return courseManager
+        let defaultCourse = courseManager
             .rxGetSelectedCourse()
             .compactMap { $0 }
             .asObservable()
+            .concat(courseManager.retrieveCourses().compactMap { $0.first })
+            .take(1)
+        
+        return defaultCourse
             .concat(saved)
+            .do(onNext: { [weak self] in
+                self?.courseManager.select(course: $0)
+            })
     }
     
     func makeCourseName() -> Driver<Course> {
@@ -80,11 +84,13 @@ private extension StudyViewModel {
     }
     
     func makeBrief() -> Driver<SCEBrief> {
-        QuestionManagerMediator.shared.rxTestPassed
+        let testPassed = QuestionManagerMediator.shared.rxTestPassed
             .asObservable()
             .startWith(())
-            .flatMap { [weak self] _ -> Single<(Course, Brief?)> in
-                guard let this = self, let course = self?.courseManager.getSelectedCourse() else {
+        
+        return Observable.combineLatest(testPassed, currentCourse)
+            .flatMapLatest { [weak self] _, course -> Single<(Course, Brief?)> in
+                guard let this = self else {
                     return .never()
                 }
                 
