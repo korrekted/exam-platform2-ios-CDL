@@ -6,17 +6,26 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class OSlideTopicsView: OSlideView {
     lazy var titleLabel = makeTitleLabel()
     lazy var topicsView = makeTopicsCollectionView()
     lazy var button = makeButton()
     
+    private lazy var manager = ProfileManagerCore()
+    
+    private lazy var disposeBag = DisposeBag()
+    
+    private lazy var saveSelectedTopicsTrigger = PublishRelay<Void>()
+    
     override init(step: OnboardingView.Step) {
         super.init(step: step)
         
         makeConstraints()
         topicsCollectionViewDidChangeSelection()
+        initialize()
     }
     
     required init?(coder: NSCoder) {
@@ -27,6 +36,47 @@ final class OSlideTopicsView: OSlideView {
 // MARK: TopicsCollectionViewDelegate
 extension OSlideTopicsView: TopicsCollectionViewDelegate {
     func topicsCollectionViewDidChangeSelection() {
+        changeEnabled()
+        
+        saveSelectedTopicsTrigger.accept(Void())
+    }
+}
+
+// MARK: Private
+private extension OSlideTopicsView {
+    func initialize() {
+        Single
+            .zip(
+                manager.obtainSpecificTopics(),
+                manager.obtainSelectedSpecificTopics()
+            ) { topics, selectedTopics -> [TopicsCollectionElement] in
+                topics.map { topic -> TopicsCollectionElement in
+                    TopicsCollectionElement(topic: topic, isSelected: selectedTopics.contains(topic))
+                }
+            }
+            .asDriver(onErrorJustReturn: [])
+            .drive(onNext: { [weak self] elements in
+                self?.topicsView.setup(elements: elements)
+            })
+            .disposed(by: disposeBag)
+        
+        saveSelectedTopicsTrigger
+            .flatMapLatest { [weak self] _ -> Single<Void> in
+                guard let self = self else {
+                    return .never()
+                }
+                
+                let selectedTopics = self.topicsView.elements
+                    .filter { $0.isSelected }
+                    .map { $0.topic }
+                
+                return self.manager.saveSelected(specificTopics: selectedTopics)
+            }
+            .subscribe()
+            .disposed(by: disposeBag)
+    }
+    
+    func changeEnabled() {
         let isEmpty = topicsView.elements
             .filter { $0.isSelected }
             .isEmpty

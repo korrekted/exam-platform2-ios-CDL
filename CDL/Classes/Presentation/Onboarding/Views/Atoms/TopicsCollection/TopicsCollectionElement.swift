@@ -8,11 +8,11 @@
 import UIKit
 
 final class TopicsCollectionElement {
-    let title: String
+    let topic: SpecificTopic
     var isSelected: Bool
     
-    init(title: String, isSelected: Bool) {
-        self.title = title
+    init(topic: SpecificTopic, isSelected: Bool) {
+        self.topic = topic
         self.isSelected = isSelected
     }
 }
@@ -21,7 +21,7 @@ final class TopicsCollectionElement {
 extension TopicsCollectionElement {
     func width(with attrs: TextAttributes, height: CGFloat) -> CGFloat {
         let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
-        let boundingBox = title
+        let boundingBox = topic.title
             .boundingRect(with: constraintRect,
                           options: .usesLineFragmentOrigin,
                           attributes: attrs.dictionary,
