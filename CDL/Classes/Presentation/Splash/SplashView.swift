@@ -26,7 +26,7 @@ final class SplashView: UIView {
 // MARK: Private
 private extension SplashView {
     func initialize() {
-        backgroundColor = UIColor(integralRed: 242, green: 245, blue: 252)
+        backgroundColor = UIColor(integralRed: 41, green: 55, blue: 137)
     }
 }
 
@@ -36,14 +36,14 @@ private extension SplashView {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8.scale),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8.scale),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: ScreenSize.isIphoneXFamily ? 183.scale : 60.scale)
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: ScreenSize.isIphoneXFamily ? 153.scale : 30.scale)
         ])
         
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 366.scale)
+            imageView.topAnchor.constraint(equalTo: topAnchor)
         ])
     }
 }
@@ -52,13 +52,13 @@ private extension SplashView {
 private extension SplashView {
     func makeTitleLabel() -> UILabel {
         let attrs1 = TextAttributes()
-            .textColor(UIColor(integralRed: 95, green: 70, blue: 245))
+            .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
             .font(Fonts.SFProRounded.bold(size: 40.scale))
             .lineHeight(48.scale)
             .textAlignment(.center)
         
         let attrs2 = TextAttributes()
-            .textColor(UIColor(integralRed: 196, green: 41, blue: 80))
+            .textColor(UIColor(integralRed: 249, green: 205, blue: 106))
             .font(Fonts.SFProRounded.bold(size: 45.scale))
             .lineHeight(53.scale)
             .textAlignment(.center)
