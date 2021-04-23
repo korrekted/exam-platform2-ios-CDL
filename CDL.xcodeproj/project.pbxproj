@@ -198,12 +198,6 @@
 		967AD551260FD0AF008E8175 /* TestStatsResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD479260FD0AE008E8175 /* TestStatsResultView.swift */; };
 		967AD552260FD0AF008E8175 /* TestStatsFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD47A260FD0AE008E8175 /* TestStatsFilterView.swift */; };
 		967AD553260FD0AF008E8175 /* TestStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD47B260FD0AE008E8175 /* TestStatsView.swift */; };
-		967AD554260FD0AF008E8175 /* CoursesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD47D260FD0AE008E8175 /* CoursesView.swift */; };
-		967AD555260FD0AF008E8175 /* CoursesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD47E260FD0AE008E8175 /* CoursesViewModel.swift */; };
-		967AD556260FD0AF008E8175 /* CoursesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD47F260FD0AE008E8175 /* CoursesViewController.swift */; };
-		967AD557260FD0AF008E8175 /* CourseCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD482260FD0AE008E8175 /* CourseCollectionCell.swift */; };
-		967AD558260FD0AF008E8175 /* CoursesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD483260FD0AE008E8175 /* CoursesCollectionView.swift */; };
-		967AD559260FD0AF008E8175 /* CoursesCollectionElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD484260FD0AE008E8175 /* CoursesCollectionElement.swift */; };
 		967AD55A260FD0AF008E8175 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD486260FD0AE008E8175 /* StatsViewModel.swift */; };
 		967AD55B260FD0AF008E8175 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD487260FD0AE008E8175 /* StatsViewController.swift */; };
 		967AD55C260FD0AF008E8175 /* StatsCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD489260FD0AE008E8175 /* StatsCellType.swift */; };
@@ -456,12 +450,6 @@
 		967AD479260FD0AE008E8175 /* TestStatsResultView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestStatsResultView.swift; sourceTree = "<group>"; };
 		967AD47A260FD0AE008E8175 /* TestStatsFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestStatsFilterView.swift; sourceTree = "<group>"; };
 		967AD47B260FD0AE008E8175 /* TestStatsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestStatsView.swift; sourceTree = "<group>"; };
-		967AD47D260FD0AE008E8175 /* CoursesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesView.swift; sourceTree = "<group>"; };
-		967AD47E260FD0AE008E8175 /* CoursesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesViewModel.swift; sourceTree = "<group>"; };
-		967AD47F260FD0AE008E8175 /* CoursesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesViewController.swift; sourceTree = "<group>"; };
-		967AD482260FD0AE008E8175 /* CourseCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseCollectionCell.swift; sourceTree = "<group>"; };
-		967AD483260FD0AE008E8175 /* CoursesCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesCollectionView.swift; sourceTree = "<group>"; };
-		967AD484260FD0AE008E8175 /* CoursesCollectionElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesCollectionElement.swift; sourceTree = "<group>"; };
 		967AD486260FD0AE008E8175 /* StatsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
 		967AD487260FD0AE008E8175 /* StatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		967AD489260FD0AE008E8175 /* StatsCellType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsCellType.swift; sourceTree = "<group>"; };
@@ -1039,7 +1027,6 @@
 				967AD444260FD0AE008E8175 /* Test */,
 				967AD45E260FD0AE008E8175 /* Paygate */,
 				967AD468260FD0AE008E8175 /* TestStats */,
-				967AD47C260FD0AE008E8175 /* Courses */,
 				967AD485260FD0AE008E8175 /* Stats */,
 				967AD49A260FD0AE008E8175 /* Onboarding */,
 			);
@@ -1310,35 +1297,6 @@
 				8686722A26120D7700B42D41 /* TestComunityResultLineView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		967AD47C260FD0AE008E8175 /* Courses */ = {
-			isa = PBXGroup;
-			children = (
-				967AD47D260FD0AE008E8175 /* CoursesView.swift */,
-				967AD47E260FD0AE008E8175 /* CoursesViewModel.swift */,
-				967AD47F260FD0AE008E8175 /* CoursesViewController.swift */,
-				967AD480260FD0AE008E8175 /* Views */,
-			);
-			path = Courses;
-			sourceTree = "<group>";
-		};
-		967AD480260FD0AE008E8175 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				967AD481260FD0AE008E8175 /* CollectionView */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		967AD481260FD0AE008E8175 /* CollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				967AD482260FD0AE008E8175 /* CourseCollectionCell.swift */,
-				967AD483260FD0AE008E8175 /* CoursesCollectionView.swift */,
-				967AD484260FD0AE008E8175 /* CoursesCollectionElement.swift */,
-			);
-			path = CollectionView;
 			sourceTree = "<group>";
 		};
 		967AD485260FD0AE008E8175 /* Stats */ = {
@@ -1655,7 +1613,6 @@
 			files = (
 				967AD576260FD0AF008E8175 /* OSlidePreloaderView.swift in Sources */,
 				967AD526260FD0AF008E8175 /* TabView.swift in Sources */,
-				967AD558260FD0AF008E8175 /* CoursesCollectionView.swift in Sources */,
 				8687B554261AE96600D6235D /* GetAgainTestRequest.swift in Sources */,
 				967AD507260FD0AF008E8175 /* SessionManagerCore.swift in Sources */,
 				967AD53A260FD0AF008E8175 /* AnswerView.swift in Sources */,
@@ -1708,7 +1665,6 @@
 				967AD4C4260FD0AE008E8175 /* SignError.swift in Sources */,
 				86F242C726285C7F00DA4B53 /* SCModesCell.swift in Sources */,
 				967AD4C8260FD0AE008E8175 /* NursingNavigationController.swift in Sources */,
-				967AD557260FD0AF008E8175 /* CourseCollectionCell.swift in Sources */,
 				967AD4C0260FD0AE008E8175 /* Scalable.swift in Sources */,
 				8667C2B72614D0810090CBFF /* ProgressView.swift in Sources */,
 				86ACACE42625AFA40020C51C /* SCCoursesCell.swift in Sources */,
@@ -1765,7 +1721,6 @@
 				967AD521260FD0AF008E8175 /* StudyView.swift in Sources */,
 				967AD4E3260FD0AE008E8175 /* TestStats.swift in Sources */,
 				967AD56F260FD0AF008E8175 /* ODatePicker.swift in Sources */,
-				967AD555260FD0AF008E8175 /* CoursesViewModel.swift in Sources */,
 				96B67AEA2629BB100048DAB9 /* OSlideExperienceView.swift in Sources */,
 				967AD501260FD0AF008E8175 /* GetBriefResponseMapper.swift in Sources */,
 				967AD4E7260FD0AE008E8175 /* TestStatsManager.swift in Sources */,
@@ -1784,7 +1739,6 @@
 				967AD4C7260FD0AE008E8175 /* Toast.swift in Sources */,
 				967AD509260FD0AF008E8175 /* SettingsView.swift in Sources */,
 				967AD4BE260FD0AE008E8175 /* StringExtension.swift in Sources */,
-				967AD554260FD0AF008E8175 /* CoursesView.swift in Sources */,
 				967AD565260FD0AF008E8175 /* MainProgressView.swift in Sources */,
 				967AD582260FD0AF008E8175 /* OnboardingAnalytics.swift in Sources */,
 				967AD553260FD0AF008E8175 /* TestStatsView.swift in Sources */,
@@ -1864,9 +1818,7 @@
 				86ACAD0B2625F11A0020C51C /* CourseHeader.swift in Sources */,
 				967AD50C260FD0AF008E8175 /* STLinkView.swift in Sources */,
 				967AD4D7260FD0AE008E8175 /* PaygateMapper.swift in Sources */,
-				967AD559260FD0AF008E8175 /* CoursesCollectionElement.swift in Sources */,
 				86CD1CD7261EBAD5000A2F49 /* SITest.swift in Sources */,
-				967AD556260FD0AF008E8175 /* CoursesViewController.swift in Sources */,
 				967AD4D6260FD0AE008E8175 /* MonetizationManager.swift in Sources */,
 				967AD527260FD0AF008E8175 /* QuestionContentCell.swift in Sources */,
 				967AD51D260FD0AF008E8175 /* SCBriefDayView.swift in Sources */,

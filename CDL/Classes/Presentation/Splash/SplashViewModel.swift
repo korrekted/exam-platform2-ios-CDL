@@ -10,10 +10,9 @@ import RxCocoa
 
 final class SplashViewModel {
     enum Step {
-        case onboarding, courses, course, paygate
+        case onboarding, course, paygate
     }
     
-    private lazy var coursesManager = CoursesManagerCore()
     private lazy var monetizationManager = MonetizationManagerCore()
     private lazy var sessionManager = SessionManagerCore()
     
@@ -29,11 +28,7 @@ final class SplashViewModel {
             return .onboarding
         }
         
-        if coursesManager.getSelectedCourse() != nil {
-            return .course
-        }
-        
-        return .courses
+        return .course
     }
 }
 
@@ -55,11 +50,7 @@ private extension SplashViewModel {
             return .deferred { .just(.paygate) }
         }
         
-        if coursesManager.getSelectedCourse() != nil {
-            return .deferred { .just(.course) }
-        }
-        
-        return .deferred { .just(.courses) }
+        return .deferred { .just(.course) }
     }
     
     func needPayment() -> Bool {

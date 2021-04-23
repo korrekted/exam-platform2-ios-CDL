@@ -65,10 +65,6 @@
 "Onboarding.SlidePlan.Cell3" = "reminders and notifications";
 "Onboarding.SlidePlan.Button" = "Get my plan";
 
-// MARK: Courses
-"Courses.Title" = "Which exam are you studying for?";
-"Courses.Button" = "Select";
-
 // MARK: Study
 "Study.Title" = "Study";
 "Study.Day.One" = "day";
