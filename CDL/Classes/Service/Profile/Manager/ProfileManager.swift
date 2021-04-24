@@ -12,4 +12,12 @@ protocol ProfileManager {
     func obtainSpecificTopics() -> Single<[SpecificTopic]>
     func obtainSelectedSpecificTopics() -> Single<[SpecificTopic]>
     func saveSelected(specificTopics: [SpecificTopic]) -> Single<Void>
+    
+    // MARK: Language
+    func saveSelected(language: Language) -> Single<Void>
+    func obtainSelectedLanguage() -> Single<Language?>
+    
+    // MARK: State
+    func saveSelected(state: State) -> Single<Void>
+    func obtainSelectedState() -> Single<State?>
 }
