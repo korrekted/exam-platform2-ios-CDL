@@ -50,6 +50,7 @@
 		86F242CB2628697900DA4B53 /* SCModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F242CA2628697800DA4B53 /* SCModeView.swift */; };
 		9613EC842634A11700DAEB9A /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613EC832634A11700DAEB9A /* Language.swift */; };
 		9613EC8B2634A19600DAEB9A /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613EC8A2634A19600DAEB9A /* State.swift */; };
+		9613EC8F2634AEFD00DAEB9A /* SettingsOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613EC8E2634AEFD00DAEB9A /* SettingsOpener.swift */; };
 		967AD379260FCFAF008E8175 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 967AD378260FCFAF008E8175 /* Assets.xcassets */; };
 		967AD4B9260FD0AE008E8175 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD3A8260FD0AE008E8175 /* UIColorExtension.swift */; };
 		967AD4BA260FD0AE008E8175 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD3A9260FD0AE008E8175 /* Collection+Extension.swift */; };
@@ -303,6 +304,7 @@
 		86F242CA2628697800DA4B53 /* SCModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCModeView.swift; sourceTree = "<group>"; };
 		9613EC832634A11700DAEB9A /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		9613EC8A2634A19600DAEB9A /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		9613EC8E2634AEFD00DAEB9A /* SettingsOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsOpener.swift; sourceTree = "<group>"; };
 		967AD378260FCFAF008E8175 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		967AD37D260FCFAF008E8175 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		967AD3A8260FD0AE008E8175 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
@@ -1040,10 +1042,10 @@
 		967AD419260FD0AE008E8175 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				967AD41A260FD0AE008E8175 /* SettingsView.swift */,
-				967AD41B260FD0AE008E8175 /* SettingsViewModel.swift */,
 				967AD41C260FD0AE008E8175 /* Utils */,
 				967AD41E260FD0AE008E8175 /* Views */,
+				967AD41A260FD0AE008E8175 /* SettingsView.swift */,
+				967AD41B260FD0AE008E8175 /* SettingsViewModel.swift */,
 				967AD426260FD0AE008E8175 /* SettingsViewController.swift */,
 			);
 			path = Settings;
@@ -1053,6 +1055,7 @@
 			isa = PBXGroup;
 			children = (
 				967AD41D260FD0AE008E8175 /* RateUs.swift */,
+				9613EC8E2634AEFD00DAEB9A /* SettingsOpener.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1700,6 +1703,7 @@
 				967AD532260FD0AF008E8175 /* TestType.swift in Sources */,
 				967AD517260FD0AF008E8175 /* StudyViewController.swift in Sources */,
 				967AD52B260FD0AF008E8175 /* ExplanationCell.swift in Sources */,
+				9613EC8F2634AEFD00DAEB9A /* SettingsOpener.swift in Sources */,
 				967AD536260FD0AF008E8175 /* TestView.swift in Sources */,
 				967AD4F3260FD0AF008E8175 /* GetTenSetRequest.swift in Sources */,
 				967AD57E260FD0AF008E8175 /* OSlideStartedView.swift in Sources */,
