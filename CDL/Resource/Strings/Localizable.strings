@@ -29,6 +29,7 @@
 "Onboarding.Next" = "Next";
 "Onboarding.Yes" = "Yes";
 "Onboarding.No" = "No";
+"Onboarding.Skip" = "skip";
 "Onboarding.SlideStarted.Text1" = "Personal study plan. 98% pass rate.";
 "Onboarding.SlideStarted.Text2" = "A special AI-supported study plan to help you ace your CDL exam.";
 "Onboarding.SlideStarted.Button" = "Get started";

@@ -18,10 +18,13 @@ final class OnboardingView: UIView {
     var step = Step.started {
         didSet {
             scroll()
+            headerUpdate()
         }
     }
     
     lazy var scrollView = makeScrollView()
+    lazy var progressView = makeProgressView()
+    lazy var skipButton = makeSkipButton()
     
     private lazy var contentViews: [OSlideView] = {
         [
@@ -50,6 +53,7 @@ final class OnboardingView: UIView {
         
         makeConstraints()
         initialize()
+        headerUpdate()
     }
     
     required init?(coder: NSCoder) {
@@ -111,6 +115,25 @@ private extension OnboardingView {
         
         view.moveToThis()
     }
+    
+    func headerUpdate() {
+        switch step {
+        case .started, .topics, .state, .preloader, .plan:
+            skipButton.isHidden = true
+            progressView.isHidden = true
+        default:
+            skipButton.isHidden = false
+            progressView.isHidden = false
+        }
+        
+        let progressCases: [Step] = [
+            .language, .gender, .age, .goals, .whenTaking, .time, .count, .experience, .question1, .question2, .question3, .question4
+        ]
+        guard let index = progressCases.firstIndex(of: step) else {
+            return
+        }
+        progressView.progress = Float(index + 1) / Float(progressCases.count)
+    }
 }
 
 // MARK: Make constraints
@@ -121,6 +144,17 @@ private extension OnboardingView {
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
             scrollView.topAnchor.constraint(equalTo: topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            progressView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
+            progressView.trailingAnchor.constraint(equalTo: skipButton.leadingAnchor, constant: -24.scale),
+            progressView.centerYAnchor.constraint(equalTo: skipButton.centerYAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            skipButton.topAnchor.constraint(equalTo: topAnchor, constant: 69.scale),
+            skipButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale)
         ])
     }
 }
@@ -135,6 +169,28 @@ private extension OnboardingView {
         view.showsVerticalScrollIndicator = false
         view.showsHorizontalScrollIndicator = false
         view.contentInsetAdjustmentBehavior = .never
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }
+    
+    func makeProgressView() -> UIProgressView {
+        let view = UIProgressView()
+        view.trackTintColor = UIColor(integralRed: 60, green: 75, blue: 159)
+        view.progressTintColor = UIColor.white
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }
+    
+    func makeSkipButton() -> UIButton {
+        let attrs = TextAttributes()
+            .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+            .font(Fonts.SFProRounded.regular(size: 18.scale))
+        
+        let view = UIButton()
+        view.setAttributedTitle("Onboarding.Skip".localized.attributed(with: attrs), for: .normal)
+        view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
