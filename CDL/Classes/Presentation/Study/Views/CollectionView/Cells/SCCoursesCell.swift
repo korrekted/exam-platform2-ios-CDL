@@ -26,9 +26,10 @@ class SCCoursesCell: UICollectionViewCell {
 }
 
 extension SCCoursesCell {
-    func setup(elements: [CourseElement], selectedCourse: @escaping (Course?) -> Void, didTapAdd: @escaping () -> Void) {
+    func setup(elements: [CourseElement], selectedCourse: @escaping (Course?) -> Void, didTapAdd: @escaping () -> Void, didTapCell: @escaping (Course) -> Void) {
         collectionView.selectedCourse = selectedCourse
         collectionView.didTapAdd = didTapAdd
+        collectionView.didTapCell = didTapCell
         collectionView.setup(elements: elements, isNeedScroll: isNeedScroll)
         isNeedScroll = false
     }

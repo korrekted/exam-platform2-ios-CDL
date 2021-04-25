@@ -51,7 +51,6 @@ class CourseCellProgressView: UIView {
         circularShareLayer.path = circularPath.cgPath
         circularShareLayer.strokeColor = UIColor(integralRed: 41, green: 55, blue: 137).cgColor
         circularShareLayer.lineWidth = lineWidth
-        circularShareLayer.strokeEnd = 0
         circularShareLayer.fillColor = nil
         circularShareLayer.lineCap = .round
     }
@@ -60,8 +59,10 @@ class CourseCellProgressView: UIView {
 extension CourseCellProgressView {
     func setProgres(percent: Int) {
         progressLabel.text = "\(percent)%"
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
         circularShareLayer.strokeEnd = min(CGFloat(Double(percent) / 100), 1.0)
-        setNeedsLayout()
+        CATransaction.commit()
     }
 }
 

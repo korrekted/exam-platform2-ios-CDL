@@ -10,6 +10,7 @@ import RxCocoa
 
 final class StudyCollectionView: UICollectionView {
     lazy var selectedCourse = BehaviorRelay<Course?>(value: nil)
+    lazy var didTapSelectedCourse = PublishRelay<Course>()
     lazy var didTapAdd = PublishRelay<Void>()
     lazy var didTapTrophy = PublishRelay<Void>()
     lazy var selectedMode = PublishRelay<SCEMode.Mode>()
@@ -64,7 +65,8 @@ extension StudyCollectionView: UICollectionViewDataSource {
             cell.setup(
                 elements: elements,
                 selectedCourse: { [weak self] in self?.selectedCourse.accept($0) },
-                didTapAdd: { [weak self] in self?.didTapAdd.accept(()) }
+                didTapAdd: { [weak self] in self?.didTapAdd.accept(()) },
+                didTapCell: { [weak self] in self?.didTapSelectedCourse.accept($0) }
             )
             return cell
         case .trophy:
@@ -80,17 +82,16 @@ extension StudyCollectionView: UICollectionViewDataSource {
 // MARK: UICollectionViewDelegate
 extension StudyCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.bounds.width - contentInset.left - contentInset.right
         
         switch sections[indexPath.section].elements[indexPath.row] {
         case .title:
-            return CGSize(width: width, height: 24.scale)
+            return CGSize(width: collectionView.bounds.width, height: 24.scale)
         case .mode:
-            return CGSize(width: width, height: 322.scale)
+            return CGSize(width: collectionView.bounds.width, height: 472.scale)
         case .courses:
             return CGSize(width: collectionView.bounds.width, height: 232.scale)
         case .trophy:
-            return CGSize(width: width, height: 168.scale)
+            return CGSize(width: collectionView.bounds.width, height: 168.scale)
         }
     }
 }

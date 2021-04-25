@@ -98,7 +98,7 @@
 "Settings.Topics" = "Change topics";
 
 // MARK: Stats
-"Stats.PassRate.Title" = " Current pass rate";
+"Stats.PassRate.Title" = "Current pass rate";
 "Stats.MainRate.TestsTake" = "Tests taken";
 "Stats.MainRate.CorrectAnswers" = "Correct answers";
 "Stats.MainRate.QuestionsTaken" = "Questions taken";
@@ -133,7 +133,6 @@
 "Question.Counter.RemainingTime" = "Remaining time";
 
 // MARK: Test Stats
-"TestStats.Title" = "";
 "TestStats.TestTime" = "your time";
 "TestStats.ComunityAverage" = "comunity average";
 "TestStats.ComunityScore" = "comunity score";
@@ -150,3 +149,11 @@
 // MARK: Trophy
 "Trophy.LearnMore" = "Learn more";
 "Trophy.Title" = "Pass your CDL exam with 100%";
+
+
+// MARK: Course Details
+"CourseDetails.Questions" = "questions";
+"CourseDetails.Saved" = "Saved";
+"CourseDetails.Incorrect" = "Incorrect";
+"CourseDetails.PassRate" = "Pass rate";
+

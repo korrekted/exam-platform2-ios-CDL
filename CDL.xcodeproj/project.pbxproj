@@ -8,8 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		86227288261A2932008449C7 /* TestStatsElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227287261A2932008449C7 /* TestStatsElement.swift */; };
+		862F2DCC263572D70096ADE2 /* GradientProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862F2DCB263572D70096ADE2 /* GradientProgressView.swift */; };
 		8631825C2610E8000098797B /* TestProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8631825B2610E8000098797B /* TestProgressView.swift */; };
 		8631825F2610FA480098797B /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8631825E2610FA480098797B /* NavigationBar.swift */; };
+		8659FC9E2634297A0029598C /* CourseDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659FC9D2634297A0029598C /* CourseDetailsViewController.swift */; };
+		8659FCA1263429AB0029598C /* CourseDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659FCA0263429AB0029598C /* CourseDetailsViewModel.swift */; };
+		8659FCA4263429E60029598C /* CourseDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659FCA3263429E60029598C /* CourseDetailsView.swift */; };
+		8659FCA726342A7D0029598C /* CourseDetailsTabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659FCA626342A7D0029598C /* CourseDetailsTabelView.swift */; };
+		8659FCAC26342BF00029598C /* CourseDetailsTableElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659FCAB26342BF00029598C /* CourseDetailsTableElement.swift */; };
+		8659FCB226342E1B0029598C /* CourseDetailsTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659FCB126342E1B0029598C /* CourseDetailsTestCell.swift */; };
 		8667C2B72614D0810090CBFF /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8667C2B62614D0810090CBFF /* ProgressView.swift */; };
 		8667C2BB2614DEF90090CBFF /* TrophyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8667C2BA2614DEF90090CBFF /* TrophyView.swift */; };
 		8667C2BE2614E6E60090CBFF /* TrophyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8667C2BD2614E6E60090CBFF /* TrophyCell.swift */; };
@@ -262,8 +269,15 @@
 /* Begin PBXFileReference section */
 		1B6B356CE2F93ECB3C836F43 /* Pods_CDL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CDL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		86227287261A2932008449C7 /* TestStatsElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStatsElement.swift; sourceTree = "<group>"; };
+		862F2DCB263572D70096ADE2 /* GradientProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientProgressView.swift; sourceTree = "<group>"; };
 		8631825B2610E8000098797B /* TestProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestProgressView.swift; sourceTree = "<group>"; };
 		8631825E2610FA480098797B /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		8659FC9D2634297A0029598C /* CourseDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailsViewController.swift; sourceTree = "<group>"; };
+		8659FCA0263429AB0029598C /* CourseDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailsViewModel.swift; sourceTree = "<group>"; };
+		8659FCA3263429E60029598C /* CourseDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailsView.swift; sourceTree = "<group>"; };
+		8659FCA626342A7D0029598C /* CourseDetailsTabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailsTabelView.swift; sourceTree = "<group>"; };
+		8659FCAB26342BF00029598C /* CourseDetailsTableElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailsTableElement.swift; sourceTree = "<group>"; };
+		8659FCB126342E1B0029598C /* CourseDetailsTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailsTestCell.swift; sourceTree = "<group>"; };
 		8667C2B62614D0810090CBFF /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		8667C2BA2614DEF90090CBFF /* TrophyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophyView.swift; sourceTree = "<group>"; };
 		8667C2BD2614E6E60090CBFF /* TrophyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophyCell.swift; sourceTree = "<group>"; };
@@ -544,6 +558,52 @@
 				C0234E5B8A750872AFFD05A9 /* Pods-CDL.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		8659FC9C263428910029598C /* CourseDetails */ = {
+			isa = PBXGroup;
+			children = (
+				8659FCAA26342BD90029598C /* Models */,
+				8659FCA926342BCC0029598C /* Views */,
+				8659FC9D2634297A0029598C /* CourseDetailsViewController.swift */,
+				8659FCA0263429AB0029598C /* CourseDetailsViewModel.swift */,
+				8659FCA3263429E60029598C /* CourseDetailsView.swift */,
+			);
+			path = CourseDetails;
+			sourceTree = "<group>";
+		};
+		8659FCA926342BCC0029598C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8659FCAF26342DDB0029598C /* TableView */,
+				862F2DCB263572D70096ADE2 /* GradientProgressView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8659FCAA26342BD90029598C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8659FCAB26342BF00029598C /* CourseDetailsTableElement.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8659FCAF26342DDB0029598C /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				8659FCB026342DE30029598C /* Cells */,
+				8659FCA626342A7D0029598C /* CourseDetailsTabelView.swift */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		8659FCB026342DE30029598C /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				8659FCB126342E1B0029598C /* CourseDetailsTestCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		86BB2598261E241700C6D2FA /* SITest */ = {
@@ -1025,6 +1085,7 @@
 		967AD418260FD0AE008E8175 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				8659FC9C263428910029598C /* CourseDetails */,
 				86BB2598261E241700C6D2FA /* SITest */,
 				967AD419260FD0AE008E8175 /* Settings */,
 				967AD427260FD0AE008E8175 /* Splash */,
@@ -1632,6 +1693,7 @@
 				967AD56B260FD0AF008E8175 /* OSlideCountView.swift in Sources */,
 				967AD552260FD0AF008E8175 /* TestStatsFilterView.swift in Sources */,
 				967AD52C260FD0AF008E8175 /* AnswersCell.swift in Sources */,
+				8659FCAC26342BF00029598C /* CourseDetailsTableElement.swift in Sources */,
 				967AD4F0260FD0AF008E8175 /* GetQotdRequest.swift in Sources */,
 				86CE87202621B5D900FC7091 /* SIBottomButtonState.swift in Sources */,
 				967AD56A260FD0AF008E8175 /* OSlideWhenTakingView.swift in Sources */,
@@ -1663,6 +1725,7 @@
 				8631825C2610E8000098797B /* TestProgressView.swift in Sources */,
 				967AD4CF260FD0AE008E8175 /* GradientView.swift in Sources */,
 				967AD4F6260FD0AF008E8175 /* QuestionManagerCore.swift in Sources */,
+				862F2DCC263572D70096ADE2 /* GradientProgressView.swift in Sources */,
 				86CE87312621FBEE00FC7091 /* CourseFlowLayout.swift in Sources */,
 				96F44FC62631EF9C000B77E3 /* ProfileManager.swift in Sources */,
 				967AD4D4260FD0AE008E8175 /* RateManager.swift in Sources */,
@@ -1724,6 +1787,7 @@
 				967AD4E0260FD0AE008E8175 /* GetMonetizationConfigRequest.swift in Sources */,
 				967AD54A260FD0AF008E8175 /* TestStatsAnswer.swift in Sources */,
 				96F44FC22631EF29000B77E3 /* SpecificTopic.swift in Sources */,
+				8659FC9E2634297A0029598C /* CourseDetailsViewController.swift in Sources */,
 				967AD516260FD0AF008E8175 /* StudyViewModel.swift in Sources */,
 				967AD4CB260FD0AE008E8175 /* PaddingLabel.swift in Sources */,
 				967AD502260FD0AF008E8175 /* GetStatsResponseMapper.swift in Sources */,
@@ -1751,6 +1815,7 @@
 				967AD509260FD0AF008E8175 /* SettingsView.swift in Sources */,
 				967AD4BE260FD0AE008E8175 /* StringExtension.swift in Sources */,
 				967AD565260FD0AF008E8175 /* MainProgressView.swift in Sources */,
+				8659FCA726342A7D0029598C /* CourseDetailsTabelView.swift in Sources */,
 				967AD582260FD0AF008E8175 /* OnboardingAnalytics.swift in Sources */,
 				967AD553260FD0AF008E8175 /* TestStatsView.swift in Sources */,
 				86227288261A2932008449C7 /* TestStatsElement.swift in Sources */,
@@ -1763,6 +1828,7 @@
 				967AD54C260FD0AF008E8175 /* TestStatsDescriptionElement.swift in Sources */,
 				967AD512260FD0AF008E8175 /* SettingsViewController.swift in Sources */,
 				967AD4B9260FD0AE008E8175 /* UIColorExtension.swift in Sources */,
+				8659FCA4263429E60029598C /* CourseDetailsView.swift in Sources */,
 				9613EC842634A11700DAEB9A /* Language.swift in Sources */,
 				967AD538260FD0AF008E8175 /* QuestionTableView.swift in Sources */,
 				967AD570260FD0AF008E8175 /* OGoalCell.swift in Sources */,
@@ -1815,6 +1881,7 @@
 				86CE871326216E0600FC7091 /* SIAnswerView.swift in Sources */,
 				967AD52D260FD0AF008E8175 /* QuestionsCollectionView.swift in Sources */,
 				967AD52A260FD0AF008E8175 /* QuestionCell.swift in Sources */,
+				8659FCB226342E1B0029598C /* CourseDetailsTestCell.swift in Sources */,
 				96F44FB326317844000B77E3 /* TopicsCollectionView.swift in Sources */,
 				86CE870626216C8100FC7091 /* SITestTableView.swift in Sources */,
 				967AD4D1260FD0AE008E8175 /* RxActivityIndicator.swift in Sources */,
@@ -1828,6 +1895,7 @@
 				967AD54F260FD0AF008E8175 /* TestStatsProgressView.swift in Sources */,
 				967AD50B260FD0AF008E8175 /* RateUs.swift in Sources */,
 				86ACAD0B2625F11A0020C51C /* CourseHeader.swift in Sources */,
+				8659FCA1263429AB0029598C /* CourseDetailsViewModel.swift in Sources */,
 				967AD50C260FD0AF008E8175 /* STLinkView.swift in Sources */,
 				967AD4D7260FD0AE008E8175 /* PaygateMapper.swift in Sources */,
 				86CD1CD7261EBAD5000A2F49 /* SITest.swift in Sources */,

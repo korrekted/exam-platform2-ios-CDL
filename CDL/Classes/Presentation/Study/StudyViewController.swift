@@ -106,6 +106,12 @@ final class StudyViewController: UIViewController {
             .bind(to: viewModel.selectedCourse)
             .disposed(by: disposeBag)
         
+        mainView.collectionView
+            .didTapSelectedCourse.bind(to: Binder(self) {
+                $0.openCourseDetails(course: $1)
+            })
+            .disposed(by: disposeBag)
+        
     }
 }
 
@@ -154,6 +160,8 @@ private extension StudyViewController {
             SDKStorage.shared
                 .amplitudeManager
                 .logEvent(name: "Study Tap", parameters: ["what": "question of the day"])
+        case .time:
+            openTest(types: [.timedQuizz(testId: nil)], activeSubscription: activeSubscription, courseId: courseId)
         }
     }
     
@@ -165,6 +173,11 @@ private extension StudyViewController {
             testStatsController.didTapTryAgain = controller?.tryAgain
             self?.present(testStatsController, animated: true)
         }
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func openCourseDetails(course: Course) {
+        let controller = CourseDetailsViewController.make(course: course)
         navigationController?.pushViewController(controller, animated: true)
     }
     
