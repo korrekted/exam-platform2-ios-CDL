@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class OSlideLanguageView: OSlideView {
     lazy var titleLabel = makeTitleLabel()
@@ -13,12 +14,15 @@ final class OSlideLanguageView: OSlideView {
     lazy var langEnglishView = makeLangEnglishView()
     lazy var button = makeButton()
     
-    private var isSelected = false
+    private lazy var manager = ProfileManagerCore()
+    
+    private lazy var disposeBag = DisposeBag()
     
     override init(step: OnboardingView.Step) {
         super.init(step: step)
         
         makeConstraints()
+        initialize()
     }
     
     required init?(coder: NSCoder) {
@@ -28,18 +32,56 @@ final class OSlideLanguageView: OSlideView {
 
 // MARK: Private
 private extension OSlideLanguageView {
+    func initialize() {
+        manager.obtainSelectedLanguage()
+            .asDriver(onErrorJustReturn: nil)
+            .drive(onNext: { [weak self] language in
+                guard let self = self, let lang = language else {
+                    return
+                }
+                
+                self.langSpanishView.isSelected = lang == .spanish
+                self.langEnglishView.isSelected = lang == .english
+            })
+            .disposed(by: disposeBag)
+        
+        button.rx.tap
+            .flatMap { [weak self] _ -> Single<Void> in
+                guard let self = self else {
+                    return .never()
+                }
+                
+                var language: Language?
+                
+                if self.langSpanishView.isSelected {
+                    language = .spanish
+                } else if self.langEnglishView.isSelected {
+                    language = .english
+                }
+                
+                if let lang = language {
+                    return self.manager.saveSelected(language: lang)
+                } else {
+                    return .deferred {
+                        .just(Void())
+                    }
+                }
+            }
+            .asDriver(onErrorDriveWith: .never())
+            .drive(onNext: { [weak self] in
+                self?.onNext()
+            })
+            .disposed(by: disposeBag)
+    }
+    
     @objc
     func selectedLangSpanish() {
-        isSelected = true
-        
         langSpanishView.isSelected = true
         langEnglishView.isSelected = false
     }
     
     @objc
     func selectedLangEnglish() {
-        isSelected = true
-        
         langSpanishView.isSelected = false
         langEnglishView.isSelected = true
     }
@@ -126,7 +168,6 @@ private extension OSlideLanguageView {
         view.backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
         view.layer.cornerRadius = 12.scale
         view.setAttributedTitle("Onboarding.Next".localized.attributed(with: attrs), for: .normal)
-        view.addTarget(self, action: #selector(onNext), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view

@@ -18,8 +18,6 @@ final class OSlideTopicsView: OSlideView {
     
     private lazy var disposeBag = DisposeBag()
     
-    private lazy var saveSelectedTopicsTrigger = PublishRelay<Void>()
-    
     override init(step: OnboardingView.Step) {
         super.init(step: step)
         
@@ -37,8 +35,6 @@ final class OSlideTopicsView: OSlideView {
 extension OSlideTopicsView: TopicsCollectionViewDelegate {
     func topicsCollectionViewDidChangeSelection() {
         changeEnabled()
-        
-        saveSelectedTopicsTrigger.accept(Void())
     }
 }
 
@@ -57,10 +53,11 @@ private extension OSlideTopicsView {
             .asDriver(onErrorJustReturn: [])
             .drive(onNext: { [weak self] elements in
                 self?.topicsView.setup(elements: elements)
+                self?.topicsCollectionViewDidChangeSelection()
             })
             .disposed(by: disposeBag)
         
-        saveSelectedTopicsTrigger
+        button.rx.tap
             .flatMapLatest { [weak self] _ -> Single<Void> in
                 guard let self = self else {
                     return .never()
@@ -72,7 +69,10 @@ private extension OSlideTopicsView {
                 
                 return self.manager.saveSelected(specificTopics: selectedTopics)
             }
-            .subscribe()
+            .asDriver(onErrorDriveWith: .never())
+            .drive(onNext: { [weak self] in
+                self?.onNext()
+            })
             .disposed(by: disposeBag)
     }
     
@@ -150,7 +150,6 @@ private extension OSlideTopicsView {
         view.backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
         view.layer.cornerRadius = 12.scale
         view.setAttributedTitle("Onboarding.Next".localized.attributed(with: attrs), for: .normal)
-        view.addTarget(self, action: #selector(onNext), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view

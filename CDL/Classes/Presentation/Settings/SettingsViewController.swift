@@ -14,6 +14,7 @@ final class SettingsViewController: UIViewController {
     private lazy var disposeBag = DisposeBag()
     
     private lazy var viewModel = SettingsViewModel()
+    private lazy var screenOpener = SettingsOpener()
     
     override func loadView() {
         view = mainView
@@ -82,11 +83,11 @@ private extension SettingsViewController {
                 .amplitudeManager
                 .logEvent(name: "Settings Tap", parameters: ["what": "privacy policy"])
         case .state:
-            break
+            screenOpener.open(screen: .state, from: self)
         case .topic:
-            break
+            screenOpener.open(screen: .topics, from: self)
         case .language:
-            break
+            screenOpener.open(screen: .language, from: self)
         }
     }
     

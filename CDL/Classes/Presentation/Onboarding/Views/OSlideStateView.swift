@@ -6,12 +6,17 @@
 //
 
 import UIKit
+import RxSwift
 
 final class OSlideStateView: OSlideView {
     lazy var titleLabel = makeTitleLabel()
     lazy var pickerView = makePickerView()
     lazy var cursorView = makeCursorView()
     lazy var button = makeButton()
+    
+    private lazy var manager = ProfileManagerCore()
+    
+    private lazy var disposeBag = DisposeBag()
     
     private lazy var countries = [
         "Albania",
@@ -150,6 +155,65 @@ private extension OSlideStateView {
     func initialize() {
         pickerView.reloadAllComponents()
         
+        nextAction()
+        setupInitialValue()
+    }
+    
+    func nextAction() {
+        button.rx.tap
+            .flatMapLatest { [weak self] _ -> Single<Void> in
+                guard let self = self else {
+                    return .never()
+                }
+                
+                let row = self.pickerView.selectedRow(inComponent: 0)
+                
+                guard self.countries.indices.contains(row) else {
+                    return .never()
+                }
+                
+                let name = self.countries[row]
+                let state = State(name: name)
+                
+                return self.manager.saveSelected(state: state)
+            }
+            .asDriver(onErrorDriveWith: .never())
+            .drive(onNext: { [weak self] in
+                self?.onNext()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func setupInitialValue() {
+        manager.obtainSelectedState()
+            .asDriver(onErrorJustReturn: nil)
+            .drive(onNext: { [weak self] state in
+                guard let self = self else {
+                    return
+                }
+                
+                if !self.setupState(state) {
+                    self.setupUS()
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func setupState(_ state: State?) -> Bool {
+        guard let name = state?.name else {
+            return false
+        }
+        
+        guard let index = countries.firstIndex(of: name) else {
+            return false
+        }
+        
+        pickerView.selectRow(index, inComponent: 0, animated: false)
+        
+        return true
+    }
+    
+    func setupUS() {
         guard let us = countries.firstIndex(of: "United States") else {
             return
         }
@@ -237,7 +301,6 @@ private extension OSlideStateView {
         view.backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
         view.layer.cornerRadius = 12.scale
         view.setAttributedTitle("Onboarding.Next".localized.attributed(with: attrs), for: .normal)
-        view.addTarget(self, action: #selector(onNext), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
