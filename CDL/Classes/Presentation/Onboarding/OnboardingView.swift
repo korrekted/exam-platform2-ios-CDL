@@ -153,7 +153,7 @@ private extension OnboardingView {
         ])
         
         NSLayoutConstraint.activate([
-            skipButton.topAnchor.constraint(equalTo: topAnchor, constant: 69.scale),
+            skipButton.topAnchor.constraint(equalTo: topAnchor, constant: ScreenSize.isIphoneXFamily ? 69.scale : 29.scale),
             skipButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale)
         ])
     }
