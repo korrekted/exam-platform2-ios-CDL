@@ -23,11 +23,6 @@ class CourseCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        progressView.setProgres(percent: 0)
-    }
 }
 
 extension CourseCell {
@@ -47,7 +42,6 @@ private extension CourseCell {
         backgroundColor = .clear
         contentView.backgroundColor = .clear
     }
-    
 }
 
 // MARK: Make constraints

@@ -22,7 +22,7 @@ class CourseFlowLayout: UICollectionViewFlowLayout {
         collectionView?.decelerationRate = .fast
         if let collectionView = collectionView {
             let rightInset = collectionView.bounds.width / 2 - itemSize.width / 2
-            collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: rightInset)
+            collectionView.contentInset = UIEdgeInsets(top: 0, left: 16.scale, bottom: 0, right: rightInset)
         }
     }
 

@@ -108,7 +108,6 @@ private extension StudyView {
         
         let view = StudyCollectionView(frame: .zero, collectionViewLayout: layout)
         view.backgroundColor = UIColor.clear
-        view.contentInset = UIEdgeInsets(top: 0, left: 16.scale, bottom: 0, right: 16.scale)
         view.showsVerticalScrollIndicator = false
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)

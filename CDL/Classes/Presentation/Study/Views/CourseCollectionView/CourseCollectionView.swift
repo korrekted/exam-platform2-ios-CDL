@@ -21,6 +21,7 @@ class CourseCollectionView: UICollectionView {
     
     var didTapAdd: (() -> Void)?
     var selectedCourse: ((Course?) -> Void)?
+    var didTapCell: ((Course) -> Void)?
 
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
@@ -54,11 +55,21 @@ extension CourseCollectionView: UICollectionViewDelegateFlowLayout {
         guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout else {
             return .zero
         }
-        return CGSize(width: flowLayout.itemSize.width, height: collectionView.bounds.height)
+        let height = collectionView.bounds.height - flowLayout.sectionInset.top - flowLayout.sectionInset.bottom
+        return CGSize(width: flowLayout.itemSize.width, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        CGSize(width: 60.scale, height: collectionView.bounds.height)
+        guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout else {
+            return .zero
+        }
+        let height = collectionView.bounds.height - flowLayout.sectionInset.top - flowLayout.sectionInset.bottom
+        return CGSize(width: 60.scale, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let element = elements[indexPath.row]
+        didTapCell?(element.course)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

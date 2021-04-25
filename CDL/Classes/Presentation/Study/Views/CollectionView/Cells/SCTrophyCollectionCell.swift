@@ -35,8 +35,8 @@ private extension SCTrophyCollectionCell {
     func makeConstraints() {
         NSLayoutConstraint.activate([
             trophyView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            trophyView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            trophyView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            trophyView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.scale),
+            trophyView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.scale),
             trophyView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16.scale),
         ])
     }

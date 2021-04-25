@@ -33,5 +33,6 @@ struct SCEMode {
         case ten
         case missed
         case random
+        case time
     }
 }
