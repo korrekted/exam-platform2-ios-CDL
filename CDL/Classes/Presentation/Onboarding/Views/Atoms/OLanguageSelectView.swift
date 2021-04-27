@@ -47,10 +47,10 @@ private extension OLanguageSelectView {
 private extension OLanguageSelectView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 23.scale),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -23.scale),
+            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 27.scale),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -27.scale)
         ])
         
         NSLayoutConstraint.activate([

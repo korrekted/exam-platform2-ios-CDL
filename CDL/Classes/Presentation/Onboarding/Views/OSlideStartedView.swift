@@ -30,8 +30,8 @@ private extension OSlideStartedView {
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 483.scale : 370.scale)
+            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 84.scale),
+            imageView.heightAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 393.scale : 280.scale)
         ])
         
         NSLayoutConstraint.activate([

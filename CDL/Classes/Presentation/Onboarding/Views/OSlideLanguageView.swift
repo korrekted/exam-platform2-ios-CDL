@@ -140,6 +140,7 @@ private extension OSlideLanguageView {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(selectedLangSpanish))
         
         let view = OLanguageSelectView()
+        view.imageView.image = UIImage(named: "Onboarding.Spanish")
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(tapGesture)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -151,6 +152,7 @@ private extension OSlideLanguageView {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(selectedLangEnglish))
         
         let view = OLanguageSelectView()
+        view.imageView.image = UIImage(named: "Onboarding.English")
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(tapGesture)
         view.translatesAutoresizingMaskIntoConstraints = false

@@ -66,8 +66,8 @@ private extension OSlideCountView {
         
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 166.scale),
-            imageView.heightAnchor.constraint(equalToConstant: 205.scale),
+            imageView.widthAnchor.constraint(equalToConstant: 300.scale),
+            imageView.heightAnchor.constraint(equalToConstant: 245.scale),
             imageView.bottomAnchor.constraint(equalTo: slider.topAnchor, constant: -87.scale)
         ])
         
@@ -105,8 +105,8 @@ private extension OSlideCountView {
     
     func makeImageView() -> UIImageView {
         let view = UIImageView()
-        view.backgroundColor = UIColor.white
-        view.clipsToBounds = true
+        view.backgroundColor = UIColor.clear
+        view.contentMode = .scaleAspectFit
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
