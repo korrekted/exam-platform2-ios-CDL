@@ -15,6 +15,8 @@ final class StudyViewController: UIViewController {
     
     private lazy var viewModel = StudyViewModel()
     
+    private lazy var opener = SettingsOpener()
+    
     override func loadView() {
         view = mainView
     }
@@ -112,6 +114,11 @@ final class StudyViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        mainView.collectionView
+            .didTapAdd.bind(to: Binder(self) { a1, a2 in
+                a1.opener.open(screen: .topics, from: a1)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
