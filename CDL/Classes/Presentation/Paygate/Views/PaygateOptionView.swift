@@ -55,22 +55,22 @@ private extension PaygateOptionView {
         
         bottomLabel.attributedText = option.bottomLine
     }
-    
+
     func updateColors() {
-        backgroundColor = isSelected ? .white : .clear
+        backgroundColor = isSelected ? UIColor(integralRed: 249, green: 205, blue: 106) : .clear
         
         checkedImageView.isHidden = !isSelected
     
         layer.borderWidth = isSelected ? 0 : 2.scale
-        layer.borderColor = isSelected ? UIColor.clear.cgColor : UIColor(integralRed: 17, green: 17, blue: 17).cgColor
+        layer.borderColor = isSelected ? UIColor.clear.cgColor : UIColor(integralRed: 249, green: 205, blue: 106).cgColor
         
-        titleLabel.textColor = UIColor(integralRed: 17, green: 17, blue: 17)
-        captionLabel.textColor = UIColor(integralRed: 17, green: 17, blue: 17)
-        subCaptionLabel.textColor = UIColor(integralRed: 17, green: 17, blue: 17)
-        bottomLabel.textColor = UIColor(integralRed: 17, green: 17, blue: 17)
+        titleLabel.textColor = isSelected ? UIColor(integralRed: 31, green: 31, blue: 31) : UIColor.white
+        captionLabel.textColor = isSelected ? UIColor(integralRed: 31, green: 31, blue: 31) : UIColor.white
+        subCaptionLabel.textColor = isSelected ? UIColor(integralRed: 31, green: 31, blue: 31) : UIColor.white
+        bottomLabel.textColor = isSelected ? UIColor(integralRed: 31, green: 31, blue: 31) : UIColor.white
         
-        saveLabel.textColor = UIColor.white
-        saveLabel.backgroundColor = UIColor(integralRed: 95, green: 70, blue: 245)
+        saveLabel.textColor = isSelected ? UIColor.white : UIColor(integralRed: 41, green: 55, blue: 137)
+        saveLabel.backgroundColor = isSelected ? UIColor(integralRed: 41, green: 55, blue: 137) : UIColor.white
     }
 }
 
