@@ -20,4 +20,9 @@ protocol ProfileManager {
     // MARK: State
     func saveSelected(state: State) -> Single<Void>
     func obtainSelectedState() -> Single<State?>
+    
+    // MARK: Set
+    func set(state: String?,
+             language: String?,
+             topicsIds: [Int]?) -> Single<Void>
 }

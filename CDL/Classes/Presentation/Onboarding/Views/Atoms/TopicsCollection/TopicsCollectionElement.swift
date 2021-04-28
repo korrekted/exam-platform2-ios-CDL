@@ -20,8 +20,13 @@ final class TopicsCollectionElement {
 // MARK: API
 extension TopicsCollectionElement {
     func width(with attrs: TextAttributes, height: CGFloat) -> CGFloat {
+        var string = topic.title
+        if topic.isMain {
+            string += "\n" + topic.description
+        }
+        
         let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
-        let boundingBox = topic.title
+        let boundingBox = string
             .boundingRect(with: constraintRect,
                           options: .usesLineFragmentOrigin,
                           attributes: attrs.dictionary,

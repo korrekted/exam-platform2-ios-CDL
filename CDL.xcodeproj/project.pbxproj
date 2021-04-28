@@ -58,6 +58,9 @@
 		9613EC842634A11700DAEB9A /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613EC832634A11700DAEB9A /* Language.swift */; };
 		9613EC8B2634A19600DAEB9A /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613EC8A2634A19600DAEB9A /* State.swift */; };
 		9613EC8F2634AEFD00DAEB9A /* SettingsOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613EC8E2634AEFD00DAEB9A /* SettingsOpener.swift */; };
+		9613EF1D263974A700DAEB9A /* GetTopicsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613EF1C263974A700DAEB9A /* GetTopicsRequest.swift */; };
+		9613EF212639767800DAEB9A /* GetTopicsResponseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613EF202639767800DAEB9A /* GetTopicsResponseMapper.swift */; };
+		9613EF2426397E3500DAEB9A /* SetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613EF2326397E3500DAEB9A /* SetRequest.swift */; };
 		967AD379260FCFAF008E8175 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 967AD378260FCFAF008E8175 /* Assets.xcassets */; };
 		967AD4B9260FD0AE008E8175 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD3A8260FD0AE008E8175 /* UIColorExtension.swift */; };
 		967AD4BA260FD0AE008E8175 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD3A9260FD0AE008E8175 /* Collection+Extension.swift */; };
@@ -319,6 +322,9 @@
 		9613EC832634A11700DAEB9A /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		9613EC8A2634A19600DAEB9A /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		9613EC8E2634AEFD00DAEB9A /* SettingsOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsOpener.swift; sourceTree = "<group>"; };
+		9613EF1C263974A700DAEB9A /* GetTopicsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTopicsRequest.swift; sourceTree = "<group>"; };
+		9613EF202639767800DAEB9A /* GetTopicsResponseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTopicsResponseMapper.swift; sourceTree = "<group>"; };
+		9613EF2326397E3500DAEB9A /* SetRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRequest.swift; sourceTree = "<group>"; };
 		967AD378260FCFAF008E8175 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		967AD37D260FCFAF008E8175 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		967AD3A8260FD0AE008E8175 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
@@ -676,6 +682,16 @@
 				86F242CA2628697800DA4B53 /* SCModeView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		9613EF1B2639748F00DAEB9A /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				9613EF1C263974A700DAEB9A /* GetTopicsRequest.swift */,
+				9613EF202639767800DAEB9A /* GetTopicsResponseMapper.swift */,
+				9613EF2326397E3500DAEB9A /* SetRequest.swift */,
+			);
+			path = Request;
 			sourceTree = "<group>";
 		};
 		967AD363260FCFAC008E8175 = {
@@ -1538,6 +1554,7 @@
 		96F44FBF2631EE24000B77E3 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				9613EF1B2639748F00DAEB9A /* Request */,
 				96F44FC42631EF8B000B77E3 /* Manager */,
 				96F44FC02631EE2C000B77E3 /* Models */,
 			);
@@ -1783,10 +1800,13 @@
 				967AD534260FD0AF008E8175 /* QuestionContentType.swift in Sources */,
 				967AD581260FD0AF008E8175 /* OnboardingViewModel.swift in Sources */,
 				967AD4CD260FD0AE008E8175 /* GradientButton.swift in Sources */,
+				9613EF1D263974A700DAEB9A /* GetTopicsRequest.swift in Sources */,
 				967AD4DC260FD0AE008E8175 /* Paygate.swift in Sources */,
+				9613EF212639767800DAEB9A /* GetTopicsResponseMapper.swift in Sources */,
 				967AD4E0260FD0AE008E8175 /* GetMonetizationConfigRequest.swift in Sources */,
 				967AD54A260FD0AF008E8175 /* TestStatsAnswer.swift in Sources */,
 				96F44FC22631EF29000B77E3 /* SpecificTopic.swift in Sources */,
+				9613EF2426397E3500DAEB9A /* SetRequest.swift in Sources */,
 				8659FC9E2634297A0029598C /* CourseDetailsViewController.swift in Sources */,
 				967AD516260FD0AF008E8175 /* StudyViewModel.swift in Sources */,
 				967AD4CB260FD0AE008E8175 /* PaddingLabel.swift in Sources */,

@@ -8,6 +8,8 @@
 struct SpecificTopic {
     let id: Int
     let title: String
+    let description: String
+    let isMain: Bool
 }
 
 // MARK: Codable

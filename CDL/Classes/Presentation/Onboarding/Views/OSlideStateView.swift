@@ -18,87 +18,62 @@ final class OSlideStateView: OSlideView {
     
     private lazy var disposeBag = DisposeBag()
     
-    private lazy var countries = [
-        "Albania",
-        "Algeria",
-        "Angola",
-        "Argentina",
-        "Australia",
-        "Austria",
-        "Belgium",
-        "Bolivia",
-        "Brazil",
-        "Bulgaria",
-        "Cameroon",
-        "Canada",
-        "Chile",
-        "China",
-        "Colombia",
-        "Cuba",
-        "Czech Republic",
-        "Democratic Republic of the Congo",
-        "Denmark",
-        "Dominican Republic",
-        "Ecuador",
-        "Egypt",
-        "Estonia",
-        "Ethiopia",
-        "Finland",
-        "France",
-        "Germany",
-        "Ghana",
-        "Greece",
-        "Guatemala",
-        "Haitti",
-        "Hungary",
-        "India",
-        "Iraq",
-        "Ireland",
-        "Israel",
-        "Italy",
-        "Ivory Coast",
-        "Japan",
-        "Jordan",
-        "Kenya",
-        "Latvia",
-        "Lebanon",
-        "Lithuania",
-        "Luxembourg",
-        "Madagascar",
-        "Mexico",
-        "Morocco",
-        "Mozambique",
-        "Netherlands",
-        "New Zeland",
-        "Nigeria",
-        "Norway",
-        "Peru",
-        "Poland",
-        "Portugal",
-        "Romania",
-        "Saudi Arabia",
-        "Somalia",
-        "South Africa",
-        "Spain",
-        "Sudan",
-        "Sweden",
-        "Switzerland",
-        "Syria",
-        "Tanzania",
-        "Tunisia",
-        "Turkey",
-        "U.S.S.R. (Former)",
-        "Uganda",
-        "United Arab Emirates",
-        "United Kingdom",
-        "United States",
-        "Venezuela",
-        "Yemen",
-        "Yugoslavia (Former)",
-        "Other Europe",
-        "Other Asia",
-        "Other South America",
-        "Other Africa"
+    private lazy var states = [
+        State(title: "ALABAMA", code: "AL"),
+        State(title: "ALASKA", code: "AK"),
+        State(title: "ARIZONA", code: "AZ"),
+        State(title: "ARKANSAS", code: "AR"),
+        State(title: "CALIFORNIA", code: "CA"),
+        State(title: "COLORADO", code: "CO"),
+        State(title: "CONNECTICUT", code: "CT"),
+        State(title: "DELAWARE", code: "DE"),
+        State(title: "DISTRICT OF COLUMBIA", code: "DC"),
+        State(title: "FLORIDA", code: "FL"),
+        State(title: "GEORGIA", code: "GA"),
+        State(title: "GUAM", code: "GU"),
+        State(title: "HAWAII", code: "HI"),
+        State(title: "IDAHO", code: "ID"),
+        State(title: "ILLINOIS", code: "IL"),
+        State(title: "INDIANA", code: "IN"),
+        State(title: "IOWA", code: "IA"),
+        State(title: "KANSAS", code: "KS"),
+        State(title: "KENTUCKY", code: "KY"),
+        State(title: "LOUISIANA", code: "LA"),
+        State(title: "MAINE", code: "ME"),
+        State(title: "MARYLAND", code: "MD"),
+        State(title: "MASSACHUSETTS", code: "MA"),
+        State(title: "MICHIGAN", code: "MI"),
+        State(title: "MINNESOTA", code: "MN"),
+        State(title: "MISSISSIPPI", code: "MS"),
+        State(title: "MISSOURI", code: "MO"),
+        State(title: "MONTANA", code: "MT"),
+        State(title: "NEBRASKA", code: "NE"),
+        State(title: "NEVADA", code: "NV"),
+        State(title: "NEW HAMPSHIRE", code: "NH"),
+        State(title: "NEW JERSEY", code: "NJ"),
+        State(title: "NEW MEXICO", code: "NM"),
+        State(title: "NEW YORK", code: "NY"),
+        State(title: "NORTH CAROLINA", code: "NC"),
+        State(title: "NORTH DAKOTA", code: "ND"),
+        State(title: "NORTHERN MARIANA IS", code: "MP"),
+        State(title: "OHIO", code: "OH"),
+        State(title: "OKLAHOMA", code: "OK"),
+        State(title: "OREGON", code: "OR"),
+        State(title: "PENNSYLVANIA", code: "PA"),
+        State(title: "PUERTO RICO", code: "PR"),
+        State(title: "RHODE ISLAND", code: "RI"),
+        State(title: "SOUTH CAROLINA", code: "SC"),
+        State(title: "SOUTH DAKOTA", code: "SD"),
+        State(title: "TENNESSEE", code: "TN"),
+        State(title: "TEXAS", code: "TX"),
+        State(title: "UTAH", code: "UT"),
+        State(title: "VERMONT", code: "VT"),
+        State(title: "VIRGINIA", code: "VA"),
+        State(title: "VIRGIN ISLANDS", code: "VI"),
+        State(title: "WASHINGTON", code: "WA"),
+        State(title: "WEST VIRGINIA", code: "WV"),
+        State(title: "WISCONSIN", code: "WI"),
+        State(title: "WYOMING", code: "WY")
     ]
     
     override init(step: OnboardingView.Step) {
@@ -120,7 +95,7 @@ extension OSlideStateView: UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        countries.count
+        states.count
     }
 }
 
@@ -138,7 +113,7 @@ extension OSlideStateView: UIPickerViewDelegate {
             .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
             .font(Fonts.SFProRounded.bold(size: 24.scale))
         
-        label?.attributedText = countries[row].attributed(with: attrs)
+        label?.attributedText = states[row].title.attributed(with: attrs)
         
         label?.sizeToFit()
         
@@ -168,14 +143,17 @@ private extension OSlideStateView {
                 
                 let row = self.pickerView.selectedRow(inComponent: 0)
                 
-                guard self.countries.indices.contains(row) else {
+                guard self.states.indices.contains(row) else {
                     return .never()
                 }
                 
-                let name = self.countries[row]
-                let state = State(name: name)
+                let state = self.states[row]
                 
-                return self.manager.saveSelected(state: state)
+                return self.manager
+                    .set(state: state.code)
+                    .flatMap {
+                        self.manager.saveSelected(state: state)
+                    }
             }
             .asDriver(onErrorDriveWith: .never())
             .drive(onNext: { [weak self] in
@@ -200,11 +178,11 @@ private extension OSlideStateView {
     }
     
     func setupState(_ state: State?) -> Bool {
-        guard let name = state?.name else {
+        guard let state = state else {
             return false
         }
         
-        guard let index = countries.firstIndex(of: name) else {
+        guard let index = states.firstIndex(where: { $0.title == state.title }) else {
             return false
         }
         
@@ -214,7 +192,7 @@ private extension OSlideStateView {
     }
     
     func setupUS() {
-        guard let us = countries.firstIndex(of: "United States") else {
+        guard let us = states.firstIndex(where: { $0.title == "KANSAS" }) else {
             return
         }
         

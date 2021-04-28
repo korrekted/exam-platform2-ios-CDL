@@ -18,16 +18,16 @@ final class ProfileManagerCore {
 // MARK: Specific Topic
 extension ProfileManagerCore {
     func obtainSpecificTopics() -> Single<[SpecificTopic]> {
-        Single<[SpecificTopic]>.deferred {
-            .just([
-                .init(id: 0, title: "Double or triple trailers, flatbed, lowboy, tanker"),
-                .init(id: 1, title: "Straight truck"),
-                .init(id: 2, title: "Bachoe,bulldozer, exhavator, off-highway truck"),
-                .init(id: 3, title: "Includes concrete mixing semi-trailers"),
-                .init(id: 4, title: "School bus"),
-                .init(id: 5, title: "Mechanics truck, boom truck, bucket truck"),
-            ])
+        guard let userToken = SessionManagerCore().getSession()?.userToken else {
+            return .deferred { .just([]) }
         }
+        
+        let request = GetTopicsRequest(userToken: userToken)
+        
+        return SDKStorage.shared
+            .restApiTransport
+            .callServerApi(requestBody: request)
+            .map(GetTopicsResponseMapper.map(from:))
     }
     
     func obtainSelectedSpecificTopics() -> Single<[SpecificTopic]> {
@@ -127,5 +127,26 @@ extension ProfileManagerCore {
         }
         .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .background))
         .observe(on: MainScheduler.asyncInstance)
+    }
+}
+
+// MARK: Set
+extension ProfileManagerCore {
+    func set(state: String? = nil,
+             language: String? = nil,
+             topicsIds: [Int]? = nil) -> Single<Void> {
+        guard let userToken = SessionManagerCore().getSession()?.userToken else {
+            return .error(SignError.tokenNotFound)
+        }
+        
+        let request = SetRequest(userToken: userToken,
+                                 state: state,
+                                 language: language,
+                                 topicsIds: topicsIds)
+        
+        return SDKStorage.shared
+            .restApiTransport
+            .callServerApi(requestBody: request)
+            .map { _ in Void() }
     }
 }

@@ -6,7 +6,8 @@
 //
 
 struct State {
-    let name: String
+    let title: String
+    let code: String
 }
 
 // MARK: Codable

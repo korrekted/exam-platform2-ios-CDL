@@ -30,7 +30,13 @@ extension TopicsCollectionCell {
             .font(Fonts.SFProRounded.regular(size: 18.scale))
             .lineHeight(25.scale)
             .textColor(element.isSelected ? UIColor(integralRed: 31, green: 31, blue: 31) : UIColor(integralRed: 245, green: 245, blue: 245))
-        label.attributedText = element.topic.title.attributed(with: attrs)
+        
+        var string = element.topic.title
+        if element.topic.isMain {
+            string += "\n" + element.topic.description
+        }
+            
+        label.attributedText = string.attributed(with: attrs)
         
         container.backgroundColor = element.isSelected ? UIColor(integralRed: 249, green: 205, blue: 106) : UIColor(integralRed: 60, green: 75, blue: 159)
     }

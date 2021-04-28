@@ -52,15 +52,21 @@ private extension OSlideLanguageView {
                 }
                 
                 var language: Language?
+                var languageString: String?
                 
                 if self.langSpanishView.isSelected {
                     language = .spanish
+                    languageString = "es"
                 } else if self.langEnglishView.isSelected {
                     language = .english
+                    languageString = "en"
                 }
                 
-                if let lang = language {
-                    return self.manager.saveSelected(language: lang)
+                if let lang = language, let langString = languageString {
+                    return self.manager.set(language: langString)
+                        .flatMap {
+                            self.manager.saveSelected(language: lang)
+                        }
                 } else {
                     return .deferred {
                         .just(Void())

@@ -67,7 +67,11 @@ private extension OSlideTopicsView {
                     .filter { $0.isSelected }
                     .map { $0.topic }
                 
-                return self.manager.saveSelected(specificTopics: selectedTopics)
+                return self.manager
+                    .set(topicsIds: selectedTopics.map { $0.id })
+                    .flatMap {
+                        self.manager.saveSelected(specificTopics: selectedTopics)
+                    }
             }
             .asDriver(onErrorDriveWith: .never())
             .drive(onNext: { [weak self] in
