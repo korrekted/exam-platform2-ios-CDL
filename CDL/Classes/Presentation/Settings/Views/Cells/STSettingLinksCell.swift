@@ -122,5 +122,5 @@ private extension TextAttributes {
     static let attr = TextAttributes()
         .font(Fonts.SFProRounded.regular(size: 18.scale))
         .lineHeight(25.scale)
-        .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+        .textColor(SettingsPalette.itemTitle)
 }

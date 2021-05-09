@@ -29,6 +29,7 @@
 		86ACAD072625E2E30020C51C /* SCTrophyCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ACAD062625E2E30020C51C /* SCTrophyCollectionCell.swift */; };
 		86ACAD0B2625F11A0020C51C /* CourseHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ACAD0A2625F11A0020C51C /* CourseHeader.swift */; };
 		86B712C92629B6A100297FFC /* STSettingLinksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B712C82629B6A000297FFC /* STSettingLinksCell.swift */; };
+		86B8E79826446710004F5BB0 /* ColorsPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B8E79726446710004F5BB0 /* ColorsPalette.swift */; };
 		86BB2590261E0C8B00C6D2FA /* SaveQuestionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB258F261E0C8B00C6D2FA /* SaveQuestionRequest.swift */; };
 		86BB2593261E14D700C6D2FA /* GetSavedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB2592261E14D700C6D2FA /* GetSavedRequest.swift */; };
 		86BB2596261E1B3C00C6D2FA /* RemoveSavedQuestionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB2595261E1B3C00C6D2FA /* RemoveSavedQuestionRequest.swift */; };
@@ -293,6 +294,7 @@
 		86ACAD062625E2E30020C51C /* SCTrophyCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCTrophyCollectionCell.swift; sourceTree = "<group>"; };
 		86ACAD0A2625F11A0020C51C /* CourseHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseHeader.swift; sourceTree = "<group>"; };
 		86B712C82629B6A000297FFC /* STSettingLinksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STSettingLinksCell.swift; sourceTree = "<group>"; };
+		86B8E79726446710004F5BB0 /* ColorsPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsPalette.swift; sourceTree = "<group>"; };
 		86BB258F261E0C8B00C6D2FA /* SaveQuestionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveQuestionRequest.swift; sourceTree = "<group>"; };
 		86BB2592261E14D700C6D2FA /* GetSavedRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSavedRequest.swift; sourceTree = "<group>"; };
 		86BB2595261E1B3C00C6D2FA /* RemoveSavedQuestionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveSavedQuestionRequest.swift; sourceTree = "<group>"; };
@@ -746,6 +748,7 @@
 				967AD3BA260FD0AE008E8175 /* CustomViews */,
 				967AD3C4260FD0AE008E8175 /* AppDelegate.swift */,
 				967AD3C5260FD0AE008E8175 /* Rx */,
+				86B8E79726446710004F5BB0 /* ColorsPalette.swift */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -1866,6 +1869,7 @@
 				967AD54B260FD0AF008E8175 /* TestStatsCellType.swift in Sources */,
 				967AD550260FD0AF008E8175 /* TestStatsTableView.swift in Sources */,
 				96F44FBD26319E2E000B77E3 /* TopicsCollectionLayout.swift in Sources */,
+				86B8E79826446710004F5BB0 /* ColorsPalette.swift in Sources */,
 				967AD4C1260FD0AE008E8175 /* TextAttributes.swift in Sources */,
 				86BB2593261E14D700C6D2FA /* GetSavedRequest.swift in Sources */,
 				967AD575260FD0AF008E8175 /* OSlideAgeView.swift in Sources */,

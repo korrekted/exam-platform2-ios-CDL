@@ -78,7 +78,7 @@ private extension OSlidePlanView {
 private extension OSlidePlanView {
     func makeTitleLabel() -> UILabel {
         let attrs = TextAttributes()
-            .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+            .textColor(Onboarding.primaryText)
             .font(Fonts.SFProRounded.bold(size: 32.scale))
             .lineHeight(38.scale)
             .textAlignment(.center)
@@ -112,12 +112,12 @@ private extension OSlidePlanView {
     
     func makeButton() -> UIButton {
         let attrs = TextAttributes()
-            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .textColor(Onboarding.primaryButtonTint)
             .font(Fonts.SFProRounded.regular(size: 18.scale))
             .textAlignment(.center)
         
         let view = UIButton()
-        view.backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
+        view.backgroundColor = Onboarding.primaryButton
         view.layer.cornerRadius = 12.scale
         view.setAttributedTitle("Onboarding.SlidePlan.Button".localized.attributed(with: attrs), for: .normal)
         view.addTarget(self, action: #selector(onNext), for: .touchUpInside)

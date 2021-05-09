@@ -38,8 +38,10 @@ extension SCBriefDayView {
         formatter.dateFormat = "dd"
         dayLabel.text = formatter.string(from: day.date)
         
+        dayLabel.textColor = day.activity ? StudyPalette.Brief.text : StudyPalette.Brief.selectedText
+        
 //        weekdayLabel.alpha = day.activity ? 1 : 0.3
-        dayLabel.backgroundColor = day.activity ? UIColor(integralRed: 60, green: 75, blue: 159) : .clear
+        dayLabel.backgroundColor = day.activity ? StudyPalette.Brief.selected : .clear
     }
 }
 
@@ -65,7 +67,7 @@ private extension SCBriefDayView {
     func makeWeekdayLabel() -> UILabel {
         let view = UILabel()
         view.font = Fonts.SFProRounded.semiBold(size: 14.scale)
-        view.textColor = UIColor(integralRed: 245, green: 245, blue: 245)
+        view.textColor = StudyPalette.Brief.weekdayText
         view.textAlignment = .center
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
@@ -81,7 +83,7 @@ private extension SCBriefDayView {
         view.textAlignment = .center
         view.layer.cornerRadius = 10.scale
         view.layer.masksToBounds = true
-        view.textColor = UIColor(integralRed: 245, green: 245, blue: 245)
+        view.textColor = StudyPalette.Brief.text
         view.font = Fonts.SFProRounded.semiBold(size: 17.scale)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)

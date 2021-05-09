@@ -45,17 +45,17 @@ private extension TestStatsProgressView {
         circleLayer.path = circularPath1.cgPath
         circleLayer.fillColor = UIColor.clear.cgColor
         circleLayer.lineWidth = 15.scale
-        circleLayer.strokeColor = UIColor(integralRed: 241, green: 104, blue: 91).cgColor
+        circleLayer.strokeColor = TestStatsPalette.incorrect.cgColor
         circleLayer.position = circleCenter
         
         progressLayer.path = circularPath1.cgPath
         progressLayer.fillColor = UIColor.clear.cgColor
         progressLayer.lineWidth = 15.scale
-        progressLayer.strokeColor = UIColor(integralRed: 143, green: 207, blue: 99).cgColor
+        progressLayer.strokeColor = TestStatsPalette.correct.cgColor
         progressLayer.position = circleCenter
         
         passingScoreLayer.path = UIBezierPath(roundedRect: CGRect(x: -5.scale, y: -circleRadius - 5.scale, width: 2 * 5.scale, height: 2 * 5.scale), cornerRadius: 5.scale).cgPath
-        passingScoreLayer.backgroundColor = UIColor(integralRed: 31, green: 31, blue: 31).cgColor
+        passingScoreLayer.backgroundColor = TestStatsPalette.passingScore.cgColor
         passingScoreLayer.position = circleCenter
 
         layer.addSublayer(circleLayer)

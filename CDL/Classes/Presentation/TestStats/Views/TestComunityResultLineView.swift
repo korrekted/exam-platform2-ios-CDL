@@ -71,13 +71,13 @@ private extension TestComunityResultLineView {
 private extension TextAttributes {
     static let valueAttr = TextAttributes()
         .font(Fonts.SFProRounded.bold(size: 24.scale))
-        .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+        .textColor(TestStatsPalette.CommunityResult.value)
         .textAlignment(.center)
         .lineHeight(28.8.scale)
     
     static let subtitleAttr = TextAttributes()
         .font(Fonts.SFProRounded.regular(size: 14.scale))
-        .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+        .textColor(TestStatsPalette.CommunityResult.subtitle)
         .textAlignment(.center)
         .lineHeight(19.6.scale)
 }

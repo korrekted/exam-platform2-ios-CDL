@@ -17,9 +17,9 @@ class MainProgressView: UIView {
     private var smallProgress = 0
     
     override func draw(_ rect: CGRect) {
-        drawProgress(for: bigProgress, multiplerSize: 1, color: UIColor(integralRed: 41, green: 55, blue: 137))
-        drawProgress(for: mediumProgress, multiplerSize: 0.8, color: UIColor(integralRed: 249, green: 205, blue: 106))
-        drawProgress(for: smallProgress, multiplerSize: 0.6, color: UIColor(integralRed: 198, green: 42, blue: 80))
+        drawProgress(for: bigProgress, multiplerSize: 1, color: StatsPalette.Progress.testTaken)
+        drawProgress(for: mediumProgress, multiplerSize: 0.8, color: StatsPalette.Progress.correctAnswers)
+        drawProgress(for: smallProgress, multiplerSize: 0.6, color: StatsPalette.Progress.questionsTaken)
     }
 }
 

@@ -38,15 +38,14 @@ extension TestStatsView {
         
         let attr = TextAttributes()
             .font(Fonts.SFProRounded.regular(size: 18.scale))
-            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
             .textAlignment(.center)
         
         
-        tryAgainButton.setAttributedTitle("TestStats.TryAgain".localized.attributed(with: attr), for: .normal)
-        nextTestButton.setAttributedTitle("TestStats.NextTest".localized.attributed(with: attr), for: .normal)
+        tryAgainButton.setAttributedTitle("TestStats.TryAgain".localized.attributed(with: attr.textColor(TestStatsPalette.secondaryText)), for: .normal)
+        nextTestButton.setAttributedTitle("TestStats.NextTest".localized.attributed(with: attr.textColor(TestStatsPalette.primaryText)), for: .normal)
         
-        tryAgainButton.backgroundColor = UIColor(integralRed: 232, green: 234, blue: 237)
-        nextTestButton.backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
+        tryAgainButton.backgroundColor = TestStatsPalette.secondaryButton
+        nextTestButton.backgroundColor = TestStatsPalette.primaryButton
         
         stackView.addArrangedSubview(tryAgainButton)
         stackView.addArrangedSubview(nextTestButton)
@@ -62,7 +61,7 @@ extension TestStatsView {
 // MARK: Private
 private extension TestStatsView {
     func initialize() {
-        backgroundColor = UIColor(integralRed: 242, green: 245, blue: 252)
+        backgroundColor = TestStatsPalette.background
     }
 }
 
@@ -125,9 +124,9 @@ private extension TestStatsView {
     func makeNavigationView() -> NavigationBar {
         let view = NavigationBar()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(integralRed: 41, green: 55, blue: 137)
+        view.backgroundColor = NavigationPalette.navigationBackground
         view.rightAction.setImage(UIImage(named: "General.Close"), for: .normal)
-        view.rightAction.tintColor = UIColor(integralRed: 245, green: 245, blue: 245)
+        view.rightAction.tintColor = NavigationPalette.navigationTint
         addSubview(view)
         return view
     }

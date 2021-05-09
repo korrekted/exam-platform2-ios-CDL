@@ -42,12 +42,12 @@ extension StudyView {
     
     func setupButtons(_ activeSubscription: Bool) {
         unlockButton.setAttributedTitle("Study.UnlockQuestions".localized.attributed(with: .unlockAttrs), for: .normal)
-        unlockButton.backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
+        unlockButton.backgroundColor = StudyPalette.primaryButton
         
         let text = activeSubscription ? "Study.TakeTest".localized : "Study.TakeFreeTest".localized
         takeButton.setAttributedTitle(text.attributed(with: .takeAttrs), for: .normal)
         
-        takeButton.backgroundColor = UIColor(integralRed: 60, green: 75, blue: 159)
+        takeButton.backgroundColor = StudyPalette.secondaryButton
         
         unlockButton.isHidden = activeSubscription
     }
@@ -56,7 +56,7 @@ extension StudyView {
 // MARK: Private
 private extension StudyView {
     func initialize() {
-        backgroundColor = UIColor(integralRed: 245, green: 245, blue: 245)
+        backgroundColor = StudyPalette.background
     }
 }
 
@@ -117,11 +117,11 @@ private extension StudyView {
     func makeNavigationView() -> NavigationBar {
         let view = NavigationBar()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(integralRed: 41, green: 55, blue: 137)
+        view.backgroundColor = NavigationPalette.navigationBackground
         view.isBigTitle = true
         view.setTitle(title: "Study.Title".localized)
         view.rightAction.setImage(UIImage(named: "Study.Settings"), for: .normal)
-        view.rightAction.tintColor = UIColor(integralRed: 245, green: 245, blue: 245)
+        view.rightAction.tintColor = NavigationPalette.navigationTint
         addSubview(view)
         return view
     }
@@ -138,7 +138,7 @@ private extension StudyView {
         let view = UILabel()
         view.font = Fonts.SFProRounded.regular(size: 14.scale)
         view.textAlignment = .right
-        view.textColor = UIColor(integralRed: 245, green: 245, blue: 245)
+        view.textColor = StudyPalette.Brief.text
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
@@ -165,9 +165,9 @@ private extension StudyView {
 private extension TextAttributes {
     static let takeAttrs = TextAttributes()
         .font(Fonts.SFProRounded.regular(size: 18.scale))
-        .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+        .textColor(StudyPalette.secondaryButtonText)
     
     static let unlockAttrs = TextAttributes()
         .font(Fonts.SFProRounded.regular(size: 18.scale))
-        .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+        .textColor(StudyPalette.primaryButtonText)
 }

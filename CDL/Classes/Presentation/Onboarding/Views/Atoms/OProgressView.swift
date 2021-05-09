@@ -51,14 +51,14 @@ private extension OProgressView {
         circleLayer.fillColor = UIColor.clear.cgColor
         circleLayer.lineCap = .round
         circleLayer.lineWidth = ScreenSize.isIphoneXFamily ? 19.scale : 15.scale
-        circleLayer.strokeColor = UIColor(integralRed: 60, green: 75, blue: 159).cgColor
+        circleLayer.strokeColor = Onboarding.Preloader.progressTrack.cgColor
         
         progressLayer.path = circularPath.cgPath
         progressLayer.fillColor = UIColor.clear.cgColor
         progressLayer.lineCap = .round
         progressLayer.lineWidth = ScreenSize.isIphoneXFamily ? 19.scale : 15.scale
         progressLayer.strokeEnd = 0
-        progressLayer.strokeColor = UIColor(integralRed: 249, green: 205, blue: 106).cgColor
+        progressLayer.strokeColor = Onboarding.Preloader.progress.cgColor
 
         layer.addSublayer(circleLayer)
         layer.addSublayer(progressLayer)

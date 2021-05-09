@@ -29,7 +29,7 @@ final class OGoalCell: PaddingLabel {
 // MARK: Private
 private extension OGoalCell {
     func initialize() {
-        backgroundColor = UIColor(integralRed: 60, green: 75, blue: 159)
+        backgroundColor = Onboarding.Goal.background
         
         layer.masksToBounds = true
         layer.cornerRadius = 12.scale
@@ -43,7 +43,7 @@ private extension OGoalCell {
     }
     
     func update() {
-        backgroundColor = isSelected ? UIColor(integralRed: 249, green: 205, blue: 106) : UIColor(integralRed: 60, green: 75, blue: 159)
-        textColor = isSelected ? UIColor(integralRed: 31, green: 31, blue: 31) : UIColor(integralRed: 245, green: 245, blue: 245)
+        backgroundColor = isSelected ? Onboarding.Goal.selectedBackground : Onboarding.Goal.background
+        textColor = isSelected ? Onboarding.Goal.selectedText : Onboarding.Goal.text
     }
 }

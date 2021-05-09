@@ -62,7 +62,7 @@ private extension OSlidePlanCell {
     func makeLabel() -> UILabel {
         let view = UILabel()
         view.numberOfLines = 0
-        view.textColor = UIColor(integralRed: 245, green: 245, blue: 245)
+        view.textColor = Onboarding.primaryText
         view.font = Fonts.SFProRounded.bold(size: 18.scale)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)

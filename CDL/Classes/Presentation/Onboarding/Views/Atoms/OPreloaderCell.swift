@@ -22,7 +22,7 @@ final class OPreloaderCell: UIView {
             let attrs = TextAttributes()
                 .font(Fonts.SFProRounded.regular(size: 18.scale))
                 .lineHeight(25.scale)
-                .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+                .textColor(Onboarding.Preloader.text)
             
             label.attributedText = title.attributed(with: attrs)
         }

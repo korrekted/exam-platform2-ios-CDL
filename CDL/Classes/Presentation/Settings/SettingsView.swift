@@ -26,7 +26,7 @@ final class SettingsView: UIView {
 // MARK: Private
 private extension SettingsView {
     func initialize() {
-        backgroundColor = UIColor(integralRed: 242, green: 245, blue: 252)
+        backgroundColor = SettingsPalette.background
     }
 }
 
@@ -65,10 +65,10 @@ private extension SettingsView {
     func makeNavigationView() -> NavigationBar {
         let view = NavigationBar()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(integralRed: 41, green: 55, blue: 137)
+        view.backgroundColor = NavigationPalette.navigationBackground
         view.leftAction.setImage(UIImage(named: "General.Pop"), for: .normal)
-        view.leftAction.tintColor = UIColor(integralRed: 245, green: 245, blue: 245)
-        view.rightAction.tintColor = UIColor(integralRed: 245, green: 245, blue: 245)
+        view.leftAction.tintColor = NavigationPalette.navigationTint
+        view.rightAction.tintColor = NavigationPalette.navigationTint
         view.setTitle(title: "Settings.Title".localized)
         addSubview(view)
         return view

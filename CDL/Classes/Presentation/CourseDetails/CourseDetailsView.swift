@@ -32,7 +32,7 @@ extension CourseDetailsView {
 // MARK: Private
 private extension CourseDetailsView {
     func initialize() {
-        backgroundColor = UIColor(integralRed: 245, green: 245, blue: 245)
+        backgroundColor = CourseDetailsPalette.background
     }
 }
 
@@ -88,7 +88,7 @@ private extension CourseDetailsView {
         let view = NavigationBar()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.leftAction.setImage(UIImage(named: "General.Pop"), for: .normal)
-        view.leftAction.tintColor = UIColor(integralRed: 245, green: 245, blue: 245)
+        view.leftAction.tintColor = NavigationPalette.navigationTint
         addSubview(view)
         return view
     }
@@ -105,11 +105,11 @@ private extension CourseDetailsView {
         let view = UIButton()
         let attr = TextAttributes()
             .font(Fonts.SFProRounded.regular(size: 18.scale))
-            .textColor(UIColor(integralRed: 41, green: 55, blue: 137))
+            .textColor(CourseDetailsPalette.primaryTint)
         
         view.setImage(icon, for: .normal)
         view.setAttributedTitle(title.attributed(with: attr), for: .normal)
-        view.backgroundColor = UIColor(integralRed: 232, green: 234, blue: 237)
+        view.backgroundColor = CourseDetailsPalette.primaryButton
         view.contentEdgeInsets.left = -30.scale
         view.titleEdgeInsets.left = 8.scale
         view.layer.cornerRadius = 12.scale

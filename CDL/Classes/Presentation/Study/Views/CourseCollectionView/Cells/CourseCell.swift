@@ -29,10 +29,19 @@ extension CourseCell {
     func setup(element: CourseElement) {
         progressView.setProgres(percent: element.course.progress)
         overlayView.tintColor = element.isSelected
-            ? UIColor(integralRed: 41, green: 55, blue: 137)
-            : UIColor(integralRed: 232, green: 234, blue: 237)
-        nameLabel.attributedText = element.course.name.attributed(with: .titleAttrs)
-        testsCountLabel.attributedText = String(format: "Study.Course.CourseCount".localized, element.course.testCount).attributed(with: .countAttrs)
+            ? StudyPalette.Course.selected
+            : StudyPalette.Course.deselected
+        
+        let titleColor = element.isSelected
+            ? StudyPalette.Course.selectedText
+            : StudyPalette.Course.title
+        
+        let subtitleColor = element.isSelected
+            ? StudyPalette.Course.selectedText
+            : StudyPalette.Course.subtitle
+        
+        nameLabel.attributedText = element.course.name.attributed(with: .titleAttrs.textColor(titleColor))
+        testsCountLabel.attributedText = String(format: "Study.Course.CourseCount".localized, element.course.testCount).attributed(with: .subtitleAttrs.textColor(subtitleColor))
     }
 }
 
@@ -113,11 +122,9 @@ private extension CourseCell {
 private extension TextAttributes {
     static let titleAttrs = TextAttributes()
         .font(Fonts.SFProRounded.bold(size: 18.scale))
-        .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
         .lineHeight(25.scale)
     
-    static let countAttrs = TextAttributes()
+    static let subtitleAttrs = TextAttributes()
         .font(Fonts.SFProRounded.regular(size: 18.scale))
-        .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
         .lineHeight(25.scale)
 }

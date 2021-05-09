@@ -68,7 +68,7 @@ private extension CourseDetailsTabelView {
     func initialize() {
         tableView.register(TrophyCell.self, forCellReuseIdentifier: String(describing: TrophyCell.self))
         tableView.register(CourseDetailsTestCell.self, forCellReuseIdentifier: String(describing: CourseDetailsTestCell.self))
-        tableView.backgroundColor = UIColor(integralRed: 242, green: 245, blue: 252)
+        tableView.backgroundColor = .clear
         tableView.showsVerticalScrollIndicator = false
         tableView.delegate = self
         tableView.dataSource = self

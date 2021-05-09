@@ -96,7 +96,7 @@ private extension SCModeView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 7.scale
-        view.backgroundColor = UIColor(integralRed: 60, green: 75, blue: 159)
+        view.backgroundColor = StudyPalette.Mode.iconBackground
         view.clipsToBounds = true
         addSubview(view)
         return view
@@ -105,7 +105,7 @@ private extension SCModeView {
     func makeImageView() -> UIImageView {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
-        view.tintColor = UIColor(integralRed: 245, green: 245, blue: 245)
+        view.tintColor = StudyPalette.Mode.iconTint
         view.translatesAutoresizingMaskIntoConstraints = false
         iconContainer.addSubview(view)
         return view
@@ -118,9 +118,9 @@ private extension SCModeView {
         view.textAlignment = .center
         view.layer.cornerRadius = 7.scale
         view.layer.masksToBounds = true
-        view.backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
+        view.backgroundColor = StudyPalette.Mode.markBackground
         view.font = Fonts.SFProRounded.bold(size: 10.scale)
-        view.textColor = UIColor(integralRed: 31, green: 31, blue: 31)
+        view.textColor = StudyPalette.Mode.markText
         view.text = message
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
@@ -130,7 +130,7 @@ private extension SCModeView {
 
 private extension TextAttributes {
     static let nameAttrs = TextAttributes()
-        .textColor(UIColor.black)
+        .textColor(StudyPalette.Mode.title)
         .font(Fonts.SFProRounded.semiBold(size: 18.scale))
         .lineHeight(25.scale)
 }

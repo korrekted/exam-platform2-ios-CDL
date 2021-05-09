@@ -79,7 +79,7 @@ private extension STUnlockCell {
 private extension STUnlockCell {
     func makeContainer() -> UIView {
         let view = UIView()
-        view.backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
+        view.backgroundColor = SettingsPalette.unlockBackground
         view.layer.cornerRadius = 12.scale
         view.layer.masksToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -89,7 +89,7 @@ private extension STUnlockCell {
     
     func makeTitleLabel() -> UILabel {
         let attrs = TextAttributes()
-            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .textColor(SettingsPalette.unlockTint)
             .font(Fonts.SFProRounded.regular(size: 14.scale))
             .lineHeight(20.scale)
         
@@ -102,7 +102,7 @@ private extension STUnlockCell {
     
     func makeSubTitleLabel() -> UILabel {
         let attrs = TextAttributes()
-            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .textColor(SettingsPalette.unlockTint)
             .font(Fonts.SFProRounded.bold(size: 24.scale))
             .lineHeight(29.scale)
         
@@ -117,7 +117,7 @@ private extension STUnlockCell {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.image = UIImage(named: "Settings.Lock")
-        view.tintColor = UIColor(integralRed: 31, green: 31, blue: 31)
+        view.tintColor = SettingsPalette.unlockTint
         view.contentMode = .scaleAspectFit
         container.addSubview(view)
         return view

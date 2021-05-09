@@ -63,7 +63,7 @@ private extension OSlideQuestionView {
 private extension OSlideQuestionView {
     func makeTitleLabel() -> UILabel {
         let attrs = TextAttributes()
-            .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+            .textColor(Onboarding.primaryText)
             .font(Fonts.SFProRounded.bold(size: 36.scale))
             .lineHeight(43.scale)
             .textAlignment(.center)
@@ -78,7 +78,7 @@ private extension OSlideQuestionView {
     
     func makeQuestionLabel() -> OQuestionFormView {
         let attrs = TextAttributes()
-            .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+            .textColor(Onboarding.Question.text)
             .font(Fonts.SFProRounded.regular(size: 24.scale))
             .lineHeight(28.scale)
             .textAlignment(.center)
@@ -93,12 +93,12 @@ private extension OSlideQuestionView {
     func makeYesButton() -> UIButton {
         let attrs = TextAttributes()
             .font(Fonts.SFProRounded.regular(size: 18.scale))
-            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .textColor(Onboarding.primaryButtonTint)
         
         let view = UIButton()
         view.layer.cornerRadius = 12.scale
         view.setAttributedTitle("Onboarding.Yes".localized.attributed(with: attrs), for: .normal)
-        view.backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
+        view.backgroundColor = Onboarding.primaryButton
         view.addTarget(self, action: #selector(onNext), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
@@ -108,14 +108,14 @@ private extension OSlideQuestionView {
     func makeNoButton() -> UIButton {
         let attrs = TextAttributes()
             .font(Fonts.SFProRounded.regular(size: 18.scale))
-            .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+            .textColor(Onboarding.secondaryButtonTint)
         
         let view = UIButton()
         view.layer.cornerRadius = 12.scale
         view.layer.borderWidth = 1.scale
-        view.layer.borderColor = UIColor(integralRed: 232, green: 234, blue: 237).cgColor
+        view.layer.borderColor = Onboarding.secondaryButtonBorder.cgColor
         view.setAttributedTitle("Onboarding.No".localized.attributed(with: attrs), for: .normal)
-        view.backgroundColor = UIColor.clear
+        view.backgroundColor = Onboarding.secondaryButton
         view.addTarget(self, action: #selector(onNext), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)

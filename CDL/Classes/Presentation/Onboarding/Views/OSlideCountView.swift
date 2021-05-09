@@ -90,7 +90,7 @@ private extension OSlideCountView {
 private extension OSlideCountView {
     func makeTitleLabel() -> UILabel {
         let attrs = TextAttributes()
-            .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+            .textColor(Onboarding.primaryText)
             .font(Fonts.SFProRounded.bold(size: 36.scale))
             .lineHeight(43.scale)
             .textAlignment(.center)
@@ -114,7 +114,7 @@ private extension OSlideCountView {
     
     func makeValueLabel() -> UILabel {
         let view = UILabel()
-        view.textColor = UIColor(integralRed: 245, green: 245, blue: 245)
+        view.textColor = Onboarding.primaryText
         view.font = Fonts.SFProRounded.bold(size: 32.scale)
         addSubview(view)
         return view
@@ -124,8 +124,8 @@ private extension OSlideCountView {
         let view = OSlider()
         view.minimumValue = 1
         view.maximumValue = 7
-        view.minimumTrackTintColor = UIColor(integralRed: 249, green: 205, blue: 106)
-        view.maximumTrackTintColor = UIColor(integralRed: 60, green: 75, blue: 159)
+        view.minimumTrackTintColor = Onboarding.Slider.minimumTrackTint
+        view.maximumTrackTintColor = Onboarding.Slider.maximumTrackTint
         view.addTarget(self, action: #selector(update(sender:)), for: .valueChanged)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
@@ -134,12 +134,12 @@ private extension OSlideCountView {
     
     func makeButton() -> UIButton {
         let attrs = TextAttributes()
-            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .textColor(Onboarding.primaryButtonTint)
             .font(Fonts.SFProRounded.semiBold(size: 18.scale))
             .textAlignment(.center)
         
         let view = UIButton()
-        view.backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
+        view.backgroundColor = Onboarding.primaryButton
         view.layer.cornerRadius = 12.scale
         view.setAttributedTitle("Onboarding.Next".localized.attributed(with: attrs), for: .normal)
         view.addTarget(self, action: #selector(onNext), for: .touchUpInside)

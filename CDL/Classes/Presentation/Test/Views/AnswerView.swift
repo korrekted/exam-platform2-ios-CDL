@@ -71,34 +71,30 @@ private extension AnswerView {
     func setState(state: State) {
         switch state {
         case .initial:
-            layer.borderColor = UIColor(integralRed: 232, green: 234, blue: 237).cgColor
-            backgroundColor = .white
-            answerLabel.textColor = Self.blackTextColor
+            layer.borderColor = TestPalette.Answer.initialBorder.cgColor
+            backgroundColor = TestPalette.Answer.initialBackground
+            answerLabel.textColor = TestPalette.Answer.text
             layer.borderWidth = 2.scale
         case .selected:
-            layer.borderColor = UIColor(integralRed: 41, green: 55, blue: 137).cgColor
-            backgroundColor = .white
-            answerLabel.textColor = Self.blackTextColor
+            layer.borderColor = TestPalette.Answer.selectedBorder.cgColor
+            backgroundColor = TestPalette.Answer.initialBackground
+            answerLabel.textColor = TestPalette.Answer.text
             layer.borderWidth = 2.scale
         case .correct:
-            backgroundColor = UIColor(integralRed: 143, green: 207, blue: 99)
-            answerLabel.textColor = Self.whiteTextColor
+            backgroundColor = TestPalette.Answer.correctBackground
+            answerLabel.textColor = TestPalette.Answer.selectedText
             layer.borderWidth = 0
         case .error:
-            backgroundColor = UIColor(integralRed: 241, green: 104, blue: 91)
-            answerLabel.textColor = Self.whiteTextColor
+            backgroundColor = TestPalette.Answer.incorrectBackground
+            answerLabel.textColor = TestPalette.Answer.selectedText
             layer.borderWidth = 0
         case .warning:
-            let warningColor = UIColor(integralRed: 143, green: 207, blue: 99)
-            backgroundColor = warningColor.withAlphaComponent(0.2)
-            answerLabel.textColor = Self.blackTextColor
+            backgroundColor = TestPalette.Answer.warningBackground
+            answerLabel.textColor = TestPalette.Answer.text
             layer.borderWidth = 2.scale
-            layer.borderColor = warningColor.cgColor
+            layer.borderColor = TestPalette.Answer.warningBorder.cgColor
         }
     }
-    
-    static let blackTextColor = UIColor(integralRed: 31, green: 31, blue: 31)
-    static let whiteTextColor = UIColor(integralRed: 245, green: 245, blue: 245)
 }
 
 // MARK: Make constraints
