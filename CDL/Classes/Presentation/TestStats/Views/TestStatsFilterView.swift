@@ -65,12 +65,12 @@ private extension TestStatsFilterView {
     
     static let selectedAttr = TextAttributes()
         .font(Fonts.SFProRounded.bold(size: 18.scale))
-        .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+        .textColor(TestStatsPalette.Filter.selected)
         .lineHeight(25.2.scale)
     
     static let initialAttr = TextAttributes()
         .font(Fonts.SFProRounded.regular(size: 18.scale))
-        .textColor(UIColor(integralRed: 31, green: 31, blue: 31, alpha: 0.6))
+        .textColor(TestStatsPalette.Filter.deselected)
         .lineHeight(25.2.scale)
 }
 
@@ -114,7 +114,7 @@ private extension TestStatsFilterView {
     func makeSelectorView() -> UIView {
         let view = UIView()
         view.layer.cornerRadius = 1.scale
-        view.backgroundColor = UIColor(integralRed: 31, green: 31, blue: 31)
+        view.backgroundColor = TestStatsPalette.Filter.selected
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view

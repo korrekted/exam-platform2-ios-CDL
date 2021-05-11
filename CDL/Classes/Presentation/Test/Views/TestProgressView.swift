@@ -41,7 +41,7 @@ extension TestProgressView {
         let attr = TextAttributes()
             .font(Fonts.SFProRounded.regular(size: 14.scale))
             .lineHeight(19.6.scale)
-            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .textColor(ScorePalette.title)
             .textAlignment(.center)
         
         self.leftTitle.attributedText = leftTitle.attributed(with: attr)
@@ -54,15 +54,9 @@ private extension TestProgressView {
     func initialize() {
         leftContentView.addSubview(leftContent)
         rightContentView.addSubview(rightContent)
-        backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
+        backgroundColor = ScorePalette.background
         layer.cornerRadius = 12.scale
     }
-    
-    static let contentAttr = TextAttributes()
-        .font(Fonts.SFProRounded.bold(size: 18.scale))
-        .lineHeight(25.2.scale)
-        .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
-        .textAlignment(.center)
 }
 
 // MARK: Make constraints
@@ -115,7 +109,7 @@ private extension TestProgressView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 12.scale
-        view.backgroundColor = .white
+        view.backgroundColor = ScorePalette.containerBackground
         addSubview(view)
         return view
     }
@@ -139,8 +133,8 @@ private extension TestProgressView {
 private extension TextAttributes {
     static func contentAttr(_ isError: Bool = false) -> TextAttributes {
         let color = isError
-            ? UIColor(integralRed: 241, green: 104, blue: 91)
-            : UIColor(integralRed: 31, green: 31, blue: 31)
+            ? ScorePalette.progressWarning
+            : ScorePalette.progress
         
         return TextAttributes()
             .font(Fonts.SFProRounded.bold(size: 18.scale))

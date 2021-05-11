@@ -81,7 +81,7 @@ private extension OSlideGenderView {
 private extension OSlideGenderView {
     func makeTitleLabel() -> UILabel {
         let attrs = TextAttributes()
-            .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+            .textColor(Onboarding.primaryText)
             .font(Fonts.SFProRounded.bold(size: 36.scale))
             .lineHeight(43.scale)
             .textAlignment(.center)
@@ -120,12 +120,12 @@ private extension OSlideGenderView {
     
     func makeButton() -> UIButton {
         let attrs = TextAttributes()
-            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .textColor(Onboarding.primaryButtonTint)
             .font(Fonts.SFProRounded.semiBold(size: 18.scale))
             .textAlignment(.center)
         
         let view = UIButton()
-        view.backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
+        view.backgroundColor = Onboarding.primaryButton
         view.layer.cornerRadius = 12.scale
         view.setAttributedTitle("Onboarding.Next".localized.attributed(with: attrs), for: .normal)
         view.addTarget(self, action: #selector(onNext), for: .touchUpInside)

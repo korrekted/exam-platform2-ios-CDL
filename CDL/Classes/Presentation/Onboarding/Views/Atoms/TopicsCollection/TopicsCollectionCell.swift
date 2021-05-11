@@ -26,10 +26,11 @@ final class TopicsCollectionCell: UICollectionViewCell {
 // MARK: API
 extension TopicsCollectionCell {
     func setup(element: TopicsCollectionElement) {
+        let textColor = element.isSelected ? Onboarding.Topics.selectedText : Onboarding.Topics.text
         let attrs = TextAttributes()
             .font(Fonts.SFProRounded.regular(size: 18.scale))
             .lineHeight(25.scale)
-            .textColor(element.isSelected ? UIColor(integralRed: 31, green: 31, blue: 31) : UIColor(integralRed: 245, green: 245, blue: 245))
+            .textColor(textColor)
         
         var string = element.topic.title
         if element.topic.isMain {
@@ -38,7 +39,7 @@ extension TopicsCollectionCell {
             
         label.attributedText = string.attributed(with: attrs)
         
-        container.backgroundColor = element.isSelected ? UIColor(integralRed: 249, green: 205, blue: 106) : UIColor(integralRed: 60, green: 75, blue: 159)
+        container.backgroundColor = element.isSelected ? Onboarding.Topics.selectedBackground : Onboarding.Topics.background
     }
 }
 

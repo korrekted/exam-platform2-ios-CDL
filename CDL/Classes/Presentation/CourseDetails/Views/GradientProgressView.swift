@@ -9,12 +9,12 @@ import UIKit
 
 class GradientProgressView: UIView {
     
-    private var gradientLoacation = [NSNumber]()
+    private var gradientLocation = [NSNumber]()
     
     override func draw(_ rect: CGRect) {
-        let correctColor = UIColor(integralRed: 143, green: 207, blue: 99)
-        let incorrectColor = UIColor(integralRed: 241, green: 104, blue: 91)
-        let emptyColor =  UIColor(integralRed: 212, green: 216, blue: 221)
+        let correctColor = CourseDetailsPalette.correctGradient
+        let incorrectColor = CourseDetailsPalette.incorrectGradient
+        let emptyColor = CourseDetailsPalette.emptyGradient
         let gradientLayer = CAGradientLayer()
         
         let colors = [
@@ -30,7 +30,7 @@ class GradientProgressView: UIView {
         gradientLayer.colors = colors
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 1, y: 0)
-        gradientLayer.locations = gradientLoacation
+        gradientLayer.locations = gradientLocation
         layer.masksToBounds = true
         layer.addSublayer(gradientLayer)
     }
@@ -39,7 +39,7 @@ class GradientProgressView: UIView {
         let incorrectLocation = Double(incorrectPercent) / 100
         let correctLocation = Double(correctPercent) / 100 + incorrectLocation
         
-        gradientLoacation = [
+        gradientLocation = [
             0,
             incorrectLocation,
             incorrectLocation + 0.0000001,

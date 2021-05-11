@@ -26,11 +26,11 @@ final class SCTitleCell: UICollectionViewCell {
 extension SCTitleCell {
     func setup(title: String) {
         let attrs = TextAttributes()
-            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .textColor(StudyPalette.title)
             .font(Fonts.SFProRounded.regular(size: 18.scale))
         
         let nameAttr = TextAttributes()
-            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .textColor(StudyPalette.title)
             .font(Fonts.SFProRounded.bold(size: 18.scale))
         
         let attributes = NSMutableAttributedString()

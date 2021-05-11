@@ -34,7 +34,7 @@ extension TestStatsProgressCell {
         let attr = TextAttributes()
             .font(Fonts.SFProRounded.regular(size: 14.scale))
             .lineHeight(20.scale)
-            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .textColor(TestStatsPalette.Progress.text)
             .textAlignment(.center)
         
         passingScoreLabel.attributedText = "\("TestStats.PassingScore".localized) \(element.passingScore)%".attributed(with: attr)
@@ -86,7 +86,7 @@ private extension TestStatsProgressCell {
         let view = UILabel()
         view.textAlignment = .center
         view.font = Fonts.SFProRounded.bold(size: 36.scale)
-        view.textColor = UIColor(integralRed: 31, green: 31, blue: 31)
+        view.textColor = TestStatsPalette.Progress.text
         view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(view)
         return view

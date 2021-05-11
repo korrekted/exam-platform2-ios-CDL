@@ -40,7 +40,7 @@ class CourseCellProgressView: UIView {
         
         trackLayer.path = circularPath.cgPath
         
-        trackLayer.strokeColor = UIColor(integralRed: 232, green: 234, blue: 237).cgColor
+        trackLayer.strokeColor = StudyPalette.Course.deselected.cgColor
         trackLayer.lineWidth = lineWidth
         trackLayer.fillColor = nil
         trackLayer.lineCap = .round
@@ -49,7 +49,7 @@ class CourseCellProgressView: UIView {
         layer.addSublayer(circularShareLayer)
 
         circularShareLayer.path = circularPath.cgPath
-        circularShareLayer.strokeColor = UIColor(integralRed: 41, green: 55, blue: 137).cgColor
+        circularShareLayer.strokeColor = StudyPalette.Course.selected.cgColor
         circularShareLayer.lineWidth = lineWidth
         circularShareLayer.fillColor = nil
         circularShareLayer.lineCap = .round
@@ -82,7 +82,7 @@ private extension CourseCellProgressView {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.font = Fonts.SFProRounded.bold(size: 16.scale)
-        view.textColor = UIColor(integralRed: 41, green: 55, blue: 137)
+        view.textColor = StudyPalette.Course.progressText
         view.textAlignment = .center
         addSubview(view)
         return view

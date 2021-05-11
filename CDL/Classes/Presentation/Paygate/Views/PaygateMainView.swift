@@ -59,7 +59,7 @@ final class PaygateMainView: UIView {
 // MARK: Private
 private extension PaygateMainView {
     func initialize() {
-        backgroundColor = UIColor(integralRed: 41, green: 55, blue: 137)
+        backgroundColor = PaygatePalette.background
     }
     
     @objc
@@ -192,7 +192,7 @@ private extension PaygateMainView {
     
     func makeRestoreButton() -> UIButton {
         let attrs = TextAttributes()
-            .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+            .textColor(PaygatePalette.secondaryText)
             .font(Fonts.SFProRounded.regular(size: 13.scale))
             .letterSpacing(-0.6.scale)
         
@@ -215,7 +215,7 @@ private extension PaygateMainView {
     
     func makeTitleLabel() -> UILabel {
         let attrs = TextAttributes()
-            .textColor(UIColor.white)
+            .textColor(PaygatePalette.primaryText)
             .font(Fonts.SFProRounded.bold(size: 28.scale))
             .lineHeight(ScreenSize.isIphoneXFamily ? 41.scale : 30.scale)
             .textAlignment(.center)
@@ -259,7 +259,7 @@ private extension PaygateMainView {
     
     func makeSecuredLabel() -> UILabel {
         let attrs = TextAttributes()
-            .textColor(UIColor.white)
+            .textColor(PaygatePalette.secondaryText)
             .font(Fonts.SFProRounded.semiBold(size: 13.scale))
             .lineHeight(19.5.scale)
             .letterSpacing(-0.6.scale)
@@ -274,13 +274,13 @@ private extension PaygateMainView {
     
     func makeContinueButton() -> UIButton {
         let attrs = TextAttributes()
-            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .textColor(PaygatePalette.continueTint)
             .font(Fonts.SFProRounded.semiBold(size: 18.scale))
         
         let view = UIButton()
         view.setAttributedTitle("Paygate.Continue".localized.attributed(with: attrs), for: .normal)
         view.isHidden = true
-        view.backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
+        view.backgroundColor = PaygatePalette.continueButton
         view.layer.cornerRadius = 12.scale
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
@@ -292,7 +292,7 @@ private extension PaygateMainView {
             .font(Fonts.SFProRounded.regular(size: 13.scale))
             .lineHeight(19.5.scale)
             .letterSpacing(-0.6.scale)
-            .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+            .textColor(PaygatePalette.primaryText)
             .textAlignment(.center)
             .dictionary
         

@@ -83,7 +83,7 @@ extension OnboardingView: OSlideViewDelegate {
 // MARK: Private
 private extension OnboardingView {
     func initialize() {
-        backgroundColor = UIColor(integralRed: 41, green: 55, blue: 137)
+        backgroundColor = Onboarding.background
         
         contentViews
             .enumerated()
@@ -176,8 +176,8 @@ private extension OnboardingView {
     
     func makeProgressView() -> UIProgressView {
         let view = UIProgressView()
-        view.trackTintColor = UIColor(integralRed: 60, green: 75, blue: 159)
-        view.progressTintColor = UIColor.white
+        view.trackTintColor = Onboarding.Progress.track
+        view.progressTintColor = Onboarding.Progress.progress
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
@@ -185,7 +185,7 @@ private extension OnboardingView {
     
     func makeSkipButton() -> UIButton {
         let attrs = TextAttributes()
-            .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+            .textColor(Onboarding.secondaryText)
             .font(Fonts.SFProRounded.regular(size: 18.scale))
         
         let view = UIButton()

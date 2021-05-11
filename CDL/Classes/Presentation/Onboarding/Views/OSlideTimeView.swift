@@ -48,7 +48,7 @@ extension OSlideTimeView: UIPickerViewDelegate {
         }
         
         let attrs = TextAttributes()
-            .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+            .textColor(Onboarding.pickerText)
             .font(Fonts.SFProRounded.bold(size: 32.scale))
             .lineHeight(38.scale)
         
@@ -113,7 +113,7 @@ private extension OSlideTimeView {
 private extension OSlideTimeView {
     func makeTitleLabel() -> UILabel {
         let attrs = TextAttributes()
-            .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+            .textColor(Onboarding.primaryText)
             .font(Fonts.SFProRounded.bold(size: 36.scale))
             .lineHeight(43.scale)
             .textAlignment(.center)
@@ -148,7 +148,7 @@ private extension OSlideTimeView {
     
     func makeMinLabel() -> UILabel {
         let attrs = TextAttributes()
-            .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+            .textColor(Onboarding.pickerText)
             .font(Fonts.SFProRounded.bold(size: 24.scale))
         
         let view = UILabel()
@@ -160,12 +160,12 @@ private extension OSlideTimeView {
     
     func makeButton() -> UIButton {
         let attrs = TextAttributes()
-            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .textColor(Onboarding.primaryButtonTint)
             .font(Fonts.SFProRounded.semiBold(size: 18.scale))
             .textAlignment(.center)
         
         let view = UIButton()
-        view.backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
+        view.backgroundColor = Onboarding.primaryButton
         view.layer.cornerRadius = 12.scale
         view.setAttributedTitle("Onboarding.Next".localized.attributed(with: attrs), for: .normal)
         view.addTarget(self, action: #selector(onNext), for: .touchUpInside)

@@ -53,7 +53,7 @@ private extension OQuestionFormView {
 private extension OQuestionFormView {
     func makeContainer() -> UIView {
         let view = UIView()
-        view.backgroundColor = UIColor(integralRed: 60, green: 75, blue: 159)
+        view.backgroundColor = Onboarding.Question.containerBackground
         view.layer.cornerRadius = 12.scale
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
@@ -63,7 +63,7 @@ private extension OQuestionFormView {
     func makeLabel() -> UILabel {
         let view = UILabel()
         view.numberOfLines = 0
-        view.textColor = UIColor(integralRed: 245, green: 245, blue: 245)
+        view.textColor = Onboarding.Question.text
         view.font = Fonts.SFProRounded.regular(size: 24.scale)
         view.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(view)

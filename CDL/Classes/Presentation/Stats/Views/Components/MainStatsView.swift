@@ -28,7 +28,7 @@ class MainStatsView: UIView {
 extension MainStatsView {
     func setup(title: String, color: UIColor) {
         let titleAttibutes = TextAttributes()
-            .textColor(UIColor(integralRed: 68, green: 68, blue: 68))
+            .textColor(StatsPalette.MainStats.title)
             .font(Fonts.SFProRounded.bold(size: 14.scale))
             .lineHeight(19.6.scale)
             .textAlignment(.center)
@@ -39,7 +39,7 @@ extension MainStatsView {
     
     func setPercent(percent: Int) {
         let percentAttributes = TextAttributes()
-            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .textColor(StatsPalette.MainStats.value)
             .font(Fonts.SFProRounded.bold(size: 24.scale))
             .lineHeight(28.8.scale)
         

@@ -30,13 +30,13 @@ extension TestStatsAnswerCell {
         let attr = TextAttributes()
             .font(Fonts.SFProRounded.regular(size: 17.scale))
             .lineHeight(23.8)
-            .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+            .textColor(TestStatsPalette.answerText)
         
         answerLabel.attributedText = element.question.attributed(with: attr)
         
         let color = element.isCorrect
-            ? UIColor(integralRed: 143, green: 207, blue: 99)
-            : UIColor(integralRed: 241, green: 104, blue: 91)
+            ? TestStatsPalette.correct
+            : TestStatsPalette.incorrect
         
         containerView.backgroundColor = color
     }

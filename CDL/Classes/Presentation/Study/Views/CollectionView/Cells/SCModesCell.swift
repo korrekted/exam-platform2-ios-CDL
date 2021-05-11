@@ -118,7 +118,7 @@ private extension SCModesCell {
         view.addGestureRecognizer(tapGesture)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 12.scale
-        view.backgroundColor = UIColor(integralRed: 232, green: 234, blue: 237)
+        view.backgroundColor = StudyPalette.Mode.background
         contentView.addSubview(view)
         return view
     }

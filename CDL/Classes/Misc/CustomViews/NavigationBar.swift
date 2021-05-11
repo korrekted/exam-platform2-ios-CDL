@@ -61,7 +61,7 @@ private extension NavigationBar {
             $0.translatesAutoresizingMaskIntoConstraints = false
             addSubview($0)
         }
-        backgroundColor = UIColor(integralRed: 41, green: 55, blue: 137)
+        backgroundColor = NavigationPalette.navigationBackground
         clipsToBounds = true
     }
 }
@@ -109,12 +109,12 @@ private extension TextAttributes {
     static let smallAttr = TextAttributes()
         .font(Fonts.SFProRounded.bold(size: 24.scale))
         .lineHeight(28.8.scale)
-        .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+        .textColor(NavigationPalette.navigationTint)
         .textAlignment(.center)
     
     static let bigAttr = TextAttributes()
         .font(Fonts.SFProRounded.bold(size: 32.scale))
         .lineHeight(41.scale)
-        .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+        .textColor(NavigationPalette.navigationTint)
         .textAlignment(.left)
 }

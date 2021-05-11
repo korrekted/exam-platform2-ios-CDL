@@ -50,13 +50,13 @@ extension SITestView {
 // MARK: Private
 private extension SITestView {
     func initialize() {
-        backgroundColor = .white
+        backgroundColor = TestPalette.background
         nextButton.isHidden = true
     }
     
     static let buttonAttr = TextAttributes()
         .font(Fonts.SFProRounded.regular(size: 18.scale))
-        .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+        .textColor(TestPalette.primaryTint)
         .textAlignment(.center)
 }
 
@@ -124,7 +124,7 @@ private extension SITestView {
         let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 12.scale
-        view.backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
+        view.backgroundColor = TestPalette.primaryButton
         addSubview(view)
         return view
     }
@@ -132,8 +132,8 @@ private extension SITestView {
     func makeNextButton() -> UIButton {
         let view = UIButton()
         view.setImage(UIImage(named: "Question.Next"), for: .normal)
-        view.tintColor = .white
-        view.backgroundColor = UIColor(integralRed: 41, green: 55, blue: 137)
+        view.tintColor = TestPalette.secondaryTint
+        view.backgroundColor = TestPalette.secondaryButton
         view.layer.cornerRadius = 7.scale
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
@@ -144,7 +144,7 @@ private extension SITestView {
         let view = UIView()
         let gradientLayer = CAGradientLayer()
         
-        gradientLayer.colors = [UIColor.clear.cgColor, UIColor(integralRed: 241, green: 244, blue: 251).cgColor]
+        gradientLayer.colors = TestPalette.bottomGradients
         gradientLayer.locations = [0, 0.65]
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
@@ -161,10 +161,10 @@ private extension SITestView {
     func makeNavigationView() -> NavigationBar {
         let view = NavigationBar()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(integralRed: 41, green: 55, blue: 137)
+        view.backgroundColor = NavigationPalette.navigationBackground
         view.leftAction.setImage(UIImage(named: "General.Pop"), for: .normal)
-        view.leftAction.tintColor = UIColor(integralRed: 245, green: 245, blue: 245)
-        view.rightAction.tintColor = UIColor(integralRed: 245, green: 245, blue: 245)
+        view.leftAction.tintColor = NavigationPalette.navigationTint
+        view.rightAction.tintColor = NavigationPalette.navigationTint
         addSubview(view)
         return view
     }

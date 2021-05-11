@@ -74,7 +74,7 @@ private extension TrophyView {
     func makeButton() -> UIButton {
         let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(integralRed: 41, green: 55, blue: 137)
+        view.backgroundColor = TrophyPalette.buttonBackground
         view.setAttributedTitle("Trophy.LearnMore".localized.attributed(with: .buttonAttr), for: .normal)
         view.layer.cornerRadius = 7.scale
         containerView.addSubview(view)
@@ -103,7 +103,7 @@ private extension TrophyView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 20.scale
-        view.backgroundColor = UIColor(integralRed: 143, green: 207, blue: 99)
+        view.backgroundColor = TrophyPalette.background
         addSubview(view)
         return view
     }
@@ -114,10 +114,10 @@ private extension TextAttributes {
     static let buttonAttr = TextAttributes()
         .font(Fonts.SFProRounded.bold(size: 14.scale))
         .lineHeight(16.scale)
-        .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+        .textColor(TrophyPalette.buttonTint)
         .textAlignment(.center)
     
     static let titleAttr = TextAttributes()
         .font(Fonts.SFProRounded.bold(size: 18.scale))
-        .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+        .textColor(TrophyPalette.title)
 }

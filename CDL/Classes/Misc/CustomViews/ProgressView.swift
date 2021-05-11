@@ -9,7 +9,7 @@ import UIKit
 
 class ProgressView: UIView {
     private lazy var titleLabel = makeTitleLabel()
-    private lazy var percentLabel = makepPercentLabel()
+    private lazy var percentLabel = makePercentLabel()
     private lazy var progressView = makeProgress()
     
     override init(frame: CGRect) {
@@ -78,7 +78,7 @@ private extension ProgressView {
         return view
     }
     
-    func makepPercentLabel() -> UILabel {
+    func makePercentLabel() -> UILabel {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
@@ -89,8 +89,8 @@ private extension ProgressView {
     func makeProgress() -> UIProgressView {
         let view = UIProgressView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.trackTintColor = UIColor(integralRed: 60, green: 75, blue: 159)
-        view.progressTintColor = UIColor(integralRed: 245, green: 245, blue: 245)
+        view.trackTintColor = NavigationPalette.navigationTrackTint
+        view.progressTintColor = NavigationPalette.navigationProgressTint
         view.subviews.forEach {
             $0.layer.cornerRadius = 7.scale
             $0.clipsToBounds = true
@@ -104,5 +104,5 @@ private extension TextAttributes {
     static let attr = TextAttributes()
         .font(Fonts.SFProRounded.regular(size: 14.scale))
         .lineHeight(19.6.scale)
-        .textColor(UIColor(integralRed: 245, green: 245, blue: 245))
+        .textColor(NavigationPalette.navigationTint)
 }

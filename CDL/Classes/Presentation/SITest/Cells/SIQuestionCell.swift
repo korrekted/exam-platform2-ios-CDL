@@ -27,7 +27,7 @@ extension SIQuestionCell {
     func configure(question: String, questionHtml: String) {
         let attr = TextAttributes()
             .font(Fonts.SFProRounded.bold(size: 18.scale))
-            .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+            .textColor(TestPalette.questionText)
             .lineHeight(25.2.scale)
         
         questionLabel.attributedText = attributedString(for: questionHtml) ?? question.attributed(with: attr)

@@ -32,14 +32,14 @@ final class OGenderSelectView: UIView {
 // MARK: Private
 private extension OGenderSelectView {
     func initialize() {
-        backgroundColor = UIColor(integralRed: 60, green: 75, blue: 159)
+        backgroundColor = Onboarding.LanguageAndGender.background
         layer.cornerRadius = 12.scale
         layer.borderWidth = 3.scale
         layer.borderColor = UIColor.clear.cgColor
     }
     
     func updateColor() {
-        layer.borderColor = isSelected ? UIColor(integralRed: 249, green: 205, blue: 106).cgColor : UIColor.clear.cgColor
+        layer.borderColor = isSelected ? Onboarding.LanguageAndGender.border.cgColor : UIColor.clear.cgColor
     }
 }
 

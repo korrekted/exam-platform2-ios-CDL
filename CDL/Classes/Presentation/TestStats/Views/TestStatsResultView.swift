@@ -79,7 +79,7 @@ private extension TestStatsResultView {
     
     func makeSeparatorView() -> UIView {
         let view = UIView()
-        view.backgroundColor = UIColor(integralRed: 68, green: 68, blue: 68, alpha: 0.05)
+        view.backgroundColor = StatsPalette.separator
         view.translatesAutoresizingMaskIntoConstraints = false
         view.heightAnchor.constraint(equalToConstant: 1.scale).isActive = true
         return view

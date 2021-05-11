@@ -56,7 +56,7 @@ private extension CourseHeader {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .clear
         view.layer.borderWidth = 2.scale
-        view.layer.borderColor = UIColor(integralRed: 232, green: 234, blue: 237).cgColor
+        view.layer.borderColor = StudyPalette.Course.addCourse.cgColor
         view.layer.cornerRadius = 12.scale
         addSubview(view)
         return view
@@ -64,7 +64,7 @@ private extension CourseHeader {
     func makeImageView() -> UIImageView {
         let view = UIImageView()
         view.image = UIImage(named: "Study.Add")
-        view.tintColor = UIColor(integralRed: 232, green: 234, blue: 237)
+        view.tintColor = StudyPalette.Course.addCourse
         view.contentMode = .scaleAspectFit
         view.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(view)

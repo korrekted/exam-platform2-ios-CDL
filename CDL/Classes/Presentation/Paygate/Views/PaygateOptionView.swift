@@ -57,20 +57,20 @@ private extension PaygateOptionView {
     }
 
     func updateColors() {
-        backgroundColor = isSelected ? UIColor(integralRed: 249, green: 205, blue: 106) : .clear
+        backgroundColor = isSelected ? PaygatePalette.Option.selectedBackground : .clear
         
         checkedImageView.isHidden = !isSelected
     
         layer.borderWidth = isSelected ? 0 : 2.scale
-        layer.borderColor = isSelected ? UIColor.clear.cgColor : UIColor(integralRed: 249, green: 205, blue: 106).cgColor
+        layer.borderColor = isSelected ? UIColor.clear.cgColor : PaygatePalette.Option.deselectedBorder.cgColor
         
-        titleLabel.textColor = isSelected ? UIColor(integralRed: 31, green: 31, blue: 31) : UIColor.white
-        captionLabel.textColor = isSelected ? UIColor(integralRed: 31, green: 31, blue: 31) : UIColor.white
-        subCaptionLabel.textColor = isSelected ? UIColor(integralRed: 31, green: 31, blue: 31) : UIColor.white
-        bottomLabel.textColor = isSelected ? UIColor(integralRed: 31, green: 31, blue: 31) : UIColor.white
+        titleLabel.textColor = isSelected ? PaygatePalette.Option.selectedText : PaygatePalette.Option.deselectText
+        captionLabel.textColor = isSelected ? PaygatePalette.Option.selectedText : PaygatePalette.Option.deselectText
+        subCaptionLabel.textColor = isSelected ? PaygatePalette.Option.selectedText : PaygatePalette.Option.deselectText
+        bottomLabel.textColor = isSelected ? PaygatePalette.Option.selectedText : PaygatePalette.Option.deselectText
         
-        saveLabel.textColor = isSelected ? UIColor.white : UIColor(integralRed: 41, green: 55, blue: 137)
-        saveLabel.backgroundColor = isSelected ? UIColor(integralRed: 41, green: 55, blue: 137) : UIColor.white
+        saveLabel.textColor = isSelected ? PaygatePalette.Option.saveSelectedText : PaygatePalette.Option.saveDeselectedText
+        saveLabel.backgroundColor = isSelected ? PaygatePalette.Option.saveSelectedBackground : PaygatePalette.Option.saveDeselectedBackground
     }
 }
 

@@ -53,7 +53,7 @@ private extension TestStatsResultCell {
 private extension TestStatsResultCell {
     func makeResultView() -> TestStatsResultView {
         let view = TestStatsResultView()
-        view.backgroundColor = UIColor(integralRed: 232, green: 234, blue: 237)
+        view.backgroundColor = StatsPalette.Description.background
         view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(view)
         return view

@@ -29,11 +29,11 @@ extension SITestProgressCollectionCell {
         var attr: TextAttributes = .attr
         
         if element.isSelected {
-            attr = attr.textColor(UIColor(integralRed: 232, green: 234, blue: 237))
-            backgroundColor = UIColor(integralRed: 41, green: 55, blue: 137)
+            attr = attr.textColor(TestPalette.QuestionNumber.selectedText)
+            backgroundColor = TestPalette.QuestionNumber.selectedBackground
         } else {
-            attr = attr.textColor(UIColor(integralRed: 31, green: 31, blue: 31))
-            backgroundColor = UIColor(integralRed: 232, green: 234, blue: 237)
+            attr = attr.textColor(TestPalette.QuestionNumber.text)
+            backgroundColor = TestPalette.QuestionNumber.background
         }
         
         label.attributedText = "\(element.index)".attributed(with: attr)

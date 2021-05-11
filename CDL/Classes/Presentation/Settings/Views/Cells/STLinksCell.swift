@@ -30,8 +30,8 @@ final class STLinksCell: UITableViewCell {
 // MARK: Private
 private extension STLinksCell {
     func initialize() {
-        backgroundColor = UIColor.clear
-        contentView.backgroundColor = UIColor.clear
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
     }
     
     @objc
@@ -144,5 +144,5 @@ private extension TextAttributes {
     static let attr = TextAttributes()
         .font(Fonts.SFProRounded.regular(size: 18.scale))
         .lineHeight(25.scale)
-        .textColor(UIColor(integralRed: 31, green: 31, blue: 31))
+        .textColor(SettingsPalette.itemTitle)
 }

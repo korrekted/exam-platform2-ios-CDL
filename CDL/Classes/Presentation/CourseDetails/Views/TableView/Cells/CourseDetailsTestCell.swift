@@ -98,7 +98,7 @@ private extension CourseDetailsTestCell {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 12.scale
-        view.backgroundColor = UIColor(integralRed: 232, green: 234, blue: 237)
+        view.backgroundColor = CourseDetailsPalette.itemBackground
         contentView.addSubview(view)
         return view
     }
@@ -129,7 +129,7 @@ private extension CourseDetailsTestCell {
         let view = GradientProgressView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 4.scale
-        view.backgroundColor = UIColor(integralRed: 212, green: 216, blue: 221)
+        view.backgroundColor = CourseDetailsPalette.emptyGradient
         progressContainer.addSubview(view)
         return view
     }
@@ -140,8 +140,8 @@ private extension CourseDetailsTestCell {
         view.layer.cornerRadius = 4.scale
         view.image = UIImage(named: "CourseDetails.ArrowForward")
         view.contentMode = .center
-        view.tintColor = UIColor(integralRed: 245, green: 245, blue: 245)
-        view.backgroundColor = UIColor(integralRed: 41, green: 55, blue: 137)
+        view.tintColor = CourseDetailsPalette.secondaryTint
+        view.backgroundColor = CourseDetailsPalette.secondaryButton
         container.addSubview(view)
         return view
     }
@@ -150,9 +150,9 @@ private extension CourseDetailsTestCell {
 private extension TextAttributes {
     static let numberAttrs = TextAttributes()
         .font(Fonts.SFProRounded.regular(size: 64.scale))
-        .textColor(UIColor(integralRed: 212, green: 216, blue: 221))
+        .textColor(CourseDetailsPalette.title)
     
     static let questionCountAttrs = TextAttributes()
         .font(Fonts.SFProRounded.regular(size: 14.scale))
-        .textColor(UIColor(integralRed: 68, green: 68, blue: 68))
+        .textColor(CourseDetailsPalette.subtitle)
 }

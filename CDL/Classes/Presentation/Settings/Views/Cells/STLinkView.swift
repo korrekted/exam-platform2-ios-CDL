@@ -25,7 +25,7 @@ final class STLinkView: UIView {
 // MARK: Private
 private extension STLinkView {
     func initialize() {
-        backgroundColor = UIColor(integralRed: 232, green: 234, blue: 237)
+        backgroundColor = SettingsPalette.itemBackground
         layer.cornerRadius = 12.scale
     }
 }
@@ -62,7 +62,7 @@ private extension STLinkView {
         let view = UIImageView()
         view.image = UIImage(named: "Settings.Right")
         view.contentMode = .scaleAspectFit
-        view.tintColor = UIColor(integralRed: 31, green: 31, blue: 31)
+        view.tintColor = SettingsPalette.buttonTint
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view

@@ -45,13 +45,13 @@ private extension MainRateCell {
         [testTakenStatsView, correctAnswersStatsView, questionsTakenStatsView].forEach(stackStatsView.addArrangedSubview)
         
         testTakenStatsView.setup(title: "Stats.MainRate.TestsTake".localized,
-                                 color: UIColor(integralRed: 41, green: 55, blue: 137))
+                                 color: StatsPalette.Progress.testTaken)
         
         correctAnswersStatsView.setup(title: "Stats.MainRate.CorrectAnswers".localized,
-                                      color: UIColor(integralRed: 249, green: 205, blue: 106))
+                                      color: StatsPalette.Progress.correctAnswers)
         
         questionsTakenStatsView.setup(title: "Stats.MainRate.QuestionsTaken".localized,
-                                      color: UIColor(integralRed: 198, green: 42, blue: 80))
+                                      color: StatsPalette.Progress.questionsTaken)
     }
 }
 
@@ -100,7 +100,7 @@ private extension MainRateCell {
     func makeStatsDescriptionView() -> MainStatsDescriptionView {
         let view = MainStatsDescriptionView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(integralRed: 232, green: 234, blue: 237)
+        view.backgroundColor = StatsPalette.Description.background
         contentView.addSubview(view)
         return view
     }
