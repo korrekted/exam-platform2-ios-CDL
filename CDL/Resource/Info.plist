@@ -23,7 +23,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>cdl</string>
+				<string>cdlprep</string>
 			</array>
 		</dict>
 		<dict>
@@ -31,16 +31,16 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb904303883653161</string>
+				<string>fb446394356454638</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
-	<string>904303883653161</string>
+	<string>446394356454638</string>
 	<key>FacebookDisplayName</key>
-	<string>CDL Exam</string>
+	<string>CDL Prep</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -71,6 +71,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>branch_key</key>
-	<string>key_live_mo4hALUNgQfvwwXHTY8KWjpeEEbk19sf</string>
+	<string>key_live_pk0a8dgkurR0Q9uebiLABgpmBucHLrTx</string>
 </dict>
 </plist>
