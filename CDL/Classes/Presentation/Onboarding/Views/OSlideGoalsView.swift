@@ -19,6 +19,7 @@ final class OSlideGoalsView: OSlideView {
         super.init(step: step)
         
         makeConstraints()
+        changeEnabled()
     }
     
     required init?(coder: NSCoder) {
@@ -36,9 +37,22 @@ private extension OSlideGoalsView {
         
         cell.isSelected = !cell.isSelected
         
+        changeEnabled()
+        
         SDKStorage.shared
             .amplitudeManager
             .logEvent(name: "Goals Tap", parameters: [:])
+    }
+    
+    func changeEnabled() {
+        let isEmpty = [
+            cell1, cell2, cell3, cell4
+        ]
+        .filter { $0.isSelected }
+        .isEmpty
+        
+        button.isEnabled = !isEmpty
+        button.alpha = isEmpty ? 0.4 : 1
     }
 }
 

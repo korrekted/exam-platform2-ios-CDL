@@ -13,12 +13,17 @@ final class OSlideGenderView: OSlideView {
     lazy var womanView = makeWomanView()
     lazy var button = makeButton()
     
-    private var isSelected = false
+    private var isSelected = false {
+        didSet {
+            changeEnabled()
+        }
+    }
     
     override init(step: OnboardingView.Step) {
         super.init(step: step)
         
         makeConstraints()
+        changeEnabled()
     }
     
     required init?(coder: NSCoder) {
@@ -42,6 +47,11 @@ private extension OSlideGenderView {
         
         womanView.isSelected = true
         manView.isSelected = false
+    }
+    
+    func changeEnabled() {
+        button.isEnabled = isSelected
+        button.alpha = isSelected ? 1 : 0.4
     }
 }
 

@@ -23,6 +23,7 @@ final class OSlideLanguageView: OSlideView {
         
         makeConstraints()
         initialize()
+        changeEnabled()
     }
     
     required init?(coder: NSCoder) {
@@ -42,6 +43,8 @@ private extension OSlideLanguageView {
                 
                 self.langSpanishView.isSelected = lang == .spanish
                 self.langEnglishView.isSelected = lang == .english
+                
+                self.changeEnabled()
             })
             .disposed(by: disposeBag)
         
@@ -84,12 +87,28 @@ private extension OSlideLanguageView {
     func selectedLangSpanish() {
         langSpanishView.isSelected = true
         langEnglishView.isSelected = false
+        
+        changeEnabled()
     }
     
     @objc
     func selectedLangEnglish() {
         langSpanishView.isSelected = false
         langEnglishView.isSelected = true
+        
+        changeEnabled()
+    }
+    
+    func changeEnabled() {
+        let isEmpty = [
+            langSpanishView,
+            langEnglishView
+        ]
+        .filter { $0.isSelected }
+        .isEmpty
+        
+        button.isEnabled = !isEmpty
+        button.alpha = isEmpty ? 0.4 : 1
     }
 }
 

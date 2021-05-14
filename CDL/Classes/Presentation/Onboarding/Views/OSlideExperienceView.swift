@@ -18,6 +18,7 @@ final class OSlideExperienceView: OSlideView {
         super.init(step: step)
         
         makeConstraints()
+        changeEnabled()
     }
     
     required init?(coder: NSCoder) {
@@ -39,9 +40,22 @@ private extension OSlideExperienceView {
         
         cell.isSelected = !cell.isSelected
         
+        changeEnabled()
+        
         SDKStorage.shared
             .amplitudeManager
             .logEvent(name: "Experience Tap", parameters: [:])
+    }
+    
+    func changeEnabled() {
+        let isEmpty = [
+            cell1, cell2, cell3
+        ]
+        .filter { $0.isSelected }
+        .isEmpty
+        
+        button.isEnabled = !isEmpty
+        button.alpha = isEmpty ? 0.4 : 1
     }
 }
 
