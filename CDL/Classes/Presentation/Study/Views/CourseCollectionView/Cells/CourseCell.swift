@@ -40,8 +40,8 @@ extension CourseCell {
             ? StudyPalette.Course.selectedText
             : StudyPalette.Course.subtitle
         
-        nameLabel.attributedText = element.course.name.attributed(with: .titleAttrs.textColor(titleColor))
-        testsCountLabel.attributedText = String(format: "Study.Course.CourseCount".localized, element.course.testCount).attributed(with: .subtitleAttrs.textColor(subtitleColor))
+        nameLabel.attributedText = element.course.name.attributed(with: TextAttributes.titleAttrs.textColor(titleColor))
+        testsCountLabel.attributedText = String(format: "Study.Course.CourseCount".localized, element.course.testCount).attributed(with: TextAttributes.subtitleAttrs.textColor(subtitleColor))
     }
 }
 
