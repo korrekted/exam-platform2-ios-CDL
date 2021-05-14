@@ -73,7 +73,13 @@ private extension StudyViewModel {
     }
     
     func makeCoursesElements() -> Driver<StudyCollectionSection> {
-        Observable.combineLatest(courseManager.retrieveCourses().asObservable(), currentCourse)
+        Observable
+            .combineLatest(courseManager
+                            .retrieveCourses()
+                            .asObservable()
+                            .map { $0.filter { $0.selected } },
+                           
+                           currentCourse)
             .map { elements, currentCourse in
                 let courseElements = elements.map {
                     (course: $0, isSelected: $0.id == currentCourse.id)

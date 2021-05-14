@@ -34,7 +34,8 @@ final class GetCourcesResponseMapper {
                           isMain: isMain,
                           sort: sort,
                           progress: progress,
-                          testCount: testCount)
+                          testCount: testCount,
+                          selected: courseJSON["selected"] as? Bool ?? false)
         }
     }
 }

@@ -13,6 +13,7 @@ struct Course {
     let sort: Int
     let progress: Int
     let testCount: Int
+    let selected: Bool
 }
 
 // MARK: Codable

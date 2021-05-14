@@ -131,7 +131,6 @@
 		967AD4FA260FD0AF008E8175 /* GetCourcesResponseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD400260FD0AE008E8175 /* GetCourcesResponseMapper.swift */; };
 		967AD4FB260FD0AF008E8175 /* CoursesManagerCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD402260FD0AE008E8175 /* CoursesManagerCore.swift */; };
 		967AD4FC260FD0AF008E8175 /* CoursesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD403260FD0AE008E8175 /* CoursesManager.swift */; };
-		967AD4FD260FD0AF008E8175 /* CoursesManagerMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD405260FD0AE008E8175 /* CoursesManagerMediator.swift */; };
 		967AD4FE260FD0AF008E8175 /* Brief.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD408260FD0AE008E8175 /* Brief.swift */; };
 		967AD4FF260FD0AF008E8175 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD409260FD0AE008E8175 /* Stats.swift */; };
 		967AD500260FD0AF008E8175 /* GetBriefRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD40B260FD0AE008E8175 /* GetBriefRequest.swift */; };
@@ -397,7 +396,6 @@
 		967AD400260FD0AE008E8175 /* GetCourcesResponseMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCourcesResponseMapper.swift; sourceTree = "<group>"; };
 		967AD402260FD0AE008E8175 /* CoursesManagerCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesManagerCore.swift; sourceTree = "<group>"; };
 		967AD403260FD0AE008E8175 /* CoursesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesManager.swift; sourceTree = "<group>"; };
-		967AD405260FD0AE008E8175 /* CoursesManagerMediator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesManagerMediator.swift; sourceTree = "<group>"; };
 		967AD408260FD0AE008E8175 /* Brief.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brief.swift; sourceTree = "<group>"; };
 		967AD409260FD0AE008E8175 /* Stats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		967AD40B260FD0AE008E8175 /* GetBriefRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetBriefRequest.swift; sourceTree = "<group>"; };
@@ -694,6 +692,13 @@
 				9613EF2326397E3500DAEB9A /* SetRequest.swift */,
 			);
 			path = Request;
+			sourceTree = "<group>";
+		};
+		9667BB17264EA4490029ED86 /* Mediator */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Mediator;
 			sourceTree = "<group>";
 		};
 		967AD363260FCFAC008E8175 = {
@@ -997,7 +1002,6 @@
 				967AD3FC260FD0AE008E8175 /* Models */,
 				967AD3FE260FD0AE008E8175 /* Requests */,
 				967AD401260FD0AE008E8175 /* Manager */,
-				967AD404260FD0AE008E8175 /* Mediator */,
 			);
 			path = Courses;
 			sourceTree = "<group>";
@@ -1026,14 +1030,6 @@
 				967AD403260FD0AE008E8175 /* CoursesManager.swift */,
 			);
 			path = Manager;
-			sourceTree = "<group>";
-		};
-		967AD404260FD0AE008E8175 /* Mediator */ = {
-			isa = PBXGroup;
-			children = (
-				967AD405260FD0AE008E8175 /* CoursesManagerMediator.swift */,
-			);
-			path = Mediator;
 			sourceTree = "<group>";
 		};
 		967AD406260FD0AE008E8175 /* Stats */ = {
@@ -1557,6 +1553,7 @@
 		96F44FBF2631EE24000B77E3 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				9667BB17264EA4490029ED86 /* Mediator */,
 				9613EF1B2639748F00DAEB9A /* Request */,
 				96F44FC42631EF8B000B77E3 /* Manager */,
 				96F44FC02631EE2C000B77E3 /* Models */,
@@ -1781,7 +1778,6 @@
 				967AD4EF260FD0AE008E8175 /* GetRandomSetRequest.swift in Sources */,
 				967AD4D8260FD0AE008E8175 /* GetMonetizationResponseMapper.swift in Sources */,
 				967AD56C260FD0AF008E8175 /* OProgressView.swift in Sources */,
-				967AD4FD260FD0AF008E8175 /* CoursesManagerMediator.swift in Sources */,
 				967AD545260FD0AF008E8175 /* TestStatsResultCell.swift in Sources */,
 				967AD532260FD0AF008E8175 /* TestType.swift in Sources */,
 				967AD517260FD0AF008E8175 /* StudyViewController.swift in Sources */,
