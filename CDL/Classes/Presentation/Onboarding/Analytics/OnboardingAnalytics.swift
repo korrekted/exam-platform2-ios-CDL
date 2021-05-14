@@ -18,10 +18,6 @@ final class OnboardingAnalytics {
             name = "State Screen"
         case .language:
             name = "Language Screen"
-        case .gender:
-            name = "Gender Screen"
-        case .age:
-            name = "Age Screen"
         case .goals:
             name = "Goals Screen"
         case .whenTaking:

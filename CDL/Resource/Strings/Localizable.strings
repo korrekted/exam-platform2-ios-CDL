@@ -20,9 +20,9 @@
 "Course.Tab.Study" = "Study";
 
 // MARK: Splash
-"Splash.Title.Part1" = "Trusted by over\n";
-"Splash.Title.Part2" = "20 THOUSANDS\n";
-"Splash.Title.Part3" = "first time passers";
+"Splash.Title.Part1" = "Created by\n";
+"Splash.Title.Part2" = "CERTIFIED\n";
+"Splash.Title.Part3" = "experts";
 
 // MARK: Onboarding
 "Onboarding.Skip" = "Skip";
@@ -36,8 +36,6 @@
 "Onboarding.SlideTopics.Title" = "Select all specific topics you need";
 "Onboarding.SlideState.Title" = "Select your state";
 "Onboarding.SlideLanguage.Title" = "Select your language";
-"Onboarding.SlideGender.Title" = "What’s your\ngender?";
-"Onboarding.Age.Title" = "How old are you?";
 "Onboarding.Goals.Title" = "What’s your goal?";
 "Onboarding.Goals.Cell1" = "I’m getting my first CDL";
 "Onboarding.Goals.Cell2" = "I’m adding new endorsement";
@@ -55,7 +53,7 @@
 "Onboarding.Question1" = "A driver should always remember about the blind spots of commercial vehicles.";
 "Onboarding.Question2" = "Only after 2 years of accident-free driving one can claim they really know how to drive";
 "Onboarding.Question3" = "A technical condition of a vehicle is less important than the driver’s skill.";
-"Onboarding.Question4" = "A technical condition of a vehicle is less important than the driver’s skill.";
+"Onboarding.Question4" = "A good truck driver cares for everyone on the road, even the small passenger cars";
 "Onboarding.Preloader.Title" = "Preparing your\nindividual study\nplan";
 "Onboarding.Preloader.Cell1" = "Analyzing your skill level";
 "Onboarding.Preloader.Cell2" = "Analyzing your goals";

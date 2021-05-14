@@ -234,13 +234,10 @@
 		967AD56D260FD0AF008E8175 /* OSlidePlanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4A1260FD0AE008E8175 /* OSlidePlanCell.swift */; };
 		967AD56F260FD0AF008E8175 /* ODatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4A4260FD0AE008E8175 /* ODatePicker.swift */; };
 		967AD570260FD0AF008E8175 /* OGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4A5260FD0AE008E8175 /* OGoalCell.swift */; };
-		967AD574260FD0AF008E8175 /* OGenderSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4A9260FD0AE008E8175 /* OGenderSelectView.swift */; };
-		967AD575260FD0AF008E8175 /* OSlideAgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4AA260FD0AE008E8175 /* OSlideAgeView.swift */; };
 		967AD576260FD0AF008E8175 /* OSlidePreloaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4AB260FD0AE008E8175 /* OSlidePreloaderView.swift */; };
 		967AD577260FD0AF008E8175 /* OSlideGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4AC260FD0AE008E8175 /* OSlideGoalsView.swift */; };
 		967AD579260FD0AF008E8175 /* OSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4AE260FD0AE008E8175 /* OSlideView.swift */; };
 		967AD57A260FD0AF008E8175 /* OSlideQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4AF260FD0AE008E8175 /* OSlideQuestionView.swift */; };
-		967AD57B260FD0AF008E8175 /* OSlideGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4B0260FD0AE008E8175 /* OSlideGenderView.swift */; };
 		967AD57C260FD0AF008E8175 /* OSlidePlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4B1260FD0AE008E8175 /* OSlidePlanView.swift */; };
 		967AD57D260FD0AF008E8175 /* OSlideTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4B2260FD0AE008E8175 /* OSlideTimeView.swift */; };
 		967AD57E260FD0AF008E8175 /* OSlideStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4B3260FD0AE008E8175 /* OSlideStartedView.swift */; };
@@ -501,13 +498,10 @@
 		967AD4A1260FD0AE008E8175 /* OSlidePlanCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlidePlanCell.swift; sourceTree = "<group>"; };
 		967AD4A4260FD0AE008E8175 /* ODatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ODatePicker.swift; sourceTree = "<group>"; };
 		967AD4A5260FD0AE008E8175 /* OGoalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OGoalCell.swift; sourceTree = "<group>"; };
-		967AD4A9260FD0AE008E8175 /* OGenderSelectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OGenderSelectView.swift; sourceTree = "<group>"; };
-		967AD4AA260FD0AE008E8175 /* OSlideAgeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideAgeView.swift; sourceTree = "<group>"; };
 		967AD4AB260FD0AE008E8175 /* OSlidePreloaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlidePreloaderView.swift; sourceTree = "<group>"; };
 		967AD4AC260FD0AE008E8175 /* OSlideGoalsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideGoalsView.swift; sourceTree = "<group>"; };
 		967AD4AE260FD0AE008E8175 /* OSlideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideView.swift; sourceTree = "<group>"; };
 		967AD4AF260FD0AE008E8175 /* OSlideQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideQuestionView.swift; sourceTree = "<group>"; };
-		967AD4B0260FD0AE008E8175 /* OSlideGenderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideGenderView.swift; sourceTree = "<group>"; };
 		967AD4B1260FD0AE008E8175 /* OSlidePlanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlidePlanView.swift; sourceTree = "<group>"; };
 		967AD4B2260FD0AE008E8175 /* OSlideTimeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideTimeView.swift; sourceTree = "<group>"; };
 		967AD4B3260FD0AE008E8175 /* OSlideStartedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideStartedView.swift; sourceTree = "<group>"; };
@@ -1468,12 +1462,10 @@
 				967AD49F260FD0AE008E8175 /* Atoms */,
 				967AD49D260FD0AE008E8175 /* OSlideWhenTakingView.swift */,
 				967AD49E260FD0AE008E8175 /* OSlideCountView.swift */,
-				967AD4AA260FD0AE008E8175 /* OSlideAgeView.swift */,
 				967AD4AB260FD0AE008E8175 /* OSlidePreloaderView.swift */,
 				967AD4AC260FD0AE008E8175 /* OSlideGoalsView.swift */,
 				967AD4AE260FD0AE008E8175 /* OSlideView.swift */,
 				967AD4AF260FD0AE008E8175 /* OSlideQuestionView.swift */,
-				967AD4B0260FD0AE008E8175 /* OSlideGenderView.swift */,
 				967AD4B1260FD0AE008E8175 /* OSlidePlanView.swift */,
 				967AD4B2260FD0AE008E8175 /* OSlideTimeView.swift */,
 				967AD4B3260FD0AE008E8175 /* OSlideStartedView.swift */,
@@ -1494,7 +1486,6 @@
 				967AD4A1260FD0AE008E8175 /* OSlidePlanCell.swift */,
 				967AD4A4260FD0AE008E8175 /* ODatePicker.swift */,
 				967AD4A5260FD0AE008E8175 /* OGoalCell.swift */,
-				967AD4A9260FD0AE008E8175 /* OGenderSelectView.swift */,
 				96B67ADA262972820048DAB9 /* OLanguageSelectView.swift */,
 				96B67AE52629B9DE0048DAB9 /* OSlider.swift */,
 				96B67AEC2629BDDB0048DAB9 /* OQuestionFormView.swift */,
@@ -1875,7 +1866,6 @@
 				967AD4C1260FD0AE008E8175 /* TextAttributes.swift in Sources */,
 				86BB2593261E14D700C6D2FA /* GetSavedRequest.swift in Sources */,
 				9667BB19264EA4780029ED86 /* ProfileMediator.swift in Sources */,
-				967AD575260FD0AF008E8175 /* OSlideAgeView.swift in Sources */,
 				967AD503260FD0AF008E8175 /* GetStatsRequest.swift in Sources */,
 				967AD57A260FD0AF008E8175 /* OSlideQuestionView.swift in Sources */,
 				967AD55F260FD0AF008E8175 /* StatsView.swift in Sources */,
@@ -1895,7 +1885,6 @@
 				86BB2590261E0C8B00C6D2FA /* SaveQuestionRequest.swift in Sources */,
 				967AD52E260FD0AF008E8175 /* QuestionViewCell.swift in Sources */,
 				8686722B26120D7700B42D41 /* TestComunityResultLineView.swift in Sources */,
-				967AD57B260FD0AF008E8175 /* OSlideGenderView.swift in Sources */,
 				967AD55C260FD0AF008E8175 /* StatsCellType.swift in Sources */,
 				9667BB1D264EA48E0029ED86 /* ProfileMediatorDelegate.swift in Sources */,
 				967AD567260FD0AF008E8175 /* MainStatsDescriptionView.swift in Sources */,
@@ -1916,7 +1905,6 @@
 				967AD4DD260FD0AE008E8175 /* PaygateMainOffer.swift in Sources */,
 				967AD523260FD0AF008E8175 /* CourseView.swift in Sources */,
 				967AD564260FD0AF008E8175 /* MainStatsDescriptionLineView.swift in Sources */,
-				967AD574260FD0AF008E8175 /* OGenderSelectView.swift in Sources */,
 				96B67A9A2629601F0048DAB9 /* OSlideStateView.swift in Sources */,
 				967AD57C260FD0AF008E8175 /* OSlidePlanView.swift in Sources */,
 				967AD4F7260FD0AF008E8175 /* QuestionManagerDelagate.swift in Sources */,
