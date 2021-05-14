@@ -57,6 +57,8 @@ extension ProfileManagerCore {
             
             event(.success(Void()))
             
+            ProfileMediator.shared.notifyAboutSaveSelected(specificTopics: specificTopics)
+            
             return Disposables.create()
         }
     }
@@ -73,6 +75,8 @@ extension ProfileManagerCore {
             UserDefaults.standard.setValue(data, forKey: Constants.cachedSelectedLanguageKey)
             
             event(.success(Void()))
+            
+            ProfileMediator.shared.notifyAboutSaveSelected(language: language)
             
             return Disposables.create()
         }
@@ -107,6 +111,8 @@ extension ProfileManagerCore {
             UserDefaults.standard.setValue(data, forKey: Constants.cachedSelectedStateKey)
             
             event(.success(Void()))
+            
+            ProfileMediator.shared.notifyAboutSaveState(state: state)
             
             return Disposables.create()
         }

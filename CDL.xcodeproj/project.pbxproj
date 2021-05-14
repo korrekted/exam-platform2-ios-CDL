@@ -62,6 +62,8 @@
 		9613EF1D263974A700DAEB9A /* GetTopicsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613EF1C263974A700DAEB9A /* GetTopicsRequest.swift */; };
 		9613EF212639767800DAEB9A /* GetTopicsResponseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613EF202639767800DAEB9A /* GetTopicsResponseMapper.swift */; };
 		9613EF2426397E3500DAEB9A /* SetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613EF2326397E3500DAEB9A /* SetRequest.swift */; };
+		9667BB19264EA4780029ED86 /* ProfileMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9667BB18264EA4780029ED86 /* ProfileMediator.swift */; };
+		9667BB1D264EA48E0029ED86 /* ProfileMediatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9667BB1C264EA48E0029ED86 /* ProfileMediatorDelegate.swift */; };
 		967AD379260FCFAF008E8175 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 967AD378260FCFAF008E8175 /* Assets.xcassets */; };
 		967AD4B9260FD0AE008E8175 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD3A8260FD0AE008E8175 /* UIColorExtension.swift */; };
 		967AD4BA260FD0AE008E8175 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD3A9260FD0AE008E8175 /* Collection+Extension.swift */; };
@@ -326,6 +328,8 @@
 		9613EF1C263974A700DAEB9A /* GetTopicsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTopicsRequest.swift; sourceTree = "<group>"; };
 		9613EF202639767800DAEB9A /* GetTopicsResponseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTopicsResponseMapper.swift; sourceTree = "<group>"; };
 		9613EF2326397E3500DAEB9A /* SetRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRequest.swift; sourceTree = "<group>"; };
+		9667BB18264EA4780029ED86 /* ProfileMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMediator.swift; sourceTree = "<group>"; };
+		9667BB1C264EA48E0029ED86 /* ProfileMediatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMediatorDelegate.swift; sourceTree = "<group>"; };
 		967AD378260FCFAF008E8175 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		967AD37D260FCFAF008E8175 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		967AD3A8260FD0AE008E8175 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
@@ -697,6 +701,8 @@
 		9667BB17264EA4490029ED86 /* Mediator */ = {
 			isa = PBXGroup;
 			children = (
+				9667BB18264EA4780029ED86 /* ProfileMediator.swift */,
+				9667BB1C264EA48E0029ED86 /* ProfileMediatorDelegate.swift */,
 			);
 			path = Mediator;
 			sourceTree = "<group>";
@@ -1868,6 +1874,7 @@
 				86B8E79826446710004F5BB0 /* ColorsPalette.swift in Sources */,
 				967AD4C1260FD0AE008E8175 /* TextAttributes.swift in Sources */,
 				86BB2593261E14D700C6D2FA /* GetSavedRequest.swift in Sources */,
+				9667BB19264EA4780029ED86 /* ProfileMediator.swift in Sources */,
 				967AD575260FD0AF008E8175 /* OSlideAgeView.swift in Sources */,
 				967AD503260FD0AF008E8175 /* GetStatsRequest.swift in Sources */,
 				967AD57A260FD0AF008E8175 /* OSlideQuestionView.swift in Sources */,
@@ -1890,6 +1897,7 @@
 				8686722B26120D7700B42D41 /* TestComunityResultLineView.swift in Sources */,
 				967AD57B260FD0AF008E8175 /* OSlideGenderView.swift in Sources */,
 				967AD55C260FD0AF008E8175 /* StatsCellType.swift in Sources */,
+				9667BB1D264EA48E0029ED86 /* ProfileMediatorDelegate.swift in Sources */,
 				967AD567260FD0AF008E8175 /* MainStatsDescriptionView.swift in Sources */,
 				967AD514260FD0AF008E8175 /* SplashViewModel.swift in Sources */,
 				967AD54D260FD0AF008E8175 /* TestStatsFilter.swift in Sources */,
