@@ -1,13 +1,13 @@
 //
-//  SIAnswerCell.swift
-//  CDL
+//  AnswerCell.swift
+//  Nursing
 //
-//  Created by Vitaliy Zagorodnov on 10.04.2021.
+//  Created by Vitaliy Zagorodnov on 31.01.2021.
 //
-
 import UIKit
+import RxSwift
 
-class SIAnswerCell: UITableViewCell {
+final class AnswerCell: UITableViewCell {
     
     private lazy var answerView = makeAnswerView()
     
@@ -30,8 +30,8 @@ class SIAnswerCell: UITableViewCell {
 }
 
 // MARK: Public
-extension SIAnswerCell {
-    func setup(element: SIAnswerElement) {
+extension AnswerCell {
+    func setup(element: AnswerElement) {
         answerView.setAnswer(answer: element.answer, image: element.image)
         
         switch element.state {
@@ -50,7 +50,7 @@ extension SIAnswerCell {
 }
 
 // MARK: Private
-private extension SIAnswerCell {
+private extension AnswerCell {
     func initialize() {
         backgroundColor = .clear
         selectionStyle = .none
@@ -58,7 +58,7 @@ private extension SIAnswerCell {
 }
 
 // MARK: Make constraints
-private extension SIAnswerCell {
+private extension AnswerCell {
     func makeConstraints() {
         NSLayoutConstraint.activate([
             answerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5.scale),
@@ -70,7 +70,7 @@ private extension SIAnswerCell {
 }
 
 // MARK: Lazy initialization
-private extension SIAnswerCell {
+private extension AnswerCell {
     func makeAnswerView() -> AnswerView {
         let view = AnswerView()
         view.translatesAutoresizingMaskIntoConstraints = false

@@ -63,7 +63,7 @@ private extension QuestionCell {
     func makeConstraints() {
         NSLayoutConstraint.activate([
             questionLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16.scale),
-            questionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            questionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16.scale),
             questionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24.scale),
             questionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24.scale)
         ])

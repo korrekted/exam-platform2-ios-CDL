@@ -7,17 +7,12 @@
 
 import Foundation
 
-struct PossibleAnswerElement: Hashable {
+struct AnswerElement {
     let id: Int
     let answer: String
     let image: URL?
+    var state: AnswerState
     let isCorrect: Bool
-}
-
-struct AnswerResultElement {
-    let answer: String
-    let image: URL?
-    let state: AnswerState
 }
 
 enum AnswerState {
@@ -33,10 +28,5 @@ struct QuestionElement {
     let isAnswered: Bool
     let questionsCount: Int
     let explanation: String?
-}
-
-struct AnswerElement {
-    let questionId: Int
-    let answerIds: [Int]
-    let isMultiple: Bool
+    let isResult: Bool
 }

@@ -10,7 +10,6 @@ import RxCocoa
 final class AnswerView: UIView {
     private lazy var answerLabel = makeAnswerLabel()
     private lazy var imageView = makeImageView()
-    private let tapGesture = UITapGestureRecognizer()
     private var labelBottomConstraint: NSLayoutConstraint?
     
     var state: State = .initial {
@@ -52,19 +51,12 @@ extension AnswerView {
         
         answerLabel.attributedText = answer.attributed(with: attrs)
     }
-    
-    var didTap: Signal<Void> {
-        tapGesture.rx.event
-            .map { _ in () }
-            .asSignal(onErrorSignalWith: .empty())
-    }
 }
 
 // MARK: Private
 private extension AnswerView {
     func initialize() {
         layer.cornerRadius = 12.scale
-        addGestureRecognizer(tapGesture)
         state = .initial
     }
     

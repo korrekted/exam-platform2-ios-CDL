@@ -10,6 +10,20 @@ import RxCocoa
 
 final class QuestionTableView: UITableView {
     private lazy var elements = [TestingCellType]()
+    let expandContent = PublishRelay<QuestionContentType>()
+    let selectedAnswers = PublishRelay<[AnswerElement]>()
+    
+    private var selectedCells: Set<IndexPath> = [] {
+        didSet {
+            let answers = selectedCells
+                .compactMap { indexPath -> AnswerElement? in
+                    guard case let .answer(answer) = elements[safe: indexPath.row] else { return nil }
+                    return answer
+                }
+            
+            selectedAnswers.accept(answers)
+        }
+    }
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -20,31 +34,22 @@ final class QuestionTableView: UITableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private var selectedIds: (([Int]) -> Void)?
-    private var isMultiple = false
-    let selectedAnswersRelay = PublishRelay<AnswerElement>()
-    let expandContent = PublishRelay<QuestionContentType>()
 }
 
 // MARK: API
 extension QuestionTableView {
     func setup(question: QuestionElement) {
-        selectedIds = { [weak self] elements in
-            let element = AnswerElement(questionId: question.id, answerIds: elements, isMultiple: question.isMultiple)
-            self?.selectedAnswersRelay.accept(element)
-        }
         elements = question.elements
-        isMultiple = question.isMultiple
-        
+        allowsMultipleSelection = question.isMultiple
+        allowsSelection = !question.isResult
+        selectedCells.removeAll()
+        CATransaction.setCompletionBlock { [weak self] in
+            let indexPath = IndexPath(row: question.isResult ? question.elements.count - 1 : 0, section: 0)
+            self?.scrollToRow(at: indexPath, at: .top, animated: true)
+        }
+        CATransaction.begin()
         reloadData()
-        let isBottomScroll = question.elements.contains(where: {
-            guard case .result = $0 else { return false }
-            return true
-        })
-        
-        let indexPath = IndexPath(row: isBottomScroll ? question.elements.count - 1 : 0, section: 0)
-        scrollToRow(at: indexPath, at: .top, animated: true)
+        CATransaction.commit()
     }
 }
 
@@ -67,17 +72,13 @@ extension QuestionTableView: UITableViewDataSource {
             let cell = dequeueReusableCell(withIdentifier: String(describing: QuestionCell.self), for: indexPath) as! QuestionCell
             cell.configure(question: question, questionHtml: html)
             return cell
-        case let .answers(answers):
-            let cell = dequeueReusableCell(withIdentifier: String(describing: AnswersCell.self), for: indexPath) as! AnswersCell
-            cell.configure(answers: answers, isMultiple: isMultiple, didTap: selectedIds)
+        case let .answer(answer):
+            let cell = dequeueReusableCell(withIdentifier: String(describing: AnswerCell.self), for: indexPath) as! AnswerCell
+            cell.setup(element: answer)
             return cell
         case let .explanation(explanation):
             let cell = dequeueReusableCell(withIdentifier: String(describing: ExplanationCell.self), for: indexPath) as! ExplanationCell
             cell.confugure(explanation: explanation)
-            return cell
-        case let .result(elements):
-            let cell = dequeueReusableCell(withIdentifier: String(describing: AnswersCell.self), for: indexPath) as! AnswersCell
-            cell.configure(result: elements)
             return cell
         }
     }
@@ -85,6 +86,32 @@ extension QuestionTableView: UITableViewDataSource {
 
 // MARK: UITableViewDelegate
 extension QuestionTableView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        tableView.cellForRow(at: indexPath) is AnswerCell ? indexPath : nil
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? AnswerCell else { return }
+        
+        if selectedCells.contains(indexPath) {
+            selectedCells.remove(indexPath)
+            cell.setSelected(false, animated: false)
+        } else {
+            if isMultipleTouchEnabled {
+                selectedCells.insert(indexPath)
+            } else {
+                selectedCells = [indexPath]
+            }
+            cell.setSelected(true, animated: false)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if cell is AnswerCell, selectedCells.contains(indexPath) {
+            cell.setSelected(true, animated: false)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if case .content = elements[indexPath.row] {
             return 213.scale
@@ -98,7 +125,7 @@ extension QuestionTableView: UITableViewDelegate {
 private extension QuestionTableView {
     func initialize() {
         register(QuestionContentCell.self, forCellReuseIdentifier: String(describing: QuestionContentCell.self))
-        register(AnswersCell.self, forCellReuseIdentifier: String(describing: AnswersCell.self))
+        register(AnswerCell.self, forCellReuseIdentifier: String(describing: AnswerCell.self))
         register(QuestionCell.self, forCellReuseIdentifier: String(describing: QuestionCell.self))
         register(ExplanationCell.self, forCellReuseIdentifier: String(describing: ExplanationCell.self))
         separatorStyle = .none

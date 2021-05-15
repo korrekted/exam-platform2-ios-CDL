@@ -180,7 +180,8 @@ private extension StudyViewController {
             testStatsController.didTapTryAgain = controller?.tryAgain
             self?.present(testStatsController, animated: true)
         }
-        navigationController?.pushViewController(controller, animated: true)
+        
+        parent?.navigationController?.pushViewController(controller, animated: true)
     }
     
     func openCourseDetails(course: Course) {

@@ -49,7 +49,7 @@ class CourseDetailsViewController: UIViewController {
             .bind(to: Binder(self) { base, tuple in
                 let (testId, (courseId, activeSubscription)) = tuple
                 let controller = TestViewController.make(testTypes: [.get(testId: testId)], activeSubscription: activeSubscription, courseId: courseId)
-                base.navigationController?.pushViewController(controller, animated: true)
+                base.parent?.navigationController?.pushViewController(controller, animated: true)
             })
             .disposed(by: disposeBag)
         
@@ -63,7 +63,7 @@ class CourseDetailsViewController: UIViewController {
                 let (testType, (courseId, activeSubscription)) = tuple
                 if activeSubscription {
                     let controller = SITestViewController.make(testType: testType, activeSubscription: activeSubscription, courseId: courseId)
-                    base.navigationController?.pushViewController(controller, animated: true)
+                    base.parent?.navigationController?.pushViewController(controller, animated: true)
                 } else {
                     UIApplication.shared.keyWindow?.rootViewController?.present(PaygateViewController.make(), animated: true)
                 }

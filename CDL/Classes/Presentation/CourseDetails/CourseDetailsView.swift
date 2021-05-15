@@ -43,7 +43,7 @@ private extension CourseDetailsView {
             navigationView.topAnchor.constraint(equalTo: topAnchor),
             navigationView.leadingAnchor.constraint(equalTo: leadingAnchor),
             navigationView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            navigationView.heightAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 179.scale : 149.scale)
+            navigationView.heightAnchor.constraint(equalToConstant: 192.scale)
         ])
         
         NSLayoutConstraint.activate([

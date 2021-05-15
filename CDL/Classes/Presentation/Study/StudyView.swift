@@ -67,7 +67,7 @@ private extension StudyView {
             navigationView.topAnchor.constraint(equalTo: topAnchor),
             navigationView.leadingAnchor.constraint(equalTo: leadingAnchor),
             navigationView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            navigationView.heightAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 293.scale : 263.scale)
+            navigationView.heightAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 291.scale : 275.scale)
         ])
         
         NSLayoutConstraint.activate([

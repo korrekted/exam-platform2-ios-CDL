@@ -115,17 +115,15 @@ final class SITestViewController: UIViewController {
             .bind(to: Binder(self) { base, content in
                 switch content {
                 case let .image(url):
-                    let imageView = UIImageView()
-                    imageView.contentMode = .scaleAspectFit
-                    do {
-                        try imageView.image = UIImage(data: Data(contentsOf: url))
-                        let controller = UIViewController()
-                        controller.view.backgroundColor = .black
-                        controller.view.addSubview(imageView)
-                        imageView.frame = controller.view.bounds
-                        base.present(controller, animated: true)
-                    } catch {
-                        
+                    DispatchQueue.global(qos: .utility).async { [weak base] in
+                        if let image = try? UIImage(data: Data(contentsOf: url)) {
+                            DispatchQueue.main.async {
+                                let controller = ZoomImageViewController(image: image)
+                                controller.view.backgroundColor = .black
+                                base?.present(controller, animated: true)
+                            }
+                            
+                        }
                     }
                 case let .video(url):
                     let controller = AVPlayerViewController()

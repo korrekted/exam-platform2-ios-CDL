@@ -27,17 +27,18 @@ final class TopicsCollectionCell: UICollectionViewCell {
 extension TopicsCollectionCell {
     func setup(element: TopicsCollectionElement) {
         let textColor = element.isSelected ? Onboarding.Topics.selectedText : Onboarding.Topics.text
-        let attrs = TextAttributes()
-            .font(Fonts.SFProRounded.regular(size: 18.scale))
-            .lineHeight(25.scale)
-            .textColor(textColor)
         
-        var string = element.topic.title
+        let titleAttr = TextAttributes().font(Fonts.SFProRounded.bold(size: 24.scale)).textColor(textColor)
+        let subtitleAttr = TextAttributes().font(Fonts.SFProRounded.regular(size: 18.scale)).textColor(textColor)
+        
+        let attrs = NSMutableAttributedString()
+        attrs.append(element.topic.title.attributed(with: titleAttr))
+        
         if element.topic.isMain {
-            string += "\n" + element.topic.description
+            attrs.append(("\n" + element.topic.description).attributed(with: subtitleAttr))
         }
-            
-        label.attributedText = string.attributed(with: attrs)
+        
+        label.attributedText = attrs
         
         container.backgroundColor = element.isSelected ? Onboarding.Topics.selectedBackground : Onboarding.Topics.background
     }
@@ -81,7 +82,7 @@ private extension TopicsCollectionCell {
     
     func makeLabel() -> UILabel {
         let view = UILabel()
-        view.numberOfLines = 2
+        view.numberOfLines = 5
         view.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(view)
         return view

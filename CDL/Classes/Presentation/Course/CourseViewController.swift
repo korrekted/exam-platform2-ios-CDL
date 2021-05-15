@@ -37,10 +37,11 @@ final class CourseViewController: UIViewController {
 
 // MARK: Make
 extension CourseViewController {
-    static func make() -> CourseViewController {
+    static func make() -> NursingNavigationController {
         let vc = CourseViewController()
+        let nc = NursingNavigationController(rootViewController: vc)
         vc.navigationItem.backButtonTitle = " "
-        return vc
+        return nc
     }
 }
  
