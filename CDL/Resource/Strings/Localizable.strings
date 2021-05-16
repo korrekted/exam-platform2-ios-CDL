@@ -33,7 +33,7 @@
 "Onboarding.SlideStarted.Text1" = "Personal study plan. 98% pass rate.";
 "Onboarding.SlideStarted.Text2" = "A special AI-supported study plan to help you ace your CDL exam.";
 "Onboarding.SlideStarted.Button" = "Get started";
-"Onboarding.SlideTopics.Title" = "Select all specific topics you need";
+"Onboarding.SlideTopics.Title" = "Select all\nrequired topics";
 "Onboarding.SlideState.Title" = "Select your state";
 "Onboarding.SlideLanguage.Title" = "Select your language";
 "Onboarding.Goals.Title" = "What’s your goal?";
