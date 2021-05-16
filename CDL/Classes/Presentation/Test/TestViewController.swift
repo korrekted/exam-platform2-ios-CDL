@@ -47,12 +47,12 @@ final class TestViewController: UIViewController {
             .disposed(by: disposeBag)
         
         mainView.tableView
-            .selectedAnswersRelay
+            .selectedAnswers
             .withLatestFrom(courseName) { ($0, $1) }
             .subscribe(onNext: { [weak self] stub in
                 let (answers, name) = stub
                 
-                self?.viewModel.answers.accept(answers)
+                self?.viewModel.selectedAnswersRelay.accept(answers)
                 self?.logTapAnalytics(courseName: name, what: "answer")
             })
             .disposed(by: disposeBag)
@@ -111,6 +111,7 @@ final class TestViewController: UIViewController {
                 viewModel.isEndOfTest,
                 mainView.nextButton.rx.tap.asDriver().map { _ in true }
             )
+            .startWith(true)
         
         isHiddenNext
             .drive(mainView.nextButton.rx.isHidden)
@@ -128,7 +129,7 @@ final class TestViewController: UIViewController {
             .merge(nextOffset, bottomButtonOffset)
             .distinctUntilChanged()
             .drive(Binder(mainView.tableView) {
-                $0.contentInset = UIEdgeInsets(top: $0.contentInset.top, left: 0, bottom: $1, right: 0)
+                $0.contentInset.bottom = $1
             })
             .disposed(by: disposeBag)
         
@@ -153,17 +154,15 @@ final class TestViewController: UIViewController {
             .bind(to: Binder(self) { base, content in
                 switch content {
                 case let .image(url):
-                    let imageView = UIImageView()
-                    imageView.contentMode = .scaleAspectFit
-                    do {
-                        try imageView.image = UIImage(data: Data(contentsOf: url))
-                        let controller = UIViewController()
-                        controller.view.backgroundColor = .black
-                        controller.view.addSubview(imageView)
-                        imageView.frame = controller.view.bounds
-                        base.present(controller, animated: true)
-                    } catch {
-                        
+                    DispatchQueue.global(qos: .utility).async { [weak base] in
+                        if let image = try? UIImage(data: Data(contentsOf: url)) {
+                            DispatchQueue.main.async {
+                                let controller = ZoomImageViewController(image: image)
+                                controller.view.backgroundColor = .black
+                                base?.present(controller, animated: true)
+                            }
+                            
+                        }
                     }
                 case let .video(url):
                     let controller = AVPlayerViewController()
@@ -187,9 +186,12 @@ final class TestViewController: UIViewController {
         viewModel.needPayment
             .filter { $0 }
             .emit { [weak self] _ in
-                self?.dismiss(animated: true, completion: {
-                    UIApplication.shared.keyWindow?.rootViewController?.present(PaygateViewController.make(), animated: true)
-                })
+                UIApplication.shared.keyWindow?.rootViewController?.present(PaygateViewController.make(), animated: true) { [weak self] in
+                    // Без задержки контроллер не попается
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+                        self?.navigationController?.popViewController(animated: false)
+                    }
+                }
             }
             .disposed(by: disposeBag)
             
@@ -305,4 +307,37 @@ private extension TestViewController {
     @objc func popAction() {
         navigationController?.popViewController(animated: true)
     }
+}
+
+class ZoomImageViewController: UIViewController {
+    
+    var imageScrollView: ImageScrollView!
+    
+    private var image: UIImage?
+    
+    convenience init(image: UIImage) {
+        self.init()
+        self.image = image
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        imageScrollView = ImageScrollView(frame: view.bounds)
+        view.addSubview(imageScrollView)
+        setupImageScrollView()
+        if let image = image {
+            imageScrollView.set(image: image)
+        }
+    }
+    
+    func setupImageScrollView() {
+        imageScrollView.translatesAutoresizingMaskIntoConstraints = false
+        imageScrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        imageScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        imageScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        imageScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+    }
+
+
 }

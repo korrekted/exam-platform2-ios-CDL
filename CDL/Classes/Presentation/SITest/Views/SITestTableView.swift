@@ -49,8 +49,6 @@ extension SITestTableView {
         CATransaction.begin()
         reloadData()
         CATransaction.commit()
-        
-        
     }
 }
 
