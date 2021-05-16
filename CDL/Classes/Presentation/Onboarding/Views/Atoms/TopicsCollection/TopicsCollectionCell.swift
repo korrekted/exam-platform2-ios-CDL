@@ -42,6 +42,17 @@ extension TopicsCollectionCell {
         
         container.backgroundColor = element.isSelected ? Onboarding.Topics.selectedBackground : Onboarding.Topics.background
     }
+    
+    static func size(for element: TopicsCollectionElement, with height: CGFloat) -> CGSize {
+        sizingCell.setup(element: element)
+        return sizingCell.contentView.systemLayoutSizeFitting(
+            CGSize(width: UIView.layoutFittingCompressedSize.width, height: height),
+            withHorizontalFittingPriority: .fittingSizeLevel,
+            verticalFittingPriority: .required
+        )
+    }
+    
+    private static let sizingCell = TopicsCollectionCell()
 }
 
 // MARK: Private

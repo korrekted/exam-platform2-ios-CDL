@@ -19,21 +19,7 @@ final class TopicsCollectionElement {
 
 // MARK: API
 extension TopicsCollectionElement {
-    func width(with attrs: TextAttributes, height: CGFloat) -> CGFloat {
-        let titleAttr = TextAttributes().font(Fonts.SFProRounded.bold(size: 24.scale))
-        let subtitleAttr = TextAttributes().font(Fonts.SFProRounded.regular(size: 18.scale))
-        
-        let attrs = NSMutableAttributedString()
-        attrs.append(topic.title.attributed(with: titleAttr))
-        
-        if topic.isMain {
-            attrs.append(("\n" + topic.description).attributed(with: subtitleAttr))
-        }
-        
-        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
-        
-        let boundingBox = attrs.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, context: nil)
-
-        return ceil(boundingBox.width + 32)
+    func width(for height: CGFloat) -> CGFloat {
+        return TopicsCollectionCell.size(for: self, with: height).width
     }
 }
