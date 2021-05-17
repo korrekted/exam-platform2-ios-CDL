@@ -63,11 +63,7 @@ extension TopicsCollectionView: UICollectionViewDelegateFlowLayout {
 // MARK: TopicsCollectionLayoutDelegate
 extension TopicsCollectionView: TopicsCollectionLayoutDelegate {
     func topicsCollectionLayout(widthFor indexPath: IndexPath) -> CGFloat {
-        let attrs = TextAttributes()
-            .font(Fonts.SFProRounded.regular(size: 18.scale))
-            .lineHeight(25.scale)
-        
-        return elements[indexPath.item].width(with: attrs, height: 101.scale)
+        return elements[indexPath.item].width(for: 101.scale)
     }
 }
 
