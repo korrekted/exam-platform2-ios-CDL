@@ -10,8 +10,6 @@ import UIKit
 class SCTrophyCollectionCell: UICollectionViewCell {
     
     lazy var trophyView = makeTrophyView()
-    
-    var didTapButton: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,13 +18,6 @@ class SCTrophyCollectionCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-// MARK: Private
-private extension SCTrophyCollectionCell {
-    @objc func didTap() {
-        didTapButton?()
     }
 }
 
@@ -47,7 +38,6 @@ private extension SCTrophyCollectionCell {
     func makeTrophyView() -> TrophyView {
         let view = TrophyView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.button.addTarget(self, action: #selector(didTap), for: .touchUpInside)
         contentView.addSubview(view)
         return view
     }

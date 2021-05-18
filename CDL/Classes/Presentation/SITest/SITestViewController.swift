@@ -147,9 +147,12 @@ final class SITestViewController: UIViewController {
         viewModel.needPayment
             .filter { $0 }
             .emit { [weak self] _ in
-                self?.dismiss(animated: true, completion: {
-                    UIApplication.shared.keyWindow?.rootViewController?.present(PaygateViewController.make(), animated: true)
-                })
+                UIApplication.shared.keyWindow?.rootViewController?.present(PaygateViewController.make(), animated: true) { [weak self] in
+                    // Без задержки контроллер не попается
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+                        self?.navigationController?.popViewController(animated: false)
+                    }
+                }
             }
             .disposed(by: disposeBag)
         

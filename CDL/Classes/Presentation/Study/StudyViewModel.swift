@@ -73,19 +73,17 @@ private extension StudyViewModel {
     }
     
     func makeCoursesElements() -> Driver<StudyCollectionSection> {
-        let courses = ProfileMediator.shared
-                    .rxSelectedTopics
-                    .asObservable()
-                    .startWith([])
-                    .flatMapLatest { [weak self] _ -> Single<[Course]> in
-                        guard let self = self else {
-                            return .never()
-                        }
-                        
-                        return self.courseManager
-                            .retrieveCourses()
-                    }
-                    .map { $0.filter { $0.selected } }
+        let courses = Observable.merge(
+            ProfileMediator.shared.rxSelectedTopics.asObservable().map { _ in () },
+            ProfileMediator.shared.rxSavedState.asObservable().map { _ in () }
+        )
+        .startWith(())
+        .flatMapLatest { [weak self] _ -> Single<[Course]> in
+            guard let self = self else { return .never() }
+            return self.courseManager
+                .retrieveCourses()
+        }
+        .map { $0.filter { $0.selected } }
         
         return Observable
             .combineLatest(courses, currentCourse)

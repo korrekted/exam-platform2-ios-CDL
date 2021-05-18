@@ -36,8 +36,12 @@ extension CourseDetailsTabelView {
 
 extension CourseDetailsTabelView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard case let .test(element) = elements[indexPath.row] else { return }
-        selectedTestId.accept(element.id)
+        switch elements[indexPath.row] {
+        case let .test(element):
+            selectedTestId.accept(element.id)
+        case .needPayment:
+            didTapLearnMore.accept(())
+        }
     }
 }
 
@@ -55,10 +59,8 @@ extension CourseDetailsTabelView: UITableViewDataSource {
             return cell
         case .needPayment:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TrophyCell.self), for: indexPath) as! TrophyCell
-            cell.didTapButton = { [weak self] in
-                self?.didTapLearnMore.accept(())
-            }
             cell.backgroundColor = .clear
+            cell.selectionStyle = .none
             return cell
         }
     }

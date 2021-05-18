@@ -139,10 +139,11 @@ private extension TestViewModel {
     }
     
     func makeCurrentTestType() -> Observable<TestType> {
-        loadNextTestSignal.debug()
+        loadNextTestSignal
             .compactMap { [weak self] _ -> TestType? in
-                self?.testType = self?.testTypes.removeFirst()
-                return self?.testType
+                guard let self = self, !self.testTypes.isEmpty else { return nil }
+                self.testType = self.testTypes.removeFirst()
+                return self.testType
             }
     }
     

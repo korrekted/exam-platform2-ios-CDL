@@ -71,9 +71,6 @@ extension StudyCollectionView: UICollectionViewDataSource {
             return cell
         case .trophy:
             let cell = dequeueReusableCell(withReuseIdentifier: String(describing: SCTrophyCollectionCell.self), for: indexPath) as! SCTrophyCollectionCell
-            cell.didTapButton = { [weak self] in
-                self?.didTapTrophy.accept(())
-            }
             return cell
         }
     }
@@ -93,6 +90,11 @@ extension StudyCollectionView: UICollectionViewDelegateFlowLayout {
         case .trophy:
             return CGSize(width: collectionView.bounds.width, height: 168.scale)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard case .trophy = sections[indexPath.section].elements[indexPath.row] else { return }
+        didTapTrophy.accept(())
     }
 }
 

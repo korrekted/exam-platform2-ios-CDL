@@ -137,8 +137,10 @@ final class TestViewController: UIViewController {
             .withLatestFrom(courseName) { ($0, $1) }
             .bind(to: Binder(self) { base, stub in
                 let (element, name) = stub
-                
-                base.didTapSubmit?(element)
+                let testStatsController = TestStatsViewController.make(element: element)
+                testStatsController.didTapNext = base.loadNext
+                testStatsController.didTapTryAgain = base.tryAgain
+                base.present(testStatsController, animated: true)
                 base.logTapAnalytics(courseName: name, what: "finish test")
             })
             .disposed(by: disposeBag)
