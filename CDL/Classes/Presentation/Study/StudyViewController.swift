@@ -174,13 +174,6 @@ private extension StudyViewController {
     
     func openTest(types: [TestType], activeSubscription: Bool, courseId: Int) {
         let controller = TestViewController.make(testTypes: types, activeSubscription: activeSubscription, courseId: courseId)
-        controller.didTapSubmit = { [weak self, weak controller] element in
-            let testStatsController = TestStatsViewController.make(element: element)
-            testStatsController.didTapNext = controller?.loadNext
-            testStatsController.didTapTryAgain = controller?.tryAgain
-            self?.present(testStatsController, animated: true)
-        }
-        
         parent?.navigationController?.pushViewController(controller, animated: true)
     }
     

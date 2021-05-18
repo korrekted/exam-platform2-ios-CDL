@@ -70,6 +70,14 @@ class CourseDetailsViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        mainView.tableView
+            .didTapLearnMore
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { _ in
+                UIApplication.shared.keyWindow?.rootViewController?.present(PaygateViewController.make(), animated: true)
+            })
+            .disposed(by: disposeBag)
+        
     }
 }
 

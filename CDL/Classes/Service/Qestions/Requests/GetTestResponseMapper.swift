@@ -31,8 +31,6 @@ struct GetTestResponseMapper {
         
         let timeLeft = data["time_left"] as? Int
         
-        guard !questions.isEmpty else { return nil }
-        
         return Test(
             paid: paid,
             userTestId: userTestId,

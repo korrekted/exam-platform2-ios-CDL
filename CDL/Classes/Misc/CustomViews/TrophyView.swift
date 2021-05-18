@@ -11,7 +11,7 @@ class TrophyView: UIView {
     private lazy var titleLabel = makeTitleLabel()
     private lazy var imageView = makeImageView()
     private lazy var containerView = makeContainerView()
-    lazy var button = makeButton()
+    private lazy var button = makeButton()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -77,6 +77,7 @@ private extension TrophyView {
         view.backgroundColor = TrophyPalette.buttonBackground
         view.setAttributedTitle("Trophy.LearnMore".localized.attributed(with: .buttonAttr), for: .normal)
         view.layer.cornerRadius = 7.scale
+        view.isUserInteractionEnabled = false
         containerView.addSubview(view)
         return view
     }

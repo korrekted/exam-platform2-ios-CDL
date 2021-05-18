@@ -32,6 +32,14 @@ extension StatsTableView {
     }
 }
 
+// MARK: UITableViewDelegate
+extension StatsTableView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard case .needPayment = elements[indexPath.row] else { return }
+        didTapLearnMore.accept(())
+    }
+}
+
 // MARK: UITableViewDataSource
 extension StatsTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,9 +63,6 @@ extension StatsTableView: UITableViewDataSource {
             return cell
         case .needPayment:
             let cell = dequeueReusableCell(withIdentifier: String(describing: TrophyCell.self), for: indexPath) as! TrophyCell
-            cell.didTapButton = { [weak self] in
-                self?.didTapLearnMore.accept(())
-            }
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
             return cell
