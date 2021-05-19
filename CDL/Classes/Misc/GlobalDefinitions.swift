@@ -19,7 +19,7 @@ final class GlobalDefinitions {
     
     static let appStoreId = "1566343337"
     
-    static let termsOfServiceUrl = "https://docs.google.com/document/d/1-W9vqg-sno9DcYcDo-XhT26TMhYE1mOU6OivK2IhI7M/edit"
-    static let privacyPolicyUrl = "https://docs.google.com/document/d/1GCIelmdgxFi7_dLgg0O_RzfHZB3PMYlczk9gekCRlIE/edit"
-    static let contactUsUrl = "https://docs.google.com/document/d/1t8lYyy4pGkW4ugSPXExYqfRDPaMneXZ5h7XhTCdfxi8/edit"
+    static let termsOfServiceUrl = "http://bit.ly/mapola-terms"
+    static let privacyPolicyUrl = "http://bit.ly/mapola-policy"
+    static let contactUsUrl = "http://bit.ly/mapola-contact"
 }
