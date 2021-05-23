@@ -34,9 +34,13 @@ private extension StatsViewModel {
             return .just([])
         }
         
-        let elements = QuestionManagerMediator.shared.rxTestPassed
+        let elements = Signal
+            .merge(
+                QuestionManagerMediator.shared.rxTestPassed,
+                QuestionManagerMediator.shared.rxTestClosed
+            )
             .asObservable()
-            .startWith(Void())
+            .startWith(())
             .flatMapLatest { [weak self] _ -> Single<[StatsCellType]> in
                 guard let this = self else {
                     return .never()

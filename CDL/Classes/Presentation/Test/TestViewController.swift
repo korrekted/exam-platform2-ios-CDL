@@ -307,6 +307,7 @@ private extension TestViewController {
     }
     
     @objc func popAction() {
+        QuestionManagerMediator.shared.testClosed()
         navigationController?.popViewController(animated: true)
     }
 }

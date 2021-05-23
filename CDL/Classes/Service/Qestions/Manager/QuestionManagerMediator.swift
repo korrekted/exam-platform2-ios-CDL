@@ -11,6 +11,7 @@ final class QuestionManagerMediator {
     static let shared = QuestionManagerMediator()
     
     private let testPassedTrigger = PublishRelay<Void>()
+    private let testClosedTrigger = PublishRelay<Void>()
     
     private var delegates = [Weak<QuestionManagerDelegate>]()
     
@@ -28,12 +29,26 @@ extension QuestionManagerMediator {
             self?.testPassedTrigger.accept(())
         }
     }
+    
+    func testClosed() {
+        DispatchQueue.main.async { [weak self] in
+            self?.delegates.forEach {
+                $0.weak?.didTestClosed()
+            }
+            
+            self?.testClosedTrigger.accept(())
+        }
+    }
 }
 
 // MARK: Triggers(Rx)
 extension QuestionManagerMediator {
     var rxTestPassed: Signal<Void> {
         testPassedTrigger.asSignal()
+    }
+    
+    var rxTestClosed: Signal<Void> {
+        testClosedTrigger.asSignal()
     }
 }
 
