@@ -97,7 +97,11 @@ private extension StudyViewModel {
     }
     
     func makeBrief() -> Driver<SCEBrief> {
-        let testPassed = QuestionManagerMediator.shared.rxTestPassed
+        let testPassed = Signal
+            .merge(
+                QuestionManagerMediator.shared.rxTestPassed,
+                QuestionManagerMediator.shared.rxTestClosed
+            )
             .asObservable()
             .startWith(())
         

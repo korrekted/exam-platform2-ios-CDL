@@ -9,4 +9,5 @@ import Foundation
 
 protocol QuestionManagerDelegate: class {
     func didTestPassed()
+    func didTestClosed()
 }
