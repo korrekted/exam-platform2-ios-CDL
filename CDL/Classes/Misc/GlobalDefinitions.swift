@@ -9,7 +9,7 @@ final class GlobalDefinitions {
     static let domainUrl = "https://exams.mapo.la"
     static let apiKey = "GS3Fx34F3dxuy2LM"
     
-    static let sdkDomainUrl = "https://analytics.korrekted.com"
+    static let sdkDomainUrl = "https://analytics.mapo.la"
     static let sdkApiKey = "uJRANDiMDhqUfp7b"
     
     static let applicationTag = "PREP_CDL"
@@ -19,7 +19,7 @@ final class GlobalDefinitions {
     
     static let appStoreId = "1566343337"
     
-    static let termsOfServiceUrl = "http://bit.ly/mapola-terms"
-    static let privacyPolicyUrl = "http://bit.ly/mapola-policy"
-    static let contactUsUrl = "http://bit.ly/mapola-contact"
+    static let termsOfServiceUrl = "https://mapo.la/prep/terms.html"
+    static let privacyPolicyUrl = "https://mapo.la/prep/policy.html"
+    static let contactUsUrl = "https://mapo.la/prep/contact.html"
 }
