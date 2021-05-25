@@ -6,9 +6,13 @@
 //
 
 struct State {
-    let title: String
+    let name: String
     let code: String
+    let sort: Int
 }
 
 // MARK: Codable
 extension State: Codable {}
+
+// MARK: Hashable
+extension State: Hashable {}

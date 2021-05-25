@@ -10,8 +10,6 @@ import RxSwift
 final class ProfileManagerCore {
     enum Constants {
         static let cachedSelectedSpecificTopicsKey = "cachedSelectedSpecificTopicsKey"
-        static let cachedSelectedLanguageKey = "cachedSelectedLanguageKey"
-        static let cachedSelectedStateKey = "cachedSelectedStateKey"
     }
 }
 
@@ -64,81 +62,10 @@ extension ProfileManagerCore {
     }
 }
 
-// MARK: Language
-extension ProfileManagerCore {
-    func saveSelected(language: Language) -> Single<Void> {
-        Single<Void>.create { event in
-            guard let data = try? JSONEncoder().encode(language) else {
-                return Disposables.create()
-            }
-            
-            UserDefaults.standard.setValue(data, forKey: Constants.cachedSelectedLanguageKey)
-            
-            event(.success(Void()))
-            
-            ProfileMediator.shared.notifyAboutSaveSelected(language: language)
-            
-            return Disposables.create()
-        }
-    }
-    
-    func obtainSelectedLanguage() -> Single<Language?> {
-        Single<Language?>.create { event in
-            guard let data = UserDefaults.standard.data(forKey: Constants.cachedSelectedLanguageKey) else {
-                event(.success(nil))
-                return Disposables.create()
-            }
-            
-            let result = try? JSONDecoder().decode(Language.self, from: data)
-            
-            event(.success(result))
-            
-            return Disposables.create()
-        }
-        .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .background))
-        .observe(on: MainScheduler.asyncInstance)
-    }
-}
-
-// MARK: State
-extension ProfileManagerCore {
-    func saveSelected(state: State) -> Single<Void> {
-        Single<Void>.create { event in
-            guard let data = try? JSONEncoder().encode(state) else {
-                return Disposables.create()
-            }
-            
-            UserDefaults.standard.setValue(data, forKey: Constants.cachedSelectedStateKey)
-            
-            event(.success(Void()))
-            
-            ProfileMediator.shared.notifyAboutSaveState(state: state)
-            
-            return Disposables.create()
-        }
-    }
-    
-    func obtainSelectedState() -> Single<State?> {
-        Single<State?>.create { event in
-            guard let data = UserDefaults.standard.data(forKey: Constants.cachedSelectedStateKey) else {
-                event(.success(nil))
-                return Disposables.create()
-            }
-            
-            let result = try? JSONDecoder().decode(State.self, from: data)
-            
-            event(.success(result))
-            
-            return Disposables.create()
-        }
-        .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .background))
-        .observe(on: MainScheduler.asyncInstance)
-    }
-}
-
 // MARK: Set
 extension ProfileManagerCore {
-    func set(state: String? = nil,
+    func set(country: String? = nil,
+             state: String? = nil,
              language: String? = nil,
              topicsIds: [Int]? = nil) -> Single<Void> {
         guard let userToken = SessionManagerCore().getSession()?.userToken else {
@@ -146,6 +73,7 @@ extension ProfileManagerCore {
         }
         
         let request = SetRequest(userToken: userToken,
+                                 country: country,
                                  state: state,
                                  language: language,
                                  topicsIds: topicsIds)
@@ -154,5 +82,10 @@ extension ProfileManagerCore {
             .restApiTransport
             .callServerApi(requestBody: request)
             .map { _ in Void() }
+            .do(onSuccess: {
+                ProfileMediator.shared.notifyAboutUpdated(profileLocale: (countryCode: country,
+                                                                          stateCode: state,
+                                                                          languageCode: language))
+            })
     }
 }

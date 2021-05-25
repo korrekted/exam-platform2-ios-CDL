@@ -13,16 +13,9 @@ protocol ProfileManager {
     func obtainSelectedSpecificTopics() -> Single<[SpecificTopic]>
     func saveSelected(specificTopics: [SpecificTopic]) -> Single<Void>
     
-    // MARK: Language
-    func saveSelected(language: Language) -> Single<Void>
-    func obtainSelectedLanguage() -> Single<Language?>
-    
-    // MARK: State
-    func saveSelected(state: State) -> Single<Void>
-    func obtainSelectedState() -> Single<State?>
-    
     // MARK: Set
-    func set(state: String?,
+    func set(country: String?,
+             state: String?,
              language: String?,
              topicsIds: [Int]?) -> Single<Void>
 }

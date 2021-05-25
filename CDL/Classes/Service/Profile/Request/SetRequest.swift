@@ -9,15 +9,18 @@ import Alamofire
 
 struct SetRequest: APIRequestBody {
     private let userToken: String
+    private let country: String?
     private let state: String?
     private let language: String?
     private let topicsIds: [Int]?
     
     init(userToken: String,
+         country: String? = nil,
          state: String? = nil,
          language: String? = nil,
          topicsIds: [Int]? = nil) {
         self.userToken = userToken
+        self.country = country
         self.state = state
         self.language = language
         self.topicsIds = topicsIds
@@ -36,6 +39,10 @@ struct SetRequest: APIRequestBody {
             "_api_key": GlobalDefinitions.apiKey,
             "_user_token": userToken
         ]
+        
+        if let country = self.country {
+            params["country"] = country
+        }
         
         if let state = self.state {
             params["state"] = state
