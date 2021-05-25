@@ -14,6 +14,7 @@ final class ProfileMediator {
     private var delegates = [Weak<ProfileMediatorDelegate>]()
     
     private lazy var saveSelectedTopicsTrigger = PublishRelay<[SpecificTopic]>()
+    private lazy var updateProfileLocaleTrigger = PublishRelay<ProfileLocale>()
     
     private init() {}
 }
@@ -29,12 +30,26 @@ extension ProfileMediator {
             self?.saveSelectedTopicsTrigger.accept(specificTopics)
         }
     }
+    
+    func notifyAboutUpdated(profileLocale: ProfileLocale) {
+        DispatchQueue.main.async { [weak self] in
+            self?.delegates.forEach {
+                $0.weak?.didUpdated(profileLocale: profileLocale)
+            }
+            
+            self?.updateProfileLocaleTrigger.accept(profileLocale)
+        }
+    }
 }
 
 // MARK: Triggers(Rx)
 extension ProfileMediator {
     var rxSelectedTopics: Signal<[SpecificTopic]> {
         saveSelectedTopicsTrigger.asSignal()
+    }
+    
+    var rxUpdatedProfileLocale: Signal<ProfileLocale> {
+        updateProfileLocaleTrigger.asSignal()
     }
 }
 

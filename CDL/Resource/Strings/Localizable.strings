@@ -34,7 +34,8 @@
 "Onboarding.SlideStarted.Text2" = "A special AI-supported study plan to help you ace your CDL exam.";
 "Onboarding.SlideStarted.Button" = "Get started";
 "Onboarding.SlideTopics.Title" = "Select all\nrequired topics";
-"Onboarding.SlideState.Title" = "Select your state";
+"Onboarding.SlideCountry.Title" = "Choose\nyour country";
+"Onboarding.SlideState.Title" = "Select your state,\nprovince or district";
 "Onboarding.SlideLanguage.Title" = "Select your language";
 "Onboarding.Goals.Title" = "What’s your goal?";
 "Onboarding.Goals.Cell1" = "I’m getting my first CDL";
@@ -155,4 +156,3 @@
 "CourseDetails.Saved" = "Saved";
 "CourseDetails.Incorrect" = "Incorrect";
 "CourseDetails.PassRate" = "Pass rate";
-

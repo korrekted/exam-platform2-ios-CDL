@@ -8,72 +8,20 @@
 import UIKit
 import RxSwift
 
-final class OSlideStateView: OSlideView {
+final class LocaleStateView: UIView {
+    var onNext: (() -> Void)?
+    
     lazy var titleLabel = makeTitleLabel()
     lazy var pickerView = makePickerView()
     lazy var cursorView = makeCursorView()
     lazy var button = makeButton()
     
-    private lazy var manager = ProfileManagerCore()
+    lazy var states = [State]()
     
     private lazy var disposeBag = DisposeBag()
     
-    private lazy var states = [
-        State(title: "ALABAMA", code: "AL"),
-        State(title: "ALASKA", code: "AK"),
-        State(title: "ARIZONA", code: "AZ"),
-        State(title: "ARKANSAS", code: "AR"),
-        State(title: "CALIFORNIA", code: "CA"),
-        State(title: "COLORADO", code: "CO"),
-        State(title: "CONNECTICUT", code: "CT"),
-        State(title: "DELAWARE", code: "DE"),
-        State(title: "DISTRICT OF COLUMBIA", code: "DC"),
-        State(title: "FLORIDA", code: "FL"),
-        State(title: "GEORGIA", code: "GA"),
-        State(title: "HAWAII", code: "HI"),
-        State(title: "IDAHO", code: "ID"),
-        State(title: "ILLINOIS", code: "IL"),
-        State(title: "INDIANA", code: "IN"),
-        State(title: "IOWA", code: "IA"),
-        State(title: "KANSAS", code: "KS"),
-        State(title: "KENTUCKY", code: "KY"),
-        State(title: "LOUISIANA", code: "LA"),
-        State(title: "MAINE", code: "ME"),
-        State(title: "MARYLAND", code: "MD"),
-        State(title: "MASSACHUSETTS", code: "MA"),
-        State(title: "MICHIGAN", code: "MI"),
-        State(title: "MINNESOTA", code: "MN"),
-        State(title: "MISSISSIPPI", code: "MS"),
-        State(title: "MISSOURI", code: "MO"),
-        State(title: "MONTANA", code: "MT"),
-        State(title: "NEBRASKA", code: "NE"),
-        State(title: "NEVADA", code: "NV"),
-        State(title: "NEW HAMPSHIRE", code: "NH"),
-        State(title: "NEW JERSEY", code: "NJ"),
-        State(title: "NEW MEXICO", code: "NM"),
-        State(title: "NEW YORK", code: "NY"),
-        State(title: "NORTH CAROLINA", code: "NC"),
-        State(title: "NORTH DAKOTA", code: "ND"),
-        State(title: "OHIO", code: "OH"),
-        State(title: "OKLAHOMA", code: "OK"),
-        State(title: "OREGON", code: "OR"),
-        State(title: "PENNSYLVANIA", code: "PA"),
-        State(title: "RHODE ISLAND", code: "RI"),
-        State(title: "SOUTH CAROLINA", code: "SC"),
-        State(title: "SOUTH DAKOTA", code: "SD"),
-        State(title: "TENNESSEE", code: "TN"),
-        State(title: "TEXAS", code: "TX"),
-        State(title: "UTAH", code: "UT"),
-        State(title: "VERMONT", code: "VT"),
-        State(title: "VIRGINIA", code: "VA"),
-        State(title: "WASHINGTON", code: "WA"),
-        State(title: "WEST VIRGINIA", code: "WV"),
-        State(title: "WISCONSIN", code: "WI"),
-        State(title: "WYOMING", code: "WY")
-    ]
-    
-    override init(step: OnboardingView.Step) {
-        super.init(step: step)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         makeConstraints()
         initialize()
@@ -84,8 +32,17 @@ final class OSlideStateView: OSlideView {
     }
 }
 
+// MARK: Public
+extension LocaleStateView {
+    func setup(states: [State]) {
+        self.states = states
+        
+        pickerView.reloadAllComponents()
+    }
+}
+
 // MARK: UIPickerViewDataSource
-extension OSlideStateView: UIPickerViewDataSource {
+extension LocaleStateView: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1
     }
@@ -96,7 +53,7 @@ extension OSlideStateView: UIPickerViewDataSource {
 }
 
 // MARK: UIPickerViewDelegate
-extension OSlideStateView: UIPickerViewDelegate {
+extension LocaleStateView: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         var label = view as? UILabel
         
@@ -109,7 +66,7 @@ extension OSlideStateView: UIPickerViewDelegate {
             .textColor(Onboarding.pickerText)
             .font(Fonts.SFProRounded.bold(size: 24.scale))
         
-        label?.attributedText = states[row].title.attributed(with: attrs)
+        label?.attributedText = states[row].name.attributed(with: attrs)
         
         label?.sizeToFit()
         
@@ -122,82 +79,24 @@ extension OSlideStateView: UIPickerViewDelegate {
 }
 
 // MARK: Private
-private extension OSlideStateView {
+private extension LocaleStateView {
     func initialize() {
         pickerView.reloadAllComponents()
         
         nextAction()
-        setupInitialValue()
     }
     
     func nextAction() {
         button.rx.tap
-            .flatMapLatest { [weak self] _ -> Single<Void> in
-                guard let self = self else {
-                    return .never()
-                }
-                
-                let row = self.pickerView.selectedRow(inComponent: 0)
-                
-                guard self.states.indices.contains(row) else {
-                    return .never()
-                }
-                
-                let state = self.states[row]
-                
-                return self.manager
-                    .set(state: state.code)
-                    .flatMap {
-                        self.manager.saveSelected(state: state)
-                    }
-            }
-            .asDriver(onErrorDriveWith: .never())
-            .drive(onNext: { [weak self] in
-                self?.onNext()
+            .subscribe(onNext: { [weak self] in
+                self?.onNext?()
             })
             .disposed(by: disposeBag)
-    }
-    
-    func setupInitialValue() {
-        manager.obtainSelectedState()
-            .asDriver(onErrorJustReturn: nil)
-            .drive(onNext: { [weak self] state in
-                guard let self = self else {
-                    return
-                }
-                
-                if !self.setupState(state) {
-                    self.setupUS()
-                }
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    func setupState(_ state: State?) -> Bool {
-        guard let state = state else {
-            return false
-        }
-        
-        guard let index = states.firstIndex(where: { $0.title == state.title }) else {
-            return false
-        }
-        
-        pickerView.selectRow(index, inComponent: 0, animated: false)
-        
-        return true
-    }
-    
-    func setupUS() {
-        guard let us = states.firstIndex(where: { $0.title == "KANSAS" }) else {
-            return
-        }
-        
-        pickerView.selectRow(us, inComponent: 0, animated: false)
     }
 }
 
 // MARK: Make constraints
-private extension OSlideStateView {
+private extension LocaleStateView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
@@ -229,7 +128,7 @@ private extension OSlideStateView {
 }
 
 // MARK: Lazy initialization
-private extension OSlideStateView {
+private extension LocaleStateView {
     func makeTitleLabel() -> UILabel {
         let attrs = TextAttributes()
             .textColor(Onboarding.primaryText)

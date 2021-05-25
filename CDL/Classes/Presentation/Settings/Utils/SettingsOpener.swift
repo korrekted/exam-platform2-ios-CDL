@@ -16,14 +16,14 @@ final class SettingsOpener {
     private lazy var disposeBag = DisposeBag()
     
     func open(screen: Screen, from: UIViewController) {
-        let view = makeView(for: screen)
-        let vc = makeVC(with: view)
-        
-        view.didNextTapped = { _ in
-            vc.dismiss(animated: true)
-        }
-        
-        from.present(vc, animated: true)
+//        let view = makeView(for: screen)
+//        let vc = makeVC(with: view)
+//
+//        view.didNextTapped = { _ in
+//            vc.dismiss(animated: true)
+//        }
+//
+//        from.present(vc, animated: true)
     }
 }
 
@@ -50,20 +50,20 @@ private extension SettingsOpener {
         return vc
     }
     
-    func makeView(for screen: Screen) -> OSlideView {
-        let view: OSlideView
-        
-        switch screen {
-        case .language:
-            view = OSlideLanguageView(step: .language)
-        case .state:
-            view = OSlideStateView(step: .state)
-        case .topics:
-            view = OSlideTopicsView(step: .topics)
-        }
-        
-        view.frame = UIScreen.main.bounds
-        
-        return view
-    }
+//    func makeView(for screen: Screen) -> OSlideView {
+//        let view: OSlideView
+//
+//        switch screen {
+//        case .language:
+//            view = OSlideLanguageView(step: .language)
+//        case .state:
+//            view = OSlideStateView(step: .state)
+//        case .topics:
+//            view = OSlideTopicsView(step: .topics)
+//        }
+//
+//        view.frame = UIScreen.main.bounds
+//
+//        return view
+//    }
 }

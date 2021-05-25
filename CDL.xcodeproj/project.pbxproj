@@ -251,11 +251,12 @@
 		969679AC265CC2680070E7F7 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679AB265CC2680070E7F7 /* Country.swift */; };
 		969679B1265CC3600070E7F7 /* GetCountriesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679B0265CC3600070E7F7 /* GetCountriesRequest.swift */; };
 		969679B4265CC4210070E7F7 /* GetCountriesResponseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679B3265CC4210070E7F7 /* GetCountriesResponseMapper.swift */; };
+		969679BC265CDDD50070E7F7 /* LocaleCountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679BB265CDDD50070E7F7 /* LocaleCountryView.swift */; };
+		969679C1265CE3690070E7F7 /* OSlideLocaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679C0265CE3690070E7F7 /* OSlideLocaleView.swift */; };
 		96B67A93262957620048DAB9 /* Onboarding.Chart.json in Resources */ = {isa = PBXBuildFile; fileRef = 96B67A92262957620048DAB9 /* Onboarding.Chart.json */; };
 		96B67A9726295AC40048DAB9 /* OSlideTopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67A9626295AC40048DAB9 /* OSlideTopicsView.swift */; };
-		96B67A9A2629601F0048DAB9 /* OSlideStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67A992629601F0048DAB9 /* OSlideStateView.swift */; };
-		96B67AD7262970390048DAB9 /* OSlideLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67AD6262970390048DAB9 /* OSlideLanguageView.swift */; };
-		96B67ADB262972820048DAB9 /* OLanguageSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67ADA262972820048DAB9 /* OLanguageSelectView.swift */; };
+		96B67A9A2629601F0048DAB9 /* LocaleStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67A992629601F0048DAB9 /* LocaleStateView.swift */; };
+		96B67AD7262970390048DAB9 /* LocaleLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67AD6262970390048DAB9 /* LocaleLanguageView.swift */; };
 		96B67AE62629B9DE0048DAB9 /* OSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67AE52629B9DE0048DAB9 /* OSlider.swift */; };
 		96B67AEA2629BB100048DAB9 /* OSlideExperienceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67AE92629BB100048DAB9 /* OSlideExperienceView.swift */; };
 		96B67AED2629BDDB0048DAB9 /* OQuestionFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67AEC2629BDDB0048DAB9 /* OQuestionFormView.swift */; };
@@ -519,11 +520,12 @@
 		969679AB265CC2680070E7F7 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		969679B0265CC3600070E7F7 /* GetCountriesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCountriesRequest.swift; sourceTree = "<group>"; };
 		969679B3265CC4210070E7F7 /* GetCountriesResponseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCountriesResponseMapper.swift; sourceTree = "<group>"; };
+		969679BB265CDDD50070E7F7 /* LocaleCountryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleCountryView.swift; sourceTree = "<group>"; };
+		969679C0265CE3690070E7F7 /* OSlideLocaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSlideLocaleView.swift; sourceTree = "<group>"; };
 		96B67A92262957620048DAB9 /* Onboarding.Chart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Onboarding.Chart.json; sourceTree = "<group>"; };
 		96B67A9626295AC40048DAB9 /* OSlideTopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSlideTopicsView.swift; sourceTree = "<group>"; };
-		96B67A992629601F0048DAB9 /* OSlideStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSlideStateView.swift; sourceTree = "<group>"; };
-		96B67AD6262970390048DAB9 /* OSlideLanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSlideLanguageView.swift; sourceTree = "<group>"; };
-		96B67ADA262972820048DAB9 /* OLanguageSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OLanguageSelectView.swift; sourceTree = "<group>"; };
+		96B67A992629601F0048DAB9 /* LocaleStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleStateView.swift; sourceTree = "<group>"; };
+		96B67AD6262970390048DAB9 /* LocaleLanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleLanguageView.swift; sourceTree = "<group>"; };
 		96B67AE52629B9DE0048DAB9 /* OSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSlider.swift; sourceTree = "<group>"; };
 		96B67AE92629BB100048DAB9 /* OSlideExperienceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSlideExperienceView.swift; sourceTree = "<group>"; };
 		96B67AEC2629BDDB0048DAB9 /* OQuestionFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OQuestionFormView.swift; sourceTree = "<group>"; };
@@ -1465,9 +1467,8 @@
 				967AD4B2260FD0AE008E8175 /* OSlideTimeView.swift */,
 				967AD4B3260FD0AE008E8175 /* OSlideStartedView.swift */,
 				96B67A9626295AC40048DAB9 /* OSlideTopicsView.swift */,
-				96B67A992629601F0048DAB9 /* OSlideStateView.swift */,
-				96B67AD6262970390048DAB9 /* OSlideLanguageView.swift */,
 				96B67AE92629BB100048DAB9 /* OSlideExperienceView.swift */,
+				969679C0265CE3690070E7F7 /* OSlideLocaleView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1482,7 +1483,6 @@
 				967AD4A1260FD0AE008E8175 /* OSlidePlanCell.swift */,
 				967AD4A4260FD0AE008E8175 /* ODatePicker.swift */,
 				967AD4A5260FD0AE008E8175 /* OGoalCell.swift */,
-				96B67ADA262972820048DAB9 /* OLanguageSelectView.swift */,
 				96B67AE52629B9DE0048DAB9 /* OSlider.swift */,
 				96B67AEC2629BDDB0048DAB9 /* OQuestionFormView.swift */,
 				96B67AF4262A06900048DAB9 /* OPreloaderCell.swift */,
@@ -1553,8 +1553,19 @@
 		969679B7265CCAEF0070E7F7 /* Locale */ = {
 			isa = PBXGroup;
 			children = (
+				969679C3265CE6230070E7F7 /* TableView */,
+				96B67A992629601F0048DAB9 /* LocaleStateView.swift */,
+				96B67AD6262970390048DAB9 /* LocaleLanguageView.swift */,
+				969679BB265CDDD50070E7F7 /* LocaleCountryView.swift */,
 			);
 			path = Locale;
+			sourceTree = "<group>";
+		};
+		969679C3265CE6230070E7F7 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TableView;
 			sourceTree = "<group>";
 		};
 		96F44FB12631782C000B77E3 /* TopicsCollection */ = {
@@ -1783,6 +1794,7 @@
 				967AD4CF260FD0AE008E8175 /* GradientView.swift in Sources */,
 				967AD4F6260FD0AF008E8175 /* QuestionManagerCore.swift in Sources */,
 				862F2DCC263572D70096ADE2 /* GradientProgressView.swift in Sources */,
+				969679BC265CDDD50070E7F7 /* LocaleCountryView.swift in Sources */,
 				86CE87312621FBEE00FC7091 /* CourseFlowLayout.swift in Sources */,
 				96F44FC62631EF9C000B77E3 /* ProfileManager.swift in Sources */,
 				967AD4D4260FD0AE008E8175 /* RateManager.swift in Sources */,
@@ -1813,7 +1825,6 @@
 				967AD580260FD0AF008E8175 /* OnboardingView.swift in Sources */,
 				967AD510260FD0AF008E8175 /* SettingsTableView.swift in Sources */,
 				967AD540260FD0AF008E8175 /* PaygateMainView.swift in Sources */,
-				96B67ADB262972820048DAB9 /* OLanguageSelectView.swift in Sources */,
 				967AD4FA260FD0AF008E8175 /* GetCourcesResponseMapper.swift in Sources */,
 				86CE871026216D6E00FC7091 /* SIAnswerCell.swift in Sources */,
 				967AD4E2260FD0AE008E8175 /* PaygateManager.swift in Sources */,
@@ -1835,6 +1846,7 @@
 				967AD4E8260FD0AE008E8175 /* TestConfig.swift in Sources */,
 				967AD4F8260FD0AF008E8175 /* Course.swift in Sources */,
 				967AD4F4260FD0AF008E8175 /* QuestionManager.swift in Sources */,
+				969679C1265CE3690070E7F7 /* OSlideLocaleView.swift in Sources */,
 				86CE87282621F8A400FC7091 /* CourseCollectionView.swift in Sources */,
 				967AD4C5260FD0AE008E8175 /* Weak.swift in Sources */,
 				967AD535260FD0AF008E8175 /* TestElement.swift in Sources */,
@@ -1869,7 +1881,7 @@
 				86CE872C2621F8E800FC7091 /* CourseCell.swift in Sources */,
 				967AD4BC260FD0AE008E8175 /* UIDeviceExtension.swift in Sources */,
 				967AD541260FD0AF008E8175 /* PaygateMainInfoCell.swift in Sources */,
-				96B67AD7262970390048DAB9 /* OSlideLanguageView.swift in Sources */,
+				96B67AD7262970390048DAB9 /* LocaleLanguageView.swift in Sources */,
 				969679B4265CC4210070E7F7 /* GetCountriesResponseMapper.swift in Sources */,
 				86CE870926216CFD00FC7091 /* SITestCellType.swift in Sources */,
 				967AD4E6260FD0AE008E8175 /* TestStatsManagerCore.swift in Sources */,
@@ -1949,7 +1961,7 @@
 				967AD4DD260FD0AE008E8175 /* PaygateMainOffer.swift in Sources */,
 				967AD523260FD0AF008E8175 /* CourseView.swift in Sources */,
 				967AD564260FD0AF008E8175 /* MainStatsDescriptionLineView.swift in Sources */,
-				96B67A9A2629601F0048DAB9 /* OSlideStateView.swift in Sources */,
+				96B67A9A2629601F0048DAB9 /* LocaleStateView.swift in Sources */,
 				967AD57C260FD0AF008E8175 /* OSlidePlanView.swift in Sources */,
 				967AD4F7260FD0AF008E8175 /* QuestionManagerDelagate.swift in Sources */,
 				967AD54F260FD0AF008E8175 /* TestStatsProgressView.swift in Sources */,

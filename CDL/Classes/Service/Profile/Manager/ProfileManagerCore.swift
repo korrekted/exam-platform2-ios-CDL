@@ -82,5 +82,10 @@ extension ProfileManagerCore {
             .restApiTransport
             .callServerApi(requestBody: request)
             .map { _ in Void() }
+            .do(onSuccess: {
+                ProfileMediator.shared.notifyAboutUpdated(profileLocale: (countryCode: country,
+                                                                          stateCode: state,
+                                                                          languageCode: language))
+            })
     }
 }
