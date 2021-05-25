@@ -154,6 +154,7 @@ enum TestStatsPalette {
     static let passingScore = UIColor(integralRed: 31, green: 31, blue: 31)
     static let answerText = UIColor(integralRed: 245, green: 245, blue: 245)
     static let separator = UIColor(integralRed: 68, green: 68, blue: 68, alpha: 0.2)
+    static let loader = UIColor(integralRed: 41, green: 55, blue: 137)
     
     enum Filter {
         static let selected = UIColor(integralRed: 31, green: 31, blue: 31)

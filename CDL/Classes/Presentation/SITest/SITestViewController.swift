@@ -44,6 +44,18 @@ final class SITestViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        let isLoading = viewModel.question
+            .map { _ in false }
+            .startWith(true)
+        
+        isLoading
+            .drive(mainView.loader.isLoading)
+            .disposed(by: disposeBag)
+        
+        isLoading
+            .drive(mainView.tableView.rx.isHidden)
+            .disposed(by: disposeBag)
+        
         mainView.tableView
             .selectedAnswers
             .bind(to: viewModel.selectedSIAnswers)

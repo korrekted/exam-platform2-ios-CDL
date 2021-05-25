@@ -295,7 +295,6 @@ private extension TestViewModel {
     
     func makeIsSavedQuestion() -> Driver<Bool> {
         let isSavedQuestion = didTapMark
-            .distinctUntilChanged()
             .withLatestFrom(question.map { $0.id }) { ($0, $1) }
             .flatMapFirst { [weak self] isSaved, questionId -> Observable<Bool> in
                 guard let self = self else { return .empty() }
@@ -308,15 +307,14 @@ private extension TestViewModel {
                     .andThen(Observable.just(!isSaved))
                     .catchAndReturn(isSaved)
             }
-            .asDriver(onErrorJustReturn: false)
         
         let nextQuestion = didTapNext
             .map { _ in false }
-            .asDriver(onErrorJustReturn: false)
         
-        return Driver
+        return Observable
             .merge(isSavedQuestion, nextQuestion)
             .startWith(false)
+            .asDriver(onErrorJustReturn: false)
     }
 }
 

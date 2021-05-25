@@ -53,6 +53,7 @@
 		86CE87282621F8A400FC7091 /* CourseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE87272621F8A400FC7091 /* CourseCollectionView.swift */; };
 		86CE872C2621F8E800FC7091 /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE872B2621F8E800FC7091 /* CourseCell.swift */; };
 		86CE87312621FBEE00FC7091 /* CourseFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE87302621FBEE00FC7091 /* CourseFlowLayout.swift */; };
+		86D9C992265CE017008E8AA0 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D9C991265CE017008E8AA0 /* LoaderView.swift */; };
 		86E38DEC2613997200DFBAD8 /* FinishTestRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E38DEB2613997200DFBAD8 /* FinishTestRequest.swift */; };
 		86F242C726285C7F00DA4B53 /* SCModesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F242C626285C7F00DA4B53 /* SCModesCell.swift */; };
 		86F242CB2628697900DA4B53 /* SCModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F242CA2628697800DA4B53 /* SCModeView.swift */; };
@@ -315,6 +316,7 @@
 		86CE87272621F8A400FC7091 /* CourseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCollectionView.swift; sourceTree = "<group>"; };
 		86CE872B2621F8E800FC7091 /* CourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
 		86CE87302621FBEE00FC7091 /* CourseFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseFlowLayout.swift; sourceTree = "<group>"; };
+		86D9C991265CE017008E8AA0 /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		86E38DEB2613997200DFBAD8 /* FinishTestRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishTestRequest.swift; sourceTree = "<group>"; };
 		86F242C626285C7F00DA4B53 /* SCModesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCModesCell.swift; sourceTree = "<group>"; };
 		86F242CA2628697800DA4B53 /* SCModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCModeView.swift; sourceTree = "<group>"; };
@@ -795,6 +797,7 @@
 			children = (
 				967AD3B8260FD0AE008E8175 /* ImagePicker.swift */,
 				967AD3B9260FD0AE008E8175 /* Toast.swift */,
+				86D9C991265CE017008E8AA0 /* LoaderView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1849,6 +1852,7 @@
 				967AD524260FD0AF008E8175 /* CourseViewCoordinator.swift in Sources */,
 				86BB2596261E1B3C00C6D2FA /* RemoveSavedQuestionRequest.swift in Sources */,
 				967AD544260FD0AF008E8175 /* TestStatsViewController.swift in Sources */,
+				86D9C992265CE017008E8AA0 /* LoaderView.swift in Sources */,
 				967AD4D3260FD0AE008E8175 /* RateManagerCore.swift in Sources */,
 				8631825F2610FA480098797B /* NavigationBar.swift in Sources */,
 				967AD531260FD0AF008E8175 /* TestingCellType.swift in Sources */,

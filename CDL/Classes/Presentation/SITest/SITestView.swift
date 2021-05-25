@@ -12,6 +12,7 @@ final class SITestView: UIView {
     lazy var gradientView = makeGradientView()
     lazy var navigationView = makeNavigationView()
     lazy var progressView = makeCollectionView()
+    lazy var loader = makeLoader()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -105,6 +106,12 @@ private extension SITestView {
             nextButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -59.scale)
         ])
         
+        NSLayoutConstraint.activate([
+            loader.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            loader.centerYAnchor.constraint(equalTo: centerYAnchor),
+            loader.heightAnchor.constraint(equalToConstant: 35.scale),
+            loader.widthAnchor.constraint(equalTo: loader.heightAnchor)
+        ])
     }
 }
 
@@ -177,6 +184,13 @@ private extension SITestView {
         view.contentInset = UIEdgeInsets(top: 0, left: 24.scale, bottom: 0, right: 24.scale)
         view.backgroundColor = .clear
         view.showsHorizontalScrollIndicator = false
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }
+    
+    func makeLoader() -> LoaderView {
+        let view = LoaderView()
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
