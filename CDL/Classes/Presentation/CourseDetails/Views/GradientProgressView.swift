@@ -48,6 +48,6 @@ class GradientProgressView: UIView {
             1
         ].map { NSNumber(value: $0) }
         
-        
+        setNeedsDisplay()
     }
 }
