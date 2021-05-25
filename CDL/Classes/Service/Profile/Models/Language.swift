@@ -5,9 +5,16 @@
 //  Created by Andrey Chernyshev on 24.04.2021.
 //
 
-enum Language: Int {
-    case spanish, english
+struct Language {
+    let name: String
+    let code: String
+    let preSelected: Bool
+    let sort: Int
+    let states: [State]
 }
 
 // MARK: Codable
 extension Language: Codable {}
+
+// MARK: Hashable
+extension Language: Hashable {}

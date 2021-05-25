@@ -7,6 +7,4 @@
 
 protocol ProfileMediatorDelegate: class {
     func didSaveSelected(specificTopics: [SpecificTopic])
-    func didSaveSelected(language: Language)
-    func didSaveState(state: State)
 }

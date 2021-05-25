@@ -14,8 +14,6 @@ final class ProfileMediator {
     private var delegates = [Weak<ProfileMediatorDelegate>]()
     
     private lazy var saveSelectedTopicsTrigger = PublishRelay<[SpecificTopic]>()
-    private lazy var saveSelectedLanguageTrigger = PublishRelay<Language>()
-    private lazy var saveStateTrigger = PublishRelay<State>()
     
     private init() {}
 }
@@ -31,40 +29,12 @@ extension ProfileMediator {
             self?.saveSelectedTopicsTrigger.accept(specificTopics)
         }
     }
-    
-    func notifyAboutSaveSelected(language: Language) {
-        DispatchQueue.main.async { [weak self] in
-            self?.delegates.forEach {
-                $0.weak?.didSaveSelected(language: language)
-            }
-            
-            self?.saveSelectedLanguageTrigger.accept(language)
-        }
-    }
-    
-    func notifyAboutSaveState(state: State) {
-        DispatchQueue.main.async { [weak self] in
-            self?.delegates.forEach {
-                $0.weak?.didSaveState(state: state)
-            }
-            
-            self?.saveStateTrigger.accept(state)
-        }
-    }
 }
 
 // MARK: Triggers(Rx)
 extension ProfileMediator {
     var rxSelectedTopics: Signal<[SpecificTopic]> {
         saveSelectedTopicsTrigger.asSignal()
-    }
-    
-    var rxSelectedLanguage: Signal<Language> {
-        saveSelectedLanguageTrigger.asSignal()
-    }
-    
-    var rxSavedState: Signal<State> {
-        saveStateTrigger.asSignal()
     }
 }
 
