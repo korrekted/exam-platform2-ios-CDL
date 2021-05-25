@@ -19,6 +19,10 @@ final class OSlideLocaleView: OSlideView {
     
     private lazy var disposeBag = DisposeBag()
     
+    private lazy var countries = [Country]()
+    
+    private lazy var completeTrigger = PublishRelay<Void>()
+    
     override init(step: OnboardingView.Step) {
         super.init(step: step)
         
@@ -44,17 +48,9 @@ private extension OSlideLocaleView {
     func initialize() {
         backgroundColor = Onboarding.background
         
-        countryView.onNext = { [weak self] in
-            self?.countrySelected()
-        }
-        
-        languageView.onNext = { [weak self] in
-            self?.languageSelected()
-        }
-        
-        stateView.onNext = { [weak self] in
-            self?.stateSelected()
-        }
+        countryView.onNext = { [weak self] in self?.countrySelected() }
+        languageView.onNext = { [weak self] in self?.languageSelected() }
+        stateView.onNext = { [weak self] in self?.stateSelected() }
         
         contentViews
             .enumerated()
@@ -68,18 +64,110 @@ private extension OSlideLocaleView {
         
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * CGFloat(contentViews.count),
                                         height: UIScreen.main.bounds.height)
+        
+        manager
+            .retrieveCountries(forceUpdate: false)
+            .asDriver(onErrorJustReturn: [])
+            .drive(onNext: { [weak self] countries in
+                self?.countries = countries
+                
+                self?.countryView.setup(countries: countries)
+            })
+            .disposed(by: disposeBag)
+        
+        completeTrigger
+            .flatMapLatest { [weak self] _ -> Single<Void> in
+                guard let self = self else {
+                    return .never()
+                }
+                
+                return self.manager.set(country: self.getSelectedCountry(),
+                                        state: self.getSelectedState(),
+                                        language: self.getSelectedLanguage())
+            }
+            .subscribe(onNext: { [weak self] in
+                self?.onNext()
+            }, onError: { _ in
+                Toast.notify(with: "Onboarding.SlideLocale.Error".localized, style: .danger)
+            })
+            .disposed(by: disposeBag)
     }
     
     func countrySelected() {
-        scroll(to: languageView)
+        guard
+            let countryCode = getSelectedCountry(),
+            let languages = countries.first(where: { $0.code == countryCode })?.languages
+        else {
+            return
+        }
+        
+        languageView.setup(languages: languages)
+        
+        if languages.isEmpty {
+            completeTrigger.accept(Void())
+        } else if languages.count == 1 {
+            languageSelected()
+        } else {
+            scroll(to: languageView)
+        }
     }
     
     func languageSelected() {
-        scroll(to: stateView)
+        guard
+            let countryCode = getSelectedCountry(),
+            let languages = countries.first(where: { $0.code == countryCode })?.languages,
+            let languageCode = getSelectedLanguage(),
+            let states = languages.first(where: { $0.code == languageCode })?.states
+        else {
+            return
+        }
+        
+        stateView.setup(states: states)
+        
+        if states.isEmpty {
+            completeTrigger.accept(Void())
+        } else if states.count == 1 {
+            stateSelected()
+        } else {
+            scroll(to: stateView)
+        }
     }
     
     func stateSelected() {
-        onNext()
+        completeTrigger.accept(Void())
+    }
+    
+    func getSelectedCountry() -> String? {
+        countryView.tableView.elements
+            .first(where: { $0.isSelected })?.code
+    }
+    
+    func getSelectedLanguage() -> String? {
+        let elements = languageView.tableView.elements
+        
+        if elements.isEmpty {
+            return nil
+        } else if elements.count == 1 {
+            return elements.first?.code
+        } else {
+            return elements.first(where: { $0.isSelected })?.code
+        }
+    }
+    
+    func getSelectedState() -> String? {
+        let stats = stateView.states
+        
+        if stats.isEmpty {
+            return nil
+        } else if stats.count == 1 {
+            return stats.first?.code
+        } else {
+            let row = stateView.pickerView.selectedRow(inComponent: 0)
+            guard stats.indices.contains(row) else {
+                return nil
+            }
+            return stats[row].code
+        }
     }
     
     func scroll(to view: UIView) {

@@ -37,6 +37,7 @@
 "Onboarding.SlideCountry.Title" = "Choose\nyour country";
 "Onboarding.SlideState.Title" = "Select your state,\nprovince or district";
 "Onboarding.SlideLanguage.Title" = "Select your language";
+"Onboarding.SlideLocale.Error" = "Failed to save";
 "Onboarding.Goals.Title" = "What’s your goal?";
 "Onboarding.Goals.Cell1" = "I’m getting my first CDL";
 "Onboarding.Goals.Cell2" = "I’m adding new endorsement";

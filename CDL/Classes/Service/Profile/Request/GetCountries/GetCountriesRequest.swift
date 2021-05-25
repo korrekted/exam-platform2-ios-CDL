@@ -9,7 +9,7 @@ import Alamofire
 
 struct GetCountriesRequest: APIRequestBody {
     var url: String {
-        GlobalDefinitions.domainUrl + "/api/tests/configuration"
+        GlobalDefinitions.domainUrl + "/api/courses/configuration"
     }
     
     var method: HTTPMethod {

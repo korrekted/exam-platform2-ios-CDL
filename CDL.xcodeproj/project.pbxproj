@@ -253,6 +253,9 @@
 		969679B4265CC4210070E7F7 /* GetCountriesResponseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679B3265CC4210070E7F7 /* GetCountriesResponseMapper.swift */; };
 		969679BC265CDDD50070E7F7 /* LocaleCountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679BB265CDDD50070E7F7 /* LocaleCountryView.swift */; };
 		969679C1265CE3690070E7F7 /* OSlideLocaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679C0265CE3690070E7F7 /* OSlideLocaleView.swift */; };
+		969679C5265CE71C0070E7F7 /* LocaleTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679C4265CE71C0070E7F7 /* LocaleTableView.swift */; };
+		969679C9265CE7810070E7F7 /* LocaleTableViewElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679C8265CE7810070E7F7 /* LocaleTableViewElement.swift */; };
+		969679CC265CE8A20070E7F7 /* LocaleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679CB265CE8A20070E7F7 /* LocaleTableViewCell.swift */; };
 		96B67A93262957620048DAB9 /* Onboarding.Chart.json in Resources */ = {isa = PBXBuildFile; fileRef = 96B67A92262957620048DAB9 /* Onboarding.Chart.json */; };
 		96B67A9726295AC40048DAB9 /* OSlideTopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67A9626295AC40048DAB9 /* OSlideTopicsView.swift */; };
 		96B67A9A2629601F0048DAB9 /* LocaleStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67A992629601F0048DAB9 /* LocaleStateView.swift */; };
@@ -522,6 +525,9 @@
 		969679B3265CC4210070E7F7 /* GetCountriesResponseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCountriesResponseMapper.swift; sourceTree = "<group>"; };
 		969679BB265CDDD50070E7F7 /* LocaleCountryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleCountryView.swift; sourceTree = "<group>"; };
 		969679C0265CE3690070E7F7 /* OSlideLocaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSlideLocaleView.swift; sourceTree = "<group>"; };
+		969679C4265CE71C0070E7F7 /* LocaleTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleTableView.swift; sourceTree = "<group>"; };
+		969679C8265CE7810070E7F7 /* LocaleTableViewElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleTableViewElement.swift; sourceTree = "<group>"; };
+		969679CB265CE8A20070E7F7 /* LocaleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleTableViewCell.swift; sourceTree = "<group>"; };
 		96B67A92262957620048DAB9 /* Onboarding.Chart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Onboarding.Chart.json; sourceTree = "<group>"; };
 		96B67A9626295AC40048DAB9 /* OSlideTopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSlideTopicsView.swift; sourceTree = "<group>"; };
 		96B67A992629601F0048DAB9 /* LocaleStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleStateView.swift; sourceTree = "<group>"; };
@@ -1564,6 +1570,9 @@
 		969679C3265CE6230070E7F7 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
+				969679C4265CE71C0070E7F7 /* LocaleTableView.swift */,
+				969679C8265CE7810070E7F7 /* LocaleTableViewElement.swift */,
+				969679CB265CE8A20070E7F7 /* LocaleTableViewCell.swift */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -1850,6 +1859,7 @@
 				86CE87282621F8A400FC7091 /* CourseCollectionView.swift in Sources */,
 				967AD4C5260FD0AE008E8175 /* Weak.swift in Sources */,
 				967AD535260FD0AF008E8175 /* TestElement.swift in Sources */,
+				969679C9265CE7810070E7F7 /* LocaleTableViewElement.swift in Sources */,
 				967AD534260FD0AF008E8175 /* QuestionContentType.swift in Sources */,
 				967AD581260FD0AF008E8175 /* OnboardingViewModel.swift in Sources */,
 				967AD4CD260FD0AE008E8175 /* GradientButton.swift in Sources */,
@@ -1947,6 +1957,7 @@
 				9667BB1D264EA48E0029ED86 /* ProfileMediatorDelegate.swift in Sources */,
 				967AD567260FD0AF008E8175 /* MainStatsDescriptionView.swift in Sources */,
 				967AD514260FD0AF008E8175 /* SplashViewModel.swift in Sources */,
+				969679CC265CE8A20070E7F7 /* LocaleTableViewCell.swift in Sources */,
 				967AD54D260FD0AF008E8175 /* TestStatsFilter.swift in Sources */,
 				967AD4E9260FD0AE008E8175 /* Test.swift in Sources */,
 				967AD4BD260FD0AE008E8175 /* UIEdgeInsets+Extension.swift in Sources */,
@@ -1962,6 +1973,7 @@
 				967AD523260FD0AF008E8175 /* CourseView.swift in Sources */,
 				967AD564260FD0AF008E8175 /* MainStatsDescriptionLineView.swift in Sources */,
 				96B67A9A2629601F0048DAB9 /* LocaleStateView.swift in Sources */,
+				969679C5265CE71C0070E7F7 /* LocaleTableView.swift in Sources */,
 				967AD57C260FD0AF008E8175 /* OSlidePlanView.swift in Sources */,
 				967AD4F7260FD0AF008E8175 /* QuestionManagerDelagate.swift in Sources */,
 				967AD54F260FD0AF008E8175 /* TestStatsProgressView.swift in Sources */,

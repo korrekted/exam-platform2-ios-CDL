@@ -13,6 +13,9 @@ protocol ProfileManager {
     func obtainSelectedSpecificTopics() -> Single<[SpecificTopic]>
     func saveSelected(specificTopics: [SpecificTopic]) -> Single<Void>
     
+    // MARK: Counties
+    func retrieveCountries(forceUpdate: Bool) -> Single<[Country]>
+    
     // MARK: Set
     func set(country: String?,
              state: String?,

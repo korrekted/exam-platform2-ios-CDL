@@ -14,6 +14,7 @@ final class SplashViewModel {
     }
     
     private lazy var monetizationManager = MonetizationManagerCore()
+    private lazy var profileManager = ProfileManagerCore()
     private lazy var sessionManager = SessionManagerCore()
     
     func step() -> Driver<Step> {
@@ -35,10 +36,18 @@ final class SplashViewModel {
 // MARK: Private
 private extension SplashViewModel {
     func library() -> Completable {
-        monetizationManager
+        let monetization = monetizationManager
             .rxRetrieveMonetizationConfig(forceUpdate: true)
             .catchAndReturn(nil)
             .asCompletable()
+        
+        let countries = profileManager
+            .retrieveCountries(forceUpdate: true)
+            .catchAndReturn([])
+            .asCompletable()
+        
+        return Completable
+            .zip(monetization, countries)
     }
     
     func makeStep() -> Observable<Step> {

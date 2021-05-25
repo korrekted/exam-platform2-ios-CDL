@@ -12,6 +12,7 @@ final class LocaleLanguageView: UIView {
     var onNext: (() -> Void)?
     
     lazy var titleLabel = makeTitleLabel()
+    lazy var tableView = makeTableView()
     lazy var button = makeButton()
     
     private lazy var disposeBag = DisposeBag()
@@ -29,6 +30,23 @@ final class LocaleLanguageView: UIView {
     }
 }
 
+// MARK: Public
+extension LocaleLanguageView {
+    func setup(languages: [Language]) {
+        let languagesElements = languages
+            .sorted(by: { $0.sort < $1.sort })
+            .map {
+                LocaleTableViewElement(isSelected: $0.preSelected,
+                                       name: $0.name,
+                                       code: $0.code)
+            }
+        
+        tableView.setup(elements: languagesElements)
+        
+        changeEnabled()
+    }
+}
+
 // MARK: Private
 private extension LocaleLanguageView {
     func nextAction() {
@@ -40,15 +58,10 @@ private extension LocaleLanguageView {
     }
     
     func changeEnabled() {
-//        let isEmpty = [
-//            langSpanishView,
-//            langEnglishView
-//        ]
-//        .filter { $0.isSelected }
-//        .isEmpty
-//
-//        button.isEnabled = !isEmpty
-//        button.alpha = isEmpty ? 0.4 : 1
+        let isSelected = tableView.elements.contains(where: { $0.isSelected })
+
+        button.isEnabled = isSelected
+        button.alpha = isSelected ? 1 : 0.4
     }
 }
 
@@ -59,6 +72,13 @@ private extension LocaleLanguageView {
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 17.scale),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -17.scale),
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 134.scale)
+        ])
+        
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32.scale),
+            tableView.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -32.scale)
         ])
         
         NSLayoutConstraint.activate([
@@ -82,6 +102,19 @@ private extension LocaleLanguageView {
         let view = UILabel()
         view.numberOfLines = 0
         view.attributedText = "Onboarding.SlideLanguage.Title".localized.attributed(with: attrs)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }
+    
+    func makeTableView() -> LocaleTableView {
+        let view = LocaleTableView()
+        view.tapped = { [weak self] in
+            self?.changeEnabled()
+        }
+        view.backgroundColor = UIColor.clear
+        view.showsVerticalScrollIndicator = false
+        view.separatorStyle = .none
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view

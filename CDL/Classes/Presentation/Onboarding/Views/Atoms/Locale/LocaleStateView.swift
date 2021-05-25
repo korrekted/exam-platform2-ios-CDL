@@ -35,7 +35,7 @@ final class LocaleStateView: UIView {
 // MARK: Public
 extension LocaleStateView {
     func setup(states: [State]) {
-        self.states = states
+        self.states = states.sorted(by: { $0.sort < $1.sort })
         
         pickerView.reloadAllComponents()
     }
