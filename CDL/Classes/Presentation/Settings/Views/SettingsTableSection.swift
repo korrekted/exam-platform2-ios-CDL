@@ -13,4 +13,5 @@ enum SettingsTableSection {
     case unlockPremium
     case links
     case settings([Change])
+    case locale([(String, String)])
 }

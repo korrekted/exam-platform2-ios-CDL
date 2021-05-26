@@ -20,26 +20,46 @@ final class SettingsViewModel {
 private extension SettingsViewModel {
     func makeSections() -> Driver<[SettingsTableSection]> {
         let activeSubscription = self.activeSubscription()
+        let profileLocale = getProfieLocale()
         let countries = getCountries()
-        let course = self.course()
+        let course = getCourse()
         
         return Driver
-            .combineLatest(activeSubscription, countries, course) { activeSubscription, countries, course -> [SettingsTableSection] in
-                let settingsChanges: [SettingsTableSection.Change] = countries.count > 1 ? [.locale, .topics] : [.topics]
-                
-                guard activeSubscription else {
-                    return [
-                        .unlockPremium,
-                        .settings(settingsChanges),
-                        .links
-                    ]
+            .combineLatest(activeSubscription, profileLocale, countries, course) { [weak self] activeSubscription, profileLocale, countries, course -> [SettingsTableSection] in
+                guard let self = self else {
+                    return []
                 }
                 
-                return [
-                    .settings(settingsChanges),
-                    .links
-                ]
+                var sections = [SettingsTableSection]()
+                
+                if let localeSection = self.makeLocaleSection(locale: profileLocale, countries: countries) {
+                    sections.append(localeSection)
+                }
+                
+                if !activeSubscription {
+                    sections.append(.unlockPremium)
+                }
+                
+                let settingsChanges: [SettingsTableSection.Change] = countries.count > 1 ? [.locale, .topics] : [.topics]
+                sections.append(.settings(settingsChanges))
+                
+                sections.append(.links)
+                
+                return sections
             }
+    }
+    
+    func getProfieLocale() -> Driver<ProfileLocale?> {
+        let initial = profileManager
+            .obtainProfileLocale()
+            .asDriver(onErrorJustReturn: nil)
+        
+        let updated = ProfileMediator.shared
+            .rxUpdatedProfileLocale
+            .asDriver(onErrorDriveWith: .never())
+            .map { locale -> ProfileLocale? in locale }
+        
+        return Driver.merge(initial, updated)
     }
     
     func getCountries() -> Driver<[Country]> {
@@ -70,10 +90,44 @@ private extension SettingsViewModel {
             .merge(initial, updated)
     }
     
-    func course() -> Driver<Course> {
+    func getCourse() -> Driver<Course> {
         coursesManager
             .rxGetSelectedCourse()
             .compactMap { $0 }
             .asDriver(onErrorDriveWith: .empty())
+    }
+    
+    func makeLocaleSection(locale: ProfileLocale?, countries: [Country]) -> SettingsTableSection? {
+        guard let locale = locale else {
+            return nil
+        }
+        
+        guard
+            let countryCode = locale.countryCode,
+            let country = countries.first(where: { $0.code == countryCode })
+        else  {
+            return nil
+        }
+        
+        guard
+            let languageCode = locale.languageCode,
+            let language = country.languages.first(where: { $0.code == languageCode })
+        else {
+            let countryRow = ("Settings.YourLocale".localized, country.name)
+            return .locale([countryRow])
+        }
+        
+        guard
+            let stateCode = locale.stateCode,
+            let state = language.states.first(where: { $0.code == stateCode })
+        else {
+            let countryRow = ("Settings.YourLocale".localized, country.name)
+            let languageRow = ("Settings.YourLanguage".localized, language.name)
+            return .locale([countryRow, languageRow])
+        }
+        
+        let countryRow = ("Settings.YourLocale".localized, [country.name, state.name].joined(separator: ", "))
+        let languageRow = ("Settings.YourLanguage".localized, language.name)
+        return .locale([countryRow, languageRow])
     }
 }

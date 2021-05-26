@@ -257,6 +257,10 @@
 		969679C5265CE71C0070E7F7 /* LocaleTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679C4265CE71C0070E7F7 /* LocaleTableView.swift */; };
 		969679C9265CE7810070E7F7 /* LocaleTableViewElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679C8265CE7810070E7F7 /* LocaleTableViewElement.swift */; };
 		969679CC265CE8A20070E7F7 /* LocaleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679CB265CE8A20070E7F7 /* LocaleTableViewCell.swift */; };
+		969679D1265E20600070E7F7 /* ProfileLocale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679D0265E20600070E7F7 /* ProfileLocale.swift */; };
+		969679D5265E31210070E7F7 /* GetLocaleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679D4265E31210070E7F7 /* GetLocaleRequest.swift */; };
+		969679D8265E31B60070E7F7 /* GetLocaleResponseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679D7265E31B60070E7F7 /* GetLocaleResponseMapper.swift */; };
+		969679DC265E36A70070E7F7 /* STLocaleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679DB265E36A70070E7F7 /* STLocaleCell.swift */; };
 		96B67A93262957620048DAB9 /* Onboarding.Chart.json in Resources */ = {isa = PBXBuildFile; fileRef = 96B67A92262957620048DAB9 /* Onboarding.Chart.json */; };
 		96B67A9726295AC40048DAB9 /* OSlideTopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67A9626295AC40048DAB9 /* OSlideTopicsView.swift */; };
 		96B67A9A2629601F0048DAB9 /* LocaleStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67A992629601F0048DAB9 /* LocaleStateView.swift */; };
@@ -530,6 +534,10 @@
 		969679C4265CE71C0070E7F7 /* LocaleTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleTableView.swift; sourceTree = "<group>"; };
 		969679C8265CE7810070E7F7 /* LocaleTableViewElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleTableViewElement.swift; sourceTree = "<group>"; };
 		969679CB265CE8A20070E7F7 /* LocaleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleTableViewCell.swift; sourceTree = "<group>"; };
+		969679D0265E20600070E7F7 /* ProfileLocale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLocale.swift; sourceTree = "<group>"; };
+		969679D4265E31210070E7F7 /* GetLocaleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLocaleRequest.swift; sourceTree = "<group>"; };
+		969679D7265E31B60070E7F7 /* GetLocaleResponseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLocaleResponseMapper.swift; sourceTree = "<group>"; };
+		969679DB265E36A70070E7F7 /* STLocaleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STLocaleCell.swift; sourceTree = "<group>"; };
 		96B67A92262957620048DAB9 /* Onboarding.Chart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Onboarding.Chart.json; sourceTree = "<group>"; };
 		96B67A9626295AC40048DAB9 /* OSlideTopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSlideTopicsView.swift; sourceTree = "<group>"; };
 		96B67A992629601F0048DAB9 /* LocaleStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleStateView.swift; sourceTree = "<group>"; };
@@ -698,6 +706,7 @@
 		9613EF1B2639748F00DAEB9A /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				969679D3265E310F0070E7F7 /* GetLocale */,
 				969679AF265CC3490070E7F7 /* GetCountries */,
 				969679AE265CC33F0070E7F7 /* GetTopics */,
 				9613EF2326397E3500DAEB9A /* SetRequest.swift */,
@@ -1168,6 +1177,7 @@
 				967AD421260FD0AE008E8175 /* STLinksCell.swift */,
 				967AD423260FD0AE008E8175 /* STUnlockCell.swift */,
 				86B712C82629B6A000297FFC /* STSettingLinksCell.swift */,
+				969679DB265E36A70070E7F7 /* STLocaleCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1580,6 +1590,15 @@
 			path = TableView;
 			sourceTree = "<group>";
 		};
+		969679D3265E310F0070E7F7 /* GetLocale */ = {
+			isa = PBXGroup;
+			children = (
+				969679D4265E31210070E7F7 /* GetLocaleRequest.swift */,
+				969679D7265E31B60070E7F7 /* GetLocaleResponseMapper.swift */,
+			);
+			path = GetLocale;
+			sourceTree = "<group>";
+		};
 		96F44FB12631782C000B77E3 /* TopicsCollection */ = {
 			isa = PBXGroup;
 			children = (
@@ -1609,6 +1628,7 @@
 				9613EC832634A11700DAEB9A /* Language.swift */,
 				9613EC8A2634A19600DAEB9A /* State.swift */,
 				969679AB265CC2680070E7F7 /* Country.swift */,
+				969679D0265E20600070E7F7 /* ProfileLocale.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1764,6 +1784,7 @@
 				967AD576260FD0AF008E8175 /* OSlidePreloaderView.swift in Sources */,
 				967AD526260FD0AF008E8175 /* TabView.swift in Sources */,
 				8687B554261AE96600D6235D /* GetAgainTestRequest.swift in Sources */,
+				969679D1265E20600070E7F7 /* ProfileLocale.swift in Sources */,
 				967AD507260FD0AF008E8175 /* SessionManagerCore.swift in Sources */,
 				967AD53A260FD0AF008E8175 /* AnswerView.swift in Sources */,
 				967AD4F9260FD0AF008E8175 /* GetCourcesRequest.swift in Sources */,
@@ -1801,6 +1822,7 @@
 				967AD4CA260FD0AE008E8175 /* TapAreaButton.swift in Sources */,
 				967AD515260FD0AF008E8175 /* SplashView.swift in Sources */,
 				967AD4E1260FD0AE008E8175 /* MonetizationManagerCore.swift in Sources */,
+				969679D8265E31B60070E7F7 /* GetLocaleResponseMapper.swift in Sources */,
 				86BB25A9261E2BF700C6D2FA /* SITestType.swift in Sources */,
 				8631825C2610E8000098797B /* TestProgressView.swift in Sources */,
 				967AD4CF260FD0AE008E8175 /* GradientView.swift in Sources */,
@@ -1822,6 +1844,7 @@
 				8675612B264FCC7900578563 /* ImageScrollView.swift in Sources */,
 				967AD4C0260FD0AE008E8175 /* Scalable.swift in Sources */,
 				8667C2B72614D0810090CBFF /* ProgressView.swift in Sources */,
+				969679D5265E31210070E7F7 /* GetLocaleRequest.swift in Sources */,
 				86ACACE42625AFA40020C51C /* SCCoursesCell.swift in Sources */,
 				967AD56D260FD0AF008E8175 /* OSlidePlanCell.swift in Sources */,
 				967AD513260FD0AF008E8175 /* SplashViewController.swift in Sources */,
@@ -1932,6 +1955,7 @@
 				967AD54E260FD0AF008E8175 /* TestStatsViewModel.swift in Sources */,
 				967AD4EB260FD0AE008E8175 /* GetTestConfigResponseMapper.swift in Sources */,
 				967AD55E260FD0AF008E8175 /* CourseStatsElement.swift in Sources */,
+				969679DC265E36A70070E7F7 /* STLocaleCell.swift in Sources */,
 				967AD54B260FD0AF008E8175 /* TestStatsCellType.swift in Sources */,
 				967AD550260FD0AF008E8175 /* TestStatsTableView.swift in Sources */,
 				96F44FBD26319E2E000B77E3 /* TopicsCollectionLayout.swift in Sources */,

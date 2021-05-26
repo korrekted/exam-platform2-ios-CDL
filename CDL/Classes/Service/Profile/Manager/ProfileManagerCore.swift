@@ -117,6 +117,22 @@ extension ProfileManagerCore {
     }
 }
 
+// MARK: Profile locale
+extension ProfileManagerCore {
+    func obtainProfileLocale() -> Single<ProfileLocale?> {
+        guard let userToken = SessionManagerCore().getSession()?.userToken else {
+            return .error(SignError.tokenNotFound)
+        }
+        
+        let request = GetLocaleRequest(userToken: userToken)
+        
+        return SDKStorage.shared
+            .restApiTransport
+            .callServerApi(requestBody: request)
+            .map(GetLocaleResponseMapper.map(from:))
+    }
+}
+    
 // MARK: Set
 extension ProfileManagerCore {
     func set(country: String? = nil,
@@ -138,9 +154,10 @@ extension ProfileManagerCore {
             .callServerApi(requestBody: request)
             .map { _ in Void() }
             .do(onSuccess: {
-                ProfileMediator.shared.notifyAboutUpdated(profileLocale: (countryCode: country,
-                                                                          stateCode: state,
-                                                                          languageCode: language))
+                let locale = ProfileLocale(countryCode: country,
+                                           languageCode: language,
+                                           stateCode: state)
+                ProfileMediator.shared.notifyAboutUpdated(profileLocale: locale)
             })
     }
 }

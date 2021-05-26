@@ -49,6 +49,8 @@ extension SettingsTableView: UITableViewDataSource {
             return 1
         case .settings(let change):
             return change.count
+        case .locale(let locales):
+            return locales.count
         }
     }
     
@@ -73,6 +75,10 @@ extension SettingsTableView: UITableViewDataSource {
                 self?.tapped.accept(value)
             }
             return cell
+        case .locale(let locales):
+            let cell = dequeueReusableCell(withIdentifier: String(describing: STLocaleCell.self), for: indexPath) as! STLocaleCell
+            cell.setup(title: locales[indexPath.row].0, value: locales[indexPath.row].1)
+            return cell
         }
     }
 }
@@ -93,9 +99,7 @@ extension SettingsTableView: UITableViewDelegate {
         switch sections[indexPath.section] {
         case .unlockPremium:
             return 81.scale
-        case .links:
-            return UITableView.automaticDimension
-        case .settings:
+        case .links, .settings, .locale:
             return UITableView.automaticDimension
         }
     }
@@ -107,6 +111,7 @@ private extension SettingsTableView {
         register(STUnlockCell.self, forCellReuseIdentifier: String(describing: STUnlockCell.self))
         register(STLinksCell.self, forCellReuseIdentifier: String(describing: STLinksCell.self))
         register(STSettingLinksCell.self, forCellReuseIdentifier: String(describing: STSettingLinksCell.self))
+        register(STLocaleCell.self, forCellReuseIdentifier: String(describing: STLocaleCell.self))
         
         dataSource = self
         delegate = self

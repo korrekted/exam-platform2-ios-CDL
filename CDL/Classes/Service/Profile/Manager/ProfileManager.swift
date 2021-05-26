@@ -16,6 +16,9 @@ protocol ProfileManager {
     // MARK: Counties
     func retrieveCountries(forceUpdate: Bool) -> Single<[Country]>
     
+    // MARK: Profile locale
+    func obtainProfileLocale() -> Single<ProfileLocale?>
+    
     // MARK: Set
     func set(country: String?,
              state: String?,
