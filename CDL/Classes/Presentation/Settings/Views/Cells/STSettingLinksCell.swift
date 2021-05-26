@@ -10,9 +10,9 @@ import UIKit
 final class STSettingLinksCell: UITableViewCell {
     var tapped: ((SettingsTableView.Tapped) -> Void)?
     
-    lazy var changeStateView = makeChangeStateView()
-    lazy var changeLanguageView = makeChangeLanguageView()
     lazy var changeTopicsView = makeChangeTopicsView()
+    
+    private var change: SettingsTableSection.Change?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -26,6 +26,28 @@ final class STSettingLinksCell: UITableViewCell {
     }
 }
 
+// MARK: Pubilc
+extension STSettingLinksCell {
+    func setup(change: SettingsTableSection.Change) {
+        self.change = change
+        
+        let string: String
+        switch change {
+        case .locale:
+            string = "Settings.ChangeLocale".localized
+        case .topics:
+            string = "Settings.Topics".localized
+        }
+        
+        let attrs = TextAttributes()
+            .font(Fonts.SFProRounded.regular(size: 18.scale))
+            .lineHeight(25.scale)
+            .textColor(SettingsPalette.itemTitle)
+        
+        changeTopicsView.label.attributedText = string.attributed(with: attrs)
+    }
+}
+
 // MARK: Private
 private extension STSettingLinksCell {
     func initialize() {
@@ -35,19 +57,15 @@ private extension STSettingLinksCell {
     
     @objc
     func didTap(sender: UITapGestureRecognizer) {
-        guard let tag = sender.view?.tag else {
+        guard let change = self.change else {
             return
         }
         
-        switch tag {
-        case 1:
-            tapped?(.state)
-        case 2:
-            tapped?(.language)
-        case 3:
+        switch change {
+        case .locale:
+            tapped?(.locale)
+        case .topics:
             tapped?(.topic)
-        default:
-            break
         }
     }
 }
@@ -56,71 +74,24 @@ private extension STSettingLinksCell {
 private extension STSettingLinksCell {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            changeStateView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.scale),
-            changeStateView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.scale),
-            changeStateView.topAnchor.constraint(equalTo: contentView.topAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            changeLanguageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.scale),
-            changeLanguageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.scale),
-            changeLanguageView.topAnchor.constraint(equalTo: changeStateView.bottomAnchor, constant: 10.scale)
-        ])
-        
-        NSLayoutConstraint.activate([
             changeTopicsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.scale),
             changeTopicsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.scale),
-            changeTopicsView.topAnchor.constraint(equalTo: changeLanguageView.bottomAnchor, constant: 10.scale),
-            changeTopicsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            changeTopicsView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            changeTopicsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10.scale)
         ])
     }
 }
 
 // MARK: Lazy initialization
 private extension STSettingLinksCell {
-    func makeChangeStateView() -> STLinkView {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap(sender:)))
-        
-        let view = STLinkView()
-        view.isUserInteractionEnabled = true
-        view.addGestureRecognizer(tapGesture)
-        view.tag = 1
-        view.label.attributedText = "Settings.State".localized.attributed(with: .attr)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(view)
-        return view
-    }
-    
-    func makeChangeLanguageView() -> STLinkView {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap(sender:)))
-        
-        let view = STLinkView()
-        view.isUserInteractionEnabled = true
-        view.addGestureRecognizer(tapGesture)
-        view.tag = 2
-        view.label.attributedText = "Settings.Language".localized.attributed(with: .attr)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(view)
-        return view
-    }
-    
     func makeChangeTopicsView() -> STLinkView {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap(sender:)))
         
         let view = STLinkView()
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(tapGesture)
-        view.tag = 3
-        view.label.attributedText = "Settings.Topics".localized.attributed(with: .attr)
         view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(view)
         return view
     }
-}
-
-private extension TextAttributes {
-    static let attr = TextAttributes()
-        .font(Fonts.SFProRounded.regular(size: 18.scale))
-        .lineHeight(25.scale)
-        .textColor(SettingsPalette.itemTitle)
 }

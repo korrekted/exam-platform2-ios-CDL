@@ -10,7 +10,7 @@ import RxCocoa
 
 final class SettingsTableView: UITableView {
     enum Tapped {
-        case unlock, rateUs, contactUs, termsOfUse, privacyPoliicy, state, topic, language
+        case unlock, rateUs, contactUs, termsOfUse, privacyPoliicy, locale, topic
     }
     
     lazy var tapped = PublishRelay<Tapped>()
@@ -44,7 +44,12 @@ extension SettingsTableView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        switch sections[section] {
+        case .links, .unlockPremium:
+            return 1
+        case .settings(let change):
+            return change.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,8 +66,9 @@ extension SettingsTableView: UITableViewDataSource {
                 self?.tapped.accept(value)
             }
             return cell
-        case .settings:
+        case .settings(let changes):
             let cell = dequeueReusableCell(withIdentifier: String(describing: STSettingLinksCell.self), for: indexPath) as! STSettingLinksCell
+            cell.setup(change: changes[indexPath.row])
             cell.tapped = { [weak self] value in
                 self?.tapped.accept(value)
             }

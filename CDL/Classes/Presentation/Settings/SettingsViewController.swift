@@ -82,12 +82,10 @@ private extension SettingsViewController {
             SDKStorage.shared
                 .amplitudeManager
                 .logEvent(name: "Settings Tap", parameters: ["what": "privacy policy"])
-        case .state:
-            screenOpener.open(screen: .state, from: self)
+        case .locale:
+            screenOpener.open(screen: .locale, from: self)
         case .topic:
             screenOpener.open(screen: .topics, from: self)
-        case .language:
-            screenOpener.open(screen: .language, from: self)
         }
     }
     

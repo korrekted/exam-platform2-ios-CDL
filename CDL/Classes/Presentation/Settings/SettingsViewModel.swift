@@ -11,6 +11,7 @@ import RxCocoa
 final class SettingsViewModel {
     private lazy var coursesManager = CoursesManagerCore()
     private lazy var sessionManager = SessionManagerCore()
+    private lazy var profileManager = ProfileManagerCore()
     
     lazy var sections = makeSections()
 }
@@ -19,23 +20,32 @@ final class SettingsViewModel {
 private extension SettingsViewModel {
     func makeSections() -> Driver<[SettingsTableSection]> {
         let activeSubscription = self.activeSubscription()
+        let countries = getCountries()
         let course = self.course()
         
         return Driver
-            .combineLatest(activeSubscription, course) { activeSubscription, course -> [SettingsTableSection] in
+            .combineLatest(activeSubscription, countries, course) { activeSubscription, countries, course -> [SettingsTableSection] in
+                let settingsChanges: [SettingsTableSection.Change] = countries.count > 1 ? [.locale, .topics] : [.topics]
+                
                 guard activeSubscription else {
                     return [
                         .unlockPremium,
-                        .settings,
+                        .settings(settingsChanges),
                         .links
                     ]
                 }
                 
                 return [
-                    .settings,
+                    .settings(settingsChanges),
                     .links
                 ]
             }
+    }
+    
+    func getCountries() -> Driver<[Country]> {
+        profileManager
+            .retrieveCountries(forceUpdate: false)
+            .asDriver(onErrorJustReturn: [])
     }
     
     func activeSubscription() -> Driver<Bool> {

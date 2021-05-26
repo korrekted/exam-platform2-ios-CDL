@@ -6,7 +6,11 @@
 //
 
 enum SettingsTableSection {
+    enum Change {
+        case topics, locale
+    }
+    
     case unlockPremium
     case links
-    case settings
+    case settings([Change])
 }

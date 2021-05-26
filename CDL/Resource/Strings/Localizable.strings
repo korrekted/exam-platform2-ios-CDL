@@ -89,13 +89,12 @@
 "Settings.Title" = "Settings";
 "Settings.Unlock" = "Unlock";
 "Settings.Premium" = "Premium";
+"Settings.ChangeLocale" = "Change locale";
 "Settings.SelectedExam" = "Selected Exam";
 "Settings.RateUs" = "Rate us";
 "Settings.ContactUs" = "Contact us";
 "Settings.TermsOfUse" = "Terms of use";
 "Settings.PrivacyPolicy" = "Privacy Policy";
-"Settings.State" = "Change state";
-"Settings.Language" = "Change language";
 "Settings.Topics" = "Change topics";
 
 // MARK: Stats
