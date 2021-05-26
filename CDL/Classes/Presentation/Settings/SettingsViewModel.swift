@@ -40,8 +40,8 @@ private extension SettingsViewModel {
                     sections.append(.unlockPremium)
                 }
                 
-                let settingsChanges: [SettingsTableSection.Change] = countries.count > 1 ? [.locale, .topics] : [.topics]
-                sections.append(.settings(settingsChanges))
+                let settingsSection = self.makeSettingsSection(countries: countries)
+                sections.append(settingsSection)
                 
                 sections.append(.links)
                 
@@ -95,6 +95,38 @@ private extension SettingsViewModel {
             .rxGetSelectedCourse()
             .compactMap { $0 }
             .asDriver(onErrorDriveWith: .empty())
+    }
+    
+    func makeSettingsSection(countries: [Country]) -> SettingsTableSection {
+        if countries.isEmpty {
+            return .settings([.topics])
+        }
+        
+        if countries.count > 1 {
+            return .settings([.locale, .topics])
+        }
+        
+        // если одна страна
+        
+        let languages = countries.first?.languages ?? []
+        
+        if languages.isEmpty {
+            return .settings([.topics])
+        }
+        
+        if languages.count > 1 {
+            return .settings([.locale, .topics])
+        }
+        
+        // если одна страна с одним языком
+        
+        let states = languages.first?.states ?? []
+        
+        if states.isEmpty || states.count == 1 {
+            return .settings([.topics])
+        }
+        
+        return .settings([.locale, .topics])
     }
     
     func makeLocaleSection(locale: ProfileLocale?, countries: [Country]) -> SettingsTableSection? {
