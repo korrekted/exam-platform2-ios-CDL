@@ -27,5 +27,6 @@ extension NursingNavigationController {
         navigationBar.isTranslucent = settings.isTranslucent
         navigationBar.tintColor = settings.tintColor
         navigationBar.titleTextAttributes = settings.titleTextAttrributes
+        navigationBar.isHidden = true
     }
 }
