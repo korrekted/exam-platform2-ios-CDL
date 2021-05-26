@@ -55,7 +55,7 @@ private extension SettingsOpener {
 
         switch screen {
         case .locale:
-            view = OSlideLocaleView(step: .locale)
+            view = STChangeLocaleView(step: .locale)
         case .topics:
             view = OSlideTopicsView(step: .topics)
         }

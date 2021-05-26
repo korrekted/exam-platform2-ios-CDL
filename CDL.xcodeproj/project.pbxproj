@@ -261,6 +261,7 @@
 		969679D5265E31210070E7F7 /* GetLocaleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679D4265E31210070E7F7 /* GetLocaleRequest.swift */; };
 		969679D8265E31B60070E7F7 /* GetLocaleResponseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679D7265E31B60070E7F7 /* GetLocaleResponseMapper.swift */; };
 		969679DC265E36A70070E7F7 /* STLocaleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679DB265E36A70070E7F7 /* STLocaleCell.swift */; };
+		969679DF265E9AF20070E7F7 /* STChangeLocaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679DE265E9AF20070E7F7 /* STChangeLocaleView.swift */; };
 		96B67A93262957620048DAB9 /* Onboarding.Chart.json in Resources */ = {isa = PBXBuildFile; fileRef = 96B67A92262957620048DAB9 /* Onboarding.Chart.json */; };
 		96B67A9726295AC40048DAB9 /* OSlideTopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67A9626295AC40048DAB9 /* OSlideTopicsView.swift */; };
 		96B67A9A2629601F0048DAB9 /* LocaleStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67A992629601F0048DAB9 /* LocaleStateView.swift */; };
@@ -538,6 +539,7 @@
 		969679D4265E31210070E7F7 /* GetLocaleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLocaleRequest.swift; sourceTree = "<group>"; };
 		969679D7265E31B60070E7F7 /* GetLocaleResponseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLocaleResponseMapper.swift; sourceTree = "<group>"; };
 		969679DB265E36A70070E7F7 /* STLocaleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STLocaleCell.swift; sourceTree = "<group>"; };
+		969679DE265E9AF20070E7F7 /* STChangeLocaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STChangeLocaleView.swift; sourceTree = "<group>"; };
 		96B67A92262957620048DAB9 /* Onboarding.Chart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Onboarding.Chart.json; sourceTree = "<group>"; };
 		96B67A9626295AC40048DAB9 /* OSlideTopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSlideTopicsView.swift; sourceTree = "<group>"; };
 		96B67A992629601F0048DAB9 /* LocaleStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleStateView.swift; sourceTree = "<group>"; };
@@ -1166,6 +1168,7 @@
 				967AD41F260FD0AE008E8175 /* Cells */,
 				967AD424260FD0AE008E8175 /* SettingsTableView.swift */,
 				967AD425260FD0AE008E8175 /* SettingsTableSection.swift */,
+				969679DE265E9AF20070E7F7 /* STChangeLocaleView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1796,6 +1799,7 @@
 				967AD52C260FD0AF008E8175 /* AnswerCell.swift in Sources */,
 				8659FCAC26342BF00029598C /* CourseDetailsTableElement.swift in Sources */,
 				967AD4F0260FD0AF008E8175 /* GetQotdRequest.swift in Sources */,
+				969679DF265E9AF20070E7F7 /* STChangeLocaleView.swift in Sources */,
 				86CE87202621B5D900FC7091 /* SIBottomButtonState.swift in Sources */,
 				967AD56A260FD0AF008E8175 /* OSlideWhenTakingView.swift in Sources */,
 				967AD4E4260FD0AE008E8175 /* GetTestStatsRequest.swift in Sources */,
