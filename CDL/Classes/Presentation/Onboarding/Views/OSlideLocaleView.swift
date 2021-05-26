@@ -41,6 +41,12 @@ final class OSlideLocaleView: OSlideView {
             stateView
         ]
     }()
+    
+    override func moveToThis() {
+        super.moveToThis()
+        
+        refresh()
+    }
 }
 
 // MARK: Private
@@ -70,8 +76,6 @@ private extension OSlideLocaleView {
             .asDriver(onErrorJustReturn: [])
             .drive(onNext: { [weak self] countries in
                 self?.countries = countries
-                
-                self?.countryView.setup(countries: countries)
             })
             .disposed(by: disposeBag)
         
@@ -91,6 +95,16 @@ private extension OSlideLocaleView {
                 Toast.notify(with: "Onboarding.SlideLocale.Error".localized, style: .danger)
             })
             .disposed(by: disposeBag)
+    }
+    
+    func refresh() {
+        countryView.setup(countries: countries)
+        
+        if countries.isEmpty {
+            completeTrigger.accept(Void())
+        } else if countries.count == 1 {
+            countrySelected()
+        }
     }
     
     func countrySelected() {
@@ -138,8 +152,14 @@ private extension OSlideLocaleView {
     }
     
     func getSelectedCountry() -> String? {
-        countryView.tableView.elements
-            .first(where: { $0.isSelected })?.code
+        let elements = countryView.tableView.elements
+        if elements.isEmpty {
+            return nil
+        } else if elements.count == 1 {
+            return elements.first?.code
+        } else {
+            return elements.first(where: { $0.isSelected })?.code
+        }
     }
     
     func getSelectedLanguage() -> String? {
