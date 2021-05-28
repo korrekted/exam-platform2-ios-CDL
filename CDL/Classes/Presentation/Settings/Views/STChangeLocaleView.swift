@@ -65,8 +65,23 @@ private extension STChangeLocaleView {
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * CGFloat(contentViews.count),
                                         height: UIScreen.main.bounds.height)
         
-        manager
-            .retrieveCountries(forceUpdate: false)
+        rx.sentMessage(#selector(layoutSubviews))
+            .filter { [weak self] _ -> Bool in
+                guard let frame = self?.frame else {
+                    return false
+                }
+                
+                return frame.width > 0 && frame.height > 0
+            }
+            .take(1)
+            .flatMapLatest { [weak self] _ -> Single<[Country]> in
+                guard let self = self else {
+                    return .never()
+                }
+                
+                return self.manager
+                    .retrieveCountries(forceUpdate: false)
+            }
             .asDriver(onErrorJustReturn: [])
             .drive(onNext: { [weak self] countries in
                 self?.countries = countries

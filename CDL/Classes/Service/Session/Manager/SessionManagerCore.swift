@@ -46,8 +46,7 @@ extension SessionManagerCore {
         else {
             return nil
         }
-
-        // TODO
-        return Session(userId: session.userId, userToken: session.userToken, activeSubscription: true)
+        
+        return session
     }
 }
