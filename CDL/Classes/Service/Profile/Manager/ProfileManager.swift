@@ -12,16 +12,14 @@ protocol ProfileManager {
     func obtainSpecificTopics() -> Single<[SpecificTopic]>
     func obtainSelectedSpecificTopics() -> Single<[SpecificTopic]>
     func saveSelected(specificTopics: [SpecificTopic]) -> Single<Void>
+    func set(topicsIds: [Int]?) -> Single<Void>
     
     // MARK: Counties
     func retrieveCountries(forceUpdate: Bool) -> Single<[Country]>
     
     // MARK: Profile locale
     func obtainProfileLocale() -> Single<ProfileLocale?>
-    
-    // MARK: Set
     func set(country: String?,
              state: String?,
-             language: String?,
-             topicsIds: [Int]?) -> Single<Void>
+             language: String?) -> Single<Void>
 }

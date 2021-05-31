@@ -61,6 +61,20 @@ extension ProfileManagerCore {
             return Disposables.create()
         }
     }
+    
+    func set(topicsIds: [Int]? = nil) -> Single<Void> {
+        guard let userToken = SessionManagerCore().getSession()?.userToken else {
+            return .error(SignError.tokenNotFound)
+        }
+
+        let request = SetRequest(userToken: userToken,
+                                 topicsIds: topicsIds)
+
+        return SDKStorage.shared
+            .restApiTransport
+            .callServerApi(requestBody: request)
+            .map { _ in Void() }
+    }
 }
 
 // MARK: Counties
@@ -131,24 +145,19 @@ extension ProfileManagerCore {
             .callServerApi(requestBody: request)
             .map(GetLocaleResponseMapper.map(from:))
     }
-}
     
-// MARK: Set
-extension ProfileManagerCore {
     func set(country: String? = nil,
              state: String? = nil,
-             language: String? = nil,
-             topicsIds: [Int]? = nil) -> Single<Void> {
+             language: String? = nil) -> Single<Void> {
         guard let userToken = SessionManagerCore().getSession()?.userToken else {
             return .error(SignError.tokenNotFound)
         }
-        
+
         let request = SetRequest(userToken: userToken,
                                  country: country,
                                  state: state,
-                                 language: language,
-                                 topicsIds: topicsIds)
-        
+                                 language: language)
+
         return SDKStorage.shared
             .restApiTransport
             .callServerApi(requestBody: request)

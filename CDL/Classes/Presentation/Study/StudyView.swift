@@ -46,7 +46,7 @@ extension StudyView {
         
         let text = activeSubscription ? "Study.TakeTest".localized : "Study.TakeFreeTest".localized
         let textColor = activeSubscription ? StudyPalette.primaryButtonText : StudyPalette.secondaryButtonText
-        takeButton.setAttributedTitle(text.attributed(with: .takeAttrs.textColor(textColor)), for: .normal)
+        takeButton.setAttributedTitle(text.attributed(with: TextAttributes.takeAttrs.textColor(textColor)), for: .normal)
         
         takeButton.backgroundColor = activeSubscription ? StudyPalette.primaryButton : StudyPalette.secondaryButton
         
