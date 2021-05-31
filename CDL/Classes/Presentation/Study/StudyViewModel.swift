@@ -20,6 +20,7 @@ final class StudyViewModel {
     lazy var brief = makeBrief()
     
     let selectedCourse = BehaviorRelay<Course?>(value: nil)
+    lazy var config = makeConfig().share(replay: 1, scope: .forever)
     
     private lazy var currentCourse = makeCurrentCourse().share(replay: 1, scope: .forever)
 }
@@ -176,5 +177,14 @@ private extension StudyViewModel {
         
         return Driver
             .merge(initial, updated)
+    }
+    
+    func makeConfig() -> Observable<[TestConfig]> {
+        currentCourse
+            .flatMapLatest { [manager = questionManager] course -> Observable<[TestConfig]> in
+                manager.retrieveConfig(courseId: course.id)
+                    .asObservable()
+                    .catchAndReturn([])
+            }
     }
 }

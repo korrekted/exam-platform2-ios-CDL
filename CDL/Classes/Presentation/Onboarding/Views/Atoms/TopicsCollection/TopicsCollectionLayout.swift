@@ -36,12 +36,12 @@ final class TopicsCollectionLayout: UICollectionViewLayout {
             return
         }
         
-        let rowHeight = 101.scale
+        let rowHeight = 120.scale
         let padding = 16.scale
         
         var row = 0
         
-        let yOffset: [CGFloat] = [0, 117.scale, 234.scale]
+        let yOffset: [CGFloat] = [0, 136.scale, 272.scale]
         var xOffset: [CGFloat] = [0, 0, 0]
         
         for item in 0..<collectionView.numberOfItems(inSection: 0) {

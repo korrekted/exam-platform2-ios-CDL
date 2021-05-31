@@ -71,7 +71,7 @@ private extension SCModesCell {
 private extension SCModesCell {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            todayView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            todayView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16.scale),
             todayView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.scale),
             todayView.widthAnchor.constraint(equalTo: randomView.widthAnchor),
             todayView.heightAnchor.constraint(equalToConstant: 180)
@@ -86,7 +86,7 @@ private extension SCModesCell {
         ])
         
         NSLayoutConstraint.activate([
-            tenView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            tenView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16.scale),
             tenView.leadingAnchor.constraint(equalTo: todayView.trailingAnchor, constant: 16.scale),
             tenView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.scale),
             tenView.widthAnchor.constraint(equalTo: todayView.widthAnchor, multiplier: 0.95)

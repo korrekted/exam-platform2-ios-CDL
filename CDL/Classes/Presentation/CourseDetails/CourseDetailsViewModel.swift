@@ -18,13 +18,14 @@ final class CourseDetailsViewModel {
     lazy var passRate = course.asDriver().compactMap { $0?.progress }
     lazy var courseId = course.asDriver().compactMap { $0?.id }
     lazy var elements = makeElements()
+    lazy var config = makeConfig().share(replay: 1, scope: .forever)
     
     lazy var activeSubscription = makeActiveSubscription().share(replay: 1, scope: .forever)
 }
 
 extension CourseDetailsViewModel {
     func makeElements() -> Driver<[CourseDetailsTableElement]> {
-        Observable.combineLatest(activeSubscription, makeConfig())
+        Observable.combineLatest(activeSubscription, config)
             .map { activeSubscription, elements -> [CourseDetailsTableElement] in
                 var result = elements.map { CourseDetailsTableElement.test(.init(config: $0)) }
                 if !activeSubscription {

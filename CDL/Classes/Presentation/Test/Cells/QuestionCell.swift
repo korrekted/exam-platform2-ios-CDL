@@ -36,8 +36,8 @@ extension QuestionCell {
     func attributedString(for htmlString: String) -> NSAttributedString? {
         guard !htmlString.isEmpty else { return nil }
         
-        let font = Fonts.SFProRounded.regular(size: 18.scale)
-        let htmlWithStyle = "<span style=\"font-family: \(font.fontName); font-style: regular; font-size: \(font.pointSize); line-height: 30px;\">\(htmlString)</span>"
+        let font = Fonts.Lato.bold(size: 18.scale)
+        let htmlWithStyle = "<span style=\"font-family: \(font.fontName); font-style: bold; font-size: \(font.pointSize); line-height: 30px;\">\(htmlString)</span>"
         let data = Data(htmlWithStyle.utf8)
         
         let attributedString = try? NSAttributedString(

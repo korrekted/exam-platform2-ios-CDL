@@ -47,6 +47,8 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>lato-regular.otf</string>
+		<string>lato-bold.otf</string>
 		<string>SF-Pro-Rounded-Bold.otf</string>
 		<string>SF-Pro-Rounded-Regular.otf</string>
 		<string>SF-Pro-Rounded-Semibold.otf</string>

@@ -42,7 +42,7 @@ extension QuestionTableView {
         elements = question.elements
         allowsMultipleSelection = question.isMultiple
         allowsSelection = !question.isResult
-        selectedCells.removeAll()
+        selectedCells = []
         CATransaction.setCompletionBlock { [weak self] in
             let indexPath = IndexPath(row: question.isResult ? question.elements.count - 1 : 0, section: 0)
             self?.scrollToRow(at: indexPath, at: .top, animated: true)

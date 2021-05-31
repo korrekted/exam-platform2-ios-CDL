@@ -39,7 +39,7 @@ extension TestProgressView {
     
     func setup(leftTitle: String, rightTitle: String) {
         let attr = TextAttributes()
-            .font(Fonts.SFProRounded.regular(size: 14.scale))
+            .font(Fonts.Lato.regular(size: 14.scale))
             .lineHeight(19.6.scale)
             .textColor(ScorePalette.title)
             .textAlignment(.center)

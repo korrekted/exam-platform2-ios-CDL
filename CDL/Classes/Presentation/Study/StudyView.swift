@@ -45,9 +45,10 @@ extension StudyView {
         unlockButton.backgroundColor = StudyPalette.primaryButton
         
         let text = activeSubscription ? "Study.TakeTest".localized : "Study.TakeFreeTest".localized
-        takeButton.setAttributedTitle(text.attributed(with: .takeAttrs), for: .normal)
+        let textColor = activeSubscription ? StudyPalette.primaryButtonText : StudyPalette.secondaryButtonText
+        takeButton.setAttributedTitle(text.attributed(with: .takeAttrs.textColor(textColor)), for: .normal)
         
-        takeButton.backgroundColor = StudyPalette.secondaryButton
+        takeButton.backgroundColor = activeSubscription ? StudyPalette.primaryButton : StudyPalette.secondaryButton
         
         unlockButton.isHidden = activeSubscription
     }
@@ -165,7 +166,6 @@ private extension StudyView {
 private extension TextAttributes {
     static let takeAttrs = TextAttributes()
         .font(Fonts.SFProRounded.regular(size: 18.scale))
-        .textColor(StudyPalette.secondaryButtonText)
     
     static let unlockAttrs = TextAttributes()
         .font(Fonts.SFProRounded.regular(size: 18.scale))
