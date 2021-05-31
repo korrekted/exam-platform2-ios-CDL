@@ -66,9 +66,26 @@ final class StudyViewController: UIViewController {
         mainView.takeButton.rx.tap
             .withLatestFrom(viewModel.activeSubscription)
             .withLatestFrom(viewModel.course) { ($0, $1) }
+            .withLatestFrom(viewModel.config) { ($0.0, $0.1, $1) }
             .bind(to: Binder(self) { base, tuple in
-                let (activeSubscription, course) = tuple
-                base.openTest(types: [.get(testId: nil)], activeSubscription: activeSubscription, courseId: course.id)
+                let (activeSubscription, course, config) = tuple
+                
+                let types: [TestType]
+                
+                if activeSubscription {
+                    types = config.reduce(into: []) { old, new in
+                        old.append(.get(testId: new.id))
+                    }
+                } else {
+                    let type = config
+                        .filter { !$0.paid }
+                        .randomElement()
+                        .map { TestType.get(testId: $0.id) } ?? .get(testId: nil)
+                    
+                    types = [type]
+                }
+                
+                base.openTest(types: types, activeSubscription: activeSubscription, courseId: course.id)
                 
                 SDKStorage.shared
                     .amplitudeManager

@@ -54,12 +54,7 @@ extension TestView {
                 counter.bottomAnchor.constraint(equalTo: navigationView.bottomAnchor, constant: 36)
             ])
             
-            tableView.contentInset = UIEdgeInsets(
-                top: 35.scale,
-                left: tableView.contentInset.left,
-                bottom: tableView.contentInset.bottom,
-                right: tableView.contentInset.right
-            )
+            tableView.contentInset.top = 35.scale
             
             navigationHeightConstraint?.constant = 167.scale
             navigationView.setNeedsDisplay()

@@ -66,7 +66,7 @@ private extension ExplanationCell {
     func makeTitleLabel() -> UILabel {
         let view = UILabel()
         let attr = TextAttributes()
-            .font(Fonts.SFProRounded.regular(size: 18.scale))
+            .font(Fonts.Lato.bold(size: 18.scale))
             .textColor(TestPalette.explanationTitle)
             .lineHeight(25.2.scale)
         

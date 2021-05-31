@@ -107,13 +107,13 @@ private extension NavigationBar {
 
 private extension TextAttributes {
     static let smallAttr = TextAttributes()
-        .font(Fonts.SFProRounded.bold(size: 24.scale))
+        .font(Fonts.Lato.bold(size: 24.scale))
         .lineHeight(28.8.scale)
         .textColor(NavigationPalette.navigationTint)
         .textAlignment(.center)
     
     static let bigAttr = TextAttributes()
-        .font(Fonts.SFProRounded.bold(size: 32.scale))
+        .font(Fonts.Lato.bold(size: 32.scale))
         .lineHeight(41.scale)
         .textColor(NavigationPalette.navigationTint)
         .textAlignment(.left)

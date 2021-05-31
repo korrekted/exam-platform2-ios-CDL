@@ -63,7 +63,7 @@ extension TopicsCollectionView: UICollectionViewDelegateFlowLayout {
 // MARK: TopicsCollectionLayoutDelegate
 extension TopicsCollectionView: TopicsCollectionLayoutDelegate {
     func topicsCollectionLayout(widthFor indexPath: IndexPath) -> CGFloat {
-        return elements[indexPath.item].width(for: 101.scale)
+        return elements[indexPath.item].width(for: 120.scale) + 48.scale
     }
 }
 

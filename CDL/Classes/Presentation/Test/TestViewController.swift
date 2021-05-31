@@ -109,7 +109,8 @@ final class TestViewController: UIViewController {
         let isHiddenNext = Driver
             .merge(
                 viewModel.isEndOfTest,
-                mainView.nextButton.rx.tap.asDriver().map { _ in true }
+                mainView.nextButton.rx.tap.asDriver().map { _ in true },
+                viewModel.loadNextTestSignal.asDriver(onErrorDriveWith: .empty()).map { _ in true }
             )
             .startWith(true)
         
@@ -262,7 +263,6 @@ extension TestViewController {
         controller.viewModel.activeSubscription = activeSubscription
         controller.viewModel.testTypes = testTypes
         controller.viewModel.courseId.accept(courseId)
-        controller.viewModel.loadNextTestSignal.accept(())
         return controller
     }
 }

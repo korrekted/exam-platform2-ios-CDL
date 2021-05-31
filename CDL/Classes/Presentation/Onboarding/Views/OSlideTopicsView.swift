@@ -103,7 +103,7 @@ private extension OSlideTopicsView {
             topicsView.leadingAnchor.constraint(equalTo: leadingAnchor),
             topicsView.trailingAnchor.constraint(equalTo: trailingAnchor),
             topicsView.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -48.scale),
-            topicsView.heightAnchor.constraint(equalToConstant: 335.scale)
+            topicsView.heightAnchor.constraint(equalToConstant: 392.scale)
         ])
         
         NSLayoutConstraint.activate([

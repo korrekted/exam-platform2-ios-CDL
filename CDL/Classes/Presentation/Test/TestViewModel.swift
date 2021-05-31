@@ -17,7 +17,7 @@ final class TestViewModel {
     let didTapNext = PublishRelay<Void>()
     let didTapConfirm = PublishRelay<Void>()
     let didTapSubmit = PublishRelay<Void>()
-    let loadNextTestSignal = BehaviorRelay<Void>(value: ())
+    let loadNextTestSignal = PublishRelay<Void>()
     let tryAgainSignal = PublishRelay<Void>()
     let didTapMark = PublishRelay<Bool>()
     let selectedAnswersRelay = BehaviorRelay<[AnswerElement]>(value: [])
@@ -77,8 +77,12 @@ private extension TestViewModel {
     }
     
     func makeSelectedAnswers() -> Observable<[AnswerElement]> {
-        didTapConfirm
-            .withLatestFrom(selectedAnswersRelay)
+        Observable
+            .merge(
+                didTapConfirm.withLatestFrom(selectedAnswersRelay),
+                loadNextTestSignal.map { _ in [] },
+                tryAgainSignal.map { _ in [] }
+            )
             .startWith([])
     }
     
@@ -140,6 +144,7 @@ private extension TestViewModel {
     
     func makeCurrentTestType() -> Observable<TestType> {
         loadNextTestSignal
+            .startWith(())
             .compactMap { [weak self] _ -> TestType? in
                 guard let self = self, !self.testTypes.isEmpty else { return nil }
                 self.testType = self.testTypes.removeFirst()
@@ -157,7 +162,7 @@ private extension TestViewModel {
         currentTestElement
             .map { [weak self] event in
                 guard let self = self, let element = event.element else { return false }
-                return self.activeSubscription ? false : element.paid ? true : false
+                return self.activeSubscription ? false : element.paid
             }
             .asSignal(onErrorSignalWith: .empty())
     }
@@ -190,7 +195,7 @@ private extension TestViewModel {
             .withLatestFrom(question) { ($0, $1) }
             .withLatestFrom(testElement) { ($0.0, $0.1, $1.element?.userTestId) }
             .flatMapLatest { [questionManager] answers, question, userTestId -> Observable<Bool> in
-                guard let userTestId = userTestId else {
+                guard let userTestId = userTestId, !answers.isEmpty else {
                     return .just(false)
                     
                 }
@@ -209,7 +214,12 @@ private extension TestViewModel {
     }
     
     func makeBottomState() -> Driver<TestBottomButtonState> {
-        Driver.combineLatest(isEndOfTest.startWith(false), question, selectedAnswersRelay.asDriver(onErrorJustReturn: []))
+        let bottomState = Driver
+            .combineLatest(
+                isEndOfTest.startWith(false),
+                question,
+                selectedAnswersRelay.asDriver(onErrorJustReturn: [])
+            )
             .map { isEndOfTest, question, answers -> TestBottomButtonState in
                 if isEndOfTest {
                     return question.questionsCount == 1 ? .back : .submit
@@ -219,11 +229,17 @@ private extension TestViewModel {
             }
             .startWith(.hidden)
             .distinctUntilChanged()
+        
+        return loadNextTestSignal
+            .startWith(())
+            .flatMapLatest { _ in bottomState }
+            .asDriver(onErrorJustReturn: .hidden)
     }
     
     func makeScore() -> Observable<String> {
         Observable
             .merge(tryAgainSignal.asObservable(), loadNextTestSignal.asObservable())
+            .startWith(())
             .flatMapLatest { [scoreRelay] _ in
                 scoreRelay
                     .scan(0) { $1 ? $0 + 1 : $0 }

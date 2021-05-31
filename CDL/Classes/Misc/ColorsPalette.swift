@@ -107,7 +107,7 @@ enum CourseDetailsPalette {
     static let emptyGradient = UIColor(integralRed: 212, green: 216, blue: 221)
     static let title = UIColor(integralRed: 212, green: 216, blue: 221)
     static let subtitle = UIColor(integralRed: 68, green: 68, blue: 68)
-    static let background = UIColor(integralRed: 242, green: 245, blue: 252)
+    static let background = UIColor(integralRed: 245, green: 245, blue: 245)
     static let itemBackground = UIColor(integralRed: 232, green: 234, blue: 237)
 }
 
@@ -121,7 +121,7 @@ enum SettingsPalette {
 }
 
 enum CoursePalette {
-    static let background = UIColor(integralRed: 242, green: 245, blue: 252)
+    static let background = UIColor(integralRed: 245, green: 245, blue: 245)
 }
 
 enum PaygatePalette {
@@ -172,7 +172,7 @@ enum TestStatsPalette {
 }
 
 enum StatsPalette {
-    static let background = UIColor(integralRed: 242, green: 245, blue: 252)
+    static let background = UIColor(integralRed: 245, green: 245, blue: 245)
     static let separator = UIColor(integralRed: 68, green: 68, blue: 68, alpha: 0.05)
     
     enum Description {

@@ -84,6 +84,7 @@ private extension TabView {
         let view = TabItemView()
         view.backgroundColor = UIColor.clear
         view.imageView.image = UIImage(named: image)
+        view.imageView.tintColor = NavigationPalette.tabTint
         view.label.attributedText = title.localized.attributed(with: attrs)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)

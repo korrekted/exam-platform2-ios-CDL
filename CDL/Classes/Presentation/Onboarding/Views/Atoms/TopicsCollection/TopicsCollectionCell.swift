@@ -28,14 +28,14 @@ extension TopicsCollectionCell {
     func setup(element: TopicsCollectionElement) {
         let textColor = element.isSelected ? Onboarding.Topics.selectedText : Onboarding.Topics.text
         
-        let titleAttr = TextAttributes().font(Fonts.SFProRounded.bold(size: 24.scale)).textColor(textColor)
-        let subtitleAttr = TextAttributes().font(Fonts.SFProRounded.regular(size: 18.scale)).textColor(textColor)
+        let titleAttr = TextAttributes().font(Fonts.Lato.bold(size: 24.scale)).lineHeight(30.scale).textColor(textColor)
+        let subtitleAttr = TextAttributes().font(Fonts.Lato.regular(size: 18.scale)).textColor(textColor)
         
         let attrs = NSMutableAttributedString()
-        attrs.append(element.topic.title.attributed(with: titleAttr))
+        attrs.append((element.topic.title + "\n").attributed(with: titleAttr))
         
         if element.topic.isMain {
-            attrs.append(("\n" + element.topic.description).attributed(with: subtitleAttr))
+            attrs.append(element.topic.description.attributed(with: subtitleAttr))
         }
         
         label.attributedText = attrs
@@ -74,7 +74,8 @@ private extension TopicsCollectionCell {
         ])
         
         NSLayoutConstraint.activate([
-            label.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            label.topAnchor.constraint(equalTo: container.topAnchor, constant: 16.scale),
+            label.bottomAnchor.constraint(lessThanOrEqualTo: container.bottomAnchor, constant: -16.scale),
             label.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16.scale),
             label.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16.scale)
         ])

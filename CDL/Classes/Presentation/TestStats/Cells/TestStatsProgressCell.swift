@@ -11,6 +11,8 @@ class TestStatsProgressCell: UITableViewCell {
 
     lazy var progressView = makeProgressView()
     lazy var percentLabel = makePercentLabel()
+    lazy var passingContainer = makePassingContainer()
+    lazy var passingIcon = makeImageView()
     lazy var passingScoreLabel = makePassScoreLabel()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -33,9 +35,7 @@ extension TestStatsProgressCell {
         
         let attr = TextAttributes()
             .font(Fonts.SFProRounded.regular(size: 14.scale))
-            .lineHeight(20.scale)
             .textColor(TestStatsPalette.Progress.text)
-            .textAlignment(.center)
         
         passingScoreLabel.attributedText = "\("TestStats.PassingScore".localized) \(element.passingScore)%".attributed(with: attr)
     }
@@ -65,11 +65,25 @@ private extension TestStatsProgressCell {
         ])
         
         NSLayoutConstraint.activate([
-            passingScoreLabel.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 16.scale),
-            passingScoreLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16.scale),
-            passingScoreLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            passingScoreLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            passingContainer.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 16.scale),
+            passingContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16.scale),
+            passingContainer.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+            passingIcon.leadingAnchor.constraint(equalTo: passingContainer.leadingAnchor),
+            passingIcon.heightAnchor.constraint(equalToConstant: 8.scale),
+            passingIcon.widthAnchor.constraint(equalTo: passingIcon.heightAnchor),
+            passingIcon.centerYAnchor.constraint(equalTo: passingScoreLabel.centerYAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            passingScoreLabel.topAnchor.constraint(equalTo: passingContainer.topAnchor),
+            passingScoreLabel.bottomAnchor.constraint(equalTo: passingContainer.bottomAnchor),
+            passingScoreLabel.leadingAnchor.constraint(equalTo: passingIcon.trailingAnchor, constant: 8.scale),
+            passingScoreLabel.trailingAnchor.constraint(equalTo: passingContainer.trailingAnchor)
+        ])
+        
     }
 }
 
@@ -88,12 +102,29 @@ private extension TestStatsProgressCell {
         view.font = Fonts.SFProRounded.bold(size: 36.scale)
         view.textColor = TestStatsPalette.Progress.text
         view.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(view)
+        passingContainer.addSubview(view)
         return view
     }
     
     func makePassScoreLabel() -> UILabel {
         let view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(view)
+        return view
+    }
+    
+    func makeImageView() -> UIImageView {
+        let view = UIImageView()
+        view.image = UIImage(named: "Question.Circle")
+        view.tintColor = TestStatsPalette.passingScore
+        view.translatesAutoresizingMaskIntoConstraints = false
+        passingContainer.addSubview(view)
+        return view
+    }
+    
+    func makePassingContainer() -> UIView {
+        let view = UIView()
+        view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(view)
         return view

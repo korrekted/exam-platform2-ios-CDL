@@ -22,4 +22,15 @@ struct Fonts {
             UIFont(name: "SFProRounded-Semibold", size: size)!
         }
     }
+    
+    // MARK: Lato
+    struct Lato {
+        static func bold(size: CGFloat) -> UIFont {
+            UIFont(name: "lato-bold", size: size)!
+        }
+        
+        static func regular(size: CGFloat) -> UIFont {
+            UIFont(name: "lato-regular", size: size)!
+        }
+    }
 }

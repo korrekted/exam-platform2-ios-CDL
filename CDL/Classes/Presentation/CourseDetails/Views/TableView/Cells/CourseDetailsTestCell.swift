@@ -149,10 +149,10 @@ private extension CourseDetailsTestCell {
 
 private extension TextAttributes {
     static let numberAttrs = TextAttributes()
-        .font(Fonts.SFProRounded.regular(size: 64.scale))
+        .font(Fonts.Lato.regular(size: 64.scale))
         .textColor(CourseDetailsPalette.title)
     
     static let questionCountAttrs = TextAttributes()
-        .font(Fonts.SFProRounded.regular(size: 14.scale))
+        .font(Fonts.Lato.regular(size: 14.scale))
         .textColor(CourseDetailsPalette.subtitle)
 }
