@@ -244,11 +244,12 @@
 		967AD58B260FD0F9008E8175 /* SF-Pro-Rounded-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 967AD588260FD0F9008E8175 /* SF-Pro-Rounded-Regular.otf */; };
 		967AD58C260FD0F9008E8175 /* SF-Pro-Rounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 967AD589260FD0F9008E8175 /* SF-Pro-Rounded-Bold.otf */; };
 		967AD58F260FD103008E8175 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 967AD58E260FD103008E8175 /* LaunchScreen.storyboard */; };
-		967AD594260FD11B008E8175 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 967AD593260FD11B008E8175 /* Localizable.strings */; };
 		967DA111266F7A08002251D7 /* PaygateScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967DA110266F7A08002251D7 /* PaygateScrollView.swift */; };
 		967DA114266F7C39002251D7 /* PaygatePaidView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967DA113266F7C39002251D7 /* PaygatePaidView.swift */; };
 		967DA117266F7C7C002251D7 /* PaygateFreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967DA116266F7C7C002251D7 /* PaygateFreeView.swift */; };
 		967DA11C266FB8AC002251D7 /* PaygateIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967DA11B266FB8AC002251D7 /* PaygateIndicatorView.swift */; };
+		967DA11F266FCD15002251D7 /* lato.italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 967DA11E266FCCF3002251D7 /* lato.italic.ttf */; };
+		967DA123266FD2C5002251D7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 967DA125266FD2C5002251D7 /* Localizable.strings */; };
 		9696796B265BCF4C0070E7F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9696796A265BCF4C0070E7F7 /* GoogleService-Info.plist */; };
 		969679AC265CC2680070E7F7 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679AB265CC2680070E7F7 /* Country.swift */; };
 		969679B1265CC3600070E7F7 /* GetCountriesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969679B0265CC3600070E7F7 /* GetCountriesRequest.swift */; };
@@ -520,13 +521,15 @@
 		967AD588260FD0F9008E8175 /* SF-Pro-Rounded-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Regular.otf"; sourceTree = "<group>"; };
 		967AD589260FD0F9008E8175 /* SF-Pro-Rounded-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Bold.otf"; sourceTree = "<group>"; };
 		967AD58E260FD103008E8175 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		967AD593260FD11B008E8175 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		967AD597260FD181008E8175 /* CDL-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CDL-Bridging-Header.h"; sourceTree = "<group>"; };
 		967AD598260FD19E008E8175 /* CDL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CDL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		967DA110266F7A08002251D7 /* PaygateScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaygateScrollView.swift; sourceTree = "<group>"; };
 		967DA113266F7C39002251D7 /* PaygatePaidView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaygatePaidView.swift; sourceTree = "<group>"; };
 		967DA116266F7C7C002251D7 /* PaygateFreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaygateFreeView.swift; sourceTree = "<group>"; };
 		967DA11B266FB8AC002251D7 /* PaygateIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaygateIndicatorView.swift; sourceTree = "<group>"; };
+		967DA11E266FCCF3002251D7 /* lato.italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lato.italic.ttf; sourceTree = "<group>"; };
+		967DA124266FD2C5002251D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		967DA127266FD2D1002251D7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9696796A265BCF4C0070E7F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		969679AB265CC2680070E7F7 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		969679B0265CC3600070E7F7 /* GetCountriesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCountriesRequest.swift; sourceTree = "<group>"; };
@@ -637,6 +640,7 @@
 		86B59E802663AB6800733B65 /* Lato */ = {
 			isa = PBXGroup;
 			children = (
+				967DA11E266FCCF3002251D7 /* lato.italic.ttf */,
 				86B59E832663AC8A00733B65 /* lato-bold.otf */,
 				86B59E822663AC8900733B65 /* lato-regular.otf */,
 			);
@@ -1557,7 +1561,7 @@
 		967AD591260FD10B008E8175 /* Strings */ = {
 			isa = PBXGroup;
 			children = (
-				967AD593260FD11B008E8175 /* Localizable.strings */,
+				967DA125266FD2C5002251D7 /* Localizable.strings */,
 			);
 			path = Strings;
 			sourceTree = "<group>";
@@ -1697,6 +1701,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 967AD363260FCFAC008E8175;
 			productRefGroup = 967AD363260FCFAC008E8175;
@@ -1713,12 +1718,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				967DA11F266FCD15002251D7 /* lato.italic.ttf in Resources */,
 				96B67A93262957620048DAB9 /* Onboarding.Chart.json in Resources */,
 				9696796B265BCF4C0070E7F7 /* GoogleService-Info.plist in Resources */,
 				967AD58B260FD0F9008E8175 /* SF-Pro-Rounded-Regular.otf in Resources */,
 				967AD58A260FD0F9008E8175 /* SF-Pro-Rounded-Semibold.otf in Resources */,
 				86B59E842663AC8A00733B65 /* lato-regular.otf in Resources */,
-				967AD594260FD11B008E8175 /* Localizable.strings in Resources */,
+				967DA123266FD2C5002251D7 /* Localizable.strings in Resources */,
 				86B59E852663AC8A00733B65 /* lato-bold.otf in Resources */,
 				967AD58F260FD103008E8175 /* LaunchScreen.storyboard in Resources */,
 				967AD379260FCFAF008E8175 /* Assets.xcassets in Resources */,
@@ -2059,6 +2065,18 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		967DA125266FD2C5002251D7 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				967DA124266FD2C5002251D7 /* en */,
+				967DA127266FD2D1002251D7 /* es */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		967AD37E260FCFAF008E8175 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2184,7 +2202,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = "$(SRCROOT)/CDL/Resource/Info.plist";
@@ -2193,7 +2211,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.5;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = prep.cdl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "CDL Development";
@@ -2211,7 +2229,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = "$(SRCROOT)/CDL/Resource/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -2219,7 +2237,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.5;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = prep.cdl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "CDL AppStore Profile";

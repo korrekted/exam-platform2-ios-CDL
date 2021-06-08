@@ -32,5 +32,9 @@ struct Fonts {
         static func regular(size: CGFloat) -> UIFont {
             UIFont(name: "lato-regular", size: size)!
         }
+        
+        static func italic(size: CGFloat) -> UIFont {
+            UIFont(name: "lato-italic", size: size)!
+        }
     }
 }

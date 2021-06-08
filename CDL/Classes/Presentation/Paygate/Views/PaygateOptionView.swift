@@ -44,15 +44,14 @@ final class PaygateOptionView: UIView {
 
 // MARK: Private
 private extension PaygateOptionView {
-    // TODO
     func updateContent(at option: PaygateOption) {
         titleLabel.attributedText = option.title
-        captionLabel.attributedText = "$99.99/paid once".attributed(with: TextAttributes()) //option.caption
+        captionLabel.attributedText = option.caption
         
         saveLabel.attributedText = option.save
         saveLabel.isHidden = option.save == nil
         
-        bottomLabel.attributedText = "after 3 day trial".attributed(with: TextAttributes()) //option.bottomLine
+        bottomLabel.attributedText = option.bottomLine
     }
 
     func updateColors() {
@@ -90,7 +89,7 @@ private extension PaygateOptionView {
         ])
         
         NSLayoutConstraint.activate([
-            captionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12.scale),
+            captionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
             captionLabel.topAnchor.constraint(equalTo: topAnchor, constant: 38.scale)
         ])
         

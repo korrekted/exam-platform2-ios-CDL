@@ -52,30 +52,24 @@ private extension PaygateMapper {
         
         let title = (option["title"] as? String)?
             .attributed(with: TextAttributes()
-                .font(Fonts.SFProRounded.bold(size: 20.scale))
-                .lineHeight(25.scale)
-                .letterSpacing(0.06)
-                .textColor(UIColor(integralRed: 17, green: 17, blue: 17)))
+                .font(Fonts.Lato.bold(size: 18.scale))
+                .lineHeight(21.scale))
         
         let subCaption = (option["subcaption"] as? String)?
             .attributed(with: TextAttributes()
-                .font(Fonts.SFProRounded.semiBold(size: 10.scale))
-                .letterSpacing(0.06)
-                .lineHeight(13.scale)
-                .textColor(UIColor(integralRed: 17, green: 17, blue: 17)))
+                .font(Fonts.Lato.regular(size: 14.scale))
+                .lineHeight(16.8.scale))
         
         let save = (option["save"] as? String)?
             .attributed(with: TextAttributes()
-                .font(Fonts.SFProRounded.semiBold(size: 13.scale))
+                .font(Fonts.Lato.bold(size: 13.scale))
                 .letterSpacing(-0.08.scale)
-                .textColor(UIColor.white)
                 .lineHeight(18.scale))
         
         guard let productPrice = productsPrices?.first(where: { $0.id == productId }) else {
             return PaygateOption(productId: productId,
                                  title: title,
                                  caption: nil,
-                                 subCaption: subCaption,
                                  save: save,
                                  bottomLine: nil)
         }
@@ -104,15 +98,20 @@ private extension PaygateMapper {
             .replacingOccurrences(of: "@price", with: priceLocalized)
         let captionAttrs = NSMutableAttributedString(string: caption ?? "",
                                                      attributes: TextAttributes()
-                                                        .font(Fonts.SFProRounded.semiBold(size: 14.scale))
-                                                        .lineHeight(25.scale)
-                                                        .letterSpacing(0.06)
+                                                        .font(Fonts.Lato.regular(size: 14.scale))
+                                                        .lineHeight(16.8.scale)
                                                         .dictionary)
         let captionPriceLocalizedRange = NSString(string: caption ?? "").range(of: priceLocalized)
-        captionAttrs.addAttributes(TextAttributes().font(Fonts.SFProRounded.bold(size: index == 0 ? 16.scale : 20.scale)).letterSpacing(0.06).dictionary,
+        captionAttrs.addAttributes(TextAttributes()
+                                    .font(index == 0 ? Fonts.Lato.italic(size: 14.scale) : Fonts.Lato.bold(size: 24.scale))
+                                    .lineHeight(index == 0 ? 16.8.scale : 28.8.scale)
+                                    .dictionary,
                                    range: captionPriceLocalizedRange)
         let captionPriceDivLocalizedRange = NSString(string: caption ?? "").range(of: priceDivLocalized)
-        captionAttrs.addAttributes(TextAttributes().font(Fonts.SFProRounded.bold(size: index == 0 ? 16.scale : 20.scale)).letterSpacing(0.06).dictionary,
+        captionAttrs.addAttributes(TextAttributes()
+                                    .font(index == 0 ? Fonts.Lato.italic(size: 14.scale) : Fonts.Lato.bold(size: 24.scale))
+                                    .lineHeight(index == 0 ? 16.8.scale : 28.8.scale)
+                                    .dictionary,
                                    range: captionPriceDivLocalizedRange)
         
         let bottomLine = (option["bottom_line"] as? String)?
@@ -120,22 +119,41 @@ private extension PaygateMapper {
             .replacingOccurrences(of: "@price", with: priceLocalized)
         let bottomLineAttrs = NSMutableAttributedString(string: bottomLine ?? "",
                                                         attributes: TextAttributes()
-                                                            .font(Fonts.SFProRounded.semiBold(size: 15.scale))
-                                                            .lineHeight(25.scale)
+                                                            .font(index == 0 ? Fonts.Lato.bold(size: 24.scale) : Fonts.Lato.italic(size: 14.scale))
+                                                            .lineHeight(index == 0 ? 28.8.scale : 16.8.scale)
                                                             .dictionary)
         let bottomLinePriceLocalizedRange = NSString(string: bottomLine ?? "").range(of: priceLocalized)
-        bottomLineAttrs.addAttributes(TextAttributes().font(Fonts.SFProRounded.bold(size: 20.scale)).letterSpacing(-0.08).dictionary,
+        bottomLineAttrs.addAttributes(TextAttributes()
+                                        .font(index == 0 ? Fonts.Lato.bold(size: 24.scale) : Fonts.Lato.italic(size: 14.scale))
+                                        .dictionary,
                                    range: bottomLinePriceLocalizedRange)
         let bottomLinePriceDivLocalizedRange = NSString(string: bottomLine ?? "").range(of: priceDivLocalized)
-        bottomLineAttrs.addAttributes(TextAttributes().font(Fonts.SFProRounded.bold(size: 20.scale)).letterSpacing(-0.08).dictionary,
+        bottomLineAttrs.addAttributes(TextAttributes()
+                                        .font(index == 0 ? Fonts.Lato.bold(size: 24.scale) : Fonts.Lato.italic(size: 14.scale))
+                                        .dictionary,
                                    range: bottomLinePriceDivLocalizedRange)
+        
+        let bottomLineResult = NSMutableAttributedString()
+        if index == 0 {
+            bottomLineResult.append(captionAttrs)
+            bottomLineResult.append(NSAttributedString(string: " "))
+            bottomLineResult.append(subCaption ?? NSAttributedString())
+        } else {
+            bottomLineResult.append(bottomLineAttrs)
+        }
+        
+        let captionResult = NSMutableAttributedString()
+        if index == 0 {
+            captionResult.append(bottomLineAttrs)
+        } else {
+            captionResult.append(captionAttrs)
+        }
         
         return PaygateOption(productId: productId,
                              title: title,
-                             caption: captionAttrs,
-                             subCaption: subCaption,
+                             caption: captionResult,
                              save: save,
-                             bottomLine: bottomLineAttrs)
+                             bottomLine: bottomLineResult)
     }
     
     static func getProductIds(mainJSON: [String: Any]?) -> [String] {
