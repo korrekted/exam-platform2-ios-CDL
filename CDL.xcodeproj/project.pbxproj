@@ -197,7 +197,6 @@
 		967AD540260FD0AF008E8175 /* PaygateMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD464260FD0AE008E8175 /* PaygateMainView.swift */; };
 		967AD541260FD0AF008E8175 /* PaygateMainInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD465260FD0AE008E8175 /* PaygateMainInfoCell.swift */; };
 		967AD542260FD0AF008E8175 /* PaygateOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD466260FD0AE008E8175 /* PaygateOptionView.swift */; };
-		967AD543260FD0AF008E8175 /* PaygateSpecialOfferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD467260FD0AE008E8175 /* PaygateSpecialOfferView.swift */; };
 		967AD544260FD0AF008E8175 /* TestStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD469260FD0AE008E8175 /* TestStatsViewController.swift */; };
 		967AD545260FD0AF008E8175 /* TestStatsResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD46B260FD0AE008E8175 /* TestStatsResultCell.swift */; };
 		967AD546260FD0AF008E8175 /* TestStatsProgressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD46C260FD0AE008E8175 /* TestStatsProgressCell.swift */; };
@@ -238,7 +237,6 @@
 		967AD576260FD0AF008E8175 /* OSlidePreloaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4AB260FD0AE008E8175 /* OSlidePreloaderView.swift */; };
 		967AD577260FD0AF008E8175 /* OSlideGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4AC260FD0AE008E8175 /* OSlideGoalsView.swift */; };
 		967AD579260FD0AF008E8175 /* OSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4AE260FD0AE008E8175 /* OSlideView.swift */; };
-		967AD57A260FD0AF008E8175 /* OSlideQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4AF260FD0AE008E8175 /* OSlideQuestionView.swift */; };
 		967AD57C260FD0AF008E8175 /* OSlidePlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4B1260FD0AE008E8175 /* OSlidePlanView.swift */; };
 		967AD57D260FD0AF008E8175 /* OSlideTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4B2260FD0AE008E8175 /* OSlideTimeView.swift */; };
 		967AD57E260FD0AF008E8175 /* OSlideStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4B3260FD0AE008E8175 /* OSlideStartedView.swift */; };
@@ -270,7 +268,6 @@
 		96B67AD7262970390048DAB9 /* LocaleLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67AD6262970390048DAB9 /* LocaleLanguageView.swift */; };
 		96B67AE62629B9DE0048DAB9 /* OSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67AE52629B9DE0048DAB9 /* OSlider.swift */; };
 		96B67AEA2629BB100048DAB9 /* OSlideExperienceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67AE92629BB100048DAB9 /* OSlideExperienceView.swift */; };
-		96B67AED2629BDDB0048DAB9 /* OQuestionFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67AEC2629BDDB0048DAB9 /* OQuestionFormView.swift */; };
 		96B67AF5262A06900048DAB9 /* OPreloaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B67AF4262A06900048DAB9 /* OPreloaderCell.swift */; };
 		96F44FB326317844000B77E3 /* TopicsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F44FB226317844000B77E3 /* TopicsCollectionView.swift */; };
 		96F44FB62631788D000B77E3 /* TopicsCollectionElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F44FB52631788D000B77E3 /* TopicsCollectionElement.swift */; };
@@ -475,7 +472,6 @@
 		967AD464260FD0AE008E8175 /* PaygateMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateMainView.swift; sourceTree = "<group>"; };
 		967AD465260FD0AE008E8175 /* PaygateMainInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateMainInfoCell.swift; sourceTree = "<group>"; };
 		967AD466260FD0AE008E8175 /* PaygateOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateOptionView.swift; sourceTree = "<group>"; };
-		967AD467260FD0AE008E8175 /* PaygateSpecialOfferView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateSpecialOfferView.swift; sourceTree = "<group>"; };
 		967AD469260FD0AE008E8175 /* TestStatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestStatsViewController.swift; sourceTree = "<group>"; };
 		967AD46B260FD0AE008E8175 /* TestStatsResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestStatsResultCell.swift; sourceTree = "<group>"; };
 		967AD46C260FD0AE008E8175 /* TestStatsProgressCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestStatsProgressCell.swift; sourceTree = "<group>"; };
@@ -516,7 +512,6 @@
 		967AD4AB260FD0AE008E8175 /* OSlidePreloaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlidePreloaderView.swift; sourceTree = "<group>"; };
 		967AD4AC260FD0AE008E8175 /* OSlideGoalsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideGoalsView.swift; sourceTree = "<group>"; };
 		967AD4AE260FD0AE008E8175 /* OSlideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideView.swift; sourceTree = "<group>"; };
-		967AD4AF260FD0AE008E8175 /* OSlideQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideQuestionView.swift; sourceTree = "<group>"; };
 		967AD4B1260FD0AE008E8175 /* OSlidePlanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlidePlanView.swift; sourceTree = "<group>"; };
 		967AD4B2260FD0AE008E8175 /* OSlideTimeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideTimeView.swift; sourceTree = "<group>"; };
 		967AD4B3260FD0AE008E8175 /* OSlideStartedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideStartedView.swift; sourceTree = "<group>"; };
@@ -550,7 +545,6 @@
 		96B67AD6262970390048DAB9 /* LocaleLanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleLanguageView.swift; sourceTree = "<group>"; };
 		96B67AE52629B9DE0048DAB9 /* OSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSlider.swift; sourceTree = "<group>"; };
 		96B67AE92629BB100048DAB9 /* OSlideExperienceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSlideExperienceView.swift; sourceTree = "<group>"; };
-		96B67AEC2629BDDB0048DAB9 /* OQuestionFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OQuestionFormView.swift; sourceTree = "<group>"; };
 		96B67AF4262A06900048DAB9 /* OPreloaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPreloaderCell.swift; sourceTree = "<group>"; };
 		96F44FB226317844000B77E3 /* TopicsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsCollectionView.swift; sourceTree = "<group>"; };
 		96F44FB52631788D000B77E3 /* TopicsCollectionElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsCollectionElement.swift; sourceTree = "<group>"; };
@@ -1344,11 +1338,11 @@
 		967AD45E260FD0AE008E8175 /* Paygate */ = {
 			isa = PBXGroup;
 			children = (
-				967AD45F260FD0AE008E8175 /* PaygateViewModel.swift */,
-				967AD460260FD0AE008E8175 /* PaygateViewControllerDelegate.swift */,
-				967AD461260FD0AE008E8175 /* PaygateView.swift */,
-				967AD462260FD0AE008E8175 /* PaygateViewController.swift */,
 				967AD463260FD0AE008E8175 /* Views */,
+				967AD462260FD0AE008E8175 /* PaygateViewController.swift */,
+				967AD45F260FD0AE008E8175 /* PaygateViewModel.swift */,
+				967AD461260FD0AE008E8175 /* PaygateView.swift */,
+				967AD460260FD0AE008E8175 /* PaygateViewControllerDelegate.swift */,
 			);
 			path = Paygate;
 			sourceTree = "<group>";
@@ -1359,7 +1353,6 @@
 				967AD464260FD0AE008E8175 /* PaygateMainView.swift */,
 				967AD465260FD0AE008E8175 /* PaygateMainInfoCell.swift */,
 				967AD466260FD0AE008E8175 /* PaygateOptionView.swift */,
-				967AD467260FD0AE008E8175 /* PaygateSpecialOfferView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1497,7 +1490,6 @@
 				967AD4AB260FD0AE008E8175 /* OSlidePreloaderView.swift */,
 				967AD4AC260FD0AE008E8175 /* OSlideGoalsView.swift */,
 				967AD4AE260FD0AE008E8175 /* OSlideView.swift */,
-				967AD4AF260FD0AE008E8175 /* OSlideQuestionView.swift */,
 				967AD4B1260FD0AE008E8175 /* OSlidePlanView.swift */,
 				967AD4B2260FD0AE008E8175 /* OSlideTimeView.swift */,
 				967AD4B3260FD0AE008E8175 /* OSlideStartedView.swift */,
@@ -1519,7 +1511,6 @@
 				967AD4A4260FD0AE008E8175 /* ODatePicker.swift */,
 				967AD4A5260FD0AE008E8175 /* OGoalCell.swift */,
 				96B67AE52629B9DE0048DAB9 /* OSlider.swift */,
-				96B67AEC2629BDDB0048DAB9 /* OQuestionFormView.swift */,
 				96B67AF4262A06900048DAB9 /* OPreloaderCell.swift */,
 			);
 			path = Atoms;
@@ -1829,7 +1820,6 @@
 				967AD4DF260FD0AE008E8175 /* GetPaygateRequest.swift in Sources */,
 				967AD4D0260FD0AE008E8175 /* AppDelegate.swift in Sources */,
 				86F242CB2628697900DA4B53 /* SCModeView.swift in Sources */,
-				96B67AED2629BDDB0048DAB9 /* OQuestionFormView.swift in Sources */,
 				86BB25AD261E2CB200C6D2FA /* GetIncorrectRequest.swift in Sources */,
 				967AD51F260FD0AF008E8175 /* StudyCollectionElement.swift in Sources */,
 				967AD51E260FD0AF008E8175 /* SCBriefDaysView.swift in Sources */,
@@ -1984,7 +1974,6 @@
 				86BB2593261E14D700C6D2FA /* GetSavedRequest.swift in Sources */,
 				9667BB19264EA4780029ED86 /* ProfileMediator.swift in Sources */,
 				967AD503260FD0AF008E8175 /* GetStatsRequest.swift in Sources */,
-				967AD57A260FD0AF008E8175 /* OSlideQuestionView.swift in Sources */,
 				967AD55F260FD0AF008E8175 /* StatsView.swift in Sources */,
 				967AD4DB260FD0AE008E8175 /* ProductPrice.swift in Sources */,
 				86BB259D261E246000C6D2FA /* SITestView.swift in Sources */,
@@ -1998,7 +1987,6 @@
 				967AD579260FD0AF008E8175 /* OSlideView.swift in Sources */,
 				967AD4FE260FD0AF008E8175 /* Brief.swift in Sources */,
 				86CE8719262177D900FC7091 /* SITestElement.swift in Sources */,
-				967AD543260FD0AF008E8175 /* PaygateSpecialOfferView.swift in Sources */,
 				86BB2590261E0C8B00C6D2FA /* SaveQuestionRequest.swift in Sources */,
 				8686722B26120D7700B42D41 /* TestComunityResultLineView.swift in Sources */,
 				967AD55C260FD0AF008E8175 /* StatsCellType.swift in Sources */,

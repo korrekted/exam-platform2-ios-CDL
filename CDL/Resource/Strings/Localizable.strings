@@ -51,11 +51,6 @@
 "Onboarding.SlideExperience.Cell1" = "0-3 years";
 "Onboarding.SlideExperience.Cell2" = "3-5 years";
 "Onboarding.SlideExperience.Cell3" = "5+ years";
-"Onboarding.Question.Title" = "Do you agree with the statement?";
-"Onboarding.Question1" = "A driver should always remember about the blind spots of commercial vehicles.";
-"Onboarding.Question2" = "Only after 2 years of accident-free driving one can claim they really know how to drive";
-"Onboarding.Question3" = "A technical condition of a vehicle is less important than the driver’s skill.";
-"Onboarding.Question4" = "A good truck driver cares for everyone on the road, even the small passenger cars";
 "Onboarding.Preloader.Title" = "Preparing your\nindividual study\nplan";
 "Onboarding.Preloader.Cell1" = "Analyzing your skill level";
 "Onboarding.Preloader.Cell2" = "Analyzing your goals";

@@ -239,8 +239,6 @@ private extension PaygateMainView {
     
     func makeOptionView() -> PaygateOptionView {
         let view = PaygateOptionView()
-        view.alpha = 0
-        view.isHidden = true
         view.layer.cornerRadius = 8.scale
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
