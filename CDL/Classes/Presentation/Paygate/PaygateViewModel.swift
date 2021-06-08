@@ -14,40 +14,21 @@ final class PaygateViewModel {
         case block, suggest
     }
     
-    struct PaygateStruct {
-        let paygate: Paygate?
-        let monetizationConfig: Config
-    }
-    
     let buy = PublishRelay<String>()
-    let restore = PublishRelay<String>()
+    let restore = PublishRelay<Void>()
 
     lazy var buyed = createBuyed()
     lazy var restored = createRestored()
     
     lazy var processing = RxActivityIndicator()
     
-    lazy var paygate = makeData()
+    lazy var paygate = makePaygate()
+    lazy var config = makeMonetizationConfig()
     
     private lazy var paygateManager = PaygateManagerCore()
     private lazy var purchaseInteractor = SDKStorage.shared.purchaseInteractor
     private lazy var monetizatiionManager = MonetizationManagerCore()
 }
-
-// MARK: Private
-private extension PaygateViewModel {
-    func makeData() -> Driver<PaygateStruct> {
-        return Driver<PaygateStruct>
-            .zip(
-                makePaygate(),
-                makeMonetizationConfig()
-            ) { paygate, config -> PaygateStruct in
-                PaygateStruct(paygate: paygate,
-                              monetizationConfig: config)
-            }
-    }
-}
-
 
 // MARK: Private (Monetization)
 private extension PaygateViewModel {
@@ -114,7 +95,7 @@ private extension PaygateViewModel {
     
     func createRestored() -> Signal<Bool> {
         let purchase = restore
-            .flatMapLatest { [purchaseInteractor, processing] productId -> Observable<Bool> in
+            .flatMapLatest { [purchaseInteractor, processing] _ -> Observable<Bool> in
                 purchaseInteractor
                     .makeActiveSubscriptionByRestore()
                     .map { result -> Bool in

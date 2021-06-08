@@ -27,70 +27,63 @@ final class PaygateViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         SDKStorage.shared
             .amplitudeManager
             .logEvent(name: "Paygate Screen", parameters: [:])
-        
+
         addMainOptionsSelection()
-        
+
         viewModel.paygate
-            .drive(onNext: { [weak self] data in
-                self?.retrieve(config: data.monetizationConfig)
-                
-                if let paygate = data.paygate?.main {
-                    self?.paygateView.mainView.setup(paygate: paygate)
+            .drive(onNext: { [weak self] paygate in
+                if let paygate = paygate {
+                    self?.paygateView.scrollView.setup(paygate: paygate)
                 }
             })
             .disposed(by: disposeBag)
         
-        paygateView
-            .mainView
-            .closeButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
-                self.dismiss(with: .cancelled)
+        viewModel.config
+            .drive(onNext: { [weak self] config in
+                self?.paygateView.scrollView.setup(config: config)
+                self?.hideIndicatorsIfNeeded(config: config)
             })
             .disposed(by: disposeBag)
         
+        paygateView.scrollView
+            .freeView.continueButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.dismiss(with: .cancelled)
+            })
+            .disposed(by: disposeBag)
+
         paygateView
-            .mainView
+            .scrollView.paidView
             .continueButton.rx.tap
             .subscribe(onNext: { [unowned self] productId in
-                guard let productId = [self.paygateView.mainView.leftOptionView, self.paygateView.mainView.rightOptionView]
+                guard let productId = [self.paygateView.scrollView.paidView.option1View,
+                                       self.paygateView.scrollView.paidView.option2View]
                     .first(where: { $0.isSelected })?
                     .productId
                 else {
                     return
                 }
-                
+
                 self.viewModel.buy.accept(productId)
             })
             .disposed(by: disposeBag)
-        
-        paygateView
-            .mainView
-            .restoreButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
-                guard let productId = [self.paygateView.mainView.leftOptionView, self.paygateView.mainView.rightOptionView]
-                    .first(where: { $0.isSelected })?
-                    .productId
-                else {
-                    return
-                }
-                
-                self.viewModel.restore.accept(productId)
-            })
+
+        paygateView.restoreButton.rx.tap
+            .bind(to: viewModel.restore)
             .disposed(by: disposeBag)
-        
+
         viewModel.processing
             .drive(onNext: { [weak self] isLoading in
-                self?.paygateView.mainView.continueButton.isHidden = isLoading
-                self?.paygateView.mainView.restoreButton.isHidden = isLoading
-
-                isLoading ? self?.paygateView.mainView.purchasePreloaderView.startAnimating() : self?.paygateView.mainView.purchasePreloaderView.stopAnimating()
+                self?.paygateView.scrollView.paidView.continueButton.isHidden = isLoading
+                self?.paygateView.restoreButton.isHidden = isLoading
+                self?.paygateView.scrollView.paidView.inProgress(isLoading)
             })
             .disposed(by: disposeBag)
-        
+
         viewModel
             .buyed
             .emit(onNext: { [weak self] result in
@@ -98,11 +91,11 @@ final class PaygateViewController: UIViewController {
                     Toast.notify(with: "Paygate.Purchase.Failed".localized, style: .danger)
                     return
                 }
-                
+
                 self?.dismiss(with: .bied)
             })
             .disposed(by: disposeBag)
-        
+
         viewModel
             .restored
             .emit(onNext: { [weak self] result in
@@ -110,7 +103,7 @@ final class PaygateViewController: UIViewController {
                     Toast.notify(with: "Paygate.Purchase.Failed".localized, style: .danger)
                     return
                 }
-                
+
                 self?.dismiss(with: .restored)
             })
             .disposed(by: disposeBag)
@@ -129,49 +122,51 @@ extension PaygateViewController {
 
 // MARK: Private
 private extension PaygateViewController {
-    func retrieve(config: PaygateViewModel.Config) {
+    func hideIndicatorsIfNeeded(config: PaygateViewModel.Config) {
         switch config {
         case .block:
-            paygateView.mainView.closeButton.isHidden = true
+            paygateView.indicatorsView.isHidden = true
         case .suggest:
-            paygateView.mainView.closeButton.isHidden = false
+            paygateView.indicatorsView.isHidden = false
         }
     }
     
     func addMainOptionsSelection() {
-        let leftOptionTapGesture = UITapGestureRecognizer()
-        paygateView.mainView.leftOptionView.addGestureRecognizer(leftOptionTapGesture)
+        let paidView = paygateView.scrollView.paidView
         
-        leftOptionTapGesture.rx.event
+        let option1TapGesture = UITapGestureRecognizer()
+        paidView.option1View.addGestureRecognizer(option1TapGesture)
+
+        option1TapGesture.rx.event
             .subscribe(onNext: { [unowned self] _ in
-                if let productId = self.paygateView.mainView.leftOptionView.productId {
+                if let productId = paidView.option1View.productId {
                     self.viewModel.buy.accept(productId)
                 }
-                
-                guard !self.paygateView.mainView.leftOptionView.isSelected else {
+
+                guard !paidView.option1View.isSelected else {
                     return
                 }
-                
-                self.paygateView.mainView.leftOptionView.isSelected = true
-                self.paygateView.mainView.rightOptionView.isSelected = false
+
+                paidView.option1View.isSelected = true
+                paidView.option2View.isSelected = false
             })
             .disposed(by: disposeBag)
-        
-        let rightOptionTapGesture = UITapGestureRecognizer()
-        paygateView.mainView.rightOptionView.addGestureRecognizer(rightOptionTapGesture)
-        
-        rightOptionTapGesture.rx.event
+
+        let option2TapGesture = UITapGestureRecognizer()
+        paidView.option2View.addGestureRecognizer(option2TapGesture)
+
+        option2TapGesture.rx.event
             .subscribe(onNext: { [unowned self] _ in
-                if let productId = self.paygateView.mainView.rightOptionView.productId {
+                if let productId = paidView.option2View.productId {
                     self.viewModel.buy.accept(productId)
                 }
-                
-                guard !self.paygateView.mainView.rightOptionView.isSelected else {
+
+                guard !paidView.option2View.isSelected else {
                     return
                 }
-                
-                self.paygateView.mainView.leftOptionView.isSelected = false
-                self.paygateView.mainView.rightOptionView.isSelected = true
+
+                paidView.option1View.isSelected = false
+                paidView.option2View.isSelected = true
             })
             .disposed(by: disposeBag)
     }
