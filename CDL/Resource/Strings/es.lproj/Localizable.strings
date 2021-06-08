@@ -99,17 +99,22 @@
 "Stats.Day.Many" = "dias";
 
 // MARK: Paygate
-"Paygate.Main.Title" = "CONOCE LAS PREGUNTAS\nDE ANTEMANO";
-"Paygate.Main.Cell1" = "No pases horas aprendiendo";
-"Paygate.Main.Cell2" = "Practica con más de 10.000 preguntas";
-"Paygate.Main.Cell3" = "¡Tasa de 98% de aprobados!";
-"Paygate.Main.Info" = "Asegurado por iTunes. Cancela cuando quieras.";
-"Paygate.Main.TermsOfUse" = "Condiciones de uso";
-"Paygate.Main.And" = " y ";
-"Paygate.Main.PrivacyPolicy" = "Política de privacidad";
-"Paygate.Main.RestorePurchases" = "Restaurar las compras";
-"Paygate.Purchase.Failed" = "No se pudo realizar la compra";
-"Paygate.Continue" = "Continuar →";
+"Paygate.Paid.Title" = "KNOW QUESTIONS\nBEFOREHAND\nWITH PREMIUM";
+"Paygate.Paid.Cell1" = "5 exam modes";
+"Paygate.Paid.Cell2" = "5000+ exam-like questions";
+"Paygate.Paid.Cell3" = "Pass with great self-assurance!";
+"Paygate.Paid.Continue" = "Continue →";
+"Paygate.Free.Title" = "BASIC PREP";
+"Paygate.Free.Cell1" = "Limited free tests for the selected topics";
+"Paygate.Free.Cell2" = "1 new practice question daily";
+"Paygate.Free.Cell3" = "Only 20% of the questions you’ll encounter on the exam";
+"Paygate.Free.Continue" = "Continue with BASIC";
+"Paygate.Info" = "Secured with iTunes. Cancel anytime.";
+"Paygate.TermsOfUse" = "Terms of use";
+"Paygate.And" = " and ";
+"Paygate.PrivacyPolicy" = "Privacy Policy";
+"Paygate.RestorePurchases" = "Restore purchases";
+"Paygate.Purchase.Failed" = "Failed to make purchase";
 
 // MARK: Question
 "Question.Explanation" = "Explicación";
