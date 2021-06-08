@@ -14,24 +14,44 @@ final class PaygateViewModel {
         case block, suggest
     }
     
+    struct PaygateStruct {
+        let paygate: Paygate?
+        let monetizationConfig: Config
+    }
+    
     let buy = PublishRelay<String>()
     let restore = PublishRelay<String>()
 
     lazy var buyed = createBuyed()
     lazy var restored = createRestored()
     
-    let buyProcessing = RxActivityIndicator()
-    let restoreProcessing = RxActivityIndicator()
-    let retrieveCompleted = BehaviorRelay<Bool>(value: false)
+    lazy var processing = RxActivityIndicator()
+    
+    lazy var paygate = makeData()
     
     private lazy var paygateManager = PaygateManagerCore()
     private lazy var purchaseInteractor = SDKStorage.shared.purchaseInteractor
     private lazy var monetizatiionManager = MonetizationManagerCore()
 }
 
-// MARK: Monetization
-extension PaygateViewModel {
-    func monetizationConfig() -> Driver<Config> {
+// MARK: Private
+private extension PaygateViewModel {
+    func makeData() -> Driver<PaygateStruct> {
+        return Driver<PaygateStruct>
+            .zip(
+                makePaygate(),
+                makeMonetizationConfig()
+            ) { paygate, config -> PaygateStruct in
+                PaygateStruct(paygate: paygate,
+                              monetizationConfig: config)
+            }
+    }
+}
+
+
+// MARK: Private (Monetization)
+private extension PaygateViewModel {
+    func makeMonetizationConfig() -> Driver<Config> {
         guard let conf = monetizatiionManager.getMonetizationConfig() else {
             return .deferred { .just(.suggest) }
         }
@@ -45,38 +65,35 @@ extension PaygateViewModel {
     }
 }
 
-// MARK: Get paygate content
-extension PaygateViewModel {
-    func retrieve() -> Driver<(Paygate?, Bool)> {
+// MARK: Private (Get paygate content)
+private extension PaygateViewModel {
+    func makePaygate() -> Driver<Paygate?> {
         let paygate = paygateManager
             .retrievePaygate()
             .asDriver(onErrorJustReturn: nil)
         
         let prices = paygate
-            .flatMapLatest { [paygateManager] response -> Driver<PaygateMapper.PaygateResponse?> in
+            .flatMapLatest { [paygateManager, processing] response -> Driver<PaygateMapper.PaygateResponse?> in
                 guard let response = response else {
                     return .deferred { .just(nil) }
                 }
                 
                 return paygateManager
                     .prepareProductsPrices(for: response)
+                    .trackActivity(processing)
                     .asDriver(onErrorJustReturn: nil)
             }
         
-        return Driver
-            .merge([paygate.map { ($0?.paygate, false) },
-                    prices.map { ($0?.paygate, true) }])
-            .do(onNext: { [weak self] stub in
-                self?.retrieveCompleted.accept(stub.1)
-            })
+        return prices
+            .map { $0?.paygate }
     }
 }
 
-// MARK: Make purchase
+// MARK: Private (Make purchase)
 private extension PaygateViewModel {
     func createBuyed() -> Signal<Bool> {
         let purchase = buy
-            .flatMapLatest { [purchaseInteractor, buyProcessing] productId -> Observable<Bool> in
+            .flatMapLatest { [purchaseInteractor, processing] productId -> Observable<Bool> in
                 purchaseInteractor
                     .makeActiveSubscriptionByBuy(productId: productId)
                     .map { result -> Bool in
@@ -87,7 +104,7 @@ private extension PaygateViewModel {
                             return false
                         }
                     }
-                    .trackActivity(buyProcessing)
+                    .trackActivity(processing)
                     .catchAndReturn(false)
             }
         
@@ -97,7 +114,7 @@ private extension PaygateViewModel {
     
     func createRestored() -> Signal<Bool> {
         let purchase = restore
-            .flatMapLatest { [purchaseInteractor, restoreProcessing] productId -> Observable<Bool> in
+            .flatMapLatest { [purchaseInteractor, processing] productId -> Observable<Bool> in
                 purchaseInteractor
                     .makeActiveSubscriptionByRestore()
                     .map { result -> Bool in
@@ -108,7 +125,7 @@ private extension PaygateViewModel {
                             return false
                         }
                     }
-                    .trackActivity(restoreProcessing)
+                    .trackActivity(processing)
                     .catchAndReturn(false)
             }
         

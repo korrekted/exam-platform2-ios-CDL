@@ -34,35 +34,20 @@ final class PaygateViewController: UIViewController {
         
         addMainOptionsSelection()
         
-        viewModel.monetizationConfig()
-            .drive(onNext: { [weak self] config in
-                self?.retrieve(config: config)
-            })
-            .disposed(by: disposeBag)
-        
-        let retrieved = viewModel.retrieve()
-        
-        retrieved
-            .drive(onNext: { [weak self] paygate, completed in
-                guard let `self` = self, let paygate = paygate else {
-                    return
-                }
+        viewModel.paygate
+            .drive(onNext: { [weak self] data in
+                self?.retrieve(config: data.monetizationConfig)
                 
-                if let main = paygate.main {
-                    self.paygateView.mainView.setup(paygate: main)
+                if let paygate = data.paygate?.main {
+                    self?.paygateView.mainView.setup(paygate: paygate)
                 }
             })
             .disposed(by: disposeBag)
-        
-        let paygate = retrieved
-            .map { $0.0 }
-            .startWith(nil)
         
         paygateView
             .mainView
             .closeButton.rx.tap
-            .withLatestFrom(paygate)
-            .subscribe(onNext: { [unowned self] paygate in
+            .subscribe(onNext: { [unowned self] in
                 self.dismiss(with: .cancelled)
             })
             .disposed(by: disposeBag)
@@ -97,10 +82,7 @@ final class PaygateViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        Driver
-            .merge(viewModel.buyProcessing.asDriver(),
-                   viewModel.restoreProcessing.asDriver(),
-                   viewModel.retrieveCompleted.asDriver(onErrorJustReturn: true).map { !$0 })
+        viewModel.processing
             .drive(onNext: { [weak self] isLoading in
                 self?.paygateView.mainView.continueButton.isHidden = isLoading
                 self?.paygateView.mainView.restoreButton.isHidden = isLoading
