@@ -72,6 +72,10 @@ extension StudyCollectionView: UICollectionViewDataSource {
         case .trophy:
             let cell = dequeueReusableCell(withReuseIdentifier: String(describing: SCTrophyCollectionCell.self), for: indexPath) as! SCTrophyCollectionCell
             return cell
+        case .flashcards(let flashcards):
+            let cell = dequeueReusableCell(withReuseIdentifier: String(describing: SCFlashcardsCell.self), for: indexPath) as! SCFlashcardsCell
+            cell.setup(flashcards: flashcards)
+            return cell
         }
     }
 }
@@ -89,6 +93,8 @@ extension StudyCollectionView: UICollectionViewDelegateFlowLayout {
             return CGSize(width: collectionView.bounds.width, height: 232.scale)
         case .trophy:
             return CGSize(width: collectionView.bounds.width, height: 168.scale)
+        case .flashcards:
+            return CGSize(width: collectionView.bounds.width, height: 137.scale)
         }
     }
     
@@ -105,6 +111,7 @@ private extension StudyCollectionView {
         register(SCModesCell.self, forCellWithReuseIdentifier: String(describing: SCModesCell.self))
         register(SCTrophyCollectionCell.self, forCellWithReuseIdentifier: String(describing: SCTrophyCollectionCell.self))
         register(SCCoursesCell.self, forCellWithReuseIdentifier: String(describing: SCCoursesCell.self))
+        register(SCFlashcardsCell.self, forCellWithReuseIdentifier: String(describing: SCFlashcardsCell.self))
         
         dataSource = self
         delegate = self

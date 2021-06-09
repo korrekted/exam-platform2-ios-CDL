@@ -71,6 +71,9 @@
 "Study.Mode.TryMe" = "INTENTALO";
 "Study.Course.CourseCount" = "%d pruebas";
 "Study.Course.Title" = ": modos de prueba";
+"Study.Flashcards.Title" = "Flashcards";
+"Study.Flashcards.TopicsToLearn" = "topics\nto learn";
+"Study.Flashcards.TopicsLearned" = "topics\nlearned";
 
 // MARK: Settings
 "Settings.Title" = "Ajustes";

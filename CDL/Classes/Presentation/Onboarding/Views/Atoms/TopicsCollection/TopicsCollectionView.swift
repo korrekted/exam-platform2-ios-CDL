@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol TopicsCollectionViewDelegate: class {
+protocol TopicsCollectionViewDelegate: AnyObject {
     func topicsCollectionViewDidChangeSelection()
 }
 

@@ -79,6 +79,9 @@
 "Study.Mode.TryMe" = "TRY ME!";
 "Study.Course.CourseCount" = "%d tests";
 "Study.Course.Title" = " exam modes";
+"Study.Flashcards.Title" = "Flashcards";
+"Study.Flashcards.TopicsToLearn" = "topics\nto learn";
+"Study.Flashcards.TopicsLearned" = "topics\nlearned";
 
 // MARK: Settings
 "Settings.Title" = "Settings";

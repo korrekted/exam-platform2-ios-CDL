@@ -56,9 +56,10 @@ private extension StudyViewModel {
         let modes = makeModes()
         let trophy = makeTrophy()
         let courses = makeCoursesElements()
+        let flashcards = makeFlashcards()
         
         return Driver
-            .combineLatest(courses, modesTitle, modes, trophy) { courses, modesTitle, modes, trophy -> [StudyCollectionSection] in
+            .combineLatest(courses, modesTitle, modes, trophy, flashcards) { courses, modesTitle, modes, trophy, flashcards -> [StudyCollectionSection] in
                 var result = [StudyCollectionSection]()
                 
                 result.append(courses)
@@ -67,6 +68,8 @@ private extension StudyViewModel {
                 if let trophy = trophy {
                     result.append(trophy)
                 }
+                
+                result.append(flashcards)
                 result.append(modes)
                 
                 return result
@@ -155,6 +158,13 @@ private extension StudyViewModel {
     func makeTrophy() -> Driver<StudyCollectionSection?> {
         activeSubscription
             .compactMap { $0 ? nil : StudyCollectionSection(elements: [.trophy]) }
+    }
+    
+    // TODO
+    func makeFlashcards() -> Driver<StudyCollectionSection> {
+        .deferred { .just(StudyCollectionSection(elements: [
+            .flashcards(SCEFlashcards(topicsToLearn: 10, topicsLearned: 1))
+        ])) }
     }
     
     func makeActiveSubscription() -> Driver<Bool> {
