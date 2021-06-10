@@ -22,21 +22,16 @@ final class FlashcardsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.flashcardsTopics
-            .drive(onNext: { [weak self] flashcardsTopics in
-                self?.mainView.tableView.setup(flashcards: flashcardsTopics)
-            })
-            .disposed(by: disposeBag)
-        
         mainView.navigationView.leftAction.addTarget(self, action: #selector(popAction), for: .touchUpInside)
     }
 }
 
 // MARK: Make
 extension FlashcardsViewController {
-    static func make(courseId: Int) -> FlashcardsViewController {
+    static func make(topic: FlashcardTopic) -> FlashcardsViewController {
         let vc = FlashcardsViewController()
-        vc.viewModel.courseId.accept(courseId)
+        vc.viewModel.flashcardTopicId.accept(topic.id)
+        vc.mainView.navigationView.setTitle(title: topic.name)
         vc.navigationItem.backButtonTitle = " "
         return vc
     }
@@ -49,3 +44,4 @@ private extension FlashcardsViewController {
         navigationController?.popViewController(animated: true)
     }
 }
+

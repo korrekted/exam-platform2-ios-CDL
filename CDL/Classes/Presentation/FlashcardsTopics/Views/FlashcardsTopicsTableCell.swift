@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-final class FlashcardsTableCell: UITableViewCell {
+final class FlashcardsTopicsTableCell: UITableViewCell {
     lazy var container = makeContainer()
     lazy var pictureView = makeImageView()
     lazy var nameLabel = makeLabel()
@@ -28,7 +28,7 @@ final class FlashcardsTableCell: UITableViewCell {
 }
 
 // MARK: Public
-extension FlashcardsTableCell {
+extension FlashcardsTopicsTableCell {
     func setup(flashcard: FlashcardTopic) {
         pictureView.kf.cancelDownloadTask()
         pictureView.image = nil
@@ -54,7 +54,7 @@ extension FlashcardsTableCell {
 }
 
 // MARK: Private
-private extension FlashcardsTableCell {
+private extension FlashcardsTopicsTableCell {
     func initialize() {
         backgroundColor = UIColor.clear
         contentView.backgroundColor = UIColor.clear
@@ -64,7 +64,7 @@ private extension FlashcardsTableCell {
 }
 
 // MARK: Make constraints
-private extension FlashcardsTableCell {
+private extension FlashcardsTopicsTableCell {
     func makeConstraints() {
         NSLayoutConstraint.activate([
             container.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.scale),
@@ -103,7 +103,7 @@ private extension FlashcardsTableCell {
 }
 
 // MARK: Lazy initialization
-private extension FlashcardsTableCell {
+private extension FlashcardsTopicsTableCell {
     func makeContainer() -> UIView {
         let view = UIView()
         view.backgroundColor = UIColor(integralRed: 232, green: 234, blue: 237)

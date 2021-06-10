@@ -124,7 +124,7 @@ final class StudyViewController: UIViewController {
             .withLatestFrom(viewModel.course)
             .asSignal(onErrorSignalWith: .never())
             .emit(onNext: { [weak self] course in
-                self?.navigationController?.pushViewController(FlashcardsViewController.make(courseId: course.id), animated: true)
+                self?.navigationController?.pushViewController(FlashcardsTopicsViewController.make(courseId: course.id), animated: true)
             })
             .disposed(by: disposeBag)
         

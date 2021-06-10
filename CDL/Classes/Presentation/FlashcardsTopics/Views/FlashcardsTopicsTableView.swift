@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import RxCocoa
 
-final class FlashcardsTableView: UITableView {
+final class FlashcardsTopicsTableView: UITableView {
+    var didTappedRelay = PublishRelay<FlashcardTopic>()
+    
     private lazy var flashcards = [FlashcardTopic]()
     
     override init(frame: CGRect, style: UITableView.Style) {
@@ -22,7 +25,7 @@ final class FlashcardsTableView: UITableView {
 }
 
 // MARK: Public
-extension FlashcardsTableView {
+extension FlashcardsTopicsTableView {
     func setup(flashcards: [FlashcardTopic]) {
         self.flashcards = flashcards
         
@@ -31,7 +34,7 @@ extension FlashcardsTableView {
 }
 
 // MARK: UITableViewDataSource
-extension FlashcardsTableView: UITableViewDataSource {
+extension FlashcardsTopicsTableView: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         flashcards.count
     }
@@ -41,14 +44,14 @@ extension FlashcardsTableView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = dequeueReusableCell(withIdentifier: String(describing: FlashcardsTableCell.self)) as! FlashcardsTableCell
+        let cell = dequeueReusableCell(withIdentifier: String(describing: FlashcardsTopicsTableCell.self)) as! FlashcardsTopicsTableCell
         cell.setup(flashcard: flashcards[indexPath.section])
         return cell
     }
 }
 
 // MARK: UITableViewDelegate
-extension FlashcardsTableView: UITableViewDelegate {
+extension FlashcardsTopicsTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = UIColor.clear
@@ -58,12 +61,16 @@ extension FlashcardsTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         16.scale
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        didTappedRelay.accept(flashcards[indexPath.section])
+    }
 }
 
 // MARK: Private
-private extension FlashcardsTableView {
+private extension FlashcardsTopicsTableView {
     func initialize() {
-        register(FlashcardsTableCell.self, forCellReuseIdentifier: String(describing: FlashcardsTableCell.self))
+        register(FlashcardsTopicsTableCell.self, forCellReuseIdentifier: String(describing: FlashcardsTopicsTableCell.self))
         
         dataSource = self
         delegate = self

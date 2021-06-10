@@ -7,8 +7,9 @@
 
 import UIKit
 
-final class FlashcardsView: UIView {
+final class FlashcardsTopicsView: UIView {
     lazy var navigationView = makeNavigationView()
+    lazy var tableView = makeTableView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,14 +24,14 @@ final class FlashcardsView: UIView {
 }
 
 // MARK: Private
-private extension FlashcardsView {
+private extension FlashcardsTopicsView {
     func initialize() {
         backgroundColor = StudyPalette.background
     }
 }
 
 // MARK: Make constraints
-private extension FlashcardsView {
+private extension FlashcardsTopicsView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
             navigationView.topAnchor.constraint(equalTo: topAnchor),
@@ -38,17 +39,34 @@ private extension FlashcardsView {
             navigationView.trailingAnchor.constraint(equalTo: trailingAnchor),
             navigationView.heightAnchor.constraint(equalToConstant: 125.scale)
         ])
+        
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: topAnchor, constant: 125.scale)
+        ])
     }
 }
 
 // MARK: Lazy initialization
-private extension FlashcardsView {
+private extension FlashcardsTopicsView {
     func makeNavigationView() -> NavigationBar {
         let view = NavigationBar()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = NavigationPalette.navigationBackground
         view.leftAction.setImage(UIImage(named: "General.Pop"), for: .normal)
         view.leftAction.tintColor = NavigationPalette.navigationTint
+        view.setTitle(title: "Flashcards.Title".localized)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }
+    
+    func makeTableView() -> FlashcardsTopicsTableView {
+        let view = FlashcardsTopicsTableView()
+        view.showsVerticalScrollIndicator = false
+        view.separatorStyle = .none
+        view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
     }
