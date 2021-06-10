@@ -160,11 +160,15 @@ private extension StudyViewModel {
             .compactMap { $0 ? nil : StudyCollectionSection(elements: [.trophy]) }
     }
     
-    // TODO
     func makeFlashcards() -> Driver<StudyCollectionSection> {
-        .deferred { .just(StudyCollectionSection(elements: [
-            .flashcards(SCEFlashcards(topicsToLearn: 10, topicsLearned: 1))
-        ])) }
+        config
+            .map { config -> StudyCollectionSection in
+                let flashcards = SCEFlashcards(topicsToLearn: config.flashcardsCount,
+                                               topicsLearned: config.flashcardsCompleted)
+                
+                return StudyCollectionSection(elements: [.flashcards(flashcards)])
+            }
+            .asDriver(onErrorDriveWith: .empty())
     }
     
     func makeActiveSubscription() -> Driver<Bool> {
@@ -189,12 +193,13 @@ private extension StudyViewModel {
             .merge(initial, updated)
     }
     
-    func makeConfig() -> Observable<[TestConfig]> {
+    func makeConfig() -> Observable<CourseConfig> {
         currentCourse
-            .flatMapLatest { [manager = questionManager] course -> Observable<[TestConfig]> in
+            .flatMapLatest { [manager = questionManager] course -> Observable<CourseConfig> in
                 manager.retrieveConfig(courseId: course.id)
                     .asObservable()
-                    .catchAndReturn([])
+                    .catchAndReturn(nil)
+                    .compactMap { $0 }
             }
     }
 }
