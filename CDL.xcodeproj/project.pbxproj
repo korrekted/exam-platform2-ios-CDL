@@ -1736,11 +1736,19 @@
 		96E3603E2672504E00D49D4E /* Flashcards */ = {
 			isa = PBXGroup;
 			children = (
+				96E36045267253F400D49D4E /* Views */,
 				96E3603F2672506300D49D4E /* FlashcardsViewController.swift */,
 				96E36041267250C900D49D4E /* FlashcardsViewModel.swift */,
 				96E360432672512B00D49D4E /* FlashcardsView.swift */,
 			);
 			path = Flashcards;
+			sourceTree = "<group>";
+		};
+		96E36045267253F400D49D4E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		96F44FB12631782C000B77E3 /* TopicsCollection */ = {
