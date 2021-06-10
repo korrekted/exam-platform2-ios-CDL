@@ -13,6 +13,7 @@ final class StudyCollectionView: UICollectionView {
     lazy var didTapSelectedCourse = PublishRelay<Course>()
     lazy var didTapAdd = PublishRelay<Void>()
     lazy var didTapTrophy = PublishRelay<Void>()
+    lazy var didTapFlashcards = PublishRelay<Void>()
     lazy var selectedMode = PublishRelay<SCEMode.Mode>()
     
     private lazy var sections = [StudyCollectionSection]()
@@ -99,8 +100,14 @@ extension StudyCollectionView: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard case .trophy = sections[indexPath.section].elements[indexPath.row] else { return }
-        didTapTrophy.accept(())
+        switch sections[indexPath.section].elements[indexPath.row] {
+        case .trophy:
+            didTapTrophy.accept(Void())
+        case .flashcards:
+            didTapFlashcards.accept(Void())
+        default:
+            break
+        }
     }
 }
 

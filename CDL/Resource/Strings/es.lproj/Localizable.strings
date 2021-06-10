@@ -157,3 +157,7 @@
 "TimedExam.Title" = "Timed test";
 "TimedExam.Subtitle" = "How many minutes?";
 "TimedExam.Button" = "Start";
+
+// MARK: Flashcards
+"Flashcards.Title" = "Flashcards";
+"Flashcards.Count" = "%i flashcards";

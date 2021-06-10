@@ -155,9 +155,12 @@
 "Trophy.LearnMore" = "Learn more";
 "Trophy.Title" = "Pass your CDL exam with 100%";
 
-
 // MARK: Course Details
 "CourseDetails.Questions" = "questions";
 "CourseDetails.Saved" = "Saved";
 "CourseDetails.Incorrect" = "Incorrect";
 "CourseDetails.PassRate" = "Pass rate";
+
+// MARK: Flashcards
+"Flashcards.Title" = "Flashcards";
+"Flashcards.Count" = "%i flashcards";

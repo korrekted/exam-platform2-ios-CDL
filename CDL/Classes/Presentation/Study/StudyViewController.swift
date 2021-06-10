@@ -120,6 +120,14 @@ final class StudyViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        mainView.collectionView.didTapFlashcards
+            .withLatestFrom(viewModel.course)
+            .asSignal(onErrorSignalWith: .never())
+            .emit(onNext: { [weak self] course in
+                self?.navigationController?.pushViewController(FlashcardsViewController.make(courseId: course.id), animated: true)
+            })
+            .disposed(by: disposeBag)
+        
         mainView.collectionView
             .selectedCourse
             .bind(to: viewModel.selectedCourse)
