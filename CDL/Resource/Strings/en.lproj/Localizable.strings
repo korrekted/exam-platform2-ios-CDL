@@ -108,6 +108,7 @@
 "Stats.Day.One" = "day";
 "Stats.Day.Two" = "days";
 "Stats.Day.Many" = "days";
+"Stats.MainRate.LearnedFlashcards" = "Learned flashcards";
 
 // MARK: Paygate
 "Paygate.Paid.Title" = "KNOW QUESTIONS\nBEFOREHAND\nWITH PREMIUM";
@@ -164,3 +165,6 @@
 // MARK: Flashcards
 "Flashcards.Title" = "Flashcards";
 "Flashcards.Count" = "%i flashcards";
+"Flashcards.ShowAnswer" = "Show answer";
+"Flashcards.Knew" = "I knew";
+"Flashcards.DintKnow" = "I didn’t know";
