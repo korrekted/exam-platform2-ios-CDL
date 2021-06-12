@@ -22,7 +22,31 @@ final class FlashcardsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mainView.navigationView.leftAction.addTarget(self, action: #selector(popAction), for: .touchUpInside)
+        viewModel.flashcards
+            .drive(Binder(mainView) {
+                $0.flashCardContainer.showCards(for: $1)
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.flashCardContainer
+            .selectedAnswer
+            .bind(to: viewModel.selectedAnswer)
+            .disposed(by: disposeBag)
+        
+        Observable
+            .merge(
+                mainView.navigationView.leftAction.rx.tap.asObservable(),
+                mainView.flashCardContainer.finish
+            )
+            .bind(to: Binder(self) { base, _ in
+                FlashCardManagerMediator.shared.finishFlashCards()
+                base.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.mark
+            .subscribe()
+            .disposed(by: disposeBag)
     }
 }
 
@@ -34,14 +58,6 @@ extension FlashcardsViewController {
         vc.mainView.navigationView.setTitle(title: topic.name)
         vc.navigationItem.backButtonTitle = " "
         return vc
-    }
-}
-
-// MARK: Private
-private extension FlashcardsViewController {
-    @objc
-    func popAction() {
-        navigationController?.popViewController(animated: true)
     }
 }
 

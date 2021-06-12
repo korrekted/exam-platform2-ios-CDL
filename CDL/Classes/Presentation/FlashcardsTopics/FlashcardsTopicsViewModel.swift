@@ -21,7 +21,10 @@ final class FlashcardsTopicsViewModel {
 // MARK: Private
 private extension FlashcardsTopicsViewModel {
     func makeFlashcardsTopics() -> Driver<[FlashcardTopic]> {
-        courseId.compactMap { $0 }
+        FlashCardManagerMediator.shared.rxFlashCardFinished
+            .asObservable()
+            .startWith(())
+            .withLatestFrom(courseId.compactMap { $0 })
             .flatMapLatest { [weak self] courseId -> Single<[FlashcardTopic]> in
                 guard let self = self else {
                     return .never()

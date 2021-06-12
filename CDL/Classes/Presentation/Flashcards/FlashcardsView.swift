@@ -9,6 +9,7 @@ import UIKit
 
 final class FlashcardsView: UIView {
     lazy var navigationView = makeNavigationView()
+    lazy var flashCardContainer = makeFlashCardContainer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,7 +26,7 @@ final class FlashcardsView: UIView {
 // MARK: Private
 private extension FlashcardsView {
     func initialize() {
-        backgroundColor = StudyPalette.background
+        backgroundColor = FlashcardPalette.background
     }
 }
 
@@ -38,6 +39,13 @@ private extension FlashcardsView {
             navigationView.trailingAnchor.constraint(equalTo: trailingAnchor),
             navigationView.heightAnchor.constraint(equalToConstant: 125.scale)
         ])
+        
+        NSLayoutConstraint.activate([
+            flashCardContainer.topAnchor.constraint(equalTo: navigationView.bottomAnchor),
+            flashCardContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
+            flashCardContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
+            flashCardContainer.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
     }
 }
 
@@ -49,6 +57,19 @@ private extension FlashcardsView {
         view.backgroundColor = NavigationPalette.navigationBackground
         view.leftAction.setImage(UIImage(named: "General.Pop"), for: .normal)
         view.leftAction.tintColor = NavigationPalette.navigationTint
+        addSubview(view)
+        return view
+    }
+    
+    func makeFlashCardContainer() -> FlashCardContainerView {
+        let view = FlashCardContainerView()
+        view.backgroundColor = FlashcardPalette.background
+        view.inset = UIEdgeInsets(
+            top: 24.scale,
+            left: 20.scale,
+            bottom: ScreenSize.isIphoneXFamily ? 73.scale : 43.scale,
+            right: 20.scale)
+        view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
     }

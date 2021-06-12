@@ -37,7 +37,7 @@ final class FlashcardsTopicsViewController: UIViewController {
                     UIApplication.shared.keyWindow?.rootViewController?.present(PaygateViewController.make(), animated: true)
                 } else {
                     let vc = FlashcardsViewController.make(topic: topic)
-                    self?.navigationController?.pushViewController(vc, animated: true)
+                    self?.parent?.navigationController?.pushViewController(vc, animated: true)
                 }
             })
             .disposed(by: disposeBag)

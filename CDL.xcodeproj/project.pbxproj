@@ -25,6 +25,11 @@
 		8686722E26121E5700B42D41 /* TestStatsComunityResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8686722D26121E5700B42D41 /* TestStatsComunityResultCell.swift */; };
 		86867232261224E400B42D41 /* TestStatsComunityResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86867231261224E400B42D41 /* TestStatsComunityResult.swift */; };
 		8687B554261AE96600D6235D /* GetAgainTestRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8687B553261AE96600D6235D /* GetAgainTestRequest.swift */; };
+		86935FB92674D784009D1D99 /* FlashCardContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86935FB82674D784009D1D99 /* FlashCardContainerView.swift */; };
+		86935FBB2674D85D009D1D99 /* FlashCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86935FBA2674D85D009D1D99 /* FlashCardView.swift */; };
+		86935FBE2674F542009D1D99 /* FlashCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86935FBD2674F542009D1D99 /* FlashCardModel.swift */; };
+		86935FC026754F5E009D1D99 /* FlashCardManagerMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86935FBF26754F5D009D1D99 /* FlashCardManagerMediator.swift */; };
+		86935FC226754FDF009D1D99 /* FlashCardManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86935FC126754FDF009D1D99 /* FlashCardManagerDelegate.swift */; };
 		86ACACDF262595430020C51C /* CourseCellProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ACACDE262595430020C51C /* CourseCellProgressView.swift */; };
 		86ACACE42625AFA40020C51C /* SCCoursesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ACACE32625AFA40020C51C /* SCCoursesCell.swift */; };
 		86ACAD072625E2E30020C51C /* SCTrophyCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ACAD062625E2E30020C51C /* SCTrophyCollectionCell.swift */; };
@@ -320,6 +325,11 @@
 		8686722D26121E5700B42D41 /* TestStatsComunityResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStatsComunityResultCell.swift; sourceTree = "<group>"; };
 		86867231261224E400B42D41 /* TestStatsComunityResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStatsComunityResult.swift; sourceTree = "<group>"; };
 		8687B553261AE96600D6235D /* GetAgainTestRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAgainTestRequest.swift; sourceTree = "<group>"; };
+		86935FB82674D784009D1D99 /* FlashCardContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardContainerView.swift; sourceTree = "<group>"; };
+		86935FBA2674D85D009D1D99 /* FlashCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardView.swift; sourceTree = "<group>"; };
+		86935FBD2674F542009D1D99 /* FlashCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardModel.swift; sourceTree = "<group>"; };
+		86935FBF26754F5D009D1D99 /* FlashCardManagerMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardManagerMediator.swift; sourceTree = "<group>"; };
+		86935FC126754FDF009D1D99 /* FlashCardManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardManagerDelegate.swift; sourceTree = "<group>"; };
 		86ACACDE262595430020C51C /* CourseCellProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCellProgressView.swift; sourceTree = "<group>"; };
 		86ACACE32625AFA40020C51C /* SCCoursesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCCoursesCell.swift; sourceTree = "<group>"; };
 		86ACAD062625E2E30020C51C /* SCTrophyCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCTrophyCollectionCell.swift; sourceTree = "<group>"; };
@@ -673,6 +683,31 @@
 				8659FCB126342E1B0029598C /* CourseDetailsTestCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		86935FB62674D6D1009D1D99 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				86935FB72674D6E2009D1D99 /* CardsView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		86935FB72674D6E2009D1D99 /* CardsView */ = {
+			isa = PBXGroup;
+			children = (
+				86935FB82674D784009D1D99 /* FlashCardContainerView.swift */,
+				86935FBA2674D85D009D1D99 /* FlashCardView.swift */,
+			);
+			path = CardsView;
+			sourceTree = "<group>";
+		};
+		86935FBC2674F3A8009D1D99 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				86935FBD2674F542009D1D99 /* FlashCardModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		86B59E802663AB6800733B65 /* Lato */ = {
@@ -1729,6 +1764,8 @@
 			children = (
 				96E3603A26720CC400D49D4E /* FlashcardsManager.swift */,
 				96E3603C26720D7800D49D4E /* FlashcardsManagerCore.swift */,
+				86935FBF26754F5D009D1D99 /* FlashCardManagerMediator.swift */,
+				86935FC126754FDF009D1D99 /* FlashCardManagerDelegate.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1736,19 +1773,13 @@
 		96E3603E2672504E00D49D4E /* Flashcards */ = {
 			isa = PBXGroup;
 			children = (
-				96E36045267253F400D49D4E /* Views */,
+				86935FBC2674F3A8009D1D99 /* Models */,
+				86935FB62674D6D1009D1D99 /* Views */,
 				96E3603F2672506300D49D4E /* FlashcardsViewController.swift */,
 				96E36041267250C900D49D4E /* FlashcardsViewModel.swift */,
 				96E360432672512B00D49D4E /* FlashcardsView.swift */,
 			);
 			path = Flashcards;
-			sourceTree = "<group>";
-		};
-		96E36045267253F400D49D4E /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		96F44FB12631782C000B77E3 /* TopicsCollection */ = {
@@ -2019,13 +2050,16 @@
 				967AD522260FD0AF008E8175 /* CourseViewController.swift in Sources */,
 				967AD580260FD0AF008E8175 /* OnboardingView.swift in Sources */,
 				967DA111266F7A08002251D7 /* PaygateScrollView.swift in Sources */,
+				86935FB92674D784009D1D99 /* FlashCardContainerView.swift in Sources */,
 				967AD510260FD0AF008E8175 /* SettingsTableView.swift in Sources */,
 				967AD4FA260FD0AF008E8175 /* GetCourcesResponseMapper.swift in Sources */,
 				86CE871026216D6E00FC7091 /* SIAnswerCell.swift in Sources */,
 				967AD4E2260FD0AE008E8175 /* PaygateManager.swift in Sources */,
 				96E360172671602500D49D4E /* SCFlashcardsCell.swift in Sources */,
 				967AD4EF260FD0AE008E8175 /* GetRandomSetRequest.swift in Sources */,
+				86935FC026754F5E009D1D99 /* FlashCardManagerMediator.swift in Sources */,
 				967AD4D8260FD0AE008E8175 /* GetMonetizationResponseMapper.swift in Sources */,
+				86935FBE2674F542009D1D99 /* FlashCardModel.swift in Sources */,
 				967AD56C260FD0AF008E8175 /* OProgressView.swift in Sources */,
 				967AD545260FD0AF008E8175 /* TestStatsResultCell.swift in Sources */,
 				967AD532260FD0AF008E8175 /* TestType.swift in Sources */,
@@ -2109,6 +2143,7 @@
 				8659FCA4263429E60029598C /* CourseDetailsView.swift in Sources */,
 				9613EC842634A11700DAEB9A /* Language.swift in Sources */,
 				967AD538260FD0AF008E8175 /* QuestionTableView.swift in Sources */,
+				86935FBB2674D85D009D1D99 /* FlashCardView.swift in Sources */,
 				967AD570260FD0AF008E8175 /* OGoalCell.swift in Sources */,
 				967AD4FB260FD0AF008E8175 /* CoursesManagerCore.swift in Sources */,
 				967AD50A260FD0AF008E8175 /* SettingsViewModel.swift in Sources */,
@@ -2172,6 +2207,7 @@
 				969679C5265CE71C0070E7F7 /* LocaleTableView.swift in Sources */,
 				967AD57C260FD0AF008E8175 /* OSlidePlanView.swift in Sources */,
 				96E360312672082400D49D4E /* GetFlashcardsTopicsResponseMapper.swift in Sources */,
+				86935FC226754FDF009D1D99 /* FlashCardManagerDelegate.swift in Sources */,
 				967DA11C266FB8AC002251D7 /* PaygateIndicatorView.swift in Sources */,
 				967AD4F7260FD0AF008E8175 /* QuestionManagerDelagate.swift in Sources */,
 				967AD54F260FD0AF008E8175 /* TestStatsProgressView.swift in Sources */,
