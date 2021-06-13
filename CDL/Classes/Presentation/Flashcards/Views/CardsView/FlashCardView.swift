@@ -24,6 +24,7 @@ class FlashCardView: UIView {
     private var yCenter: CGFloat = .zero
     private var originalPoint: CGPoint = .zero
     private var id: Int?
+    private var player: AVPlayer?
     
     private lazy var progressLabel = makeProgress()
     private lazy var questionLabel = makeQuestionLabel()
@@ -43,6 +44,10 @@ class FlashCardView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+// MARK: Public
+extension FlashCardView {
     
     func setup(element: FlashCardModel) {
         id = element.id
@@ -50,7 +55,11 @@ class FlashCardView: UIView {
         questionLabel.attributedText = attributedString(for: element.question, attr: .questionAttr, style: "bold")
         answerLabel.attributedText = attributedString(for: element.answer, attr: .answerAttr, style: "normal")
         topButton.backgroundColor = element.knew ? FlashcardPalette.Card.primaryButton :  FlashcardPalette.Card.secondaryButton
-        makeContentConstraints(content: element.content)
+        configureContent(content: element.content)
+    }
+    
+    func playVideo() {
+        player?.play()
     }
 }
 
@@ -60,6 +69,7 @@ private extension FlashCardView {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.beingDragged))
         panGestureRecognizer.delegate = self
         addGestureRecognizer(panGestureRecognizer)
+        
         layer.cornerRadius = 16.scale
         backgroundColor = FlashcardPalette.Card.background
         
@@ -88,6 +98,36 @@ private extension FlashCardView {
         )
         
         return attributedString ?? string.attributed(with: attr)
+    }
+    
+    func configureContent(content: FlashCardModel.Content) {
+        var contentView: UIView?
+        switch content {
+        case let .image(url):
+            let imageView = makeImageView()
+            contentView = imageView
+            let queue = DispatchQueue.global(qos: .utility)
+                queue.async { [weak imageView] in
+                    if let data = try? Data(contentsOf: url) {
+                        DispatchQueue.main.async {
+                            imageView?.image = UIImage(data: data)
+                        }
+                    }
+                }
+        case let .video(url):
+            let videoView = makeVideoView()
+            contentView = videoView
+            let player = AVPlayer(url: url)
+            self.player = player
+            videoView.player = player
+        case .none:
+            contentView = nil
+        }
+        
+        if let contentView = contentView {
+            contentView.heightAnchor.constraint(equalToConstant: 160.scale).isActive = true
+            stackView.insertArrangedSubview(contentView, at: 0)
+        }
     }
     
     @objc func tapKnew() {
@@ -135,6 +175,7 @@ private extension FlashCardView {
         ])
         
         NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: progressLabel.bottomAnchor, constant: 16.scale),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 13.scale),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -13.scale),
             scrollView.bottomAnchor.constraint(equalTo: topButton.topAnchor, constant: -16.scale)
@@ -147,43 +188,6 @@ private extension FlashCardView {
             stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
-    }
-    
-    func makeContentConstraints(content: FlashCardModel.Content) {
-        var contentView: UIView?
-        switch content {
-        case let .image(url):
-            let imageView = makeImageView()
-            contentView = imageView
-            let queue = DispatchQueue.global(qos: .utility)
-                queue.async { [weak imageView] in
-                    if let data = try? Data(contentsOf: url) {
-                        DispatchQueue.main.async {
-                            imageView?.image = UIImage(data: data)
-                        }
-                    }
-                }
-        case let .video(url):
-            let videoView = makeVideoView()
-            contentView = videoView
-            let player = AVPlayer(url: url)
-            videoView.player = player
-            player.play()
-        case .none:
-            contentView = nil
-        }
-        
-        if let contentView = contentView {
-            NSLayoutConstraint.activate([
-                contentView.topAnchor.constraint(equalTo: progressLabel.bottomAnchor, constant: 16.scale),
-                contentView.heightAnchor.constraint(equalToConstant: 160.scale),
-                contentView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20.scale),
-                contentView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 20.scale),
-                scrollView.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 16.scale)
-            ])
-        } else {
-            scrollView.topAnchor.constraint(equalTo: progressLabel.bottomAnchor, constant: 16.scale).isActive = true
-        }
     }
 }
 
@@ -230,7 +234,7 @@ private extension FlashCardView {
     
     func makeImageView() -> UIImageView {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFill
+        view.contentMode = .scaleAspectFit
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
@@ -263,9 +267,9 @@ private extension FlashCardView {
     }
     
     @objc private func beingDragged(_ gestureRecognizer: UIPanGestureRecognizer) {
-        
         xCenter = gestureRecognizer.translation(in: self).x
         yCenter = gestureRecognizer.translation(in: self).y
+        
         switch gestureRecognizer.state {
         case .began:
             originalPoint = center
@@ -297,6 +301,7 @@ private extension FlashCardView {
         }
         
         delegate?.moved()
+        player?.pause()
         let value: CGFloat = action == .left ? -1 : 1
         let finishPoint = CGPoint(x: value * frame.size.width * 2, y: 2 * yCenter + originalPoint.y)
         

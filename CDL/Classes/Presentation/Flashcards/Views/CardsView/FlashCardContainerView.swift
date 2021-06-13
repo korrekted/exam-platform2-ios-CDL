@@ -51,6 +51,8 @@ class FlashCardContainerView: UIView {
             emptyCardsRelay.accept(())
         }
         
+        loaded.first?.playVideo()
+        
         swipeAnimation()
     }
     
@@ -72,6 +74,7 @@ class FlashCardContainerView: UIView {
                 loaded.append(cardView)
             }
         }
+        loaded.first?.playVideo()
         
         swipeAnimation()
     }
@@ -113,7 +116,7 @@ extension FlashCardContainerView: FlashCardDelegate {
             
             
             let alpha = max(abs((1 - minAlpha) / animateDistance * distance) + minAlpha, minAlpha)
-            let scale = max(abs((1 - minScale) / animateDistance * distance) + minScale, minScale)
+            let scale = min(max(abs((1 - minScale) / animateDistance * distance) + minScale, minScale), 1)
             
             nextCard.alpha = alpha
             nextCard.transform = CGAffineTransform(scaleX: scale, y: scale)

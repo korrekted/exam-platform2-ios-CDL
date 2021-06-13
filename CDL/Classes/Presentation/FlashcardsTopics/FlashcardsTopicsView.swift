@@ -66,6 +66,7 @@ private extension FlashcardsTopicsView {
         let view = FlashcardsTopicsTableView()
         view.showsVerticalScrollIndicator = false
         view.separatorStyle = .none
+        view.backgroundColor = StudyPalette.background
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
