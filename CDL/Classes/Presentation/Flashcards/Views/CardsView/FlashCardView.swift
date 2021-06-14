@@ -54,7 +54,7 @@ extension FlashCardView {
         progressLabel.attributedText = element.progress.attributed(with: .progressAttr)
         questionLabel.attributedText = attributedString(for: element.question, attr: .questionAttr, style: "bold")
         answerLabel.attributedText = attributedString(for: element.answer, attr: .answerAttr, style: "normal")
-        topButton.backgroundColor = element.knew ? FlashcardPalette.Card.primaryButton :  FlashcardPalette.Card.secondaryButton
+        topButton.backgroundColor = element.knew ? FlashcardPalette.Card.selectedButton :  FlashcardPalette.Card.initialButton
         configureContent(content: element.content)
     }
     
@@ -79,7 +79,7 @@ private extension FlashCardView {
         topButton.setAttributedTitle("Flashcards.Knew".localized.attributed(with: .buttonAttr), for: .normal)
         
         bottomButton.addTarget(self, action: #selector(tapBottom), for: .touchUpInside)
-        bottomButton.backgroundColor = FlashcardPalette.Card.secondaryButton
+        bottomButton.backgroundColor = FlashcardPalette.Card.initialButton
         bottomButton.setAttributedTitle("Flashcards.ShowAnswer".localized.attributed(with: .buttonAttr), for: .normal)
     }
     
@@ -130,13 +130,13 @@ private extension FlashCardView {
         }
     }
     
-    @objc func tapKnew() {
+    @objc func tapKnew(sender: UIButton) {
         if let id = id {
-            delegate?.tapAction(id: id, isKnew: true)
+            selectedAnswer(sender: sender, id: id)
         }
     }
     
-    @objc func tapBottom() {
+    @objc func tapBottom(sender: UIButton) {
         if topButton.isHidden {
             UIView.animate(withDuration: 0.2) {
                 self.topButton.transform = .identity
@@ -146,9 +146,18 @@ private extension FlashCardView {
             }
         } else {
             if let id = id {
-                delegate?.tapAction(id: id, isKnew: true)
+                selectedAnswer(sender: sender, id: id)
             }
         }
+    }
+    
+    func selectedAnswer(sender: UIButton, id: Int) {
+        let isKnew = sender === topButton
+        topButton.backgroundColor = isKnew ? FlashcardPalette.Card.selectedButton : FlashcardPalette.Card.initialButton
+        bottomButton.backgroundColor = !isKnew ? FlashcardPalette.Card.selectedButton : FlashcardPalette.Card.initialButton
+        topButton.isUserInteractionEnabled = false
+        bottomButton.isUserInteractionEnabled = false
+        delegate?.tapAction(id: id, isKnew: isKnew)
     }
 }
 
