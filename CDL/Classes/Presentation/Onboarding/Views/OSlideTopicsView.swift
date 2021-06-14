@@ -29,18 +29,8 @@ final class OSlideTopicsView: OSlideView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-}
-
-// MARK: TopicsCollectionViewDelegate
-extension OSlideTopicsView: TopicsCollectionViewDelegate {
-    func topicsCollectionViewDidChangeSelection() {
-        changeEnabled()
-    }
-}
-
-// MARK: Private
-private extension OSlideTopicsView {
-    func initialize() {
+    
+    override func moveToThis() {
         Single
             .zip(
                 manager.obtainSpecificTopics(),
@@ -56,7 +46,19 @@ private extension OSlideTopicsView {
                 self?.topicsCollectionViewDidChangeSelection()
             })
             .disposed(by: disposeBag)
-        
+    }
+}
+
+// MARK: TopicsCollectionViewDelegate
+extension OSlideTopicsView: TopicsCollectionViewDelegate {
+    func topicsCollectionViewDidChangeSelection() {
+        changeEnabled()
+    }
+}
+
+// MARK: Private
+private extension OSlideTopicsView {
+    func initialize() {
         button.rx.tap
             .flatMapLatest { [weak self] _ -> Single<Void> in
                 guard let self = self else {

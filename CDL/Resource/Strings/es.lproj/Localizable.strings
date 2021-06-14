@@ -71,6 +71,9 @@
 "Study.Mode.TryMe" = "INTENTALO";
 "Study.Course.CourseCount" = "%d pruebas";
 "Study.Course.Title" = ": modos de prueba";
+"Study.Flashcards.Title" = "Flashcards";
+"Study.Flashcards.TopicsToLearn" = "topics\nto learn";
+"Study.Flashcards.TopicsLearned" = "topics\nlearned";
 
 // MARK: Settings
 "Settings.Title" = "Ajustes";
@@ -97,6 +100,7 @@
 "Stats.Day.One" = "dia";
 "Stats.Day.Two" = "dias";
 "Stats.Day.Many" = "dias";
+"Stats.MainRate.LearnedFlashcards" = "Learned flashcards";
 
 // MARK: Paygate
 "Paygate.Paid.Title" = "KNOW QUESTIONS\nBEFOREHAND\nWITH PREMIUM";
@@ -154,3 +158,10 @@
 "TimedExam.Title" = "Timed test";
 "TimedExam.Subtitle" = "How many minutes?";
 "TimedExam.Button" = "Start";
+
+// MARK: Flashcards
+"Flashcards.Title" = "Flashcards";
+"Flashcards.Count" = "%i flashcards";
+"Flashcards.ShowAnswer" = "Show answer";
+"Flashcards.Knew" = "I knew";
+"Flashcards.DintKnow" = "I didn’t know";

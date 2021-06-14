@@ -79,6 +79,9 @@
 "Study.Mode.TryMe" = "TRY ME!";
 "Study.Course.CourseCount" = "%d tests";
 "Study.Course.Title" = " exam modes";
+"Study.Flashcards.Title" = "Flashcards";
+"Study.Flashcards.TopicsToLearn" = "topics\nto learn";
+"Study.Flashcards.TopicsLearned" = "topics\nlearned";
 
 // MARK: Settings
 "Settings.Title" = "Settings";
@@ -105,6 +108,7 @@
 "Stats.Day.One" = "day";
 "Stats.Day.Two" = "days";
 "Stats.Day.Many" = "days";
+"Stats.MainRate.LearnedFlashcards" = "Learned flashcards";
 
 // MARK: Paygate
 "Paygate.Paid.Title" = "KNOW QUESTIONS\nBEFOREHAND\nWITH PREMIUM";
@@ -152,9 +156,15 @@
 "Trophy.LearnMore" = "Learn more";
 "Trophy.Title" = "Pass your CDL exam with 100%";
 
-
 // MARK: Course Details
 "CourseDetails.Questions" = "questions";
 "CourseDetails.Saved" = "Saved";
 "CourseDetails.Incorrect" = "Incorrect";
 "CourseDetails.PassRate" = "Pass rate";
+
+// MARK: Flashcards
+"Flashcards.Title" = "Flashcards";
+"Flashcards.Count" = "%i flashcards";
+"Flashcards.ShowAnswer" = "Show answer";
+"Flashcards.Knew" = "I knew";
+"Flashcards.DintKnow" = "I didn’t know";

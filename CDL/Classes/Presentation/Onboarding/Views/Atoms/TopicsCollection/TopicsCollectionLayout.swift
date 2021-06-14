@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol TopicsCollectionLayoutDelegate: class {
+protocol TopicsCollectionLayoutDelegate: AnyObject {
     func topicsCollectionLayout(widthFor indexPath: IndexPath) -> CGFloat
 }
 
