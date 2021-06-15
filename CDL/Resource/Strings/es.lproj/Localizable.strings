@@ -1,3 +1,11 @@
+/*
+  Localizable.strings
+  CDL
+
+  Created by Andrey Chernyshev on 27.03.2021.
+  
+*/
+
 // MARK: General
 "Cancel" = "Cancelar";
 "Continue" = "Continuar";
@@ -71,9 +79,9 @@
 "Study.Mode.TryMe" = "INTENTALO";
 "Study.Course.CourseCount" = "%d pruebas";
 "Study.Course.Title" = ": modos de prueba";
-"Study.Flashcards.Title" = "Flashcards";
-"Study.Flashcards.TopicsToLearn" = "topics\nto learn";
-"Study.Flashcards.TopicsLearned" = "topics\nlearned";
+"Study.Flashcards.Title" = "Tarjetas didácticas";
+"Study.Flashcards.TopicsToLearn" = "temas\npara aprender";
+"Study.Flashcards.TopicsLearned" = "temas\naprendidos";
 
 // MARK: Settings
 "Settings.Title" = "Ajustes";
@@ -100,25 +108,20 @@
 "Stats.Day.One" = "dia";
 "Stats.Day.Two" = "dias";
 "Stats.Day.Many" = "dias";
-"Stats.MainRate.LearnedFlashcards" = "Learned flashcards";
+"Stats.MainRate.LearnedFlashcards" = "Tarjetas aprendidas";
 
 // MARK: Paygate
-"Paygate.Paid.Title" = "KNOW QUESTIONS\nBEFOREHAND\nWITH PREMIUM";
-"Paygate.Paid.Cell1" = "5 exam modes";
-"Paygate.Paid.Cell2" = "5000+ exam-like questions";
-"Paygate.Paid.Cell3" = "Pass with great self-assurance!";
-"Paygate.Paid.Continue" = "Continue →";
-"Paygate.Free.Title" = "BASIC PREP";
-"Paygate.Free.Cell1" = "Limited free tests for the selected topics";
-"Paygate.Free.Cell2" = "1 new practice question daily";
-"Paygate.Free.Cell3" = "Only 20% of the questions you’ll encounter on the exam";
-"Paygate.Free.Continue" = "Continue with BASIC";
-"Paygate.Info" = "Secured with iTunes. Cancel anytime.";
-"Paygate.TermsOfUse" = "Terms of use";
-"Paygate.And" = " and ";
-"Paygate.PrivacyPolicy" = "Privacy Policy";
-"Paygate.RestorePurchases" = "Restore purchases";
-"Paygate.Purchase.Failed" = "Failed to make purchase";
+"Paygate.Main.Title" = "CONOCE\nLAS PREGUNTAS\nDE ANTEMANO";
+"Paygate.Main.Cell1" = "5 modos de prueba";
+"Paygate.Main.Cell2" = "Practica con más de 2.000 preguntas";
+"Paygate.Main.Cell3" = "¡Tasa de 98% de aprobados!";
+"Paygate.Main.Info" = "Asegurado con iTunes.";
+"Paygate.Main.TermsOfUse" = "Condiciones de uso";
+"Paygate.Main.And" = " y ";
+"Paygate.Main.PrivacyPolicy" = "Política de privacidad";
+"Paygate.Main.RestorePurchases" = "Restaurar las compras";
+"Paygate.Purchase.Failed" = "No se pudo realizar la compra";
+"Paygate.Continue" = "Continuar →";
 
 // MARK: Question
 "Question.Explanation" = "Explicación";
@@ -136,9 +139,9 @@
 "TestStats.ComunityScore" = "Puntuación media";
 "TestStats.Attempted" = "Atentado";
 "TestStats.Correct" = "Correcta";
-"TestStats.Incorrect" = "Incorrect";
+"TestStats.Incorrect" = "Incorrecta";
 "TestStats.Filter.Incorrect" = "Incorrecta";
-"TestStats.Filter.Correct" = "Incorrect";
+"TestStats.Filter.Correct" = "Correcta";
 "TestStats.Filter.All" = "Todo";
 "TestStats.NextTest" = "Próxima prueba";
 "TestStats.TryAgain" = "Prueba de nuevo";
@@ -156,12 +159,12 @@
 
 // MARK: Timed Exam
 "TimedExam.Title" = "Timed test";
-"TimedExam.Subtitle" = "How many minutes?";
-"TimedExam.Button" = "Start";
+"TimedExam.Subtitle" = "¿Cuántos minutos?";
+"TimedExam.Button" = "Vamos";
 
 // MARK: Flashcards
-"Flashcards.Title" = "Flashcards";
-"Flashcards.Count" = "%i flashcards";
-"Flashcards.ShowAnswer" = "Show answer";
-"Flashcards.Knew" = "I knew";
-"Flashcards.DintKnow" = "I didn’t know";
+"Flashcards.Title" = "Tarjetas didácticas";
+"Flashcards.Count" = "%i tarjetas";
+"Flashcards.ShowAnswer" = "Mostrar la respuesta";
+"Flashcards.Knew" = "Yo sabía";
+"Flashcards.DintKnow" = "Yo no sabia";
