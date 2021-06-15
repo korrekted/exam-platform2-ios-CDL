@@ -44,7 +44,7 @@ private extension TrophyView {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12.scale),
             titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20.scale),
-            titleLabel.trailingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -19.scale)
+            titleLabel.trailingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -6.scale)
         ])
         
         NSLayoutConstraint.activate([
