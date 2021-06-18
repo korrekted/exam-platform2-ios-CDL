@@ -139,6 +139,10 @@ final class StudyViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        viewModel.finishedTimedTest
+            .subscribe()
+            .disposed(by: disposeBag)
+        
         mainView.collectionView
             .didTapAdd.bind(to: Binder(self) { a1, a2 in
                 a1.opener.open(screen: .topics, from: a1)
