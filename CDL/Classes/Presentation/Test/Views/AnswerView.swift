@@ -41,12 +41,15 @@ extension AnswerView {
             .lineHeight(20.scale)
         
         if let imageUrl = image {
-            do {
-                try imageView.image = UIImage(data: Data(contentsOf: imageUrl))
-                needUpdateConstraints()
-            } catch {
-                
-            }
+            needUpdateConstraints()
+            let queue = DispatchQueue.global(qos: .utility)
+                queue.async { [weak self] in
+                    if let data = try? Data(contentsOf: imageUrl){
+                        DispatchQueue.main.async {
+                            self?.imageView.image = UIImage(data: data)
+                        }
+                    }
+                }
         }
         
         answerLabel.attributedText = answer.attributed(with: attrs)
@@ -95,7 +98,7 @@ private extension AnswerView {
         NSLayoutConstraint.activate([
             answerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12.scale),
             answerLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16.scale),
-            answerLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.scale)
+            answerLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12.scale)
         ])
         
         labelBottomConstraint = answerLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.scale)
