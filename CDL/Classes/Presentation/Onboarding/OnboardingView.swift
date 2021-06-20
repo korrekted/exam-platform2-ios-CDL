@@ -9,13 +9,13 @@ import UIKit
 
 final class OnboardingView: UIView {
     enum Step: Int {
-        case started, locale, topics, goals, whenTaking, time, count, experience, preloader, plan
+        case welcome, locale, topics, goals, whenTaking, time, count, experience, preloader, plan
     }
     
     var didFinish: (() -> Void)?
     var didChangedSlide: ((Step) -> Void)?
     
-    var step = Step.started {
+    var step = Step.welcome {
         didSet {
             scroll()
             headerUpdate()
@@ -28,7 +28,7 @@ final class OnboardingView: UIView {
     
     private lazy var contentViews: [OSlideView] = {
         [
-            OSlideStartedView(step: .started),
+            OSlideWelcomeView(step: .welcome),
             OSlideLocaleView(step: .locale),
             OSlideTopicsView(step: .topics),
             OSlideGoalsView(step: .goals),
@@ -111,7 +111,7 @@ private extension OnboardingView {
     
     func headerUpdate() {
         switch step {
-        case .started, .topics, .locale, .preloader, .plan:
+        case .welcome, .topics, .locale, .preloader, .plan:
             skipButton.isHidden = true
             progressView.isHidden = true
         default:

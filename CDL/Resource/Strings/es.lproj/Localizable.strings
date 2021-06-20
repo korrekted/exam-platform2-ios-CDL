@@ -30,9 +30,13 @@
 "Onboarding.Yes" = "Sí";
 "Onboarding.No" = "No";
 "Onboarding.Skip" = "Saltar";
-"Onboarding.SlideStarted.Text1" = "NO PASES HORAS\nAPRENDIENDO";
-"Onboarding.SlideStarted.Text2" = "Exámenes de práctica creados por expertos certificados para ayudarte a aprobar en el primer intento";
-"Onboarding.SlideStarted.Button" = "A por ello";
+"Onboarding.Welcome.Title1" = "Personal study plan";
+"Onboarding.Welcome.Subtitle1" = "Your study plan is prepared by the algorithms which rely on thousands of similar cases";
+"Onboarding.Welcome.Title2" = "98% pass rate";
+"Onboarding.Welcome.Subtitle2" = "The no-fail way to prepare to your CDL exam without long memorization";
+"Onboarding.Welcome.Title3" = "Pass first time";
+"Onboarding.Welcome.Subtitle3" = "A special AI-supported study plan to help you ace your CDL exam on the first take";
+"Onboarding.Welcome.GetStarted" = "A por ello";
 "Onboarding.SlideTopics.Title" = "¿Qué necesitas\nmejorar?";
 "Onboarding.SlideCountry.Title" = "Elige\ntu país";
 "Onboarding.SlideState.Title" = "Seleccione su\nestado, provincia\no distrito";

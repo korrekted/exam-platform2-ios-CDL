@@ -70,6 +70,10 @@
 		9613EF1D263974A700DAEB9A /* GetTopicsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613EF1C263974A700DAEB9A /* GetTopicsRequest.swift */; };
 		9613EF212639767800DAEB9A /* GetTopicsResponseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613EF202639767800DAEB9A /* GetTopicsResponseMapper.swift */; };
 		9613EF2426397E3500DAEB9A /* SetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613EF2326397E3500DAEB9A /* SetRequest.swift */; };
+		9650402B267F1851003D5167 /* WelcomeSlide1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650402A267F1851003D5167 /* WelcomeSlide1View.swift */; };
+		9650402D267F1AEB003D5167 /* WelcomeSlide2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650402C267F1AEB003D5167 /* WelcomeSlide2View.swift */; };
+		9650402F267F1AF5003D5167 /* WelcomeSlide3View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650402E267F1AF5003D5167 /* WelcomeSlide3View.swift */; };
+		96504031267F1D26003D5167 /* WelcomeSlideIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96504030267F1D26003D5167 /* WelcomeSlideIndicatorView.swift */; };
 		9667BB19264EA4780029ED86 /* ProfileMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9667BB18264EA4780029ED86 /* ProfileMediator.swift */; };
 		9667BB1D264EA48E0029ED86 /* ProfileMediatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9667BB1C264EA48E0029ED86 /* ProfileMediatorDelegate.swift */; };
 		9673817426792DB000230FB6 /* PaygateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673816B26792DB000230FB6 /* PaygateViewModel.swift */; };
@@ -245,7 +249,7 @@
 		967AD579260FD0AF008E8175 /* OSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4AE260FD0AE008E8175 /* OSlideView.swift */; };
 		967AD57C260FD0AF008E8175 /* OSlidePlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4B1260FD0AE008E8175 /* OSlidePlanView.swift */; };
 		967AD57D260FD0AF008E8175 /* OSlideTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4B2260FD0AE008E8175 /* OSlideTimeView.swift */; };
-		967AD57E260FD0AF008E8175 /* OSlideStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4B3260FD0AE008E8175 /* OSlideStartedView.swift */; };
+		967AD57E260FD0AF008E8175 /* OSlideWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4B3260FD0AE008E8175 /* OSlideWelcomeView.swift */; };
 		967AD580260FD0AF008E8175 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4B5260FD0AE008E8175 /* OnboardingView.swift */; };
 		967AD581260FD0AF008E8175 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4B6260FD0AE008E8175 /* OnboardingViewModel.swift */; };
 		967AD582260FD0AF008E8175 /* OnboardingAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4B8260FD0AE008E8175 /* OnboardingAnalytics.swift */; };
@@ -370,6 +374,10 @@
 		9613EF1C263974A700DAEB9A /* GetTopicsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTopicsRequest.swift; sourceTree = "<group>"; };
 		9613EF202639767800DAEB9A /* GetTopicsResponseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTopicsResponseMapper.swift; sourceTree = "<group>"; };
 		9613EF2326397E3500DAEB9A /* SetRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRequest.swift; sourceTree = "<group>"; };
+		9650402A267F1851003D5167 /* WelcomeSlide1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSlide1View.swift; sourceTree = "<group>"; };
+		9650402C267F1AEB003D5167 /* WelcomeSlide2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSlide2View.swift; sourceTree = "<group>"; };
+		9650402E267F1AF5003D5167 /* WelcomeSlide3View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSlide3View.swift; sourceTree = "<group>"; };
+		96504030267F1D26003D5167 /* WelcomeSlideIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSlideIndicatorView.swift; sourceTree = "<group>"; };
 		9667BB18264EA4780029ED86 /* ProfileMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMediator.swift; sourceTree = "<group>"; };
 		9667BB1C264EA48E0029ED86 /* ProfileMediatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMediatorDelegate.swift; sourceTree = "<group>"; };
 		9673816B26792DB000230FB6 /* PaygateViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateViewModel.swift; sourceTree = "<group>"; };
@@ -546,7 +554,7 @@
 		967AD4AE260FD0AE008E8175 /* OSlideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideView.swift; sourceTree = "<group>"; };
 		967AD4B1260FD0AE008E8175 /* OSlidePlanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlidePlanView.swift; sourceTree = "<group>"; };
 		967AD4B2260FD0AE008E8175 /* OSlideTimeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideTimeView.swift; sourceTree = "<group>"; };
-		967AD4B3260FD0AE008E8175 /* OSlideStartedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideStartedView.swift; sourceTree = "<group>"; };
+		967AD4B3260FD0AE008E8175 /* OSlideWelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideWelcomeView.swift; sourceTree = "<group>"; };
 		967AD4B5260FD0AE008E8175 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		967AD4B6260FD0AE008E8175 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		967AD4B8260FD0AE008E8175 /* OnboardingAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingAnalytics.swift; sourceTree = "<group>"; };
@@ -800,6 +808,17 @@
 				9613EF2326397E3500DAEB9A /* SetRequest.swift */,
 			);
 			path = Request;
+			sourceTree = "<group>";
+		};
+		96504029267F1826003D5167 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				9650402A267F1851003D5167 /* WelcomeSlide1View.swift */,
+				9650402C267F1AEB003D5167 /* WelcomeSlide2View.swift */,
+				9650402E267F1AF5003D5167 /* WelcomeSlide3View.swift */,
+				96504030267F1D26003D5167 /* WelcomeSlideIndicatorView.swift */,
+			);
+			path = Welcome;
 			sourceTree = "<group>";
 		};
 		9667BB17264EA4490029ED86 /* Mediator */ = {
@@ -1577,7 +1596,7 @@
 				967AD4AE260FD0AE008E8175 /* OSlideView.swift */,
 				967AD4B1260FD0AE008E8175 /* OSlidePlanView.swift */,
 				967AD4B2260FD0AE008E8175 /* OSlideTimeView.swift */,
-				967AD4B3260FD0AE008E8175 /* OSlideStartedView.swift */,
+				967AD4B3260FD0AE008E8175 /* OSlideWelcomeView.swift */,
 				96B67A9626295AC40048DAB9 /* OSlideTopicsView.swift */,
 				96B67AE92629BB100048DAB9 /* OSlideExperienceView.swift */,
 				969679C0265CE3690070E7F7 /* OSlideLocaleView.swift */,
@@ -1588,6 +1607,7 @@
 		967AD49F260FD0AE008E8175 /* Atoms */ = {
 			isa = PBXGroup;
 			children = (
+				96504029267F1826003D5167 /* Welcome */,
 				969679B7265CCAEF0070E7F7 /* Locale */,
 				96F44FB12631782C000B77E3 /* TopicsCollection */,
 				967AD4A2260FD0AE008E8175 /* Source */,
@@ -2040,12 +2060,14 @@
 				967AD513260FD0AF008E8175 /* SplashViewController.swift in Sources */,
 				9673817826792DB100230FB6 /* PaygateMainView.swift in Sources */,
 				9673819026792DC000230FB6 /* PaygateMapper.swift in Sources */,
+				9650402B267F1851003D5167 /* WelcomeSlide1View.swift in Sources */,
 				967AD4C6260FD0AE008E8175 /* ImagePicker.swift in Sources */,
 				9673819B26792DC000230FB6 /* PaygateManager.swift in Sources */,
 				969679B1265CC3600070E7F7 /* GetCountriesRequest.swift in Sources */,
 				86ACAD072625E2E30020C51C /* SCTrophyCollectionCell.swift in Sources */,
 				967AD562260FD0AF008E8175 /* MainRateCell.swift in Sources */,
 				967AD4CE260FD0AE008E8175 /* CircleView.swift in Sources */,
+				96504031267F1D26003D5167 /* WelcomeSlideIndicatorView.swift in Sources */,
 				96F44FB926317909000B77E3 /* TopicsCollectionCell.swift in Sources */,
 				967AD539260FD0AF008E8175 /* QuestionContentCollectionView.swift in Sources */,
 				967AD506260FD0AF008E8175 /* Session.swift in Sources */,
@@ -2067,7 +2089,7 @@
 				9613EC8F2634AEFD00DAEB9A /* SettingsOpener.swift in Sources */,
 				967AD536260FD0AF008E8175 /* TestView.swift in Sources */,
 				967AD4F3260FD0AF008E8175 /* GetTenSetRequest.swift in Sources */,
-				967AD57E260FD0AF008E8175 /* OSlideStartedView.swift in Sources */,
+				967AD57E260FD0AF008E8175 /* OSlideWelcomeView.swift in Sources */,
 				967AD50F260FD0AF008E8175 /* STUnlockCell.swift in Sources */,
 				9673817626792DB000230FB6 /* PaygateView.swift in Sources */,
 				86CD1CE1261EBCDA000A2F49 /* SIProgressElement.swift in Sources */,
@@ -2139,6 +2161,7 @@
 				967AD4B9260FD0AE008E8175 /* UIColorExtension.swift in Sources */,
 				8659FCA4263429E60029598C /* CourseDetailsView.swift in Sources */,
 				9613EC842634A11700DAEB9A /* Language.swift in Sources */,
+				9650402D267F1AEB003D5167 /* WelcomeSlide2View.swift in Sources */,
 				967AD538260FD0AF008E8175 /* QuestionTableView.swift in Sources */,
 				86935FBB2674D85D009D1D99 /* FlashCardView.swift in Sources */,
 				967AD570260FD0AF008E8175 /* OGoalCell.swift in Sources */,
@@ -2228,6 +2251,7 @@
 				967AD4FC260FD0AF008E8175 /* CoursesManager.swift in Sources */,
 				967AD500260FD0AF008E8175 /* GetBriefRequest.swift in Sources */,
 				967AD55A260FD0AF008E8175 /* StatsViewModel.swift in Sources */,
+				9650402F267F1AF5003D5167 /* WelcomeSlide3View.swift in Sources */,
 				967AD4F1260FD0AF008E8175 /* SendAnswerRequest.swift in Sources */,
 				967AD52F260FD0AF008E8175 /* TestViewModel.swift in Sources */,
 				967AD4BF260FD0AE008E8175 /* GlobalDefinitions.swift in Sources */,

@@ -10,7 +10,7 @@ final class OnboardingAnalytics {
         let name: String
         
         switch step {
-        case .started:
+        case .welcome:
             name = "Welcome Screen"
         case .topics:
             name = "Topics Screen"
