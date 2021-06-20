@@ -24,6 +24,7 @@ final class OnboardingView: UIView {
     lazy var scrollView = makeScrollView()
     lazy var progressView = makeProgressView()
     lazy var previousButton = makePreviousButton()
+    lazy var headerLabel = makeHeaderLabel()
     
     private lazy var contentViews: [OSlideView] = {
         [
@@ -136,6 +137,22 @@ private extension OnboardingView {
             return
         }
         progressView.progress = Float(index + 1) / Float(progressCases.count)
+        
+        headerLabel.attributedText = localizedHeader()
+            .attributed(with: TextAttributes()
+                            .textColor(UIColor(integralRed: 245, green: 245, blue: 245, alpha: 0.6))
+                            .font(Fonts.Lato.regular(size: 14.scale))
+                            .lineHeight(19.6.scale)
+                            .textAlignment(.center))
+    }
+    
+    func localizedHeader() -> String {
+        switch step {
+        case .goals:
+            return "Onboarding.Goals.Header".localized
+        default:
+            return ""
+        }
     }
 }
 
@@ -160,6 +177,12 @@ private extension OnboardingView {
             progressView.leadingAnchor.constraint(equalTo: previousButton.trailingAnchor, constant: 16.scale),
             progressView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
             progressView.centerYAnchor.constraint(equalTo: previousButton.centerYAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
+            headerLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
+            headerLabel.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 16.scale)
         ])
     }
 }
@@ -192,6 +215,14 @@ private extension OnboardingView {
         let view = UIProgressView()
         view.trackTintColor = Onboarding.Progress.track
         view.progressTintColor = Onboarding.Progress.progress
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }
+    
+    func makeHeaderLabel() -> UILabel {
+        let view = UILabel()
+        view.numberOfLines = 0
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
