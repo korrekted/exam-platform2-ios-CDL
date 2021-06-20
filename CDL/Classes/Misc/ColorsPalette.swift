@@ -241,7 +241,7 @@ enum Onboarding {
     
     enum Progress {
         static let track = UIColor(integralRed: 60, green: 75, blue: 159)
-        static let progress = UIColor(integralRed: 245, green: 245, blue: 245)
+        static let progress = UIColor(integralRed: 255, green: 255, blue: 255)
     }
     
     enum Topics {

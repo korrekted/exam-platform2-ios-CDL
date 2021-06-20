@@ -13,7 +13,6 @@ final class OnboardingView: UIView {
     }
     
     var didFinish: (() -> Void)?
-    var didChangedSlide: ((Step) -> Void)?
     
     var step = Step.welcome {
         didSet {
@@ -24,7 +23,7 @@ final class OnboardingView: UIView {
     
     lazy var scrollView = makeScrollView()
     lazy var progressView = makeProgressView()
-    lazy var skipButton = makeSkipButton()
+    lazy var previousButton = makePreviousButton()
     
     private lazy var contentViews: [OSlideView] = {
         [
@@ -59,8 +58,6 @@ extension OnboardingView: OSlideViewDelegate {
     func slideViewDidNext(from step: Step) {
         OnboardingAnalytics().log(step: step)
         
-        didChangedSlide?(step)
-        
         let nextRawValue = step.rawValue + 1
         
         guard let nextStep = Step(rawValue: nextRawValue) else {
@@ -70,6 +67,19 @@ extension OnboardingView: OSlideViewDelegate {
         }
         
         self.step = nextStep
+    }
+}
+
+// MARK: Public
+extension OnboardingView {
+    func slideViewMoveToPrevious(from step: Step) {
+        let previousRawValue = step.rawValue - 1
+        
+        guard let previousStep = Step(rawValue: previousRawValue) else {
+            return
+        }
+        
+        self.step = previousStep
     }
 }
 
@@ -112,10 +122,10 @@ private extension OnboardingView {
     func headerUpdate() {
         switch step {
         case .welcome, .topics, .locale, .preloader, .plan:
-            skipButton.isHidden = true
+            previousButton.isHidden = true
             progressView.isHidden = true
         default:
-            skipButton.isHidden = false
+            previousButton.isHidden = false
             progressView.isHidden = false
         }
         
@@ -140,14 +150,16 @@ private extension OnboardingView {
         ])
         
         NSLayoutConstraint.activate([
-            progressView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
-            progressView.trailingAnchor.constraint(equalTo: skipButton.leadingAnchor, constant: -24.scale),
-            progressView.centerYAnchor.constraint(equalTo: skipButton.centerYAnchor)
+            previousButton.topAnchor.constraint(equalTo: topAnchor, constant: ScreenSize.isIphoneXFamily ? 69.scale : 29.scale),
+            previousButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
+            previousButton.widthAnchor.constraint(equalToConstant: 24.scale),
+            previousButton.heightAnchor.constraint(equalToConstant: 24.scale)
         ])
         
         NSLayoutConstraint.activate([
-            skipButton.topAnchor.constraint(equalTo: topAnchor, constant: ScreenSize.isIphoneXFamily ? 69.scale : 29.scale),
-            skipButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale)
+            progressView.leadingAnchor.constraint(equalTo: previousButton.trailingAnchor, constant: 16.scale),
+            progressView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
+            progressView.centerYAnchor.constraint(equalTo: previousButton.centerYAnchor)
         ])
     }
 }
@@ -167,23 +179,19 @@ private extension OnboardingView {
         return view
     }
     
-    func makeProgressView() -> UIProgressView {
-        let view = UIProgressView()
-        view.trackTintColor = Onboarding.Progress.track
-        view.progressTintColor = Onboarding.Progress.progress
+    func makePreviousButton() -> UIButton {
+        let view = UIButton()
+        view.setImage(UIImage(named: "Onboarding.Previous"), for: .normal)
+        view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
     }
     
-    func makeSkipButton() -> UIButton {
-        let attrs = TextAttributes()
-            .textColor(Onboarding.secondaryText)
-            .font(Fonts.SFProRounded.regular(size: 18.scale))
-        
-        let view = UIButton()
-        view.setAttributedTitle("Onboarding.Skip".localized.attributed(with: attrs), for: .normal)
-        view.backgroundColor = UIColor.clear
+    func makeProgressView() -> UIProgressView {
+        let view = UIProgressView()
+        view.trackTintColor = Onboarding.Progress.track
+        view.progressTintColor = Onboarding.Progress.progress
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
