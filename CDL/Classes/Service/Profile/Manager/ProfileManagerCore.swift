@@ -170,3 +170,34 @@ extension ProfileManagerCore {
             })
     }
 }
+
+// MARK: Study
+extension ProfileManagerCore {
+    func set(level: Int?,
+             assetsPreferences: [Int]?,
+             testMode: Int?,
+             examDate: String?,
+             testMinutes: Int?,
+             testNumber: Int?,
+             testWhen: [Int]?,
+             notificationKey: String?) -> Single<Void> {
+        guard let userToken = SessionManagerCore().getSession()?.userToken else {
+            return .error(SignError.tokenNotFound)
+        }
+        
+        let request = SetRequest(userToken: userToken,
+                                 level: level,
+                                 assetsPreferences: assetsPreferences,
+                                 testMode: testMode,
+                                 examDate: examDate,
+                                 testMinutes: testMinutes,
+                                 testNumber: testNumber,
+                                 testWhen: testWhen,
+                                 notificationKey: notificationKey)
+        
+        return SDKStorage.shared
+            .restApiTransport
+            .callServerApi(requestBody: request)
+            .map { _ in Void() }
+    }
+}
