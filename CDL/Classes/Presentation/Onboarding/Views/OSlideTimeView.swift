@@ -49,7 +49,7 @@ extension OSlideTimeView: UIPickerViewDelegate {
         
         let attrs = TextAttributes()
             .textColor(Onboarding.pickerText)
-            .font(Fonts.SFProRounded.bold(size: 32.scale))
+            .font(Fonts.Lato.bold(size: 32.scale))
             .lineHeight(38.scale)
         
         label?.attributedText = String((row + 1) * 5).attributed(with: attrs)
@@ -114,7 +114,7 @@ private extension OSlideTimeView {
     func makeTitleLabel() -> UILabel {
         let attrs = TextAttributes()
             .textColor(Onboarding.primaryText)
-            .font(Fonts.SFProRounded.bold(size: 36.scale))
+            .font(Fonts.Lato.bold(size: 36.scale))
             .lineHeight(43.scale)
             .textAlignment(.center)
         
@@ -149,7 +149,7 @@ private extension OSlideTimeView {
     func makeMinLabel() -> UILabel {
         let attrs = TextAttributes()
             .textColor(Onboarding.pickerText)
-            .font(Fonts.SFProRounded.bold(size: 24.scale))
+            .font(Fonts.Lato.bold(size: 24.scale))
         
         let view = UILabel()
         view.attributedText = "Onboarding.SlideTime.Min".localized.attributed(with: attrs)
@@ -161,7 +161,7 @@ private extension OSlideTimeView {
     func makeButton() -> UIButton {
         let attrs = TextAttributes()
             .textColor(Onboarding.primaryButtonTint)
-            .font(Fonts.SFProRounded.semiBold(size: 18.scale))
+            .font(Fonts.Lato.regular(size: 18.scale))
             .textAlignment(.center)
         
         let view = UIButton()

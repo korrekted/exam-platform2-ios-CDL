@@ -25,11 +25,10 @@
 "Splash.Title.Part3" = "preguntas de\nexamen reales";
 
 // MARK: Onboarding
-"Onboarding.Skip" = "Saltar";
+"Onboarding.FailedToSave" = "Error al guardar";
 "Onboarding.Next" = "Continuar";
 "Onboarding.Yes" = "Sí";
 "Onboarding.No" = "No";
-"Onboarding.Skip" = "Saltar";
 "Onboarding.Welcome.Title1" = "Personal study plan";
 "Onboarding.Welcome.Subtitle1" = "Your study plan is prepared by the algorithms which rely on thousands of similar cases";
 "Onboarding.Welcome.Title2" = "98% pass rate";
@@ -41,12 +40,11 @@
 "Onboarding.SlideCountry.Title" = "Elige\ntu país";
 "Onboarding.SlideState.Title" = "Seleccione su\nestado, provincia\no distrito";
 "Onboarding.SlideLanguage.Title" = "Elige tu idioma";
-"Onboarding.SlideLocale.Error" = "Error al guardar";
-"Onboarding.Goals.Title" = "¿Cuáles son tus objetivos?";
-"Onboarding.Goals.Cell1" = "Tomar el examen";
-"Onboarding.Goals.Cell2" = "Ser un mejor conductor";
-"Onboarding.Goals.Cell3" = "Ampliar mi conocimiento";
-"Onboarding.Goals.Cell4" = "Refrescar los fundamentos";
+"Onboarding.Goals.Title" = "Should we focus on\nsomething in\nparticular?";
+"Onboarding.Goals.Cell1" = "More practice questions";
+"Onboarding.Goals.Cell2" = "More flashcards";
+"Onboarding.Goals.Cell3" = "More theory";
+"Onboarding.Goals.Header" = "You can always change your goals";
 "Onboarding.SlideWhenTaking.Title" = "¿Cuándo tomarás\nel examen?";
 "Onboarding.SlideTime.Title" = "¿Cuánto tiempio\npuedes pasar\nen un examen?";
 "Onboarding.SlideTime.Min" = "min";

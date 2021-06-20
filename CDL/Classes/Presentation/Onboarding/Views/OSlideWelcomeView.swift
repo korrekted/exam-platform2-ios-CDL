@@ -14,7 +14,7 @@ final class OSlideWelcomeView: OSlideView {
     
     private lazy var buttonAttrs = TextAttributes()
         .textColor(Onboarding.primaryButtonTint)
-        .font(Fonts.SFProRounded.regular(size: 18.scale))
+        .font(Fonts.Lato.regular(size: 18.scale))
         .textAlignment(.center)
     
     override init(step: OnboardingView.Step) {

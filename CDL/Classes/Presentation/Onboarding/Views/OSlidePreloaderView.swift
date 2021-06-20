@@ -112,7 +112,7 @@ private extension OSlidePreloaderView {
     func makeTitleLabel() -> UILabel {
         let attrs = TextAttributes()
             .textColor(Onboarding.Preloader.text)
-            .font(Fonts.SFProRounded.bold(size: 36.scale))
+            .font(Fonts.Lato.bold(size: 36.scale))
             .lineHeight(43.scale)
             .textAlignment(.center)
         

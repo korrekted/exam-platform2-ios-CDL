@@ -29,7 +29,7 @@ extension LocaleTableViewCell {
         container.backgroundColor = element.isSelected ? UIColor(integralRed: 249, green: 205, blue: 106) : UIColor(integralRed: 60, green: 75, blue: 159)
         
         let attrs = TextAttributes()
-            .font(Fonts.SFProRounded.bold(size: 18.scale))
+            .font(Fonts.Lato.bold(size: 18.scale))
             .textColor(element.isSelected ? UIColor(integralRed: 31, green: 31, blue: 31) : UIColor(integralRed: 245, green: 245, blue: 245))
             .lineHeight(25.scale)
         label.attributedText = element.name.attributed(with: attrs)

@@ -173,14 +173,14 @@ extension ProfileManagerCore {
 
 // MARK: Study
 extension ProfileManagerCore {
-    func set(level: Int?,
-             assetsPreferences: [Int]?,
-             testMode: Int?,
-             examDate: String?,
-             testMinutes: Int?,
-             testNumber: Int?,
-             testWhen: [Int]?,
-             notificationKey: String?) -> Single<Void> {
+    func set(level: Int? = nil,
+             assetsPreferences: [Int]? = nil,
+             testMode: Int? = nil,
+             examDate: String? = nil,
+             testMinutes: Int? = nil,
+             testNumber: Int? = nil,
+             testWhen: [Int]? = nil,
+             notificationKey: String? = nil) -> Single<Void> {
         guard let userToken = SessionManagerCore().getSession()?.userToken else {
             return .error(SignError.tokenNotFound)
         }

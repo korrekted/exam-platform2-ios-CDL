@@ -6,19 +6,25 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class OSlideGoalsView: OSlideView {
     lazy var titleLabel = makeTitleLabel()
-    lazy var cell1 = makeCell(title: "Onboarding.Goals.Cell1", tag: 1)
-    lazy var cell2 = makeCell(title: "Onboarding.Goals.Cell2", tag: 2)
-    lazy var cell3 = makeCell(title: "Onboarding.Goals.Cell3", tag: 3)
-    lazy var cell4 = makeCell(title: "Onboarding.Goals.Cell4", tag: 4)
+    lazy var cell1 = makeCell(title: "Onboarding.Goals.Cell1", tag: 0)
+    lazy var cell2 = makeCell(title: "Onboarding.Goals.Cell2", tag: 1)
+    lazy var cell3 = makeCell(title: "Onboarding.Goals.Cell3", tag: 2)
     lazy var button = makeButton()
+    
+    private lazy var manager = ProfileManagerCore()
+    
+    private lazy var disposeBag = DisposeBag()
     
     override init(step: OnboardingView.Step) {
         super.init(step: step)
         
         makeConstraints()
+        initialize()
         changeEnabled()
     }
     
@@ -29,6 +35,36 @@ final class OSlideGoalsView: OSlideView {
 
 // MARK: Private
 private extension OSlideGoalsView {
+    func initialize() {
+        button.rx.tap
+            .flatMapLatest { [weak self] _ -> Single<Bool> in
+                guard let self = self else {
+                    return .never()
+                }
+                
+                let selectedGoals = [
+                    self.cell1, self.cell2, self.cell3
+                ]
+                .filter { $0.isSelected }
+                .map { $0.tag }
+                
+                return self.manager
+                    .set(assetsPreferences: selectedGoals)
+                    .map { true }
+                    .catchAndReturn(false)
+            }
+            .asDriver(onErrorDriveWith: .never())
+            .drive(onNext: { [weak self] success in
+                guard success else {
+                    Toast.notify(with: "Onboarding.FailedToSave".localized, style: .danger)
+                    return
+                }
+                
+                self?.onNext()
+            })
+            .disposed(by: disposeBag)
+    }
+    
     @objc
     func selected(tapGesture: UITapGestureRecognizer) {
         guard let cell = tapGesture.view as? OGoalCell else {
@@ -46,7 +82,7 @@ private extension OSlideGoalsView {
     
     func changeEnabled() {
         let isEmpty = [
-            cell1, cell2, cell3, cell4
+            cell1, cell2, cell3
         ]
         .filter { $0.isSelected }
         .isEmpty
@@ -80,13 +116,7 @@ private extension OSlideGoalsView {
         NSLayoutConstraint.activate([
             cell3.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
             cell3.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
-            cell3.bottomAnchor.constraint(equalTo: cell4.topAnchor, constant: -16.scale)
-        ])
-        
-        NSLayoutConstraint.activate([
-            cell4.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
-            cell4.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
-            cell4.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -48.scale)
+            cell3.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -48.scale)
         ])
         
         NSLayoutConstraint.activate([
@@ -103,7 +133,7 @@ private extension OSlideGoalsView {
     func makeTitleLabel() -> UILabel {
         let attrs = TextAttributes()
             .textColor(Onboarding.pickerText)
-            .font(Fonts.SFProRounded.bold(size: 36.scale))
+            .font(Fonts.Lato.bold(size: 36.scale))
             .lineHeight(43.scale)
             .textAlignment(.center)
         
@@ -132,14 +162,13 @@ private extension OSlideGoalsView {
     func makeButton() -> UIButton {
         let attrs = TextAttributes()
             .textColor(Onboarding.primaryButtonTint)
-            .font(Fonts.SFProRounded.semiBold(size: 18.scale))
+            .font(Fonts.Lato.regular(size: 18.scale))
             .textAlignment(.center)
         
         let view = UIButton()
         view.backgroundColor = Onboarding.primaryButton
         view.layer.cornerRadius = 12.scale
         view.setAttributedTitle("Onboarding.Next".localized.attributed(with: attrs), for: .normal)
-        view.addTarget(self, action: #selector(onNext), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view

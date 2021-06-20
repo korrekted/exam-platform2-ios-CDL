@@ -122,7 +122,7 @@ private extension OSlideTopicsView {
     func makeTitleLabel() -> UILabel {
         let attrs = TextAttributes()
             .textColor(Onboarding.primaryText)
-            .font(Fonts.SFProRounded.bold(size: 36.scale))
+            .font(Fonts.Lato.bold(size: 36.scale))
             .lineHeight(43.scale)
             .textAlignment(.center)
         
@@ -149,7 +149,7 @@ private extension OSlideTopicsView {
     func makeButton() -> UIButton {
         let attrs = TextAttributes()
             .textColor(Onboarding.primaryButtonTint)
-            .font(Fonts.SFProRounded.semiBold(size: 18.scale))
+            .font(Fonts.Lato.regular(size: 18.scale))
             .textAlignment(.center)
         
         let view = UIButton()

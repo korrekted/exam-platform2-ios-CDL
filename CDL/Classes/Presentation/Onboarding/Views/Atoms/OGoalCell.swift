@@ -39,7 +39,7 @@ private extension OGoalCell {
         leftInset = 16.scale
         rightInset = 16.scale
         
-        font = Fonts.SFProRounded.regular(size: 18.scale)
+        font = Fonts.Lato.regular(size: 18.scale)
     }
     
     func update() {

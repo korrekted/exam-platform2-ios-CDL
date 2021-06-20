@@ -25,11 +25,10 @@
 "Splash.Title.Part3" = "experts";
 
 // MARK: Onboarding
-"Onboarding.Skip" = "Skip";
+"Onboarding.FailedToSave" = "Failed to save";
 "Onboarding.Next" = "Next";
 "Onboarding.Yes" = "Yes";
 "Onboarding.No" = "No";
-"Onboarding.Skip" = "skip";
 "Onboarding.Welcome.Title1" = "Personal study plan";
 "Onboarding.Welcome.Subtitle1" = "Your study plan is prepared by the algorithms which rely on thousands of similar cases";
 "Onboarding.Welcome.Title2" = "98% pass rate";
@@ -41,12 +40,11 @@
 "Onboarding.SlideCountry.Title" = "Choose\nyour country";
 "Onboarding.SlideState.Title" = "Select your state,\nprovince or district";
 "Onboarding.SlideLanguage.Title" = "Select your language";
-"Onboarding.SlideLocale.Error" = "Failed to save";
-"Onboarding.Goals.Title" = "What’s your goal?";
-"Onboarding.Goals.Cell1" = "I’m getting my first CDL";
-"Onboarding.Goals.Cell2" = "I’m adding new endorsement";
-"Onboarding.Goals.Cell3" = "I’m renewing existing endorsement";
-"Onboarding.Goals.Cell4" = "Want to know more about driving";
+"Onboarding.Goals.Title" = "Should we focus on\nsomething in\nparticular?";
+"Onboarding.Goals.Cell1" = "More practice questions";
+"Onboarding.Goals.Cell2" = "More flashcards";
+"Onboarding.Goals.Cell3" = "More theory";
+"Onboarding.Goals.Header" = "You can always change your goals";
 "Onboarding.SlideWhenTaking.Title" = "When are you\ntaking your exam?";
 "Onboarding.SlideTime.Title" = "How much time can\nyou spend on\na single test?";
 "Onboarding.SlideTime.Min" = "min";
