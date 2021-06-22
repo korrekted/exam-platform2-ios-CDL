@@ -62,6 +62,15 @@
 "Onboarding.SlidePlan.Cell2" = "diferentes modalidades";
 "Onboarding.SlidePlan.Cell3" = "recordatorios y notificaciones";
 "Onboarding.SlidePlan.Button" = "¡Vamos!";
+"Onboarding.Mode.Title" = "In which mode do\nyou want to take\ntests?";
+"Onboarding.Mode.Subtitle" = "Scroll to choose your option";
+"Onboarding.Mode.Cell1.Title" = "No explanations";
+"Onboarding.Mode.Cell1.Subtitle" = "Test consist of only correct answers";
+"Onboarding.Mode.Cell2.Title" = "Full complect";
+"Onboarding.Mode.Cell2.Subtitle" = "Test consist of correct answers and full explanations";
+"Onboarding.Mode.Cell3.Title" = "On an exam";
+"Onboarding.Mode.Cell3.Subtitle" = "The test consists only of question and answer options";
+"Onboarding.Mode.Header" = "You can always change your goals";
 
 // MARK: Study
 "Study.Title" = "Estudio";
