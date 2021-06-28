@@ -153,6 +153,8 @@ private extension OnboardingView {
             return "Onboarding.Goals.Header".localized
         case .mode:
             return "Onboarding.Mode.Header".localized
+        case .whenTaking:
+            return "Onboarding.SlideWhenTaking.Header".localized
         default:
             return ""
         }

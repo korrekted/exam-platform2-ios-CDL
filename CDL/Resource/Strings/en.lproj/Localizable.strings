@@ -46,6 +46,7 @@
 "Onboarding.Goals.Cell3" = "More theory";
 "Onboarding.Goals.Header" = "You can always change your goals";
 "Onboarding.SlideWhenTaking.Title" = "When are you\ntaking your exam?";
+"Onboarding.SlideWhenTaking.Header" = "You can always change your goals";
 "Onboarding.SlideTime.Title" = "How much time can\nyou spend on\na single test?";
 "Onboarding.SlideTime.Min" = "min";
 "Onboarding.SlideCount.Title" = "How many tests\nwould you like to\ntake daily?";
