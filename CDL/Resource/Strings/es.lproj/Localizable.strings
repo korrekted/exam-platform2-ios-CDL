@@ -49,7 +49,9 @@
 "Onboarding.SlideWhenTaking.Header" = "You can always change your goals";
 "Onboarding.SlideTime.Title" = "¿Cuánto tiempio\npuedes pasar\nen un examen?";
 "Onboarding.SlideTime.Min" = "min";
-"Onboarding.SlideCount.Title" = "¿Cuántos exámenes\nquieres tomar\na diario?";
+"Onboarding.SlideCount.Title" = "How many tests\nwould you like to\ntake daily?";
+"Onboarding.SlideCount.PopularChoise" = "5 tests - Popular choice";
+"Onboarding.SlideCount.LearningSpeed" = "learning\nspeed %.1f";
 "Onboarding.SlideExperience.Title" = "¿Cuál es tu\nexperiencia de\nconducción?";
 "Onboarding.SlideExperience.Cell1" = "0-3 años";
 "Onboarding.SlideExperience.Cell2" = "3-5 años";

@@ -50,6 +50,8 @@
 "Onboarding.SlideTime.Title" = "How much time can\nyou spend on\na single test?";
 "Onboarding.SlideTime.Min" = "min";
 "Onboarding.SlideCount.Title" = "How many tests\nwould you like to\ntake daily?";
+"Onboarding.SlideCount.PopularChoise" = "5 tests - Popular choice";
+"Onboarding.SlideCount.LearningSpeed" = "learning\nspeed %.1f";
 "Onboarding.SlideExperience.Title" = "Describe your\ndriving\nexperience";
 "Onboarding.SlideExperience.Cell1" = "0-3 years";
 "Onboarding.SlideExperience.Cell2" = "3-5 years";

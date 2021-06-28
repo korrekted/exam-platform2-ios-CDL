@@ -76,6 +76,7 @@
 		96155B752689F89100228151 /* OSlideMinutesAtTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B742689F89100228151 /* OSlideMinutesAtTimeView.swift */; };
 		96155B772689F97700228151 /* OMinutesAtTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B762689F97700228151 /* OMinutesAtTimeCell.swift */; };
 		96155B7A2689FB1A00228151 /* MinutesAtTimeElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B792689FB1A00228151 /* MinutesAtTimeElement.swift */; };
+		96155B7D268A127E00228151 /* CountCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B7C268A127E00228151 /* CountCircleView.swift */; };
 		9650402B267F1851003D5167 /* WelcomeSlide1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650402A267F1851003D5167 /* WelcomeSlide1View.swift */; };
 		9650402D267F1AEB003D5167 /* WelcomeSlide2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650402C267F1AEB003D5167 /* WelcomeSlide2View.swift */; };
 		9650402F267F1AF5003D5167 /* WelcomeSlide3View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650402E267F1AF5003D5167 /* WelcomeSlide3View.swift */; };
@@ -388,6 +389,7 @@
 		96155B742689F89100228151 /* OSlideMinutesAtTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSlideMinutesAtTimeView.swift; sourceTree = "<group>"; };
 		96155B762689F97700228151 /* OMinutesAtTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMinutesAtTimeCell.swift; sourceTree = "<group>"; };
 		96155B792689FB1A00228151 /* MinutesAtTimeElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinutesAtTimeElement.swift; sourceTree = "<group>"; };
+		96155B7C268A127E00228151 /* CountCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountCircleView.swift; sourceTree = "<group>"; };
 		9650402A267F1851003D5167 /* WelcomeSlide1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSlide1View.swift; sourceTree = "<group>"; };
 		9650402C267F1AEB003D5167 /* WelcomeSlide2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSlide2View.swift; sourceTree = "<group>"; };
 		9650402E267F1AF5003D5167 /* WelcomeSlide3View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSlide3View.swift; sourceTree = "<group>"; };
@@ -1634,6 +1636,7 @@
 		967AD49F260FD0AE008E8175 /* Atoms */ = {
 			isa = PBXGroup;
 			children = (
+				96155B7C268A127E00228151 /* CountCircleView.swift */,
 				96155B782689FAFD00228151 /* MinutesAtTime */,
 				96DC8E1A267FC61800FEC74B /* Mode */,
 				96504029267F1826003D5167 /* Welcome */,
@@ -2249,6 +2252,7 @@
 				96E360252671FCEB00D49D4E /* FlashcardsTopicsTableCell.swift in Sources */,
 				8686722B26120D7700B42D41 /* TestComunityResultLineView.swift in Sources */,
 				967AD55C260FD0AF008E8175 /* StatsCellType.swift in Sources */,
+				96155B7D268A127E00228151 /* CountCircleView.swift in Sources */,
 				9667BB1D264EA48E0029ED86 /* ProfileMediatorDelegate.swift in Sources */,
 				9673817526792DB000230FB6 /* PaygateViewControllerDelegate.swift in Sources */,
 				967AD567260FD0AF008E8175 /* MainStatsDescriptionView.swift in Sources */,
