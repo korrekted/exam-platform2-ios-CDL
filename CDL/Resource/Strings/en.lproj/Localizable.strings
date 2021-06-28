@@ -72,6 +72,16 @@
 "Onboarding.Mode.Cell3.Title" = "On an exam";
 "Onboarding.Mode.Cell3.Subtitle" = "The test consists only of question and answer options";
 "Onboarding.Mode.Header" = "You can always change your goals";
+"Onboarding.MinutesAtTime.Title" = "How many minutes\ncan you spend\nlearning at a time?";
+"Onboarding.MinutesAtTime.Casual" = "Casual";
+"Onboarding.MinutesAtTime.Regular" = "Regular";
+"Onboarding.MinutesAtTime.Serious" = "Serious";
+"Onboarding.MinutesAtTime.Intense" = "Intense";
+"Onboarding.MinutesAtTime.5min" = "5 min";
+"Onboarding.MinutesAtTime.10min" = "10 min";
+"Onboarding.MinutesAtTime.15min" = "15 min";
+"Onboarding.MinutesAtTime.20min" = "20 min";
+"Onboarding.MinutesAtTime.Header" = "You can always change your goals";
 
 // MARK: Study
 "Study.Title" = "Study";
