@@ -6,12 +6,17 @@
 //
 
 import UIKit
+import RxSwift
 
 final class OSlideModeView: OSlideView {
     lazy var titleLabel = makeTitleLabel()
     lazy var subtitleLabel = makeSubtitleLabel()
     lazy var modesView = makeModesView()
     lazy var button = makeButton()
+    
+    private lazy var manager = ProfileManagerCore()
+    
+    private lazy var disposeBag = DisposeBag()
     
     override init(step: OnboardingView.Step) {
         super.init(step: step)
@@ -28,17 +33,49 @@ final class OSlideModeView: OSlideView {
 // MARK: Private
 private extension OSlideModeView {
     func initialize() {
+        button.rx.tap
+            .flatMapLatest { [weak self] _ -> Single<Bool> in
+                guard let self = self else {
+                    return .never()
+                }
+                
+                guard let selected = self.modesView
+                        .elements
+                        .first(where: { $0.isSelected })
+                else {
+                    return .never()
+                }
+                
+                return self.manager
+                    .set(testMode: selected.code)
+                    .map { true }
+                    .catchAndReturn(false)
+            }
+            .asDriver(onErrorDriveWith: .never())
+            .drive(onNext: { [weak self] success in
+                guard success else {
+                    Toast.notify(with: "Onboarding.FailedToSave".localized, style: .danger)
+                    return
+                }
+                
+                self?.onNext()
+            })
+            .disposed(by: disposeBag)
+        
         modesView.setup(elements: [
             .init(title: "Onboarding.Mode.Cell1.Title".localized,
                   subtitle: "Onboarding.Mode.Cell1.Subtitle".localized,
-                  isSelected: false),
+                  code: 2,
+                  isSelected: true),
             
             .init(title: "Onboarding.Mode.Cell2.Title".localized,
                   subtitle: "Onboarding.Mode.Cell2.Subtitle".localized,
-                  isSelected: true),
+                  code: 0,
+                  isSelected: false),
             
             .init(title: "Onboarding.Mode.Cell3.Title".localized,
                   subtitle: "Onboarding.Mode.Cell3.Subtitle".localized,
+                  code: 1,
                   isSelected: false)
         ], isNeedScroll: false)
     }
