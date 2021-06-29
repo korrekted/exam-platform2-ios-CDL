@@ -77,6 +77,8 @@
 		96155B772689F97700228151 /* OMinutesAtTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B762689F97700228151 /* OMinutesAtTimeCell.swift */; };
 		96155B7A2689FB1A00228151 /* MinutesAtTimeElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B792689FB1A00228151 /* MinutesAtTimeElement.swift */; };
 		96155B7D268A127E00228151 /* CountCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B7C268A127E00228151 /* CountCircleView.swift */; };
+		96155B81268B634400228151 /* OExperienceProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B80268B634400228151 /* OExperienceProgressView.swift */; };
+		96155B84268B708300228151 /* OExperienceCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B83268B708300228151 /* OExperienceCursor.swift */; };
 		9650402B267F1851003D5167 /* WelcomeSlide1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650402A267F1851003D5167 /* WelcomeSlide1View.swift */; };
 		9650402D267F1AEB003D5167 /* WelcomeSlide2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650402C267F1AEB003D5167 /* WelcomeSlide2View.swift */; };
 		9650402F267F1AF5003D5167 /* WelcomeSlide3View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650402E267F1AF5003D5167 /* WelcomeSlide3View.swift */; };
@@ -389,6 +391,8 @@
 		96155B762689F97700228151 /* OMinutesAtTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMinutesAtTimeCell.swift; sourceTree = "<group>"; };
 		96155B792689FB1A00228151 /* MinutesAtTimeElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinutesAtTimeElement.swift; sourceTree = "<group>"; };
 		96155B7C268A127E00228151 /* CountCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountCircleView.swift; sourceTree = "<group>"; };
+		96155B80268B634400228151 /* OExperienceProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OExperienceProgressView.swift; sourceTree = "<group>"; };
+		96155B83268B708300228151 /* OExperienceCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OExperienceCursor.swift; sourceTree = "<group>"; };
 		9650402A267F1851003D5167 /* WelcomeSlide1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSlide1View.swift; sourceTree = "<group>"; };
 		9650402C267F1AEB003D5167 /* WelcomeSlide2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSlide2View.swift; sourceTree = "<group>"; };
 		9650402E267F1AF5003D5167 /* WelcomeSlide3View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSlide3View.swift; sourceTree = "<group>"; };
@@ -833,6 +837,15 @@
 				96155B792689FB1A00228151 /* MinutesAtTimeElement.swift */,
 			);
 			path = MinutesAtTime;
+			sourceTree = "<group>";
+		};
+		96155B82268B704F00228151 /* Experience */ = {
+			isa = PBXGroup;
+			children = (
+				96155B80268B634400228151 /* OExperienceProgressView.swift */,
+				96155B83268B708300228151 /* OExperienceCursor.swift */,
+			);
+			path = Experience;
 			sourceTree = "<group>";
 		};
 		96504029267F1826003D5167 /* Welcome */ = {
@@ -1634,7 +1647,7 @@
 		967AD49F260FD0AE008E8175 /* Atoms */ = {
 			isa = PBXGroup;
 			children = (
-				96155B7C268A127E00228151 /* CountCircleView.swift */,
+				96155B82268B704F00228151 /* Experience */,
 				96155B782689FAFD00228151 /* MinutesAtTime */,
 				96DC8E1A267FC61800FEC74B /* Mode */,
 				96504029267F1826003D5167 /* Welcome */,
@@ -1646,6 +1659,7 @@
 				967AD4A5260FD0AE008E8175 /* OGoalCell.swift */,
 				96B67AE52629B9DE0048DAB9 /* OSlider.swift */,
 				96B67AF4262A06900048DAB9 /* OPreloaderCell.swift */,
+				96155B7C268A127E00228151 /* CountCircleView.swift */,
 			);
 			path = Atoms;
 			sourceTree = "<group>";
@@ -2083,6 +2097,7 @@
 				862F2DCC263572D70096ADE2 /* GradientProgressView.swift in Sources */,
 				969679BC265CDDD50070E7F7 /* LocaleCountryView.swift in Sources */,
 				86CE87312621FBEE00FC7091 /* CourseFlowLayout.swift in Sources */,
+				96155B84268B708300228151 /* OExperienceCursor.swift in Sources */,
 				96F44FC62631EF9C000B77E3 /* ProfileManager.swift in Sources */,
 				967AD4D4260FD0AE008E8175 /* RateManager.swift in Sources */,
 				967AD4C2260FD0AE008E8175 /* ScreenSize.swift in Sources */,
@@ -2229,6 +2244,7 @@
 				967AD4C1260FD0AE008E8175 /* TextAttributes.swift in Sources */,
 				96E3602F2672078C00D49D4E /* GetFlashcardsTopicsRequest.swift in Sources */,
 				86BB2593261E14D700C6D2FA /* GetSavedRequest.swift in Sources */,
+				96155B81268B634400228151 /* OExperienceProgressView.swift in Sources */,
 				9667BB19264EA4780029ED86 /* ProfileMediator.swift in Sources */,
 				967AD503260FD0AF008E8175 /* GetStatsRequest.swift in Sources */,
 				967AD55F260FD0AF008E8175 /* StatsView.swift in Sources */,

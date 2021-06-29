@@ -6,19 +6,20 @@
 //
 
 import UIKit
+import RxSwift
 
 final class OSlideExperienceView: OSlideView {
     lazy var titleLabel = makeTitleLabel()
-    lazy var cell1 = makeCell(title: "Onboarding.SlideExperience.Cell1", tag: 1)
-    lazy var cell2 = makeCell(title: "Onboarding.SlideExperience.Cell2", tag: 2)
-    lazy var cell3 = makeCell(title: "Onboarding.SlideExperience.Cell3", tag: 3)
+    lazy var experienceView = makeExperienceView()
     lazy var button = makeButton()
+    
+    private lazy var disposeBag = DisposeBag()
     
     override init(step: OnboardingView.Step) {
         super.init(step: step)
         
         makeConstraints()
-        changeEnabled()
+        initialize()
     }
     
     required init?(coder: NSCoder) {
@@ -28,34 +29,29 @@ final class OSlideExperienceView: OSlideView {
 
 // MARK: Private
 private extension OSlideExperienceView {
-    @objc
-    func selected(tapGesture: UITapGestureRecognizer) {
-        guard let cell = tapGesture.view as? OGoalCell else {
-            return
-        }
-        
-        [
-            cell1, cell2, cell3
-        ].forEach { $0.isSelected = false }
-        
-        cell.isSelected = !cell.isSelected
-        
-        changeEnabled()
-        
-        SDKStorage.shared
-            .amplitudeManager
-            .logEvent(name: "Experience Tap", parameters: [:])
-    }
-    
-    func changeEnabled() {
-        let isEmpty = [
-            cell1, cell2, cell3
-        ]
-        .filter { $0.isSelected }
-        .isEmpty
-        
-        button.isEnabled = !isEmpty
-        button.alpha = isEmpty ? 0.4 : 1
+    func initialize() {
+        Observable
+            .merge(
+                experienceView
+                    .period1Button.rx.tap
+                    .map { OExperienceProgressView.Period.period1 },
+                
+                experienceView
+                    .period2Button.rx.tap
+                    .map { OExperienceProgressView.Period.period2 },
+                
+                experienceView
+                    .period3Button.rx.tap
+                    .map { OExperienceProgressView.Period.period3 },
+                
+                experienceView
+                    .period4Button.rx.tap
+                    .map { OExperienceProgressView.Period.period4 }
+            )
+            .subscribe(onNext: { [weak self] period in
+                self?.experienceView.period = period
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -65,25 +61,14 @@ private extension OSlideExperienceView {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
-            titleLabel.bottomAnchor.constraint(equalTo: cell1.topAnchor, constant: -24.scale)
+            titleLabel.bottomAnchor.constraint(equalTo: experienceView.topAnchor, constant: -48.scale)
         ])
         
         NSLayoutConstraint.activate([
-            cell1.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
-            cell1.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
-            cell1.bottomAnchor.constraint(equalTo: cell2.topAnchor, constant: -16.scale)
-        ])
-        
-        NSLayoutConstraint.activate([
-            cell2.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
-            cell2.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
-            cell2.bottomAnchor.constraint(equalTo: cell3.topAnchor, constant: -16.scale)
-        ])
-        
-        NSLayoutConstraint.activate([
-            cell3.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
-            cell3.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
-            cell3.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -48.scale)
+            experienceView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20.scale),
+            experienceView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.scale),
+            experienceView.heightAnchor.constraint(equalToConstant: 85.scale),
+            experienceView.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -48.scale)
         ])
 
         NSLayoutConstraint.activate([
@@ -106,21 +91,15 @@ private extension OSlideExperienceView {
         
         let view = UILabel()
         view.numberOfLines = 0
-        view.attributedText = "Onboarding.SlideExperience.Title".localized.attributed(with: attrs)
+        view.attributedText = "Onboarding.Experience.Title".localized.attributed(with: attrs)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
     }
     
-    func makeCell(title: String, tag: Int) -> OGoalCell {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(selected(tapGesture:)))
-        
-        let view = OGoalCell()
-        view.tag = tag
-        view.isUserInteractionEnabled = true
-        view.addGestureRecognizer(tapGesture)
-        view.isSelected = false
-        view.text = title.localized
+    func makeExperienceView() -> OExperienceProgressView {
+        let view = OExperienceProgressView()
+        view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view

@@ -52,10 +52,6 @@
 "Onboarding.SlideCount.Title" = "How many tests\nwould you like to\ntake daily?";
 "Onboarding.SlideCount.PopularChoise" = "5 tests - Popular choice";
 "Onboarding.SlideCount.LearningSpeed" = "learning\nspeed %.1f";
-"Onboarding.SlideExperience.Title" = "Describe your\ndriving\nexperience";
-"Onboarding.SlideExperience.Cell1" = "0-3 years";
-"Onboarding.SlideExperience.Cell2" = "3-5 years";
-"Onboarding.SlideExperience.Cell3" = "5+ years";
 "Onboarding.Preloader.Title" = "Preparing your\nindividual study\nplan";
 "Onboarding.Preloader.Cell1" = "Analyzing your skill level";
 "Onboarding.Preloader.Cell2" = "Analyzing your goals";
@@ -84,6 +80,12 @@
 "Onboarding.MinutesAtTime.15min" = "15 min";
 "Onboarding.MinutesAtTime.20min" = "20 min";
 "Onboarding.MinutesAtTime.Header" = "You can always change your goals";
+"Onboarding.Experience.Title" = "Describe your driving\nexperience";
+"Onboarding.Experience.Period1" = "0-2 years";
+"Onboarding.Experience.Period2" = "2-4 years";
+"Onboarding.Experience.Period3" = "4-6 years";
+"Onboarding.Experience.Period4" = "6+ years";
+"Onboarding.Experience.Header" = "You can always change your goals";
 
 // MARK: Study
 "Study.Title" = "Study";
