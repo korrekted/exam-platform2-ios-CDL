@@ -50,9 +50,7 @@ extension OnboardingViewController {
 // MARK: API
 extension OnboardingViewController {
     static func wasViewed() -> Bool {
-        // TODO
-        false
-//        UserDefaults.standard.bool(forKey: OnboardingViewController.Constants.wasViewedKey)
+        UserDefaults.standard.bool(forKey: OnboardingViewController.Constants.wasViewedKey)
     }
 }
 

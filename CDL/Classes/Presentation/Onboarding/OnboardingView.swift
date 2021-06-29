@@ -137,7 +137,7 @@ private extension OnboardingView {
         headerLabel.text = ""
         
         let progressCases: [Step] = [
-            .goals, .mode, .whenTaking, .minutesAtTime, .time, .count, .experience, .whenStudy
+            .goals, .mode, .whenTaking, .minutesAtTime, .count, .experience, .time, .whenStudy
         ]
         guard let index = progressCases.firstIndex(of: step) else {
             return
