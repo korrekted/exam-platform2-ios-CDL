@@ -8,11 +8,10 @@
 import UIKit
 
 final class OSlidePreloaderView: OSlideView {
+    lazy var imageView = makeImageView()
     lazy var titleLabel = makeTitleLabel()
     lazy var progressView = makeProgressView()
-    lazy var cell1 = makeCell(title: "Onboarding.Preloader.Cell1")
-    lazy var cell2 = makeCell(title: "Onboarding.Preloader.Cell2")
-    lazy var cell3 = makeCell(title: "Onboarding.Preloader.Cell3")
+    lazy var progressLabel = makeProgressLabel()
     
     private var timer: Timer?
     
@@ -27,7 +26,6 @@ final class OSlidePreloaderView: OSlideView {
     }
     
     override func moveToThis() {
-        progressView.progressAnimation(duration: 4.5)
         calculatePercent()
     }
 }
@@ -38,6 +36,12 @@ private extension OSlidePreloaderView {
         let duration = Double(4.5)
         var seconds = Double(0)
         
+        let attrs = TextAttributes()
+            .textColor(UIColor.white)
+            .font(Fonts.Lato.bold(size: 18.scale))
+            .lineHeight(25.2.scale)
+            .textAlignment(.center)
+        
         timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
             seconds += 0.1
             
@@ -47,12 +51,14 @@ private extension OSlidePreloaderView {
             }
             
             if percent <= 33 {
-                self?.cell1.isChecked = true
+                self?.progressLabel.attributedText = String(format: "Onboarding.Preloader.Cell1".localized, percent).attributed(with: attrs)
             } else if percent <= 66 {
-                self?.cell2.isChecked = true
+                self?.progressLabel.attributedText = String(format: "Onboarding.Preloader.Cell2".localized, percent).attributed(with: attrs)
             }  else {
-                self?.cell3.isChecked = true
+                self?.progressLabel.attributedText = String(format: "Onboarding.Preloader.Cell3".localized, percent).attributed(with: attrs)
             }
+            
+            self?.progressView.progress = Float(percent) / 100
             
             if seconds >= duration {
                 timer.invalidate()
@@ -75,40 +81,43 @@ private extension OSlidePreloaderView {
 private extension OSlidePreloaderView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: ScreenSize.isIphoneXFamily ? 153.scale : 89.scale)
+            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: 343.scale),
+            imageView.heightAnchor.constraint(equalToConstant: 321.scale),
+            imageView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -40.scale)
         ])
         
         NSLayoutConstraint.activate([
-            progressView.widthAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 150.scale : 80.scale),
-            progressView.heightAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 150.scale : 80.scale),
-            progressView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            progressView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? 88.scale : 66.scale)
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24.scale),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24.scale),
+            titleLabel.bottomAnchor.constraint(equalTo: progressView.topAnchor, constant: -48.scale)
         ])
         
         NSLayoutConstraint.activate([
-            cell1.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 68.scale),
-            cell1.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24.scale),
-            cell1.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? 88.scale : 66.scale)
+            progressView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
+            progressView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
+            progressView.heightAnchor.constraint(equalToConstant: 59.scale),
+            progressView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -60.scale : -30.scale)
         ])
         
         NSLayoutConstraint.activate([
-            cell2.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 68.scale),
-            cell2.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24.scale),
-            cell2.topAnchor.constraint(equalTo: cell1.bottomAnchor, constant: 16.scale)
-        ])
-        
-        NSLayoutConstraint.activate([
-            cell3.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 68.scale),
-            cell3.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24.scale),
-            cell3.topAnchor.constraint(equalTo: cell2.bottomAnchor, constant: 16.scale)
+            progressLabel.centerXAnchor.constraint(equalTo: progressView.centerXAnchor),
+            progressLabel.centerYAnchor.constraint(equalTo: progressView.centerYAnchor)
         ])
     }
 }
 
 // MARK: Lazy initialization
 private extension OSlidePreloaderView {
+    func makeImageView() -> UIImageView {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFit
+        view.image = UIImage(named: "Onboarding.Preloader.Image")
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }
+    
     func makeTitleLabel() -> UILabel {
         let attrs = TextAttributes()
             .textColor(Onboarding.Preloader.text)
@@ -124,17 +133,19 @@ private extension OSlidePreloaderView {
         return view
     }
     
-    func makeProgressView() -> OProgressView {
-        let view = OProgressView()
+    func makeProgressView() -> UIProgressView {
+        let view = UIProgressView()
+        view.layer.cornerRadius = 12.scale
+        view.layer.masksToBounds = true
+        view.trackTintColor = UIColor(integralRed: 60, green: 75, blue: 159)
+        view.progressTintColor = UIColor(integralRed: 249, green: 205, blue: 106)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
     }
     
-    func makeCell(title: String) -> OPreloaderCell {
-        let view = OPreloaderCell()
-        view.title = title.localized
-        view.isChecked = false
+    func makeProgressLabel() -> UILabel {
+        let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view

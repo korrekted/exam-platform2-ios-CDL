@@ -52,10 +52,10 @@
 "Onboarding.SlideCount.Title" = "How many tests\nwould you like to\ntake daily?";
 "Onboarding.SlideCount.PopularChoise" = "5 tests - Popular choice";
 "Onboarding.SlideCount.LearningSpeed" = "learning\nspeed %.1f";
-"Onboarding.Preloader.Title" = "Preparing your\nindividual study\nplan";
-"Onboarding.Preloader.Cell1" = "Analyzing your skill level";
-"Onboarding.Preloader.Cell2" = "Analyzing your goals";
-"Onboarding.Preloader.Cell3" = "Processing required exams";
+"Onboarding.Preloader.Title" = "Preparing your\nindividual study\nplan...";
+"Onboarding.Preloader.Cell1" = "Analyzing your skill level  %i%%";
+"Onboarding.Preloader.Cell2" = "Analyzing your goals  %i%%";
+"Onboarding.Preloader.Cell3" = "Processing required exams %i%%";
 "Onboarding.SlidePlan.Title" = "Your personal 98%\npass rate study plan is\nready!";
 "Onboarding.SlidePlan.Cell1" = "1000+ individual questions";
 "Onboarding.SlidePlan.Cell2" = "different topics";
