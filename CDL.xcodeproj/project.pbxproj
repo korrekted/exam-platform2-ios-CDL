@@ -249,7 +249,6 @@
 		967AD56B260FD0AF008E8175 /* OSlideCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD49E260FD0AE008E8175 /* OSlideCountView.swift */; };
 		967AD56C260FD0AF008E8175 /* OProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4A0260FD0AE008E8175 /* OProgressView.swift */; };
 		967AD56D260FD0AF008E8175 /* OSlidePlanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4A1260FD0AE008E8175 /* OSlidePlanCell.swift */; };
-		967AD56F260FD0AF008E8175 /* ODatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4A4260FD0AE008E8175 /* ODatePicker.swift */; };
 		967AD570260FD0AF008E8175 /* OGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4A5260FD0AE008E8175 /* OGoalCell.swift */; };
 		967AD576260FD0AF008E8175 /* OSlidePreloaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4AB260FD0AE008E8175 /* OSlidePreloaderView.swift */; };
 		967AD577260FD0AF008E8175 /* OSlideGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4AC260FD0AE008E8175 /* OSlideGoalsView.swift */; };
@@ -563,7 +562,6 @@
 		967AD49E260FD0AE008E8175 /* OSlideCountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideCountView.swift; sourceTree = "<group>"; };
 		967AD4A0260FD0AE008E8175 /* OProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OProgressView.swift; sourceTree = "<group>"; };
 		967AD4A1260FD0AE008E8175 /* OSlidePlanCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlidePlanCell.swift; sourceTree = "<group>"; };
-		967AD4A4260FD0AE008E8175 /* ODatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ODatePicker.swift; sourceTree = "<group>"; };
 		967AD4A5260FD0AE008E8175 /* OGoalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OGoalCell.swift; sourceTree = "<group>"; };
 		967AD4AB260FD0AE008E8175 /* OSlidePreloaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlidePreloaderView.swift; sourceTree = "<group>"; };
 		967AD4AC260FD0AE008E8175 /* OSlideGoalsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideGoalsView.swift; sourceTree = "<group>"; };
@@ -1645,7 +1643,6 @@
 				967AD4A2260FD0AE008E8175 /* Source */,
 				967AD4A0260FD0AE008E8175 /* OProgressView.swift */,
 				967AD4A1260FD0AE008E8175 /* OSlidePlanCell.swift */,
-				967AD4A4260FD0AE008E8175 /* ODatePicker.swift */,
 				967AD4A5260FD0AE008E8175 /* OGoalCell.swift */,
 				96B67AE52629B9DE0048DAB9 /* OSlider.swift */,
 				96B67AF4262A06900048DAB9 /* OPreloaderCell.swift */,
@@ -2168,7 +2165,6 @@
 				967AD4BB260FD0AE008E8175 /* UITapGestureRecognizerExtension.swift in Sources */,
 				967AD521260FD0AF008E8175 /* StudyView.swift in Sources */,
 				967AD4E3260FD0AE008E8175 /* TestStats.swift in Sources */,
-				967AD56F260FD0AF008E8175 /* ODatePicker.swift in Sources */,
 				96B67AEA2629BB100048DAB9 /* OSlideExperienceView.swift in Sources */,
 				967AD501260FD0AF008E8175 /* GetBriefResponseMapper.swift in Sources */,
 				967AD4E7260FD0AE008E8175 /* TestStatsManager.swift in Sources */,
@@ -2470,7 +2466,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 17;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = "$(SRCROOT)/CDL/Resource/Info.plist";
@@ -2479,7 +2475,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.2;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = prep.cdl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "CDL Development";
@@ -2497,7 +2493,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = "$(SRCROOT)/CDL/Resource/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -2505,7 +2501,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.2;
+				MARKETING_VERSION = 1.8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = prep.cdl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "CDL AppStore Profile";

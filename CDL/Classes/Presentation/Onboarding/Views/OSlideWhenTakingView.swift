@@ -73,18 +73,23 @@ private extension OSlideWhenTakingView {
         return view
     }
     
-    func makeDatePickerView() -> PIDatePicker {
+    func makeDatePickerView() -> UIDatePicker {
         let minimumDate = Calendar.current.date(byAdding: .day, value: 6, to: Date()) ?? Date()
         
         let startDate = Calendar.current.date(byAdding: .day, value: 7, to: Date()) ?? Date()
         
-        let view = PIDatePicker()
+        let view = UIDatePicker()
+        view.datePickerMode = .date
         view.backgroundColor = UIColor.clear
         view.minimumDate = minimumDate
-        view.setDate(startDate, animated: true)
+        view.date = startDate
         view.locale = Locale.current
-        view.textColor = Onboarding.pickerText
-        view.font = Fonts.Lato.bold(size: 24.scale)
+        if #available(iOS 13.4, *) {
+            view.preferredDatePickerStyle = .wheels
+        }
+        view.setValue(UIColor.white, forKeyPath: "textColor")
+        view.datePickerMode = .countDownTimer
+        view.datePickerMode = .date
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
