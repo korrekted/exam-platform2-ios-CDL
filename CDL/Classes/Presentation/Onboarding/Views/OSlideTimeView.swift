@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class OSlideTimeView: OSlideView {
     lazy var titleLabel = makeTitleLabel()
@@ -13,6 +14,12 @@ final class OSlideTimeView: OSlideView {
     lazy var pickerView = makePickerView()
     lazy var minLabel = makeMinLabel()
     lazy var button = makeButton()
+    
+    private lazy var selectedMinutes = 0
+    
+    private lazy var manager = ProfileManagerCore()
+    
+    private lazy var disposeBag = DisposeBag()
     
     override init(step: OnboardingView.Step) {
         super.init(step: step)
@@ -62,11 +69,37 @@ extension OSlideTimeView: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         50.scale
     }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedMinutes = (row + 1) * 5
+    }
 }
 
 // MARK: Private
 private extension OSlideTimeView {
     func initialize() {
+        button.rx.tap
+            .flatMapLatest { [weak self] _ -> Single<Bool> in
+                guard let self = self else {
+                    return .never()
+                }
+                
+                return self.manager
+                    .set(testMinutes: self.selectedMinutes)
+                    .map { true }
+                    .catchAndReturn(false)
+            }
+            .asDriver(onErrorDriveWith: .never())
+            .drive(onNext: { [weak self] success in
+                guard success else {
+                    Toast.notify(with: "Onboarding.FailedToSave".localized, style: .danger)
+                    return
+                }
+
+                self?.onNext()
+            })
+            .disposed(by: disposeBag)
+        
         pickerView.reloadAllComponents()
         pickerView.selectRow(3, inComponent: 0, animated: false)
     }
@@ -168,7 +201,6 @@ private extension OSlideTimeView {
         view.backgroundColor = Onboarding.primaryButton
         view.layer.cornerRadius = 12.scale
         view.setAttributedTitle("Onboarding.Next".localized.attributed(with: attrs), for: .normal)
-        view.addTarget(self, action: #selector(onNext), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
