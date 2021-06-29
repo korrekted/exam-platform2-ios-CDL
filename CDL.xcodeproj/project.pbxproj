@@ -80,6 +80,7 @@
 		96155B81268B634400228151 /* OExperienceProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B80268B634400228151 /* OExperienceProgressView.swift */; };
 		96155B84268B708300228151 /* OExperienceCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B83268B708300228151 /* OExperienceCursor.swift */; };
 		96155B86268B924900228151 /* OWhenStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B85268B924900228151 /* OWhenStudyView.swift */; };
+		96155B89268B969B00228151 /* OPushView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B88268B969B00228151 /* OPushView.swift */; };
 		9650402B267F1851003D5167 /* WelcomeSlide1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650402A267F1851003D5167 /* WelcomeSlide1View.swift */; };
 		9650402D267F1AEB003D5167 /* WelcomeSlide2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650402C267F1AEB003D5167 /* WelcomeSlide2View.swift */; };
 		9650402F267F1AF5003D5167 /* WelcomeSlide3View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650402E267F1AF5003D5167 /* WelcomeSlide3View.swift */; };
@@ -395,6 +396,8 @@
 		96155B80268B634400228151 /* OExperienceProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OExperienceProgressView.swift; sourceTree = "<group>"; };
 		96155B83268B708300228151 /* OExperienceCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OExperienceCursor.swift; sourceTree = "<group>"; };
 		96155B85268B924900228151 /* OWhenStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OWhenStudyView.swift; sourceTree = "<group>"; };
+		96155B87268B953100228151 /* CDL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CDL.entitlements; sourceTree = "<group>"; };
+		96155B88268B969B00228151 /* OPushView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPushView.swift; sourceTree = "<group>"; };
 		9650402A267F1851003D5167 /* WelcomeSlide1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSlide1View.swift; sourceTree = "<group>"; };
 		9650402C267F1AEB003D5167 /* WelcomeSlide2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSlide2View.swift; sourceTree = "<group>"; };
 		9650402E267F1AF5003D5167 /* WelcomeSlide3View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSlide3View.swift; sourceTree = "<group>"; };
@@ -951,6 +954,7 @@
 		967AD36E260FCFAC008E8175 /* CDL */ = {
 			isa = PBXGroup;
 			children = (
+				96155B87268B953100228151 /* CDL.entitlements */,
 				967AD3A5260FD0AE008E8175 /* Classes */,
 				967AD385260FCFC5008E8175 /* Resource */,
 			);
@@ -1643,6 +1647,7 @@
 				96DC8E18267FC60D00FEC74B /* OSlideModeView.swift */,
 				96155B742689F89100228151 /* OSlideMinutesAtTimeView.swift */,
 				96155B85268B924900228151 /* OWhenStudyView.swift */,
+				96155B88268B969B00228151 /* OPushView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2045,6 +2050,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96155B89268B969B00228151 /* OPushView.swift in Sources */,
 				967AD576260FD0AF008E8175 /* OSlidePreloaderView.swift in Sources */,
 				967AD526260FD0AF008E8175 /* TabView.swift in Sources */,
 				8687B554261AE96600D6235D /* GetAgainTestRequest.swift in Sources */,
@@ -2484,6 +2490,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CDL/CDL.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 17;
@@ -2511,6 +2518,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CDL/CDL.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 17;

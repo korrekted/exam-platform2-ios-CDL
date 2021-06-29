@@ -36,6 +36,8 @@ final class OnboardingAnalytics {
             name = "Plan Preparing Screen"
         case .plan:
             name = "Personal Plan Screen"
+        case .push:
+            name = "Push Screen"
         }
         
         SDKStorage.shared

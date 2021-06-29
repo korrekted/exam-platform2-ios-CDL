@@ -93,6 +93,10 @@
 "Onboarding.WhenStudy.Cell4" = "Before bedtime";
 "Onboarding.WhenStudy.Cell5" = "No particular preference";
 "Onboarding.WhenStudy.Header" = "You can always change your goals";
+"Onboarding.Push.Title" = "Stay on track!";
+"Onboarding.Push.Subtitle" = "To reach your goals more effectively, we would like to send regular useful reminders to you. ";
+"Onboarding.Push.Allow" = "Allow notifications";
+"Onboarding.Push.NotNow" = "Not now";
 
 // MARK: Study
 "Study.Title" = "Estudio";
