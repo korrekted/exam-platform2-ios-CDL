@@ -30,6 +30,8 @@ final class OnboardingAnalytics {
             name = "Tests Number Screen"
         case .experience:
             name = "Experience Screen"
+        case .whenStudy:
+            name = "When Study Screen"
         case .preloader:
             name = "Plan Preparing Screen"
         case .plan:

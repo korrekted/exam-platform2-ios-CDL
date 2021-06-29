@@ -86,6 +86,13 @@
 "Onboarding.Experience.Period3" = "4-6 years";
 "Onboarding.Experience.Period4" = "6+ years";
 "Onboarding.Experience.Header" = "You can always change your goals";
+"Onboarding.WhenStudy.Title" = "When do you want\nto study?";
+"Onboarding.WhenStudy.Cell1" = "Early morning";
+"Onboarding.WhenStudy.Cell2" = "At noon";
+"Onboarding.WhenStudy.Cell3" = "After work";
+"Onboarding.WhenStudy.Cell4" = "Before bedtime";
+"Onboarding.WhenStudy.Cell5" = "No particular preference";
+"Onboarding.WhenStudy.Header" = "You can always change your goals";
 
 // MARK: Study
 "Study.Title" = "Study";

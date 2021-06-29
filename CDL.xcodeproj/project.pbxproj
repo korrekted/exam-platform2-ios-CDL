@@ -79,6 +79,7 @@
 		96155B7D268A127E00228151 /* CountCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B7C268A127E00228151 /* CountCircleView.swift */; };
 		96155B81268B634400228151 /* OExperienceProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B80268B634400228151 /* OExperienceProgressView.swift */; };
 		96155B84268B708300228151 /* OExperienceCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B83268B708300228151 /* OExperienceCursor.swift */; };
+		96155B86268B924900228151 /* OWhenStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B85268B924900228151 /* OWhenStudyView.swift */; };
 		9650402B267F1851003D5167 /* WelcomeSlide1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650402A267F1851003D5167 /* WelcomeSlide1View.swift */; };
 		9650402D267F1AEB003D5167 /* WelcomeSlide2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650402C267F1AEB003D5167 /* WelcomeSlide2View.swift */; };
 		9650402F267F1AF5003D5167 /* WelcomeSlide3View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650402E267F1AF5003D5167 /* WelcomeSlide3View.swift */; };
@@ -393,6 +394,7 @@
 		96155B7C268A127E00228151 /* CountCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountCircleView.swift; sourceTree = "<group>"; };
 		96155B80268B634400228151 /* OExperienceProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OExperienceProgressView.swift; sourceTree = "<group>"; };
 		96155B83268B708300228151 /* OExperienceCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OExperienceCursor.swift; sourceTree = "<group>"; };
+		96155B85268B924900228151 /* OWhenStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OWhenStudyView.swift; sourceTree = "<group>"; };
 		9650402A267F1851003D5167 /* WelcomeSlide1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSlide1View.swift; sourceTree = "<group>"; };
 		9650402C267F1AEB003D5167 /* WelcomeSlide2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSlide2View.swift; sourceTree = "<group>"; };
 		9650402E267F1AF5003D5167 /* WelcomeSlide3View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSlide3View.swift; sourceTree = "<group>"; };
@@ -1640,6 +1642,7 @@
 				969679C0265CE3690070E7F7 /* OSlideLocaleView.swift */,
 				96DC8E18267FC60D00FEC74B /* OSlideModeView.swift */,
 				96155B742689F89100228151 /* OSlideMinutesAtTimeView.swift */,
+				96155B85268B924900228151 /* OWhenStudyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2311,6 +2314,7 @@
 				9673819326792DC000230FB6 /* MonetizationConfig.swift in Sources */,
 				96E3603D26720D7800D49D4E /* FlashcardsManagerCore.swift in Sources */,
 				967AD547260FD0AF008E8175 /* TestStatsAnswerCell.swift in Sources */,
+				96155B86268B924900228151 /* OWhenStudyView.swift in Sources */,
 				967AD4FC260FD0AF008E8175 /* CoursesManager.swift in Sources */,
 				967AD500260FD0AF008E8175 /* GetBriefRequest.swift in Sources */,
 				967AD55A260FD0AF008E8175 /* StatsViewModel.swift in Sources */,

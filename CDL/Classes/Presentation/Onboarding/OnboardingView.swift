@@ -9,7 +9,7 @@ import UIKit
 
 final class OnboardingView: UIView {
     enum Step: Int {
-        case welcome, locale, topics, goals, mode, whenTaking, minutesAtTime, count, experience, time, preloader, plan
+        case welcome, locale, topics, goals, mode, whenTaking, minutesAtTime, count, experience, time, whenStudy, preloader, plan
     }
     
     var didFinish: (() -> Void)?
@@ -38,6 +38,7 @@ final class OnboardingView: UIView {
             OSlideCountView(step: .count),
             OSlideExperienceView(step: .experience),
             OSlideTimeView(step: .time),
+            OWhenStudyView(step: .whenStudy),
             OSlidePreloaderView(step: .preloader),
             OSlidePlanView(step: .plan)
         ]
@@ -133,7 +134,7 @@ private extension OnboardingView {
         }
         
         let progressCases: [Step] = [
-            .goals, .mode, .whenTaking, .minutesAtTime, .time, .count, .experience
+            .goals, .mode, .whenTaking, .minutesAtTime, .time, .count, .experience, .whenStudy
         ]
         guard let index = progressCases.firstIndex(of: step) else {
             return
@@ -158,6 +159,8 @@ private extension OnboardingView {
             return "Onboarding.SlideWhenTaking.Header".localized
         case .experience:
             return "Onboarding.Experience.Header".localized
+        case .whenStudy:
+            return "Onboarding.WhenStudy.Header".localized
         default:
             return ""
         }
