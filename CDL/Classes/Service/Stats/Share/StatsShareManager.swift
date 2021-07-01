@@ -15,9 +15,8 @@ final class StatsShareManager {
 
 // MARK: Public
 extension StatsShareManager {
-    // TODO: заменить идентификатор
     func sharedContainerURL() -> URL? {
-        FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.your.prefix.emitron.contents")
+        FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.cdl.widgets")
     }
     
     @discardableResult
