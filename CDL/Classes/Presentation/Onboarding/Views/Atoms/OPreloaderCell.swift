@@ -20,7 +20,7 @@ final class OPreloaderCell: UIView {
     var title: String = "" {
         didSet {
             let attrs = TextAttributes()
-                .font(Fonts.SFProRounded.regular(size: 18.scale))
+                .font(Fonts.Lato.regular(size: 18.scale))
                 .lineHeight(25.scale)
                 .textColor(Onboarding.Preloader.text)
             

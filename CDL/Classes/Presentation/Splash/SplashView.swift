@@ -36,7 +36,7 @@ private extension SplashView {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8.scale),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8.scale),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: ScreenSize.isIphoneXFamily ? 153.scale : 30.scale)
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: ScreenSize.isIphoneXFamily ? 153.scale : 50.scale)
         ])
         
         NSLayoutConstraint.activate([
@@ -53,14 +53,14 @@ private extension SplashView {
     func makeTitleLabel() -> UILabel {
         let attrs1 = TextAttributes()
             .textColor(Splash.primaryText)
-            .font(Fonts.SFProRounded.bold(size: 40.scale))
-            .lineHeight(48.scale)
+            .font(Fonts.SFProRounded.bold(size: 48.scale))
+            .lineHeight(52.scale)
             .textAlignment(.center)
         
         let attrs2 = TextAttributes()
             .textColor(Splash.secondaryText)
-            .font(Fonts.SFProRounded.bold(size: 45.scale))
-            .lineHeight(53.scale)
+            .font(Fonts.SFProRounded.bold(size: 48.scale))
+            .lineHeight(52.scale)
             .textAlignment(.center)
         
         let string = NSMutableAttributedString()
