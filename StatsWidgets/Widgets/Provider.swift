@@ -6,6 +6,7 @@
 //
 
 import WidgetKit
+import SwiftUI
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> StatsContent {
@@ -17,11 +18,15 @@ struct Provider: TimelineProvider {
     }
 
     func readContents() -> [Entry] {
-        let stats = StatsContent(passRate: 0.5,
-                                 testTaken: 0.5,
-                                 correctAnswers: 0.5,
-                                 questionsTaken: 0.1)
-        return [stats]
+        guard let stats = StatsShareManager.shared.read() else {
+            return []
+        }
+    
+        let content = StatsContent(passRate: CGFloat(stats.passRate) / 100,
+                                   testTaken: CGFloat(stats.testTaken) / 100,
+                                   correctAnswers: CGFloat(stats.correctAnswers) / 100,
+                                   questionsTaken: CGFloat(stats.questionsTaken) / 100)
+        return [content]
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<StatsContent>) -> Void) {
