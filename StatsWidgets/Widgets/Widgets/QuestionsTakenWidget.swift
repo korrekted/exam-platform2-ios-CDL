@@ -14,7 +14,8 @@ struct QuestionsTakenWidget: Widget {
             HStack {
                 VerticalRateView(progress: entry.questionsTaken,
                                  title: "Stats.MainRate.QuestionsTaken".localized,
-                                 color: Color(red: 196, green: 42, blue: 80))
+                                 color: Color(red: 196 / 255, green: 42 / 255, blue: 80 / 255),
+                                 alignment: .leading)
                 Spacer()
             }
             .padding(16.scale)

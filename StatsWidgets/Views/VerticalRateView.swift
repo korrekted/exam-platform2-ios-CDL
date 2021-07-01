@@ -11,13 +11,22 @@ struct VerticalRateView: View {
     var progress: CGFloat
     var title: String
     var color: Color
+    var alignment: HorizontalAlignment = .center
+    
+    @Environment(\.colorScheme) var colorScheme
+    
+    var textColor: Color {
+        colorScheme == .dark
+            ? Color(red: 245 / 255, green: 245 / 255, blue: 245 / 255)
+            : Color(red: 31 / 255, green: 31 / 255, blue: 31 / 255)
+    }
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: alignment) {
             Text(title)
                 .font(.system(size: 12.scale))
                 .fontWeight(.regular)
-                .foregroundColor(Color.white)
+                .foregroundColor(textColor)
             Text(String(format: "%.0f%%", min(self.progress, 1.0) * 100.0))
                 .font(.system(size: 32.scale))
                 .fontWeight(.bold)

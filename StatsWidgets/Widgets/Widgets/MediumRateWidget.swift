@@ -14,15 +14,15 @@ struct MediumRateWidget: Widget {
             HStack(alignment: .center) {
                 VerticalRateView(progress: entry.testTaken,
                                  title: "Stats.MainRate.TestsTake".localized,
-                                 color: Color(red: 41, green: 55, blue: 137))
+                                 color: Color(red: 41 / 255, green: 55 / 255, blue: 137 / 255))
                 Spacer()
                 VerticalRateView(progress: entry.correctAnswers,
                                  title: "Stats.MainRate.CorrectAnswers".localized,
-                                 color: Color(red: 249, green: 205, blue: 106))
+                                 color: Color(red: 249 / 255, green: 205 / 255, blue: 106 / 255))
                 Spacer()
                 VerticalRateView(progress: entry.questionsTaken,
                                  title: "Stats.MainRate.QuestionsTaken".localized,
-                                 color: Color(red: 196, green: 42, blue: 80))
+                                 color: Color(red: 196 / 255, green: 42 / 255, blue: 80 / 255))
             }
             .padding(16)
         }

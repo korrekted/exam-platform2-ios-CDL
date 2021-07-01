@@ -14,7 +14,8 @@ struct CorrectAnswersWidget: Widget {
             HStack {
                 VerticalRateView(progress: entry.correctAnswers,
                                  title: "Stats.MainRate.CorrectAnswers".localized,
-                                 color: Color(red: 249, green: 205, blue: 106))
+                                 color: Color(red: 249 / 255, green: 205 / 255, blue: 106 / 255),
+                                 alignment: .leading)
                 Spacer()
             }
             .padding(16.scale)

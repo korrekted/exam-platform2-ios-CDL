@@ -12,13 +12,21 @@ struct HorizontalRateView: View {
     var title: String
     var color: Color
     
+    @Environment(\.colorScheme) var colorScheme
+    
+    var textColor: Color {
+        colorScheme == .dark
+            ? Color(red: 245 / 255, green: 245 / 255, blue: 245 / 255)
+            : Color(red: 31 / 255, green: 31 / 255, blue: 31 / 255)
+    }
+    
     var body: some View {
         HStack {
-            VStack {
+            VStack(alignment: .leading) {
                 Text(title)
                     .font(.system(size: 16.scale))
                     .fontWeight(.semibold)
-                    .foregroundColor(Color.white)
+                    .foregroundColor(textColor)
                 Text(String(format: "%.0f%%", min(self.progress, 1.0) * 100.0))
                     .font(.system(size: 40.scale))
                     .fontWeight(.bold)
