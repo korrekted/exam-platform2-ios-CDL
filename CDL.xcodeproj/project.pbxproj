@@ -339,6 +339,8 @@
 		96F929FE268E270A006331D7 /* MediumRateWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F929FD268E270A006331D7 /* MediumRateWidget.swift */; };
 		96F92A00268E27ED006331D7 /* PassRateWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F929FF268E27ED006331D7 /* PassRateWidget.swift */; };
 		96F92A02268E2916006331D7 /* Starter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F92A01268E2916006331D7 /* Starter.swift */; };
+		96F92A05268E2D31006331D7 /* StatsShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F92A04268E2D31006331D7 /* StatsShareManager.swift */; };
+		96F92A06268E2D75006331D7 /* StatsShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F92A04268E2D31006331D7 /* StatsShareManager.swift */; };
 		B27352698CEF145A2B42A7FF /* Pods_CDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6B356CE2F93ECB3C836F43 /* Pods_CDL.framework */; };
 /* End PBXBuildFile section */
 
@@ -702,6 +704,7 @@
 		96F929FD268E270A006331D7 /* MediumRateWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumRateWidget.swift; sourceTree = "<group>"; };
 		96F929FF268E27ED006331D7 /* PassRateWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassRateWidget.swift; sourceTree = "<group>"; };
 		96F92A01268E2916006331D7 /* Starter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Starter.swift; sourceTree = "<group>"; };
+		96F92A04268E2D31006331D7 /* StatsShareManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsShareManager.swift; sourceTree = "<group>"; };
 		996829E936A18A730988E157 /* Pods-CDL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDL.debug.xcconfig"; path = "Target Support Files/Pods-CDL/Pods-CDL.debug.xcconfig"; sourceTree = "<group>"; };
 		C0234E5B8A750872AFFD05A9 /* Pods-CDL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDL.release.xcconfig"; path = "Target Support Files/Pods-CDL/Pods-CDL.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1311,6 +1314,7 @@
 		967AD406260FD0AE008E8175 /* Stats */ = {
 			isa = PBXGroup;
 			children = (
+				96F92A03268E2D12006331D7 /* Share */,
 				967AD407260FD0AE008E8175 /* Models */,
 				967AD40A260FD0AE008E8175 /* Requests */,
 				967AD40F260FD0AE008E8175 /* Manager */,
@@ -2037,6 +2041,14 @@
 			path = Widgets;
 			sourceTree = "<group>";
 		};
+		96F92A03268E2D12006331D7 /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				96F92A04268E2D31006331D7 /* StatsShareManager.swift */,
+			);
+			path = Share;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2264,6 +2276,7 @@
 				8631825C2610E8000098797B /* TestProgressView.swift in Sources */,
 				96E360232671FB2800D49D4E /* FlashcardsTopicsTableView.swift in Sources */,
 				967AD4CF260FD0AE008E8175 /* GradientView.swift in Sources */,
+				96F92A05268E2D31006331D7 /* StatsShareManager.swift in Sources */,
 				967AD4F6260FD0AF008E8175 /* QuestionManagerCore.swift in Sources */,
 				862F2DCC263572D70096ADE2 /* GradientProgressView.swift in Sources */,
 				969679BC265CDDD50070E7F7 /* LocaleCountryView.swift in Sources */,
@@ -2524,6 +2537,7 @@
 				96F929ED268E1D89006331D7 /* Stats.swift in Sources */,
 				96F929D3268E08CF006331D7 /* Scalable.swift in Sources */,
 				96F929FE268E270A006331D7 /* MediumRateWidget.swift in Sources */,
+				96F92A06268E2D75006331D7 /* StatsShareManager.swift in Sources */,
 				96F92A00268E27ED006331D7 /* PassRateWidget.swift in Sources */,
 				96F929E3268E0C5F006331D7 /* VerticalRateView.swift in Sources */,
 				96F929F8268E24CD006331D7 /* CorrectAnswersWidget.swift in Sources */,
