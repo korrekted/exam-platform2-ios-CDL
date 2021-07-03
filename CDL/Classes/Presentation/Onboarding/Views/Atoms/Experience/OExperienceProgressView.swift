@@ -12,19 +12,17 @@ final class OExperienceProgressView: UIView {
     
     var period: Period = .period1 {
         didSet {
-            moveSelectedView()
             moveCursorView()
         }
     }
     
-    lazy var progressView = UIView()
-    lazy var period1Button = UIButton()
-    lazy var period2Button = UIButton()
-    lazy var period3Button = UIButton()
-    lazy var period4Button = UIButton()
+    lazy var progressView = OSlider()
+    lazy var period1Button = UIView()
+    lazy var period2Button = UIView()
+    lazy var period3Button = UIView()
+    lazy var period4Button = UIView()
     lazy var period1Label = UILabel()
     lazy var period4Label = UILabel()
-    lazy var selectedView = UIView()
     lazy var cursorView = OExperienceCursor()
     
     override init(frame: CGRect) {
@@ -40,7 +38,6 @@ final class OExperienceProgressView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        moveSelectedView()
         moveCursorView()
     }
 }
@@ -48,9 +45,17 @@ final class OExperienceProgressView: UIView {
 // MARK: Private
 private extension OExperienceProgressView {
     func initialize() {
+        progressView.minimumValue = 1
+        progressView.maximumValue = 4
+        progressView.trackHeight = 4.scale
+        progressView.touchAreaInsetX = -30.scale
+        progressView.touchAreaInsetY = -30.scale
         progressView.frame.size = CGSize(width: 335.scale, height: 4.scale)
         progressView.frame.origin = CGPoint(x: 0, y: 35.scale)
-        progressView.backgroundColor = UIColor(integralRed: 60, green: 75, blue: 159)
+        progressView.minimumTrackTintColor = UIColor(integralRed: 60, green: 75, blue: 159)
+        progressView.maximumTrackTintColor = UIColor(integralRed: 60, green: 75, blue: 159)
+        progressView.thumbTintColor = UIColor(integralRed: 249, green: 205, blue: 106)
+        progressView.addTarget(self, action: #selector(update(sender:)), for: .valueChanged)
         
         period1Button.backgroundColor = UIColor(integralRed: 60, green: 75, blue: 159)
         period1Button.frame.size = CGSize(width: 12.scale, height: 12.scale)
@@ -88,33 +93,33 @@ private extension OExperienceProgressView {
         period4Label.sizeToFit()
         period4Label.frame.origin = CGPoint(x: 335.scale - period4Label.frame.width, y: 0)
         
-        selectedView.backgroundColor = UIColor(integralRed: 249, green: 205, blue: 106)
-        selectedView.frame.size = CGSize(width: 21.scale, height: 21.scale)
-        selectedView.layer.cornerRadius = 10.5.scale
-        
         cursorView.backgroundColor = UIColor.clear
         cursorView.frame.size = CGSize(width: 98.scale, height: 59.scale)
         
         [
-            progressView,
             period1Button, period2Button, period3Button, period4Button,
+            progressView,
             period1Label, period4Label,
-            selectedView,
             cursorView
         ]
         .forEach { addSubview($0) }
     }
     
-    func moveSelectedView() {
-        switch period {
-        case .period1:
-            selectedView.center = period1Button.center
-        case .period2:
-            selectedView.center = period2Button.center
-        case .period3:
-            selectedView.center = period3Button.center
-        case .period4:
-            selectedView.center = period4Button.center
+    @objc
+    func update(sender: UISlider) {
+        sender.value = round(sender.value)
+        
+        switch sender.value {
+        case 1:
+            period = .period1
+        case 2:
+            period = .period2
+        case 3:
+            period = .period3
+        case 4:
+            period = .period4
+        default:
+            break
         }
     }
     

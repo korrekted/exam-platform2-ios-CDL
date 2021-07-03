@@ -19,39 +19,10 @@ final class OSlideExperienceView: OSlideView {
         super.init(step: step)
         
         makeConstraints()
-        initialize()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-// MARK: Private
-private extension OSlideExperienceView {
-    func initialize() {
-        Observable
-            .merge(
-                experienceView
-                    .period1Button.rx.tap
-                    .map { OExperienceProgressView.Period.period1 },
-                
-                experienceView
-                    .period2Button.rx.tap
-                    .map { OExperienceProgressView.Period.period2 },
-                
-                experienceView
-                    .period3Button.rx.tap
-                    .map { OExperienceProgressView.Period.period3 },
-                
-                experienceView
-                    .period4Button.rx.tap
-                    .map { OExperienceProgressView.Period.period4 }
-            )
-            .subscribe(onNext: { [weak self] period in
-                self?.experienceView.period = period
-            })
-            .disposed(by: disposeBag)
     }
 }
 
