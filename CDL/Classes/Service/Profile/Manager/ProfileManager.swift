@@ -32,4 +32,7 @@ protocol ProfileManager {
              testNumber: Int?,
              testWhen: [Int]?,
              notificationKey: String?) -> Single<Void>
+    
+    // MARK: Test Mode
+    func obtainTestMode() -> Single<TestMode?>
 }

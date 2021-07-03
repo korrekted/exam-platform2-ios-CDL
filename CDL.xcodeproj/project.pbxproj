@@ -341,6 +341,9 @@
 		96F92A02268E2916006331D7 /* Starter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F92A01268E2916006331D7 /* Starter.swift */; };
 		96F92A05268E2D31006331D7 /* StatsShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F92A04268E2D31006331D7 /* StatsShareManager.swift */; };
 		96F92A06268E2D75006331D7 /* StatsShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F92A04268E2D31006331D7 /* StatsShareManager.swift */; };
+		96F92A082690688C006331D7 /* TestMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F92A072690688C006331D7 /* TestMode.swift */; };
+		96F92A0B269069AE006331D7 /* GetTestModeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F92A0A269069AE006331D7 /* GetTestModeRequest.swift */; };
+		96F92A0D269069BA006331D7 /* GetTestModeResponseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F92A0C269069BA006331D7 /* GetTestModeResponseMapper.swift */; };
 		B27352698CEF145A2B42A7FF /* Pods_CDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6B356CE2F93ECB3C836F43 /* Pods_CDL.framework */; };
 /* End PBXBuildFile section */
 
@@ -706,6 +709,9 @@
 		96F929FF268E27ED006331D7 /* PassRateWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassRateWidget.swift; sourceTree = "<group>"; };
 		96F92A01268E2916006331D7 /* Starter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Starter.swift; sourceTree = "<group>"; };
 		96F92A04268E2D31006331D7 /* StatsShareManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsShareManager.swift; sourceTree = "<group>"; };
+		96F92A072690688C006331D7 /* TestMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMode.swift; sourceTree = "<group>"; };
+		96F92A0A269069AE006331D7 /* GetTestModeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTestModeRequest.swift; sourceTree = "<group>"; };
+		96F92A0C269069BA006331D7 /* GetTestModeResponseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTestModeResponseMapper.swift; sourceTree = "<group>"; };
 		996829E936A18A730988E157 /* Pods-CDL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDL.debug.xcconfig"; path = "Target Support Files/Pods-CDL/Pods-CDL.debug.xcconfig"; sourceTree = "<group>"; };
 		C0234E5B8A750872AFFD05A9 /* Pods-CDL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDL.release.xcconfig"; path = "Target Support Files/Pods-CDL/Pods-CDL.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -905,6 +911,7 @@
 		9613EF1B2639748F00DAEB9A /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				96F92A092690699F006331D7 /* GetTestMode */,
 				969679D3265E310F0070E7F7 /* GetLocale */,
 				969679AF265CC3490070E7F7 /* GetCountries */,
 				969679AE265CC33F0070E7F7 /* GetTopics */,
@@ -1976,6 +1983,7 @@
 				9613EC8A2634A19600DAEB9A /* State.swift */,
 				969679AB265CC2680070E7F7 /* Country.swift */,
 				969679D0265E20600070E7F7 /* ProfileLocale.swift */,
+				96F92A072690688C006331D7 /* TestMode.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2049,6 +2057,15 @@
 				96F92A04268E2D31006331D7 /* StatsShareManager.swift */,
 			);
 			path = Share;
+			sourceTree = "<group>";
+		};
+		96F92A092690699F006331D7 /* GetTestMode */ = {
+			isa = PBXGroup;
+			children = (
+				96F92A0A269069AE006331D7 /* GetTestModeRequest.swift */,
+				96F92A0C269069BA006331D7 /* GetTestModeResponseMapper.swift */,
+			);
+			path = GetTestMode;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2309,6 +2326,7 @@
 				9673819B26792DC000230FB6 /* PaygateManager.swift in Sources */,
 				969679B1265CC3600070E7F7 /* GetCountriesRequest.swift in Sources */,
 				86ACAD072625E2E30020C51C /* SCTrophyCollectionCell.swift in Sources */,
+				96F92A0D269069BA006331D7 /* GetTestModeResponseMapper.swift in Sources */,
 				967AD562260FD0AF008E8175 /* MainRateCell.swift in Sources */,
 				967AD4CE260FD0AE008E8175 /* CircleView.swift in Sources */,
 				96504031267F1D26003D5167 /* WelcomeSlideIndicatorView.swift in Sources */,
@@ -2415,6 +2433,7 @@
 				967AD50A260FD0AF008E8175 /* SettingsViewModel.swift in Sources */,
 				967AD4EC260FD0AE008E8175 /* SendAnswerResponseMapper.swift in Sources */,
 				96054C562681222D00E0F0B0 /* OModesCollectionLayout.swift in Sources */,
+				96F92A0B269069AE006331D7 /* GetTestModeRequest.swift in Sources */,
 				86ACACDF262595430020C51C /* CourseCellProgressView.swift in Sources */,
 				9673817426792DB000230FB6 /* PaygateViewModel.swift in Sources */,
 				967AD533260FD0AF008E8175 /* TestAnalytics.swift in Sources */,
@@ -2482,6 +2501,7 @@
 				86935FC226754FDF009D1D99 /* FlashCardManagerDelegate.swift in Sources */,
 				967AD4F7260FD0AF008E8175 /* QuestionManagerDelagate.swift in Sources */,
 				967AD54F260FD0AF008E8175 /* TestStatsProgressView.swift in Sources */,
+				96F92A082690688C006331D7 /* TestMode.swift in Sources */,
 				967AD50B260FD0AF008E8175 /* RateUs.swift in Sources */,
 				96E36029267203BD00D49D4E /* FlashcardTopic.swift in Sources */,
 				9673817726792DB100230FB6 /* PaygateViewController.swift in Sources */,

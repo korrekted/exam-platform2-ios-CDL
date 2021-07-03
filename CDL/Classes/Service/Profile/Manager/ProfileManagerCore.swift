@@ -201,3 +201,19 @@ extension ProfileManagerCore {
             .map { _ in Void() }
     }
 }
+
+// MARK: Test Mode
+extension ProfileManagerCore {
+    func obtainTestMode() -> Single<TestMode?> {
+        guard let userToken = SessionManagerCore().getSession()?.userToken else {
+            return .error(SignError.tokenNotFound)
+        }
+        
+        let request = GetTestModeRequest(userToken: userToken)
+        
+        return SDKStorage.shared
+            .restApiTransport
+            .callServerApi(requestBody: request)
+            .map(GetTestModeResponseMapper.map(from:))
+    }
+}
