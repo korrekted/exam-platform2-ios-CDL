@@ -58,6 +58,7 @@ private extension SettingsOpener {
             view = STChangeLocaleView(step: .locale)
         case .topics:
             view = OSlideTopicsView(step: .topics)
+            view.moveToThis()
         }
 
         view.frame = UIScreen.main.bounds
