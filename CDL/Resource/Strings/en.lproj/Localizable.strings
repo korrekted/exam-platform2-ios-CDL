@@ -20,7 +20,7 @@
 "Course.Tab.Study" = "Study";
 
 // MARK: Splash
-"Splash.Title.Part1" = "Created by\n";
+"Splash.Title.Part1" = "Prepared by\n";
 "Splash.Title.Part2" = "CERTIFIED\n";
 "Splash.Title.Part3" = "experts";
 
@@ -30,9 +30,9 @@
 "Onboarding.Yes" = "Yes";
 "Onboarding.No" = "No";
 "Onboarding.Welcome.Title1" = "Personal study plan";
-"Onboarding.Welcome.Subtitle1" = "Your study plan is prepared by the algorithms which rely on thousands of similar cases";
+"Onboarding.Welcome.Subtitle1" = "Your study plan is prepared by the algorithms, which rely on thousands of similar cases";
 "Onboarding.Welcome.Title2" = "98% pass rate";
-"Onboarding.Welcome.Subtitle2" = "The no-fail way to prepare to your CDL exam without long memorization";
+"Onboarding.Welcome.Subtitle2" = "Prepare for your CDL exam efficiently. Study all the required topics one by one.";
 "Onboarding.Welcome.Title3" = "Pass first time";
 "Onboarding.Welcome.Subtitle3" = "A special AI-supported study plan to help you ace your CDL exam on the first take";
 "Onboarding.Welcome.GetStarted" = "Get started";
@@ -44,13 +44,13 @@
 "Onboarding.Goals.Cell1" = "More practice questions";
 "Onboarding.Goals.Cell2" = "More flashcards";
 "Onboarding.Goals.Cell3" = "More theory";
-"Onboarding.Goals.Header" = "You can always change your goals";
+"Onboarding.Goals.Header" = "You can alter these settings later";
 "Onboarding.SlideWhenTaking.Title" = "When are you\ntaking your exam?";
-"Onboarding.SlideWhenTaking.Header" = "You can always change your goals";
+"Onboarding.SlideWhenTaking.Header" = "You can alter these settings later";
 "Onboarding.SlideTime.Title" = "How much time can\nyou spend on\na single test?";
 "Onboarding.SlideTime.Min" = "min";
 "Onboarding.SlideCount.Title" = "How many tests\nwould you like to\ntake daily?";
-"Onboarding.SlideCount.PopularChoise" = "5 tests - Popular choice";
+"Onboarding.SlideCount.PopularChoise" = "Popular choice: 5 tests";
 "Onboarding.SlideCount.LearningSpeed" = "learning\nspeed %.1f";
 "Onboarding.Preloader.Title" = "Preparing your\nindividual study\nplan...";
 "Onboarding.Preloader.Cell1" = "Analyzing your skill level  %i%%";
@@ -59,23 +59,23 @@
 "Onboarding.SlidePlan.Title" = "Your personal 98%\npass rate study plan is\nready!";
 "Onboarding.SlidePlan.CellsTitle" = "Your individual plan:";
 "Onboarding.SlidePlan.Cell1.Title" = "2000+ individual questions";
-"Onboarding.SlidePlan.Cell1.Subtitle" = "Up-to-date 2021 questions that based on your state and traffic rules";
+"Onboarding.SlidePlan.Cell1.Subtitle" = "Up-to-date questions, which reflect your territory-specific rules";
 "Onboarding.SlidePlan.Cell2.Title" = "Progress tracking";
-"Onboarding.SlidePlan.Cell2.Subtitle" = "Track your pass rate and focus on your weak spots ";
-"Onboarding.SlidePlan.Cell3.Title" = "Theory course & flashcards";
-"Onboarding.SlidePlan.Cell3.Subtitle" = "Flashcards and theory courses are tailored to help you learn and review effectively.";
+"Onboarding.SlidePlan.Cell2.Subtitle" = "Track your pass rate and keep improving every day";
+"Onboarding.SlidePlan.Cell3.Title" = "Supportive materials";
+"Onboarding.SlidePlan.Cell3.Subtitle" = "Understand, not memorize. Useful set of materials (if applicable to your territory)";
 "Onboarding.SlidePlan.Cell4.Title" = "Exam simulator";
-"Onboarding.SlidePlan.Cell4.Subtitle" = "Question’s set, which create just like the official exam. Practice and pass first time!";
+"Onboarding.SlidePlan.Cell4.Subtitle" = "High quality exam-like questions presented in different exam modes";
 "Onboarding.SlidePlan.Button" = "Get my plan";
-"Onboarding.Mode.Title" = "In which mode do\nyou want to take\ntests?";
-"Onboarding.Mode.Subtitle" = "Scroll to choose your option";
+"Onboarding.Mode.Title" = "Set up your exam mode";
+"Onboarding.Mode.Subtitle" = "Swipe to choose from the options";
 "Onboarding.Mode.Cell1.Title" = "No explanations";
-"Onboarding.Mode.Cell1.Subtitle" = "Test consist of only correct answers";
-"Onboarding.Mode.Cell2.Title" = "Full complect";
-"Onboarding.Mode.Cell2.Subtitle" = "Test consist of correct answers and full explanations";
-"Onboarding.Mode.Cell3.Title" = "On an exam";
-"Onboarding.Mode.Cell3.Subtitle" = "The test consists only of question and answer options";
-"Onboarding.Mode.Header" = "You can always change your goals";
+"Onboarding.Mode.Cell1.Subtitle" = "See the correct answer, then move to the next question";
+"Onboarding.Mode.Cell2.Title" = "Full set";
+"Onboarding.Mode.Cell2.Subtitle" = "See the correct answer, read the full explanation, then move on";
+"Onboarding.Mode.Cell3.Title" = "Exam-like";
+"Onboarding.Mode.Cell3.Subtitle" = "Get to know the score only after answering all questions";
+"Onboarding.Mode.Header" = "You can alter these settings later";
 "Onboarding.MinutesAtTime.Title" = "How many minutes\ncan you spend\nlearning at a time?";
 "Onboarding.MinutesAtTime.Casual" = "Casual";
 "Onboarding.MinutesAtTime.Regular" = "Regular";
@@ -85,23 +85,23 @@
 "Onboarding.MinutesAtTime.10min" = "10 min";
 "Onboarding.MinutesAtTime.15min" = "15 min";
 "Onboarding.MinutesAtTime.20min" = "20 min";
-"Onboarding.MinutesAtTime.Header" = "You can always change your goals";
+"Onboarding.MinutesAtTime.Header" = "You can alter these settings later";
 "Onboarding.Experience.Title" = "Describe your driving\nexperience";
 "Onboarding.Experience.Period1" = "0-2 years";
 "Onboarding.Experience.Period2" = "2-4 years";
 "Onboarding.Experience.Period3" = "4-6 years";
 "Onboarding.Experience.Period4" = "6+ years";
-"Onboarding.Experience.Header" = "You can always change your goals";
+"Onboarding.Experience.Header" = "You can alter these settings later";
 "Onboarding.WhenStudy.Title" = "When do you want\nto study?";
 "Onboarding.WhenStudy.Cell1" = "Early morning";
 "Onboarding.WhenStudy.Cell2" = "At noon";
 "Onboarding.WhenStudy.Cell3" = "After work";
 "Onboarding.WhenStudy.Cell4" = "Before bedtime";
 "Onboarding.WhenStudy.Cell5" = "No particular preference";
-"Onboarding.WhenStudy.Header" = "You can always change your goals";
+"Onboarding.WhenStudy.Header" = "You can alter these settings later";
 "Onboarding.Push.Title" = "Stay on track!";
-"Onboarding.Push.Subtitle" = "To reach your goals more effectively, we would like to send regular useful reminders to you. ";
-"Onboarding.Push.Allow" = "Allow notifications";
+"Onboarding.Push.Subtitle" = "Receive useful reminders regularly to reach your goals quicker";
+"Onboarding.Push.Allow" = "Enable notifications";
 "Onboarding.Push.NotNow" = "Not now";
 
 // MARK: Study
@@ -113,12 +113,12 @@
 "Study.TakeTest" = "Take a test";
 "Study.TakeFreeTest" = "Take a free test";
 "Study.UnlockQuestions" = "Unlock all";
-"Study.QuizModes" = "Quiz Modes";
+"Study.QuizModes" = "Exam Modes";
 "Study.Mode.TodaysQuestion" = "Today’s\nquestion";
 "Study.Mode.TenQuestions" = "10 questions\nquick exam";
 "Study.Mode.MissedQuestions" = "Missed\nquestions set";
 "Study.Mode.RandomSet" = "Random exam\nset";
-"Study.Mode.TimedQuizz" = "Timed\nexam set";
+"Study.Mode.TimedQuizz" = "Timed\nexam";
 "Study.Mode.TryMe" = "TRY ME!";
 "Study.Course.CourseCount" = "%d tests";
 "Study.Course.Title" = " exam modes";
@@ -156,7 +156,7 @@
 // MARK: Paygate
 "Paygate.Main.Title" = "KNOW THE QUESTIONS\nBEFOREHAND";
 "Paygate.Main.Cell1" = "Don’t spend hours learning";
-"Paygate.Main.Cell2" = "Train yourself with 5000+ questions";
+"Paygate.Main.Cell2" = "Train yourself with 2000+ questions";
 "Paygate.Main.Cell3" = "98% pass rate on the first attempt!";
 "Paygate.Main.Info" = "Secured with iTunes. Cancel anytime.";
 "Paygate.Main.TermsOfUse" = "Terms of use";
