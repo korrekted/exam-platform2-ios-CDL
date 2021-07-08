@@ -258,7 +258,6 @@
 		967AD577260FD0AF008E8175 /* OSlideGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4AC260FD0AE008E8175 /* OSlideGoalsView.swift */; };
 		967AD579260FD0AF008E8175 /* OSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4AE260FD0AE008E8175 /* OSlideView.swift */; };
 		967AD57C260FD0AF008E8175 /* OSlidePlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4B1260FD0AE008E8175 /* OSlidePlanView.swift */; };
-		967AD57D260FD0AF008E8175 /* OSlideTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4B2260FD0AE008E8175 /* OSlideTimeView.swift */; };
 		967AD57E260FD0AF008E8175 /* OSlideWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4B3260FD0AE008E8175 /* OSlideWelcomeView.swift */; };
 		967AD580260FD0AF008E8175 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4B5260FD0AE008E8175 /* OnboardingView.swift */; };
 		967AD581260FD0AF008E8175 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD4B6260FD0AE008E8175 /* OnboardingViewModel.swift */; };
@@ -628,7 +627,6 @@
 		967AD4AC260FD0AE008E8175 /* OSlideGoalsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideGoalsView.swift; sourceTree = "<group>"; };
 		967AD4AE260FD0AE008E8175 /* OSlideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideView.swift; sourceTree = "<group>"; };
 		967AD4B1260FD0AE008E8175 /* OSlidePlanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlidePlanView.swift; sourceTree = "<group>"; };
-		967AD4B2260FD0AE008E8175 /* OSlideTimeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideTimeView.swift; sourceTree = "<group>"; };
 		967AD4B3260FD0AE008E8175 /* OSlideWelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSlideWelcomeView.swift; sourceTree = "<group>"; };
 		967AD4B5260FD0AE008E8175 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		967AD4B6260FD0AE008E8175 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
@@ -1728,7 +1726,6 @@
 				967AD4AC260FD0AE008E8175 /* OSlideGoalsView.swift */,
 				967AD4AE260FD0AE008E8175 /* OSlideView.swift */,
 				967AD4B1260FD0AE008E8175 /* OSlidePlanView.swift */,
-				967AD4B2260FD0AE008E8175 /* OSlideTimeView.swift */,
 				967AD4B3260FD0AE008E8175 /* OSlideWelcomeView.swift */,
 				96B67A9626295AC40048DAB9 /* OSlideTopicsView.swift */,
 				96B67AE92629BB100048DAB9 /* OSlideExperienceView.swift */,
@@ -2531,7 +2528,6 @@
 				9673819226792DC000230FB6 /* PaygateOption.swift in Sources */,
 				9673819126792DC000230FB6 /* GetMonetizationResponseMapper.swift in Sources */,
 				9673817926792DB100230FB6 /* PaygateMainInfoCell.swift in Sources */,
-				967AD57D260FD0AF008E8175 /* OSlideTimeView.swift in Sources */,
 				9673818F26792DC000230FB6 /* MonetizationManager.swift in Sources */,
 				96F44FB62631788D000B77E3 /* TopicsCollectionElement.swift in Sources */,
 				967AD537260FD0AF008E8175 /* TestViewController.swift in Sources */,
@@ -2723,7 +2719,7 @@
 				CODE_SIGN_ENTITLEMENTS = CDL/CDL.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = "$(SRCROOT)/CDL/Resource/Info.plist";
@@ -2732,7 +2728,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.4;
+				MARKETING_VERSION = 1.10.1;
 				PRODUCT_BUNDLE_IDENTIFIER = prep.cdl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "CDL Development";
@@ -2752,7 +2748,7 @@
 				CODE_SIGN_ENTITLEMENTS = CDL/CDL.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = "$(SRCROOT)/CDL/Resource/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -2760,7 +2756,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.4;
+				MARKETING_VERSION = 1.10.1;
 				PRODUCT_BUNDLE_IDENTIFIER = prep.cdl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "CDL AppStore Profile";
@@ -2778,22 +2774,22 @@
 				CODE_SIGN_ENTITLEMENTS = StatsWidgetsExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = StatsWidgets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.9.4;
+				MARKETING_VERSION = 1.10.1;
 				PRODUCT_BUNDLE_IDENTIFIER = prep.cdl.stats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "CDL StatsWidgets Development Profile";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -2805,22 +2801,22 @@
 				CODE_SIGN_ENTITLEMENTS = StatsWidgetsExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = StatsWidgets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.9.4;
+				MARKETING_VERSION = 1.10.1;
 				PRODUCT_BUNDLE_IDENTIFIER = prep.cdl.stats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "CDL StatsWidgets AppStore Profile";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

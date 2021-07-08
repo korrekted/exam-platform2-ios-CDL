@@ -1,11 +1,3 @@
-/*
-  Localizable.strings
-  CDL
-
-  Created by Andrey Chernyshev on 27.03.2021.
-  
-*/
-
 // MARK: General
 "Cancel" = "Cancel";
 "Continue" = "Continue";
@@ -47,8 +39,6 @@
 "Onboarding.Goals.Header" = "You can alter these settings later";
 "Onboarding.SlideWhenTaking.Title" = "When are you\ntaking your exam?";
 "Onboarding.SlideWhenTaking.Header" = "You can alter these settings later";
-"Onboarding.SlideTime.Title" = "How much time can\nyou spend on\na single test?";
-"Onboarding.SlideTime.Min" = "min";
 "Onboarding.SlideCount.Title" = "How many tests\nwould you like to\ntake daily?";
 "Onboarding.SlideCount.PopularChoise" = "Popular choice: 5 tests";
 "Onboarding.SlideCount.LearningSpeed" = "learning\nspeed %.1f";

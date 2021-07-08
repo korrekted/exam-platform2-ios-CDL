@@ -24,8 +24,6 @@ final class OnboardingAnalytics {
             name = "When Exam Screen"
         case .minutesAtTime:
             name = "Minutes At Time Screen"
-        case .time:
-            name = "Test Time Screen"
         case .count:
             name = "Tests Number Screen"
         case .experience:

@@ -1,11 +1,3 @@
-/*
-  Localizable.strings
-  CDL
-
-  Created by Andrey Chernyshev on 27.03.2021.
-  
-*/
-
 // MARK: General
 "Cancel" = "Cancelar";
 "Continue" = "Continuar";
@@ -47,8 +39,6 @@
 "Onboarding.Goals.Header" = "Puede modificar esta configuración más tarde";
 "Onboarding.SlideWhenTaking.Title" = "¿Cuándo tomarás\nel examen?";
 "Onboarding.SlideWhenTaking.Header" = "Puede modificar esta configuración más tarde";
-"Onboarding.SlideTime.Title" = "¿Cuánto tiempio\npuedes pasar\nen un examen?";
-"Onboarding.SlideTime.Min" = "min";
 "Onboarding.SlideCount.Title" = "¿Cuántos exámenes\nquieres tomar\na diario?";
 "Onboarding.SlideCount.PopularChoise" = "Opción popular: 5 pruebas";
 "Onboarding.SlideCount.LearningSpeed" = "velocidad de\naprendizaje %.1f";
@@ -64,7 +54,7 @@
 "Onboarding.SlidePlan.Cell2.Subtitle" = "Realice un seguimiento de su tasa de aprobados y siga mejorando todos los días";
 "Onboarding.SlidePlan.Cell3.Title" = "Materiales de apoyo";
 "Onboarding.SlidePlan.Cell3.Subtitle" = "Comprenda, no memorice. Conjunto útil de materiales (si corresponde a su territorio)";
-"Onboarding.SlidePlan.Cell4.Title" = "Exam simulator";
+"Onboarding.SlidePlan.Cell4.Title" = "Simulador de examen";
 "Onboarding.SlidePlan.Cell4.Subtitle" = "Preguntas similares a exámenes de alta calidad presentadas en diferentes modos de examen";
 "Onboarding.SlidePlan.Button" = "¡Vamos!";
 "Onboarding.Mode.Title" = "Configure su modo de examen";
