@@ -149,10 +149,12 @@ final class TestViewController: UIViewController {
             .withLatestFrom(courseName) { ($0, $1) }
             .bind(to: Binder(self) { base, stub in
                 let (element, name) = stub
-                let testStatsController = TestStatsViewController.make(element: element)
+                let testStatsController = TestStatsViewController.make(element: element) { [weak base] in
+                    base?.navigationController?.popViewController(animated: false)
+                }
                 testStatsController.didTapNext = base.loadNext
                 testStatsController.didTapTryAgain = base.tryAgain
-                base.present(testStatsController, animated: true)
+                UIApplication.shared.keyWindow?.rootViewController?.present(testStatsController, animated: true)
                 base.logTapAnalytics(courseName: name, what: "finish test")
             })
             .disposed(by: disposeBag)

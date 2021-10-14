@@ -60,6 +60,7 @@ extension FlashcardsTopicsViewController {
 private extension FlashcardsTopicsViewController {
     @objc
     func popAction() {
+        SDKStorage.shared.amplitudeManager.logEvent(name: "Flashcards Set Tap", parameters: ["what": "back"])
         navigationController?.popViewController(animated: true)
     }
 }
