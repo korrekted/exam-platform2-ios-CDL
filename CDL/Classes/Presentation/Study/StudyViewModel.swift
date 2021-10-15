@@ -82,10 +82,13 @@ private extension StudyViewModel {
     }
     
     func makeCoursesElements() -> Driver<StudyCollectionSection> {
-        let courses = Observable.merge(
-            ProfileMediator.shared.rxSelectedTopics.asObservable().map { _ in () },
-            ProfileMediator.shared.rxUpdatedProfileLocale.asObservable().map { _ in () }
+        let courses = Signal.merge(
+            QuestionManagerMediator.shared.rxTestPassed,
+            QuestionManagerMediator.shared.rxTestClosed,
+            ProfileMediator.shared.rxSelectedTopics.map { _ in () },
+            ProfileMediator.shared.rxUpdatedProfileLocale.map { _ in () }
         )
+            .asObservable()
         .startWith(())
         .flatMapLatest { [weak self] _ -> Single<[Course]> in
             guard let self = self else { return .never() }
