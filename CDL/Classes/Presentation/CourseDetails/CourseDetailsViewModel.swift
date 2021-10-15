@@ -41,7 +41,7 @@ extension CourseDetailsViewModel {
     }
     
     func makeConfig() -> Observable<[TestConfig]> {
-        courseId
+        let config = courseId
             .asObservable()
             .flatMapLatest { [manager = questionManager] courseId -> Observable<[TestConfig]> in
                 manager.retrieveConfig(courseId: courseId)
@@ -49,6 +49,15 @@ extension CourseDetailsViewModel {
                     .map { $0?.testsConfigs ?? [] }
                     .catchAndReturn([])
             }
+        
+        return Signal
+            .merge(
+                QuestionManagerMediator.shared.rxTestPassed,
+                QuestionManagerMediator.shared.rxTestClosed
+            )
+            .asObservable()
+            .startWith(())
+            .flatMapLatest { _ in config }
     }
     
     func makeActiveSubscription() -> Observable<Bool> {
