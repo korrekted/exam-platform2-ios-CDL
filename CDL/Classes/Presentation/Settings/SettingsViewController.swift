@@ -87,7 +87,7 @@ private extension SettingsViewController {
         case .topic:
             screenOpener.open(screen: .topics, from: self)
         case .mode(let mode):
-            break
+            screenOpener.open(screen: .mode(mode), from: self)
         }
     }
     

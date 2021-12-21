@@ -10,7 +10,7 @@ import RxSwift
 
 final class SettingsOpener {
     enum Screen {
-        case locale, topics
+        case locale, topics, mode(TestMode)
     }
     
     private lazy var disposeBag = DisposeBag()
@@ -59,6 +59,8 @@ private extension SettingsOpener {
         case .topics:
             view = OSlideTopicsView(step: .topics)
             view.moveToThis()
+        case .mode(let mode):
+            view = OSlideModeView(step: .mode)
         }
 
         view.frame = UIScreen.main.bounds
