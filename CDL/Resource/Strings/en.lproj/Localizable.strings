@@ -129,6 +129,7 @@
 "Settings.Topics" = "Change topics";
 "Settings.YourLocale" = "Your locale";
 "Settings.YourLanguage" = "Your language";
+"Settings.Mode" = "Exam mode";
 
 // MARK: Stats
 "Stats.PassRate.Title" = "Current pass rate";

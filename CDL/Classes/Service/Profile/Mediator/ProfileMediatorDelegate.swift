@@ -8,4 +8,5 @@
 protocol ProfileMediatorDelegate: AnyObject {
     func didSaveSelected(specificTopics: [SpecificTopic])
     func didUpdated(profileLocale: ProfileLocale)
+    func didUpdated(testMode: TestMode)
 }

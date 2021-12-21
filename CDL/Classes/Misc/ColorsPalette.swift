@@ -118,6 +118,7 @@ enum SettingsPalette {
     static let buttonTint = UIColor(integralRed: 31, green: 31, blue: 31)
     static let unlockBackground = UIColor(integralRed: 249, green: 205, blue: 106)
     static let unlockTint = UIColor(integralRed: 31, green: 31, blue: 31)
+    static let progress = UIColor(integralRed: 60, green: 75, blue: 159)
 }
 
 enum CoursePalette {

@@ -6,6 +6,7 @@
 //
 
 import RxSwift
+import SwiftUI
 
 final class ProfileManagerCore {
     enum Constants {
@@ -175,7 +176,6 @@ extension ProfileManagerCore {
 extension ProfileManagerCore {
     func set(level: Int? = nil,
              assetsPreferences: [Int]? = nil,
-             testMode: Int? = nil,
              examDate: String? = nil,
              testMinutes: Int? = nil,
              testNumber: Int? = nil,
@@ -188,7 +188,6 @@ extension ProfileManagerCore {
         let request = SetRequest(userToken: userToken,
                                  level: level,
                                  assetsPreferences: assetsPreferences,
-                                 testMode: testMode,
                                  examDate: examDate,
                                  testMinutes: testMinutes,
                                  testNumber: testNumber,
@@ -204,6 +203,27 @@ extension ProfileManagerCore {
 
 // MARK: Test Mode
 extension ProfileManagerCore {
+    func set(testMode: Int) -> Single<Void> {
+        guard let userToken = SessionManagerCore().getSession()?.userToken else {
+            return .error(SignError.tokenNotFound)
+        }
+        
+        let request = SetRequest(userToken: userToken,
+                                 testMode: testMode)
+        
+        return SDKStorage.shared
+            .restApiTransport
+            .callServerApi(requestBody: request)
+            .map { _ in Void() }
+            .do(onSuccess: {
+                guard let mode = GetTestModeResponseMapper.make(by: testMode) else {
+                    return
+                }
+                
+                ProfileMediator.shared.notifyAboutUpdated(testMode: mode)
+            })
+    }
+
     func obtainTestMode() -> Single<TestMode?> {
         guard let userToken = SessionManagerCore().getSession()?.userToken else {
             return .error(SignError.tokenNotFound)

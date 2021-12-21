@@ -344,6 +344,7 @@
 		96F92A0B269069AE006331D7 /* GetTestModeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F92A0A269069AE006331D7 /* GetTestModeRequest.swift */; };
 		96F92A0D269069BA006331D7 /* GetTestModeResponseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F92A0C269069BA006331D7 /* GetTestModeResponseMapper.swift */; };
 		B27352698CEF145A2B42A7FF /* Pods_CDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6B356CE2F93ECB3C836F43 /* Pods_CDL.framework */; };
+		DE3449F82771BEAB00632F72 /* STModeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3449F72771BEAB00632F72 /* STModeCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -712,6 +713,7 @@
 		96F92A0C269069BA006331D7 /* GetTestModeResponseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTestModeResponseMapper.swift; sourceTree = "<group>"; };
 		996829E936A18A730988E157 /* Pods-CDL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDL.debug.xcconfig"; path = "Target Support Files/Pods-CDL/Pods-CDL.debug.xcconfig"; sourceTree = "<group>"; };
 		C0234E5B8A750872AFFD05A9 /* Pods-CDL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDL.release.xcconfig"; path = "Target Support Files/Pods-CDL/Pods-CDL.release.xcconfig"; sourceTree = "<group>"; };
+		DE3449F72771BEAB00632F72 /* STModeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STModeCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1444,6 +1446,7 @@
 				967AD423260FD0AE008E8175 /* STUnlockCell.swift */,
 				86B712C82629B6A000297FFC /* STSettingLinksCell.swift */,
 				969679DB265E36A70070E7F7 /* STLocaleCell.swift */,
+				DE3449F72771BEAB00632F72 /* STModeCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2407,6 +2410,7 @@
 				967AD582260FD0AF008E8175 /* OnboardingAnalytics.swift in Sources */,
 				967AD553260FD0AF008E8175 /* TestStatsView.swift in Sources */,
 				86227288261A2932008449C7 /* TestStatsElement.swift in Sources */,
+				DE3449F82771BEAB00632F72 /* STModeCell.swift in Sources */,
 				967AD524260FD0AF008E8175 /* CourseViewCoordinator.swift in Sources */,
 				86BB2596261E1B3C00C6D2FA /* RemoveSavedQuestionRequest.swift in Sources */,
 				967AD544260FD0AF008E8175 /* TestStatsViewController.swift in Sources */,

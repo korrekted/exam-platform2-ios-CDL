@@ -86,6 +86,8 @@ private extension SettingsViewController {
             screenOpener.open(screen: .locale, from: self)
         case .topic:
             screenOpener.open(screen: .topics, from: self)
+        case .mode(let mode):
+            break
         }
     }
     
