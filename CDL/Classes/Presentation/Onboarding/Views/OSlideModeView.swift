@@ -63,14 +63,14 @@ private extension OSlideModeView {
             .disposed(by: disposeBag)
         
         modesView.setup(elements: [
-            .init(title: "Onboarding.Mode.Cell1.Title".localized,
-                  subtitle: "Onboarding.Mode.Cell1.Subtitle".localized,
-                  code: 2,
-                  isSelected: true),
-            
             .init(title: "Onboarding.Mode.Cell2.Title".localized,
                   subtitle: "Onboarding.Mode.Cell2.Subtitle".localized,
                   code: 0,
+                  isSelected: true),
+            
+            .init(title: "Onboarding.Mode.Cell1.Title".localized,
+                  subtitle: "Onboarding.Mode.Cell1.Subtitle".localized,
+                  code: 2,
                   isSelected: false),
             
             .init(title: "Onboarding.Mode.Cell3.Title".localized,
