@@ -59,6 +59,9 @@ private extension SettingsView {
         view.separatorStyle = .none
         view.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 32.scale, right: 0)
         view.translatesAutoresizingMaskIntoConstraints = false
+        if #available(iOS 15.0, *) {
+            view.sectionHeaderTopPadding = 0.0
+        }
         addSubview(view)
         return view
     }

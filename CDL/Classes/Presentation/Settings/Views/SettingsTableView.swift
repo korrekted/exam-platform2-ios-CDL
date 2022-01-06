@@ -105,7 +105,7 @@ extension SettingsTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch sections[indexPath.section] {
         case .unlockPremium:
-            return 81.scale
+            return 113.scale
         case .links, .settings, .locale, .mode:
             return UITableView.automaticDimension
         }

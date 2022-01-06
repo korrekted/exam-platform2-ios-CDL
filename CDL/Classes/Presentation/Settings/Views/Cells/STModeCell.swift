@@ -79,7 +79,7 @@ private extension STModeCell {
             container.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.scale),
             container.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.scale),
             container.topAnchor.constraint(equalTo: contentView.topAnchor),
-            container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10.scale),
             container.heightAnchor.constraint(equalToConstant: 57.scale)
         ])
         

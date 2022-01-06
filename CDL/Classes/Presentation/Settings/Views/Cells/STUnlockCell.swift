@@ -50,8 +50,8 @@ private extension STUnlockCell {
         NSLayoutConstraint.activate([
             container.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.scale),
             container.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.scale),
-            container.topAnchor.constraint(equalTo: contentView.topAnchor),
-            container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            container.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 17.scale),
+            container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15.scale)
         ])
         
         NSLayoutConstraint.activate([
