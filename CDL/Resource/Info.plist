@@ -45,6 +45,8 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAdvertisingAttributionReportEndpoint</key>
+	<string>https://quantresear.ch</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>lato-regular.otf</string>
