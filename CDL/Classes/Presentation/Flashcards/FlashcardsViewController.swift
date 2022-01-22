@@ -51,7 +51,9 @@ final class FlashcardsViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.mark
-            .subscribe()
+            .bind(to: Binder(mainView.flashCardContainer) { container, _ in
+                container.currentCard?.moveCard()
+            })
             .disposed(by: disposeBag)
     }
 }
