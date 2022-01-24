@@ -104,6 +104,10 @@ extension FlashCardContainerView {
     var finish: Observable<Void> {
         emptyCardsRelay.asObservable()
     }
+    
+    var currentCard: FlashCardView? {
+        loaded.first
+    }
 }
 
 extension FlashCardContainerView: FlashCardDelegate {

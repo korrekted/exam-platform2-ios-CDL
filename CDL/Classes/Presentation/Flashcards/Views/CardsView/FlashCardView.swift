@@ -61,6 +61,10 @@ extension FlashCardView {
     func playVideo() {
         player?.play()
     }
+    
+    func moveCard() {
+        cardMoved(action: .left)
+    }
 }
 
 // MARK: Private
