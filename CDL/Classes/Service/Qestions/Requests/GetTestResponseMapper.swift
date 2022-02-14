@@ -10,9 +10,12 @@ import Foundation
 struct GetTestResponseMapper {
     static func map(from response: Any) throws -> Test? {
         guard
-            let json = response as? [String: Any],
+            let string = response as? String,
+            let json = XOREncryption.toJSON(string, key: GlobalDefinitions.apiKey),
             let code = json["_code"] as? Int
-        else { return nil }
+        else {
+            return nil
+        }
         
         guard code == 200 else {
             throw NSError(domain: "\(type(of: self))", code: code, userInfo: [NSLocalizedDescriptionKey : (json["_msg"] as? String) ?? ""])
