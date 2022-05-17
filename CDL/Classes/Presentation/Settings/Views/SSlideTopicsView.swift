@@ -1,15 +1,15 @@
 //
-//  OSlideTopicsView.swift
+//  SSlideTopicsView.swift
 //  CDL
 //
-//  Created by Andrey Chernyshev on 16.04.2021.
+//  Created by Андрей Чернышев on 17.05.2022.
 //
 
 import UIKit
 import RxSwift
 import RxCocoa
 
-final class OSlideTopicsView: OSlideView {
+final class SSlideTopicsView: SSlideView {
     lazy var titleLabel = makeTitleLabel()
     lazy var topicsView = makeTopicsCollectionView()
     lazy var button = makeButton()
@@ -18,8 +18,8 @@ final class OSlideTopicsView: OSlideView {
     
     private lazy var disposeBag = DisposeBag()
     
-    override init(step: OnboardingView.Step, scope: OnboardingScope) {
-        super.init(step: step, scope: scope)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         makeConstraints()
         topicsCollectionViewDidChangeSelection()
@@ -50,42 +50,34 @@ final class OSlideTopicsView: OSlideView {
 }
 
 // MARK: TopicsCollectionViewDelegate
-extension OSlideTopicsView: TopicsCollectionViewDelegate {
+extension SSlideTopicsView: TopicsCollectionViewDelegate {
     func topicsCollectionViewDidChangeSelection() {
         changeEnabled()
     }
 }
 
 // MARK: Private
-private extension OSlideTopicsView {
+private extension SSlideTopicsView {
     func initialize() {
         button.rx.tap
-            .map { [weak self] _ -> [SpecificTopic] in
-                guard let self = self else {
-                    return []
-                }
-                
-                return self.topicsView.elements
-                    .filter { $0.isSelected }
-                    .map { $0.topic }
-            }
-            .flatMapLatest { [weak self] topics -> Single<[SpecificTopic]> in
+            .flatMapLatest { [weak self] _ -> Single<Void> in
                 guard let self = self else {
                     return .never()
                 }
                 
+                let selectedTopics = self.topicsView.elements
+                    .filter { $0.isSelected }
+                    .map { $0.topic }
+                
                 return self.manager
-                    .saveSelected(specificTopics: topics)
-                    .map { topics }
+                    .set(topicsIds: selectedTopics.map { $0.id })
+                    .flatMap {
+                        self.manager.saveSelected(specificTopics: selectedTopics)
+                    }
             }
-            .subscribe(onNext: { [weak self] topics in
-                guard let self = self else {
-                    return
-                }
-                
-                self.scope.topicsIds = topics.map { $0.id }
-                
-                self.onNext()
+            .asDriver(onErrorDriveWith: .never())
+            .drive(onNext: { [weak self] in
+                self?.onNext()
             })
             .disposed(by: disposeBag)
     }
@@ -101,7 +93,7 @@ private extension OSlideTopicsView {
 }
 
 // MARK: Make constraints
-private extension OSlideTopicsView {
+private extension SSlideTopicsView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
@@ -126,7 +118,7 @@ private extension OSlideTopicsView {
 }
 
 // MARK: Lazy initialization
-private extension OSlideTopicsView {
+private extension SSlideTopicsView {
     func makeTitleLabel() -> UILabel {
         let attrs = TextAttributes()
             .textColor(Onboarding.primaryText)

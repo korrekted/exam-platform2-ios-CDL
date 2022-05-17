@@ -1,23 +1,25 @@
 //
-//  OSlideModeView.swift
+//  SSlideModeView.swift
 //  CDL
 //
-//  Created by Andrey Chernyshev on 20.06.2021.
+//  Created by Андрей Чернышев on 17.05.2022.
 //
 
 import UIKit
 import RxSwift
 
-final class OSlideModeView: OSlideView {
+final class SSlideModeView: SSlideView {
     lazy var titleLabel = makeTitleLabel()
     lazy var subtitleLabel = makeSubtitleLabel()
     lazy var modesView = makeModesView()
     lazy var button = makeButton()
     
+    private lazy var manager = ProfileManagerCore()
+    
     private lazy var disposeBag = DisposeBag()
     
-    override init(step: OnboardingView.Step, scope: OnboardingScope) {
-        super.init(step: step, scope: scope)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         makeConstraints()
         initialize()
@@ -29,21 +31,34 @@ final class OSlideModeView: OSlideView {
 }
 
 // MARK: Private
-private extension OSlideModeView {
+private extension SSlideModeView {
     func initialize() {
         button.rx.tap
-            .subscribe(onNext: { [weak self] in
+            .flatMapLatest { [weak self] _ -> Single<Bool> in
                 guard let self = self else {
+                    return .never()
+                }
+                
+                guard let selected = self.modesView
+                        .elements
+                        .first(where: { $0.isSelected })
+                else {
+                    return .never()
+                }
+                
+                return self.manager
+                    .set(testMode: selected.code)
+                    .map { true }
+                    .catchAndReturn(false)
+            }
+            .asDriver(onErrorDriveWith: .never())
+            .drive(onNext: { [weak self] success in
+                guard success else {
+                    Toast.notify(with: "Onboarding.FailedToSave".localized, style: .danger)
                     return
                 }
                 
-                guard let selected = self.modesView.elements.first(where: { $0.isSelected }) else {
-                    return
-                }
-                
-                self.scope.testMode = selected.code
-                
-                self.onNext()
+                self?.onNext()
             })
             .disposed(by: disposeBag)
         
@@ -67,7 +82,7 @@ private extension OSlideModeView {
 }
 
 // MARK: Make constraints
-private extension OSlideModeView {
+private extension SSlideModeView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8.scale),
@@ -98,7 +113,7 @@ private extension OSlideModeView {
 }
 
 // MARK: Lazy initialization
-private extension OSlideModeView {
+private extension SSlideModeView {
     func makeTitleLabel() -> UILabel {
         let attrs = TextAttributes()
             .textColor(Onboarding.pickerText)

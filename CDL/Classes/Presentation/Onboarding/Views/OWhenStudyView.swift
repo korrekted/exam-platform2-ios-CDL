@@ -22,8 +22,8 @@ final class OWhenStudyView: OSlideView {
     
     private lazy var disposeBag = DisposeBag()
     
-    override init(step: OnboardingView.Step) {
-        super.init(step: step)
+    override init(step: OnboardingView.Step, scope: OnboardingScope) {
+        super.init(step: step, scope: scope)
         
         makeConstraints()
         initialize()
@@ -39,9 +39,9 @@ final class OWhenStudyView: OSlideView {
 private extension OWhenStudyView {
     func initialize() {
         button.rx.tap
-            .flatMapLatest { [weak self] _ -> Single<Bool> in
+            .subscribe(onNext: { [weak self] in
                 guard let self = self else {
-                    return .never()
+                    return
                 }
                 
                 let selected = [
@@ -50,19 +50,9 @@ private extension OWhenStudyView {
                 .filter { $0.isSelected }
                 .map { $0.tag }
                 
-                return self.manager
-                    .set(testWhen: selected)
-                    .map { true }
-                    .catchAndReturn(false)
-            }
-            .asDriver(onErrorDriveWith: .never())
-            .drive(onNext: { [weak self] success in
-                guard success else {
-                    Toast.notify(with: "Onboarding.FailedToSave".localized, style: .danger)
-                    return
-                }
+                self.scope.testWhen = selected
                 
-                self?.onNext()
+                self.onNext()
             })
             .disposed(by: disposeBag)
     }

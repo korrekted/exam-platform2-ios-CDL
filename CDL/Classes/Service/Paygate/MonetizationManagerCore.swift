@@ -53,7 +53,6 @@ private extension MonetizationManagerCore {
         return defaultRequestWrapper
             .callServerApi(requestBody: request)
             .map { GetMonetizationResponseMapper.map(from: $0) }
-            .catchAndReturn(nil)
             .flatMap { [weak self] config -> Single<MonetizationConfig?> in
                 guard let this = self else {
                     return .never()

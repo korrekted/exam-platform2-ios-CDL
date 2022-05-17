@@ -35,4 +35,17 @@ protocol ProfileManager {
     // MARK: Test Mode
     func set(testMode: Int) -> Single<Void>
     func obtainTestMode() -> Single<TestMode?>
+    
+    func globalSet(level: Int?,
+                   assetsPreferences: [Int]?,
+                   examDate: String?,
+                   testMinutes: Int?,
+                   testNumber: Int?,
+                   testWhen: [Int]?,
+                   notificationKey: String?,
+                   country: String?,
+                   state: String?,
+                   language: String?,
+                   testMode: Int?,
+                   topicsIds: [Int]?) -> Single<Void>
 }
