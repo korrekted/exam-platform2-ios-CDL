@@ -25,8 +25,6 @@ final class OSlideMinutesAtTimeView: OSlideView {
                                                             minutes: 20))
     lazy var button = makeButton()
     
-    private lazy var manager = ProfileManagerCore()
-    
     private lazy var disposeBag = DisposeBag()
     
     override init(step: OnboardingView.Step, scope: OnboardingScope) {

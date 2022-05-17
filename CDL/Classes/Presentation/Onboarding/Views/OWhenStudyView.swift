@@ -18,8 +18,6 @@ final class OWhenStudyView: OSlideView {
     lazy var cell5 = makeCell(title: "Onboarding.WhenStudy.Cell5", tag: 4)
     lazy var button = makeButton()
     
-    private lazy var manager = ProfileManagerCore()
-    
     private lazy var disposeBag = DisposeBag()
     
     override init(step: OnboardingView.Step, scope: OnboardingScope) {

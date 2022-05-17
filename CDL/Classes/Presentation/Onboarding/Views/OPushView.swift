@@ -18,8 +18,6 @@ final class OPushView: OSlideView {
     
     private lazy var sendToken = PublishRelay<String>()
     
-    private lazy var manager = ProfileManagerCore()
-    
     private lazy var disposeBag = DisposeBag()
     
     override init(step: OnboardingView.Step, scope: OnboardingScope) {

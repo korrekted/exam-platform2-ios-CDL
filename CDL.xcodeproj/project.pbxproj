@@ -357,6 +357,7 @@
 		DE95A8EA28338B7B00809171 /* SSlideTopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8E928338B7B00809171 /* SSlideTopicsView.swift */; };
 		DE95A8EE28338D5400809171 /* SSlideModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8ED28338D5400809171 /* SSlideModeView.swift */; };
 		DE95A8F028339CE700809171 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8EF28339CE700809171 /* Spinner.swift */; };
+		DE95A8F22833D81900809171 /* ObservableRetrySingle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8F12833D81900809171 /* ObservableRetrySingle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -738,6 +739,7 @@
 		DE95A8E928338B7B00809171 /* SSlideTopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSlideTopicsView.swift; sourceTree = "<group>"; };
 		DE95A8ED28338D5400809171 /* SSlideModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSlideModeView.swift; sourceTree = "<group>"; };
 		DE95A8EF28339CE700809171 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
+		DE95A8F12833D81900809171 /* ObservableRetrySingle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableRetrySingle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1136,6 +1138,7 @@
 				967AD3B4260FD0AE008E8175 /* Error */,
 				967AD3B6260FD0AE008E8175 /* Weak.swift */,
 				DE93780927BA63910073F27C /* XOREncryption.swift */,
+				DE95A8F12833D81900809171 /* ObservableRetrySingle.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2427,6 +2430,7 @@
 				967AD4F4260FD0AF008E8175 /* QuestionManager.swift in Sources */,
 				969679C1265CE3690070E7F7 /* OSlideLocaleView.swift in Sources */,
 				86CE87282621F8A400FC7091 /* CourseCollectionView.swift in Sources */,
+				DE95A8F22833D81900809171 /* ObservableRetrySingle.swift in Sources */,
 				967AD4C5260FD0AE008E8175 /* Weak.swift in Sources */,
 				967AD535260FD0AF008E8175 /* TestElement.swift in Sources */,
 				969679C9265CE7810070E7F7 /* LocaleTableViewElement.swift in Sources */,

@@ -26,13 +26,16 @@ final class OnboardingView: UIView {
     lazy var previousButton = makePreviousButton()
     lazy var headerLabel = makeHeaderLabel()
     
+    lazy var topicsView = OSlideTopicsView(step: .topics, scope: scope)
+    lazy var planView = OSlidePlanView(step: .plan, scope: scope)
+    
     private lazy var scope = OnboardingScope()
     
     private lazy var contentViews: [OSlideView] = {
         [
             OSlideWelcomeView(step: .welcome, scope: scope),
             OSlideLocaleView(step: .locale, scope: scope),
-            OSlideTopicsView(step: .topics, scope: scope),
+            topicsView,
             OSlideGoalsView(step: .goals, scope: scope),
             OSlideModeView(step: .mode, scope: scope),
             OSlideWhenTakingView(step: .whenTaking, scope: scope),
@@ -42,7 +45,7 @@ final class OnboardingView: UIView {
             OWhenStudyView(step: .whenStudy, scope: scope),
             OPushView(step: .push, scope: scope),
             OSlidePreloaderView(step: .preloader, scope: scope),
-            OSlidePlanView(step: .plan, scope: scope)
+            planView
         ]
     }()
     

@@ -10,13 +10,20 @@ import RxSwift
 import RxCocoa
 
 final class OSlideTopicsView: OSlideView {
+    weak var vc: UIViewController?
+    
     lazy var titleLabel = makeTitleLabel()
     lazy var topicsView = makeTopicsCollectionView()
     lazy var button = makeButton()
+    lazy var preloader = makePreloader()
     
     private lazy var manager = ProfileManagerCore()
     
+    private lazy var activity = RxActivityIndicator()
+    
     private lazy var disposeBag = DisposeBag()
+    
+    private lazy var tryAgainTrigger = PublishRelay<Void>()
     
     override init(step: OnboardingView.Step, scope: OnboardingScope) {
         super.init(step: step, scope: scope)
@@ -31,19 +38,37 @@ final class OSlideTopicsView: OSlideView {
     }
     
     override func moveToThis() {
-        Single
-            .zip(
-                manager.obtainSpecificTopics(),
-                manager.obtainSelectedSpecificTopics()
-            ) { topics, selectedTopics -> [TopicsCollectionElement] in
-                topics.map { topic -> TopicsCollectionElement in
-                    TopicsCollectionElement(topic: topic, isSelected: selectedTopics.contains(topic))
+        tryAgainTrigger
+            .startWith(Void())
+            .flatMapLatest { [weak self] _ -> Observable<[TopicsCollectionElement]> in
+                guard let self = self else {
+                    return .never()
                 }
+                
+                return Single
+                    .zip(
+                        self.manager.obtainSpecificTopics(),
+                        self.manager.obtainSelectedSpecificTopics()
+                    ) { topics, selectedTopics -> [TopicsCollectionElement] in
+                        topics.map { topic -> TopicsCollectionElement in
+                            TopicsCollectionElement(topic: topic, isSelected: selectedTopics.contains(topic))
+                        }
+                    }
+                    .catchAndReturn([])
+                    .trackActivity(self.activity)
             }
             .asDriver(onErrorJustReturn: [])
             .drive(onNext: { [weak self] elements in
-                self?.topicsView.setup(elements: elements)
-                self?.topicsCollectionViewDidChangeSelection()
+                guard let self = self else {
+                    return
+                }
+                
+                if elements.isEmpty {
+                    self.openError()
+                } else {
+                    self.topicsView.setup(elements: elements)
+                    self.topicsCollectionViewDidChangeSelection()
+                }
             })
             .disposed(by: disposeBag)
     }
@@ -88,6 +113,27 @@ private extension OSlideTopicsView {
                 self.onNext()
             })
             .disposed(by: disposeBag)
+        
+        activity
+            .drive(onNext: { [weak self] activity in
+                guard let self = self else {
+                    return
+                }
+                
+                activity ? self.preloader.startAnimating() : self.preloader.stopAnimating()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func openError() {
+        let tryAgainVC = TryAgainViewController.make { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.tryAgainTrigger.accept(Void())
+        }
+        vc?.present(tryAgainVC, animated: true)
     }
     
     func changeEnabled() {
@@ -121,6 +167,11 @@ private extension OSlideTopicsView {
             button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
             button.heightAnchor.constraint(equalToConstant: 53.scale),
             button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -60.scale : -30.scale)
+        ])
+        
+        NSLayoutConstraint.activate([
+            preloader.centerXAnchor.constraint(equalTo: centerXAnchor),
+            preloader.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
 }
@@ -164,6 +215,13 @@ private extension OSlideTopicsView {
         view.backgroundColor = Onboarding.primaryButton
         view.layer.cornerRadius = 12.scale
         view.setAttributedTitle("Onboarding.Next".localized.attributed(with: attrs), for: .normal)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }
+    
+    func makePreloader() -> Spinner {
+        let view = Spinner(size: CGSize(width: 60.scale, height: 60.scale), color: .white)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
