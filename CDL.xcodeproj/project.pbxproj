@@ -347,6 +347,8 @@
 		DE3449F82771BEAB00632F72 /* STModeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3449F72771BEAB00632F72 /* STModeCell.swift */; };
 		DE93780A27BA63910073F27C /* XOREncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE93780927BA63910073F27C /* XOREncryption.swift */; };
 		DE93780C27BA71880073F27C /* RestApiTransportExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE93780B27BA71880073F27C /* RestApiTransportExtension.swift */; };
+		DE95A8DA2833805E00809171 /* DefaultRequestWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8D92833805E00809171 /* DefaultRequestWrapper.swift */; };
+		DE95A8DC2833808B00809171 /* XORRequestWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8DB2833808B00809171 /* XORRequestWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -718,6 +720,8 @@
 		DE3449F72771BEAB00632F72 /* STModeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STModeCell.swift; sourceTree = "<group>"; };
 		DE93780927BA63910073F27C /* XOREncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XOREncryption.swift; sourceTree = "<group>"; };
 		DE93780B27BA71880073F27C /* RestApiTransportExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApiTransportExtension.swift; sourceTree = "<group>"; };
+		DE95A8D92833805E00809171 /* DefaultRequestWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRequestWrapper.swift; sourceTree = "<group>"; };
+		DE95A8DB2833808B00809171 /* XORRequestWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XORRequestWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1131,6 +1135,7 @@
 		967AD3B7260FD0AE008E8175 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				DE95A8D82833805400809171 /* RequestWrapper */,
 				967AD3B8260FD0AE008E8175 /* ImagePicker.swift */,
 				967AD3B9260FD0AE008E8175 /* Toast.swift */,
 				86D9C991265CE017008E8AA0 /* LoaderView.swift */,
@@ -2074,6 +2079,15 @@
 			path = GetTestMode;
 			sourceTree = "<group>";
 		};
+		DE95A8D82833805400809171 /* RequestWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				DE95A8D92833805E00809171 /* DefaultRequestWrapper.swift */,
+				DE95A8DB2833808B00809171 /* XORRequestWrapper.swift */,
+			);
+			path = RequestWrapper;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2350,6 +2364,7 @@
 				967AD4EF260FD0AE008E8175 /* GetRandomSetRequest.swift in Sources */,
 				86935FC026754F5E009D1D99 /* FlashCardManagerMediator.swift in Sources */,
 				86935FBE2674F542009D1D99 /* FlashCardModel.swift in Sources */,
+				DE95A8DC2833808B00809171 /* XORRequestWrapper.swift in Sources */,
 				967AD56C260FD0AF008E8175 /* OProgressView.swift in Sources */,
 				967AD545260FD0AF008E8175 /* TestStatsResultCell.swift in Sources */,
 				967AD532260FD0AF008E8175 /* TestType.swift in Sources */,
@@ -2485,6 +2500,7 @@
 				967AD514260FD0AF008E8175 /* SplashViewModel.swift in Sources */,
 				969679CC265CE8A20070E7F7 /* LocaleTableViewCell.swift in Sources */,
 				967AD54D260FD0AF008E8175 /* TestStatsFilter.swift in Sources */,
+				DE95A8DA2833805E00809171 /* DefaultRequestWrapper.swift in Sources */,
 				967AD4E9260FD0AE008E8175 /* Test.swift in Sources */,
 				96155B772689F97700228151 /* OMinutesAtTimeCell.swift in Sources */,
 				967AD4BD260FD0AE008E8175 /* UIEdgeInsets+Extension.swift in Sources */,

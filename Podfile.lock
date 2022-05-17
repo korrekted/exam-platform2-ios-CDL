@@ -1,9 +1,9 @@
 PODS:
   - Alamofire (5.6.1)
   - Amplitude-iOS (4.10.0)
-  - AppsFlyerFramework (6.6.0):
-    - AppsFlyerFramework/Main (= 6.6.0)
-  - AppsFlyerFramework/Main (6.6.0)
+  - AppsFlyerFramework (6.6.1):
+    - AppsFlyerFramework/Main (= 6.6.1)
+  - AppsFlyerFramework/Main (6.6.1)
   - Branch (1.41.0)
   - FBAEMKit (13.2.0):
     - FBSDKCoreKit_Basics (= 13.2.0)
@@ -201,7 +201,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
   Amplitude-iOS: 7d8cdc3408ba35c2e68368fc7c692cd104606b94
-  AppsFlyerFramework: 55821f40c687dc7a683835eeb821994cef437807
+  AppsFlyerFramework: 5e4b385a27dc6179e132b1617f76809412eb2f88
   Branch: bd6c472d6cab03206877ac86c1241327a3f217d1
   FBAEMKit: c2b2895363b7e57192013d1dc49fdf498b28624c
   FBSDKCoreKit: 58139803d861e72c7661dc875611a759352a55ac
