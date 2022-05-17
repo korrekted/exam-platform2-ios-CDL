@@ -9,6 +9,8 @@ import RxSwift
 import RxCocoa
 
 final class TestStatsViewModel {
+    var tryAgain: ((Error) -> (Observable<Void>))?
+    
     lazy var userTestId = BehaviorRelay<Int?>(value: nil)
     lazy var testType = BehaviorRelay<TestType?>(value: nil)
     lazy var filterRelay = PublishRelay<TestStatsFilter>()
@@ -18,9 +20,15 @@ final class TestStatsViewModel {
     lazy var elements = makeElements()
     lazy var testName = makeTestName()
     
+    lazy var activity = RxActivityIndicator()
+    
+    private lazy var stats = makeStats()
+    
     private lazy var testStatsManager = TestStatsManagerCore()
     private lazy var courseManager = CoursesManagerCore()
     private lazy var tryAgainIsHiddenRelay = BehaviorRelay<Bool>(value: true)
+    
+    private lazy var observableRetrySingle = ObservableRetrySingle()
 }
 
 // MARK: Private
@@ -33,22 +41,12 @@ private extension TestStatsViewModel {
     }
     
     func makeElements() -> Driver<[TestStatsCellType]> {
-        let stats = userTestId
-            .compactMap { $0 }
-            .flatMapLatest { [weak self] userTestId -> Observable<TestStats?> in
-                guard let self = self else { return .empty() }
-                
-                return self.testStatsManager
-                    .retrieve(userTestId: userTestId)
-                    .asObservable()
-                    .catchAndReturn(nil)
-            }
-            .asObservable()
-        
-        return Observable
-            .combineLatest(stats, filterRelay.asObservable())
+        return Driver
+            .combineLatest(stats, filterRelay.asDriver(onErrorDriveWith: .never()))
             .map { [tryAgainIsHiddenRelay] element, filter -> [TestStatsCellType] in
-                guard let stats = element else { return [] }
+                guard let stats = element else {
+                    return []
+                }
                 
                 tryAgainIsHiddenRelay.accept(stats.passed)
                 
@@ -79,7 +77,35 @@ private extension TestStatsViewModel {
                         }
                     }
             }
-            .asDriver(onErrorJustReturn: [])
+    }
+    
+    func makeStats() -> Driver<TestStats?> {
+        userTestId
+            .compactMap { $0 }
+            .flatMapLatest { [weak self] userTestId -> Observable<TestStats?> in
+                guard let self = self else {
+                    return .empty()
+                }
+                
+                func source() -> Single<TestStats?> {
+                    self.testStatsManager
+                        .retrieve(userTestId: userTestId)
+                }
+                
+                func trigger(error: Error) -> Observable<Void> {
+                    guard let tryAgain = self.tryAgain?(error) else {
+                        return .empty()
+                    }
+                    
+                    return tryAgain
+                }
+                
+                return self.observableRetrySingle
+                    .retry(source: { source() },
+                           trigger: { trigger(error: $0) })
+                    .trackActivity(self.activity)
+            }
+            .asDriver(onErrorJustReturn: nil)
     }
     
     func makeTestName() -> Driver<String> {

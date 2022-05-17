@@ -9,8 +9,12 @@ import RxSwift
 import RxCocoa
 
 final class TestViewModel {
+    var tryAgain: ((Error) -> (Observable<Void>))?
     
     var activeSubscription = true
+    
+    lazy var loadTestActivityIndicator = RxActivityIndicator()
+    lazy var sendAnswerActivityIndicator = RxActivityIndicator()
 
     var testTypes = [TestType]()
     let courseId = BehaviorRelay<Int?>(value: nil)
@@ -48,6 +52,8 @@ final class TestViewModel {
     
     private lazy var questionProgress = makeQuestionProgress().share(replay: 1, scope: .forever)
     private lazy var timer = makeTimer().share(replay: 1, scope: .forever)
+    
+    private lazy var observableRetrySingle = ObservableRetrySingle()
 }
 
 // MARK: Private
@@ -101,10 +107,24 @@ private extension TestViewModel {
             .flatMapLatest { [weak self] value, courseId -> Observable<Event<Test>> in
                 guard let self = self, let userTestId = value.element?.userTestId, let courseId = courseId else { return .empty() }
                 
+                func trigger(error: Error) -> Observable<Void> {
+                    guard let tryAgain = self.tryAgain?(error) else {
+                        return .empty()
+                    }
+                    
+                    return tryAgain
+                }
+                
                 return self.questionManager
                     .againTest(courseId: courseId, testId: userTestId, activeSubscription: self.activeSubscription)
                     .compactMap { $0 }
                     .asObservable()
+                    .trackActivity(self.loadTestActivityIndicator)
+                    .retry(when: { errorObs in
+                        errorObs.flatMap { error in
+                            trigger(error: error)
+                        }
+                    })
                     .materialize()
                     .filter {
                         guard case .completed = $0 else { return true }
@@ -116,32 +136,57 @@ private extension TestViewModel {
     func loadTest() -> Observable<Event<Test>> {
         Observable.combineLatest(courseId, currentTestType)
             .flatMapLatest { [weak self] courseId, type -> Observable<Event<Test>> in
-                guard let self = self,  let courseId = courseId else { return .empty() }
-                
-                let test: Single<Test?>
-                
-                switch type {
-                case let .get(testId), let .timedQuizz(testId):
-                    test = self.questionManager.retrieve(courseId: courseId,
-                                                         testId: testId,
-                                                         activeSubscription: self.activeSubscription)
-                case .tenSet:
-                    test = self.questionManager.retrieveTenSet(courseId: courseId,
-                                                               activeSubscription: self.activeSubscription)
-                case .failedSet:
-                    test = self.questionManager.retrieveFailedSet(courseId: courseId,
-                                                                  activeSubscription: self.activeSubscription)
-                case .qotd:
-                    test = self.questionManager.retrieveQotd(courseId: courseId,
-                                                             activeSubscription: self.activeSubscription)
-                case .randomSet:
-                    test = self.questionManager.retrieveRandomSet(courseId: courseId,
-                                                                  activeSubscription: self.activeSubscription)
+                guard
+                    let self = self,
+                    let courseId = courseId
+                else {
+                    return .empty()
                 }
                 
-                return test
-                    .compactMap { $0 }
-                    .asObservable()
+                func source() -> Single<Test> {
+                    let test: Single<Test?>
+                    
+                    switch type {
+                    case let .get(testId), let .timedQuizz(testId):
+                        test = self.questionManager.retrieve(courseId: courseId,
+                                                             testId: testId,
+                                                             activeSubscription: self.activeSubscription)
+                    case .tenSet:
+                        test = self.questionManager.retrieveTenSet(courseId: courseId,
+                                                                   activeSubscription: self.activeSubscription)
+                    case .failedSet:
+                        test = self.questionManager.retrieveFailedSet(courseId: courseId,
+                                                                      activeSubscription: self.activeSubscription)
+                    case .qotd:
+                        test = self.questionManager.retrieveQotd(courseId: courseId,
+                                                                 activeSubscription: self.activeSubscription)
+                    case .randomSet:
+                        test = self.questionManager.retrieveRandomSet(courseId: courseId,
+                                                                      activeSubscription: self.activeSubscription)
+                    }
+                    
+                    return test
+                        .flatMap { test -> Single<Test> in
+                            guard let test = test else {
+                                return .error(ContentError(.notContent))
+                            }
+                            
+                            return .just(test)
+                        }
+                }
+                
+                func trigger(error: Error) -> Observable<Void> {
+                    guard let tryAgain = self.tryAgain?(error) else {
+                        return .empty()
+                    }
+                    
+                    return tryAgain
+                }
+                
+                return self.observableRetrySingle
+                    .retry(source: { source() },
+                           trigger: { trigger(error: $0) })
+                    .trackActivity(self.loadTestActivityIndicator)
                     .materialize()
                     .filter {
                         guard case .completed = $0 else { return true }
@@ -202,19 +247,32 @@ private extension TestViewModel {
         selectedAnswers
             .withLatestFrom(question) { ($0, $1) }
             .withLatestFrom(testElement) { ($0.0, $0.1, $1.element?.userTestId) }
-            .flatMapLatest { [questionManager] answers, question, userTestId -> Observable<Bool> in
-                guard let userTestId = userTestId, !answers.isEmpty else {
+            .flatMapLatest { [weak self] answers, question, userTestId -> Observable<Bool> in
+                guard let self = self, let userTestId = userTestId, !answers.isEmpty else {
                     return .just(false)
-                    
                 }
                 
-                return questionManager
-                    .sendAnswer(
-                        questionId: question.id,
-                        userTestId: userTestId,
-                        answerIds: answers.map { $0.id }
-                    )
-                    .catchAndReturn(nil)
+                func source() -> Single<Bool?> {
+                    self.questionManager
+                        .sendAnswer(
+                            questionId: question.id,
+                            userTestId: userTestId,
+                            answerIds: answers.map { $0.id }
+                        )
+                }
+                
+                func trigger(error: Error) -> Observable<Void> {
+                    guard let tryAgain = self.tryAgain?(error) else {
+                        return .empty()
+                    }
+                    
+                    return tryAgain
+                }
+                
+                return self.observableRetrySingle
+                    .retry(source: { source() },
+                           trigger: { trigger(error: $0) })
+                    .trackActivity(self.sendAnswerActivityIndicator)
                     .compactMap { $0 }
                     .asObservable()
             }
@@ -323,13 +381,29 @@ private extension TestViewModel {
             .flatMapFirst { [weak self] isSaved, questionId -> Observable<Bool> in
                 guard let self = self else { return .empty() }
                 
-                let request = isSaved
-                    ? self.questionManager.removeSavedQuestion(questionId: questionId)
-                    : self.questionManager.saveQuestion(questionId: questionId)
+                func source() -> Observable<Bool> {
+                    let request = isSaved
+                        ? self.questionManager.removeSavedQuestion(questionId: questionId)
+                        : self.questionManager.saveQuestion(questionId: questionId)
+
+                    return request
+                        .andThen(Observable.just(!isSaved))
+                }
                 
-                return request
-                    .andThen(Observable.just(!isSaved))
-                    .catchAndReturn(isSaved)
+                func trigger(error: Error) -> Observable<Void> {
+                    guard let tryAgain = self.tryAgain?(error) else {
+                        return .empty()
+                    }
+                    
+                    return tryAgain
+                }
+
+                return source()
+                    .retry { err in
+                        err.flatMapLatest { error in
+                            trigger(error: error)
+                        }
+                    }
             }
         
         let nextQuestion = didTapNext

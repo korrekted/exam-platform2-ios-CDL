@@ -13,6 +13,8 @@ final class TestView: UIView {
     lazy var gradientView = makeGradientView()
     lazy var navigationView = makeNavigationView()
     lazy var counter = makeCounterView()
+    lazy var preloader = makePreloader()
+    lazy var buttonPreloader = makeButtonPreloader()
     
     private var navigationHeightConstraint: NSLayoutConstraint?
     
@@ -119,6 +121,17 @@ private extension TestView {
             nextButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -59.scale)
         ])
         
+        NSLayoutConstraint.activate([
+            preloader.centerXAnchor.constraint(equalTo: centerXAnchor),
+            preloader.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            buttonPreloader.leadingAnchor.constraint(equalTo: bottomButton.leadingAnchor),
+            buttonPreloader.trailingAnchor.constraint(equalTo: bottomButton.trailingAnchor),
+            buttonPreloader.topAnchor.constraint(equalTo: bottomButton.topAnchor),
+            buttonPreloader.bottomAnchor.constraint(equalTo: bottomButton.bottomAnchor)
+        ])
     }
 }
 
@@ -186,6 +199,23 @@ private extension TestView {
     func makeCounterView() -> TestProgressView {
         let view = TestProgressView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }
+    
+    func makePreloader() -> Spinner {
+        let view = Spinner(size: CGSize(width: 60.scale, height: 60.scale))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }
+    
+    func makeButtonPreloader() -> TestBottomSpinner {
+        let view = TestBottomSpinner()
+        view.layer.cornerRadius = 12.scale
+        view.backgroundColor = TestPalette.primaryButton
+        view.stop()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
         return view
     }
 }

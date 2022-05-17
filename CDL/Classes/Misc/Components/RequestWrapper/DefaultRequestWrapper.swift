@@ -29,9 +29,9 @@ private extension DefaultRequestWrapper {
                 guard let self = self else {
                     return .never()
                 }
-                
+
                 let success = self.success(response: response)
-                
+
                 return success ? .just(response) : self.execute(request: request, attempt: attempt + 1)
             }
     }

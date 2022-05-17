@@ -358,6 +358,7 @@
 		DE95A8EE28338D5400809171 /* SSlideModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8ED28338D5400809171 /* SSlideModeView.swift */; };
 		DE95A8F028339CE700809171 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8EF28339CE700809171 /* Spinner.swift */; };
 		DE95A8F22833D81900809171 /* ObservableRetrySingle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8F12833D81900809171 /* ObservableRetrySingle.swift */; };
+		DE95A8F42833F8C000809171 /* TestBottomSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8F32833F8C000809171 /* TestBottomSpinner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -740,6 +741,7 @@
 		DE95A8ED28338D5400809171 /* SSlideModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSlideModeView.swift; sourceTree = "<group>"; };
 		DE95A8EF28339CE700809171 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		DE95A8F12833D81900809171 /* ObservableRetrySingle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableRetrySingle.swift; sourceTree = "<group>"; };
+		DE95A8F32833F8C000809171 /* TestBottomSpinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBottomSpinner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1627,6 +1629,7 @@
 				967AD45C260FD0AE008E8175 /* AnswerView.swift */,
 				967AD45D260FD0AE008E8175 /* AVPlayerView.swift */,
 				8631825B2610E8000098797B /* TestProgressView.swift */,
+				DE95A8F32833F8C000809171 /* TestBottomSpinner.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2610,6 +2613,7 @@
 				9673818F26792DC000230FB6 /* MonetizationManager.swift in Sources */,
 				96F44FB62631788D000B77E3 /* TopicsCollectionElement.swift in Sources */,
 				967AD537260FD0AF008E8175 /* TestViewController.swift in Sources */,
+				DE95A8F42833F8C000809171 /* TestBottomSpinner.swift in Sources */,
 				86BB25B1261E2F8D00C6D2FA /* SIProgressCollectionView.swift in Sources */,
 				967AD4CC260FD0AE008E8175 /* PaddingPickerView.swift in Sources */,
 				967AD50D260FD0AF008E8175 /* STLinksCell.swift in Sources */,
