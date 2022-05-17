@@ -356,6 +356,7 @@
 		DE95A8E828338B0F00809171 /* SSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8E728338B0F00809171 /* SSlideView.swift */; };
 		DE95A8EA28338B7B00809171 /* SSlideTopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8E928338B7B00809171 /* SSlideTopicsView.swift */; };
 		DE95A8EE28338D5400809171 /* SSlideModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8ED28338D5400809171 /* SSlideModeView.swift */; };
+		DE95A8F028339CE700809171 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8EF28339CE700809171 /* Spinner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -736,6 +737,7 @@
 		DE95A8E728338B0F00809171 /* SSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSlideView.swift; sourceTree = "<group>"; };
 		DE95A8E928338B7B00809171 /* SSlideTopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSlideTopicsView.swift; sourceTree = "<group>"; };
 		DE95A8ED28338D5400809171 /* SSlideModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSlideModeView.swift; sourceTree = "<group>"; };
+		DE95A8EF28339CE700809171 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1171,6 +1173,7 @@
 				8631825E2610FA480098797B /* NavigationBar.swift */,
 				8667C2B62614D0810090CBFF /* ProgressView.swift */,
 				8667C2BA2614DEF90090CBFF /* TrophyView.swift */,
+				DE95A8EF28339CE700809171 /* Spinner.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -2315,6 +2318,7 @@
 				967AD56B260FD0AF008E8175 /* OSlideCountView.swift in Sources */,
 				967AD552260FD0AF008E8175 /* TestStatsFilterView.swift in Sources */,
 				967AD52C260FD0AF008E8175 /* AnswerCell.swift in Sources */,
+				DE95A8F028339CE700809171 /* Spinner.swift in Sources */,
 				8659FCAC26342BF00029598C /* CourseDetailsTableElement.swift in Sources */,
 				967AD4F0260FD0AF008E8175 /* GetQotdRequest.swift in Sources */,
 				96155B7A2689FB1A00228151 /* MinutesAtTimeElement.swift in Sources */,
