@@ -20,6 +20,7 @@ final class SplashViewModel {
     private lazy var monetizationManager = MonetizationManagerCore()
     private lazy var profileManager = ProfileManagerCore()
     private lazy var sessionManager = SessionManagerCore()
+    private lazy var paygateManager = PaygateManager()
     
     private lazy var observableRetrySingle = ObservableRetrySingle()
     
@@ -49,8 +50,11 @@ private extension SplashViewModel {
             let countries = profileManager
                 .retrieveCountries(forceUpdate: true)
             
+            let paygate = paygateManager
+                .retrievePaygate(forceUpdate: true)
+            
             return Single
-                .zip(monetization, countries)
+                .zip(monetization, countries, paygate)
                 .map { _ in Void() }
         }
         
