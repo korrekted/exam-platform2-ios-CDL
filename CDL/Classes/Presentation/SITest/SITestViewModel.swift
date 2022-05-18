@@ -9,6 +9,7 @@ import RxSwift
 import RxCocoa
 
 final class SITestViewModel {
+    var tryAgain: ((Error) -> (Observable<Void>))?
     
     var activeSubscription = true
 
@@ -36,6 +37,8 @@ final class SITestViewModel {
     private lazy var selectedAnswers = makeSelectedAnswers().share(replay: 1, scope: .forever)
     
     private var notAnsweredQuestions = [SIQuestion]()
+    
+    private lazy var observableRetrySingle = ObservableRetrySingle()
 }
 
 // MARK: Private
@@ -95,17 +98,36 @@ private extension SITestViewModel {
             .flatMapLatest { [weak self] courseId, type -> Observable<Event<SITest>> in
                 guard let self = self, let courseId = courseId, let type = type else { return .empty() }
                 
-                let test: Single<SITest?>
-                
-                switch type {
-                case .saved:
-                    test = self.questionManager.retrieveSaved(courseId: courseId)
-                case .incorrect:
-                    test = self.questionManager.retrieveIncorrect(courseId: courseId)
+                func source() -> Single<SITest> {
+                    let test: Single<SITest?>
+                    
+                    switch type {
+                    case .saved:
+                        test = self.questionManager.retrieveSaved(courseId: courseId)
+                    case .incorrect:
+                        test = self.questionManager.retrieveIncorrect(courseId: courseId)
+                    }
+                    
+                    return test.flatMap { test -> Single<SITest> in
+                        guard let test = test else {
+                            return .error(ContentError(.notContent))
+                        }
+                        
+                        return .just(test)
+                    }
                 }
                 
-                return test
-                    .compactMap { $0 }
+                func trigger(error: Error) -> Observable<Void> {
+                    guard let tryAgain = self.tryAgain?(error) else {
+                        return .empty()
+                    }
+                    
+                    return tryAgain
+                }
+                
+                return self.observableRetrySingle
+                    .retry(source: { source() },
+                           trigger: { trigger(error: $0) })
                     .asObservable()
                     .do(onNext: { [weak self] in
                         self?.notAnsweredQuestions = $0.questions
@@ -137,20 +159,38 @@ private extension SITestViewModel {
         selectedAnswers
             .withLatestFrom(question) { ($0, $1) }
             .withLatestFrom(testElement) { ($0.0, $0.1, $1.element?.userTestId) }
-            .flatMapLatest { [questionManager] answers, question, userTestId -> Observable<Bool> in
-                guard let userTestId = userTestId else {
+            .flatMapLatest { [weak self] answers, question, userTestId -> Observable<Bool> in
+                guard let self = self, let userTestId = userTestId else {
                     return .just(false)
-                    
                 }
                 
-                return questionManager
-                    .sendAnswer(
-                        questionId: question.id,
-                        userTestId: userTestId,
-                        answerIds: answers.map { $0.id }
-                    )
-                    .catchAndReturn(nil)
-                    .compactMap { $0 }
+                func source() -> Single<Bool> {
+                    self.questionManager
+                        .sendAnswer(
+                            questionId: question.id,
+                            userTestId: userTestId,
+                            answerIds: answers.map { $0.id }
+                        )
+                        .flatMap { result -> Single<Bool> in
+                            guard let result = result else {
+                                return .error(ContentError(.notContent))
+                            }
+                            
+                            return .just(result)
+                        }
+                }
+                
+                func trigger(error: Error) -> Observable<Void> {
+                    guard let tryAgain = self.tryAgain?(error) else {
+                        return .empty()
+                    }
+                    
+                    return tryAgain
+                }
+                
+                return self.observableRetrySingle
+                    .retry(source: { source() },
+                           trigger: { trigger(error: $0) })
                     .asObservable()
             }
             .map { [weak self] value in
@@ -184,15 +224,33 @@ private extension SITestViewModel {
             .distinctUntilChanged()
             .withLatestFrom(question.map { $0.id }) { ($0, $1) }
             .flatMapFirst { [weak self] isSaved, questionId -> Observable<Bool> in
-                guard let self = self else { return .empty() }
+                guard let self = self else {
+                    return .empty()
+                }
                 
-                let request = isSaved
-                    ? self.questionManager.removeSavedQuestion(questionId: questionId)
-                    : self.questionManager.saveQuestion(questionId: questionId)
+                func source() -> Observable<Bool> {
+                    let request = isSaved
+                        ? self.questionManager.removeSavedQuestion(questionId: questionId)
+                        : self.questionManager.saveQuestion(questionId: questionId)
+
+                    return request
+                        .andThen(Observable.just(!isSaved))
+                }
                 
-                return request
-                    .andThen(Observable.just(!isSaved))
-                    .catchAndReturn(isSaved)
+                func trigger(error: Error) -> Observable<Void> {
+                    guard let tryAgain = self.tryAgain?(error) else {
+                        return .empty()
+                    }
+                    
+                    return tryAgain
+                }
+
+                return source()
+                    .retry { err in
+                        err.flatMapLatest { error in
+                            trigger(error: error)
+                        }
+                    }
             }
             .asDriver(onErrorJustReturn: false)
         

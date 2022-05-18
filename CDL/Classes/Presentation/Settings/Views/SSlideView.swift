@@ -8,6 +8,8 @@
 import UIKit
 
 class SSlideView: UIView {
+    weak var vc: UIViewController?
+    
     var didNextTapped: (() -> Void)?
     
     func moveToThis() {}

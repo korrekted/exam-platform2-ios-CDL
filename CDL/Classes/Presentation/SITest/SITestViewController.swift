@@ -38,6 +38,14 @@ final class SITestViewController: UIViewController {
         
         let courseName = viewModel.courseName
         
+        viewModel.tryAgain = { [weak self] error -> Observable<Void> in
+            guard let self = self else {
+                return .never()
+            }
+            
+            return self.openError()
+        }
+        
         viewModel.question
             .drive(Binder(self) { base, element in
                 base.mainView.tableView.setup(question: element)
@@ -49,7 +57,9 @@ final class SITestViewController: UIViewController {
             .startWith(true)
         
         isLoading
-            .drive(mainView.loader.isLoading)
+            .drive(onNext: { [weak self] activity in
+                self?.activity(activity)
+            })
             .disposed(by: disposeBag)
         
         isLoading
@@ -214,6 +224,26 @@ private extension SITestViewController {
     @objc func popAction() {
         QuestionManagerMediator.shared.testClosed()
         navigationController?.popViewController(animated: true)
+    }
+    
+    func openError() -> Observable<Void> {
+        Observable<Void>
+            .create { [weak self] observe in
+                guard let self = self else {
+                    return Disposables.create()
+                }
+                
+                let vc = TryAgainViewController.make {
+                    observe.onNext(())
+                }
+                self.present(vc, animated: true)
+                
+                return Disposables.create()
+            }
+    }
+    
+    func activity(_ activity: Bool) {
+        activity ? mainView.preloader.startAnimating() : mainView.preloader.stopAnimating()
     }
 }
 

@@ -27,6 +27,14 @@ class TestStatsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.tryAgain = { [weak self] error -> Observable<Void> in
+            guard let self = self else {
+                return .never()
+            }
+            
+            return self.openError()
+        }
+        
         viewModel.elements.startWith([])
             .drive(Binder(mainView.tableView) {
                 $0.setup(elements: $1)
@@ -74,14 +82,6 @@ class TestStatsViewController: UIViewController {
                 self?.logAnalytics(courseName: name)
             })
             .disposed(by: disposeBag)
-        
-        viewModel.tryAgain = { [weak self] error -> Observable<Void> in
-            guard let self = self else {
-                return .never()
-            }
-            
-            return self.openError()
-        }
         
         viewModel.activity
             .drive(onNext: { [weak self] activity in

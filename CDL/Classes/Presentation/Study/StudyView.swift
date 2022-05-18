@@ -15,6 +15,7 @@ final class StudyView: UIView {
     lazy var takeButton = makeButton()
     lazy var unlockButton = makeButton()
     private lazy var stackView = makeStackView()
+    lazy var preloader = makePreloader()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -97,6 +98,11 @@ private extension StudyView {
             collectionView.topAnchor.constraint(equalTo: navigationView.bottomAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+            preloader.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
+            preloader.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor)
+        ])
     }
 }
 
@@ -159,6 +165,13 @@ private extension StudyView {
         let view = UIButton()
         view.layer.cornerRadius = 12.scale
         stackView.addArrangedSubview(view)
+        return view
+    }
+    
+    func makePreloader() -> Spinner {
+        let view = Spinner(size: CGSize(width: 60.scale, height: 60.scale))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
         return view
     }
 }

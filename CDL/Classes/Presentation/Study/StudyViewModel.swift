@@ -9,6 +9,10 @@ import RxSwift
 import RxCocoa
 
 final class StudyViewModel {
+    var tryAgain: ((Error) -> (Observable<Void>))?
+    
+    lazy var activity = RxActivityIndicator()
+    
     private lazy var courseManager = CoursesManagerCore()
     private lazy var sessionManager = SessionManagerCore()
     private lazy var questionManager = QuestionManagerCore()
@@ -25,11 +29,12 @@ final class StudyViewModel {
     lazy var config = makeConfig().share(replay: 1, scope: .forever)
     
     private lazy var currentCourse = makeCurrentCourse().share(replay: 1, scope: .forever)
+    
+    private lazy var observableRetrySingle = ObservableRetrySingle()
 }
 
 // MARK: Private
 private extension StudyViewModel {
-    
     func makeCurrentCourse() -> Observable<Course> {
         let saved = selectedCourse
             .compactMap { $0 }
@@ -38,7 +43,7 @@ private extension StudyViewModel {
             .rxGetSelectedCourse()
             .compactMap { $0 }
             .asObservable()
-            .concat(courseManager.retrieveCourses().compactMap { $0.first })
+            .concat(makeCourses().compactMap { $0.first })
             .take(1)
         
         return defaultCourse
@@ -90,10 +95,12 @@ private extension StudyViewModel {
         )
             .asObservable()
         .startWith(())
-        .flatMapLatest { [weak self] _ -> Single<[Course]> in
-            guard let self = self else { return .never() }
-            return self.courseManager
-                .retrieveCourses()
+        .flatMapLatest { [weak self] _ -> Observable<[Course]> in
+            guard let self = self else {
+                return .never()
+            }
+            
+            return self.makeCourses()
         }
         .map { $0.filter { $0.selected } }
         
@@ -108,6 +115,26 @@ private extension StudyViewModel {
             .asDriver(onErrorDriveWith: .empty())
     }
     
+    func makeCourses() -> Observable<[Course]> {
+        func source() -> Single<[Course]> {
+            courseManager
+                .retrieveCourses()
+        }
+        
+        func trigger(error: Error) -> Observable<Void> {
+            guard let tryAgain = self.tryAgain?(error) else {
+                return .empty()
+            }
+            
+            return tryAgain
+        }
+        
+        return observableRetrySingle
+            .retry(source: { source() },
+                   trigger: { trigger(error: $0) })
+            .trackActivity(activity)
+    }
+    
     func makeBrief() -> Driver<SCEBrief> {
         let testPassed = Signal
             .merge(
@@ -118,14 +145,29 @@ private extension StudyViewModel {
             .startWith(())
         
         return Observable.combineLatest(testPassed, currentCourse)
-            .flatMapLatest { [weak self] _, course -> Single<(Course, Brief?)> in
-                guard let this = self else {
+            .flatMapLatest { [weak self] _, course -> Observable<(Course, Brief?)> in
+                guard let self = self else {
                     return .never()
                 }
                 
-                return this.statsManager
-                    .retrieveBrief(courseId: course.id)
-                    .map { (course, $0) }
+                func source() -> Single<(Course, Brief?)> {
+                    self.statsManager
+                        .retrieveBrief(courseId: course.id)
+                        .map { (course, $0) }
+                }
+                
+                func trigger(error: Error) -> Observable<Void> {
+                    guard let tryAgain = self.tryAgain?(error) else {
+                        return .empty()
+                    }
+                    
+                    return tryAgain
+                }
+                
+                return self.observableRetrySingle
+                    .retry(source: { source() },
+                           trigger: { trigger(error: $0) })
+                    .trackActivity(self.activity)
             }
             .map { stub -> SCEBrief in
                 let (course, brief) = stub
@@ -170,14 +212,29 @@ private extension StudyViewModel {
     
     func makeFlashcards() -> Driver<StudyCollectionSection?> {
         let isEmptyFlashcardsTopics = currentCourse
-            .flatMapLatest { [weak self] course -> Single<Bool> in
+            .flatMapLatest { [weak self] course -> Observable<Bool> in
                 guard let self = self else {
                     return .never()
                 }
                 
-                return self.flashcardsManager
-                    .obtainTopics(courseId: course.id)
-                    .map { $0.isEmpty }
+                func source() -> Single<Bool> {
+                    self.flashcardsManager
+                        .obtainTopics(courseId: course.id)
+                        .map { $0.isEmpty }
+                }
+                
+                func trigger(error: Error) -> Observable<Void> {
+                    guard let tryAgain = self.tryAgain?(error) else {
+                        return .empty()
+                    }
+                    
+                    return tryAgain
+                }
+                
+                return self.observableRetrySingle
+                    .retry(source: { source() },
+                           trigger: { trigger(error: $0) })
+                    .trackActivity(self.activity)
             }
             .asDriver(onErrorJustReturn: true)
         
@@ -221,20 +278,63 @@ private extension StudyViewModel {
     
     func makeConfig() -> Observable<CourseConfig> {
         currentCourse
-            .flatMapLatest { [manager = questionManager] course -> Observable<CourseConfig> in
-                manager.retrieveConfig(courseId: course.id)
-                    .asObservable()
-                    .catchAndReturn(nil)
-                    .compactMap { $0 }
+            .flatMapLatest { [weak self] course -> Observable<CourseConfig> in
+                guard let self = self else {
+                    return .empty()
+                }
+                
+                func source() -> Single<CourseConfig> {
+                    self.questionManager
+                        .retrieveConfig(courseId: course.id)
+                        .flatMap { config -> Single<CourseConfig> in
+                            guard let config = config else {
+                                return .error(ContentError(.notContent))
+                            }
+                            
+                            return .just(config)
+                        }
+                }
+                
+                func trigger(error: Error) -> Observable<Void> {
+                    guard let tryAgain = self.tryAgain?(error) else {
+                        return .empty()
+                    }
+                    
+                    return tryAgain
+                }
+                
+                return self.observableRetrySingle
+                    .retry(source: { source() },
+                           trigger: { trigger(error: $0) })
+                    .trackActivity(self.activity)
             }
     }
     
     func makeTimedFinish() -> Observable<Void> {
         QuestionManagerMediator.shared.rxTimedTestClosed
             .asObservable()
-            .flatMap { [manager = questionManager] userTestId -> Observable<Void> in
-                manager.finishTest(userTestId: userTestId)
-                    .andThen(.just(()))
+            .flatMap { [weak self] userTestId -> Observable<Void> in
+                guard let self = self else {
+                    return .empty()
                 }
+                
+                func source() -> Single<Void> {
+                    self.questionManager.finishTest(userTestId: userTestId)
+                        .andThen(.just(()))
+                }
+                
+                func trigger(error: Error) -> Observable<Void> {
+                    guard let tryAgain = self.tryAgain?(error) else {
+                        return .empty()
+                    }
+                    
+                    return tryAgain
+                }
+                
+                return self.observableRetrySingle
+                    .retry(source: { source() },
+                           trigger: { trigger(error: $0) })
+                    .trackActivity(self.activity)
+            }
     }
 }

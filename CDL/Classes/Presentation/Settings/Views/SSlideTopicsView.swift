@@ -13,8 +13,13 @@ final class SSlideTopicsView: SSlideView {
     lazy var titleLabel = makeTitleLabel()
     lazy var topicsView = makeTopicsCollectionView()
     lazy var button = makeButton()
+    lazy var preloader = makePreloader()
     
     private lazy var manager = ProfileManagerCore()
+    
+    private lazy var activity = RxActivityIndicator()
+    
+    private lazy var observableRetrySingle = ObservableRetrySingle()
     
     private lazy var disposeBag = DisposeBag()
     
@@ -31,17 +36,27 @@ final class SSlideTopicsView: SSlideView {
     }
     
     override func moveToThis() {
-        Single
-            .zip(
-                manager.obtainSpecificTopics(),
-                manager.obtainSelectedSpecificTopics()
-            ) { topics, selectedTopics -> [TopicsCollectionElement] in
-                topics.map { topic -> TopicsCollectionElement in
-                    TopicsCollectionElement(topic: topic, isSelected: selectedTopics.contains(topic))
+        func source() -> Single<[TopicsCollectionElement]> {
+            Single
+                .zip(
+                    manager.obtainSpecificTopics(),
+                    manager.obtainSelectedSpecificTopics()
+                ) { topics, selectedTopics -> [TopicsCollectionElement] in
+                    topics.map { topic -> TopicsCollectionElement in
+                        TopicsCollectionElement(topic: topic, isSelected: selectedTopics.contains(topic))
+                    }
                 }
-            }
-            .asDriver(onErrorJustReturn: [])
-            .drive(onNext: { [weak self] elements in
+        }
+        
+        func trigger(error: Error) -> Observable<Void> {
+            openError()
+        }
+        
+        observableRetrySingle
+            .retry(source: { source() },
+                   trigger: { trigger(error: $0) })
+            .trackActivity(activity)
+            .subscribe(onNext: { [weak self] elements in
                 self?.topicsView.setup(elements: elements)
                 self?.topicsCollectionViewDidChangeSelection()
             })
@@ -80,6 +95,32 @@ private extension SSlideTopicsView {
                 self?.onNext()
             })
             .disposed(by: disposeBag)
+        
+        activity
+            .drive(onNext: { [weak self] activity in
+                guard let self = self else {
+                    return
+                }
+                
+                activity ? self.preloader.startAnimating() : self.preloader.stopAnimating()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func openError() -> Observable<Void> {
+        Observable<Void>
+            .create { [weak self] observe in
+                guard let self = self else {
+                    return Disposables.create()
+                }
+                
+                let vc = TryAgainViewController.make {
+                    observe.onNext(())
+                }
+                self.vc?.present(vc, animated: true)
+                
+                return Disposables.create()
+            }
     }
     
     func changeEnabled() {
@@ -113,6 +154,11 @@ private extension SSlideTopicsView {
             button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
             button.heightAnchor.constraint(equalToConstant: 53.scale),
             button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -60.scale : -30.scale)
+        ])
+        
+        NSLayoutConstraint.activate([
+            preloader.centerXAnchor.constraint(equalTo: centerXAnchor),
+            preloader.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
 }
@@ -156,6 +202,13 @@ private extension SSlideTopicsView {
         view.backgroundColor = Onboarding.primaryButton
         view.layer.cornerRadius = 12.scale
         view.setAttributedTitle("Onboarding.Next".localized.attributed(with: attrs), for: .normal)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }
+    
+    func makePreloader() -> Spinner {
+        let view = Spinner(size: CGSize(width: 60.scale, height: 60.scale), color: .white)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view

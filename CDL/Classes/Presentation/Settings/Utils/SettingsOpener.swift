@@ -18,6 +18,8 @@ final class SettingsOpener {
     func open(screen: Screen, from: UIViewController) {
         let view = makeView(for: screen)
         let vc = makeVC(with: view)
+        
+        view.vc = vc
 
         view.didNextTapped = {
             vc.dismiss(animated: true)

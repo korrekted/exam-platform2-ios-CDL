@@ -16,6 +16,10 @@ final class SSlideModeView: SSlideView {
     
     private lazy var manager = ProfileManagerCore()
     
+    private lazy var activity = RxActivityIndicator()
+    
+    private lazy var observableRetrySingle = ObservableRetrySingle()
+    
     private lazy var disposeBag = DisposeBag()
     
     override init(frame: CGRect) {
@@ -34,7 +38,7 @@ final class SSlideModeView: SSlideView {
 private extension SSlideModeView {
     func initialize() {
         button.rx.tap
-            .flatMapLatest { [weak self] _ -> Single<Bool> in
+            .flatMapLatest { [weak self] _ -> Observable<Void> in
                 guard let self = self else {
                     return .never()
                 }
@@ -46,18 +50,21 @@ private extension SSlideModeView {
                     return .never()
                 }
                 
-                return self.manager
-                    .set(testMode: selected.code)
-                    .map { true }
-                    .catchAndReturn(false)
-            }
-            .asDriver(onErrorDriveWith: .never())
-            .drive(onNext: { [weak self] success in
-                guard success else {
-                    Toast.notify(with: "Onboarding.FailedToSave".localized, style: .danger)
-                    return
+                func source() -> Single<Void> {
+                    self.manager
+                        .set(testMode: selected.code)
                 }
                 
+                func trigger(error: Error) -> Observable<Void> {
+                    self.openError()
+                }
+                
+                return self.observableRetrySingle
+                    .retry(source: { source() },
+                           trigger: { trigger(error: $0) })
+                    .trackActivity(self.activity)
+            }
+            .subscribe(onNext: { [weak self] in
                 self?.onNext()
             })
             .disposed(by: disposeBag)
@@ -78,6 +85,22 @@ private extension SSlideModeView {
                   code: 1,
                   isSelected: false)
         ], isNeedScroll: false)
+    }
+    
+    func openError() -> Observable<Void> {
+        Observable<Void>
+            .create { [weak self] observe in
+                guard let self = self else {
+                    return Disposables.create()
+                }
+                
+                let vc = TryAgainViewController.make {
+                    observe.onNext(())
+                }
+                self.vc?.present(vc, animated: true)
+                
+                return Disposables.create()
+            }
     }
 }
 

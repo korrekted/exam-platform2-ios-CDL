@@ -25,6 +25,24 @@ final class SettingsViewController: UIViewController {
         
         mainView.navigationView.leftAction.addTarget(self, action: #selector(popAction), for: .touchUpInside)
         
+        viewModel.tryAgain = { [weak self] error -> Observable<Void> in
+            guard let self = self else {
+                return .never()
+            }
+            
+            return self.openError()
+        }
+        
+        viewModel.activity
+            .drive(onNext: { [weak self] activity in
+                guard let self = self else {
+                    return
+                }
+                
+                self.activity(activity)
+            })
+            .disposed(by: disposeBag)
+        
         SDKStorage.shared
             .amplitudeManager
             .logEvent(name: "Settings Screen", parameters: [:])
@@ -50,6 +68,30 @@ extension SettingsViewController {
 
 // MARK: Private
 private extension SettingsViewController {
+    func openError() -> Observable<Void> {
+        Observable<Void>
+            .create { [weak self] observe in
+                guard let self = self else {
+                    return Disposables.create()
+                }
+                
+                let vc = TryAgainViewController.make {
+                    observe.onNext(())
+                }
+                self.present(vc, animated: true)
+                
+                return Disposables.create()
+            }
+    }
+    
+    func activity(_ activity: Bool) {
+        let empty = mainView.tableView.sections.isEmpty
+        
+        let inProgress = empty && activity
+        
+        inProgress ? mainView.preloader.startAnimating() : mainView.preloader.stopAnimating()
+    }
+    
     func tapped(_ tapped: SettingsTableView.Tapped) {
         switch tapped {
         case .unlock:

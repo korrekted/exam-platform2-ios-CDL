@@ -22,6 +22,24 @@ final class StatsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.tryAgain = { [weak self] error -> Observable<Void> in
+            guard let self = self else {
+                return .never()
+            }
+            
+            return self.openError()
+        }
+        
+        viewModel.activity
+            .drive(onNext: { [weak self] activity in
+                guard let self = self else {
+                    return
+                }
+                
+                self.activity(activity)
+            })
+            .disposed(by: disposeBag)
+        
         viewModel
             .courseName
             .drive(onNext: { name in
@@ -49,24 +67,6 @@ final class StatsViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { _ in
                 UIApplication.shared.keyWindow?.rootViewController?.present(PaygateViewController.make(), animated: true)
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.tryAgain = { [weak self] error -> Observable<Void> in
-            guard let self = self else {
-                return .never()
-            }
-            
-            return self.openError()
-        }
-        
-        viewModel.activity
-            .drive(onNext: { [weak self] activity in
-                guard let self = self else {
-                    return
-                }
-                
-                self.activity(activity)
             })
             .disposed(by: disposeBag)
     }

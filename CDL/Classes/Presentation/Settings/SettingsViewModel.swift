@@ -9,11 +9,17 @@ import RxSwift
 import RxCocoa
 
 final class SettingsViewModel {
+    var tryAgain: ((Error) -> (Observable<Void>))?
+    
+    lazy var activity = RxActivityIndicator()
+    
     private lazy var coursesManager = CoursesManagerCore()
     private lazy var sessionManager = SessionManagerCore()
     private lazy var profileManager = ProfileManagerCore()
     
     lazy var sections = makeSections()
+    
+    private lazy var observableRetrySingle = ObservableRetrySingle()
 }
 
 // MARK: Private
@@ -55,8 +61,23 @@ private extension SettingsViewModel {
     }
     
     func getProfieLocale() -> Driver<ProfileLocale?> {
-        let initial = profileManager
-            .obtainProfileLocale()
+        func source() -> Single<ProfileLocale?> {
+            profileManager
+                .obtainProfileLocale()
+        }
+        
+        func trigger(error: Error) -> Observable<Void> {
+            guard let tryAgain = self.tryAgain?(error) else {
+                return .empty()
+            }
+            
+            return tryAgain
+        }
+        
+        let initial = observableRetrySingle
+            .retry(source: { source() },
+                   trigger: { trigger(error: $0) })
+            .trackActivity(activity)
             .asDriver(onErrorJustReturn: nil)
         
         let updated = ProfileMediator.shared
@@ -68,8 +89,23 @@ private extension SettingsViewModel {
     }
     
     func getTestMode() -> Driver<TestMode?> {
-        let initial = profileManager
-            .obtainTestMode()
+        func source() -> Single<TestMode?> {
+            profileManager
+                .obtainTestMode()
+        }
+        
+        func trigger(error: Error) -> Observable<Void> {
+            guard let tryAgain = self.tryAgain?(error) else {
+                return .empty()
+            }
+            
+            return tryAgain
+        }
+        
+        let initial = observableRetrySingle
+            .retry(source: { source() },
+                   trigger: { trigger(error: $0) })
+            .trackActivity(activity)
             .asDriver(onErrorJustReturn: nil)
         
         let updated = ProfileMediator.shared

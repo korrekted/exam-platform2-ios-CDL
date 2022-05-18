@@ -16,7 +16,7 @@ final class StudyCollectionView: UICollectionView {
     lazy var didTapFlashcards = PublishRelay<Void>()
     lazy var selectedMode = PublishRelay<SCEMode.Mode>()
     
-    private lazy var sections = [StudyCollectionSection]()
+    lazy var sections = [StudyCollectionSection]()
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
