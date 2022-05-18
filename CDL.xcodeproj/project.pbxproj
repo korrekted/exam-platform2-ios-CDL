@@ -358,6 +358,9 @@
 		DE95A8F028339CE700809171 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8EF28339CE700809171 /* Spinner.swift */; };
 		DE95A8F22833D81900809171 /* ObservableRetrySingle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8F12833D81900809171 /* ObservableRetrySingle.swift */; };
 		DE95A8F42833F8C000809171 /* TestBottomSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8F32833F8C000809171 /* TestBottomSpinner.swift */; };
+		DEADEAF02834DF790057AA44 /* SplashActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEADEAEF2834DF790057AA44 /* SplashActivity.swift */; };
+		DEADEAF22834DF890057AA44 /* SplashSDKInitialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEADEAF12834DF890057AA44 /* SplashSDKInitialize.swift */; };
+		DEADEAF42834E0600057AA44 /* NumberLaunches.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEADEAF32834E0600057AA44 /* NumberLaunches.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -740,6 +743,9 @@
 		DE95A8EF28339CE700809171 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		DE95A8F12833D81900809171 /* ObservableRetrySingle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableRetrySingle.swift; sourceTree = "<group>"; };
 		DE95A8F32833F8C000809171 /* TestBottomSpinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBottomSpinner.swift; sourceTree = "<group>"; };
+		DEADEAEF2834DF790057AA44 /* SplashActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashActivity.swift; sourceTree = "<group>"; };
+		DEADEAF12834DF890057AA44 /* SplashSDKInitialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashSDKInitialize.swift; sourceTree = "<group>"; };
+		DEADEAF32834E0600057AA44 /* NumberLaunches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberLaunches.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1139,6 +1145,7 @@
 				967AD3B6260FD0AE008E8175 /* Weak.swift */,
 				DE93780927BA63910073F27C /* XOREncryption.swift */,
 				DE95A8F12833D81900809171 /* ObservableRetrySingle.swift */,
+				DEADEAF32834E0600057AA44 /* NumberLaunches.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1489,6 +1496,7 @@
 		967AD427260FD0AE008E8175 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
+				DEADEAEE2834DF6D0057AA44 /* Utils */,
 				967AD428260FD0AE008E8175 /* SplashViewController.swift */,
 				967AD429260FD0AE008E8175 /* SplashViewModel.swift */,
 				967AD42A260FD0AE008E8175 /* SplashView.swift */,
@@ -2131,6 +2139,15 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		DEADEAEE2834DF6D0057AA44 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				DEADEAEF2834DF790057AA44 /* SplashActivity.swift */,
+				DEADEAF12834DF890057AA44 /* SplashSDKInitialize.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2508,6 +2525,7 @@
 				9673817426792DB000230FB6 /* PaygateViewModel.swift in Sources */,
 				DE95A8DF2833826900809171 /* TryAgainViewController.swift in Sources */,
 				967AD533260FD0AF008E8175 /* TestAnalytics.swift in Sources */,
+				DEADEAF22834DF890057AA44 /* SplashSDKInitialize.swift in Sources */,
 				96E360402672506300D49D4E /* FlashcardsViewController.swift in Sources */,
 				967AD4F5260FD0AF008E8175 /* QuestionManagerMediator.swift in Sources */,
 				967AD54E260FD0AF008E8175 /* TestStatsViewModel.swift in Sources */,
@@ -2572,7 +2590,9 @@
 				967AD57C260FD0AF008E8175 /* OSlidePlanView.swift in Sources */,
 				96E360312672082400D49D4E /* GetFlashcardsTopicsResponseMapper.swift in Sources */,
 				86935FC226754FDF009D1D99 /* FlashCardManagerDelegate.swift in Sources */,
+				DEADEAF42834E0600057AA44 /* NumberLaunches.swift in Sources */,
 				967AD4F7260FD0AF008E8175 /* QuestionManagerDelagate.swift in Sources */,
+				DEADEAF02834DF790057AA44 /* SplashActivity.swift in Sources */,
 				967AD54F260FD0AF008E8175 /* TestStatsProgressView.swift in Sources */,
 				96F92A082690688C006331D7 /* TestMode.swift in Sources */,
 				967AD50B260FD0AF008E8175 /* RateUs.swift in Sources */,
