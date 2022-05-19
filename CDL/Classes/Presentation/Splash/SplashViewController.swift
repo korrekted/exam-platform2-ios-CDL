@@ -37,6 +37,14 @@ final class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.tryAgain = { [weak self] error -> Observable<Void> in
+            guard let self = self else {
+                return .empty()
+            }
+            
+            return self.openError()
+        }
+        
         sdkInitialize.initialize { [weak self] progress in
             guard let self = self else {
                 return

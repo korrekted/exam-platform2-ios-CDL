@@ -1765,20 +1765,20 @@
 			children = (
 				DE95A8E42833891900809171 /* Utils */,
 				967AD49F260FD0AE008E8175 /* Atoms */,
-				967AD49D260FD0AE008E8175 /* OSlideWhenTakingView.swift */,
-				967AD49E260FD0AE008E8175 /* OSlideCountView.swift */,
-				967AD4AB260FD0AE008E8175 /* OSlidePreloaderView.swift */,
-				967AD4AC260FD0AE008E8175 /* OSlideGoalsView.swift */,
-				967AD4AE260FD0AE008E8175 /* OSlideView.swift */,
-				967AD4B1260FD0AE008E8175 /* OSlidePlanView.swift */,
 				967AD4B3260FD0AE008E8175 /* OSlideWelcomeView.swift */,
-				96B67A9626295AC40048DAB9 /* OSlideTopicsView.swift */,
-				96B67AE92629BB100048DAB9 /* OSlideExperienceView.swift */,
-				969679C0265CE3690070E7F7 /* OSlideLocaleView.swift */,
 				96DC8E18267FC60D00FEC74B /* OSlideModeView.swift */,
-				96155B742689F89100228151 /* OSlideMinutesAtTimeView.swift */,
-				96155B85268B924900228151 /* OWhenStudyView.swift */,
 				96155B88268B969B00228151 /* OPushView.swift */,
+				96155B85268B924900228151 /* OWhenStudyView.swift */,
+				967AD4AE260FD0AE008E8175 /* OSlideView.swift */,
+				967AD4AC260FD0AE008E8175 /* OSlideGoalsView.swift */,
+				967AD4AB260FD0AE008E8175 /* OSlidePreloaderView.swift */,
+				967AD4B1260FD0AE008E8175 /* OSlidePlanView.swift */,
+				967AD49E260FD0AE008E8175 /* OSlideCountView.swift */,
+				96B67AE92629BB100048DAB9 /* OSlideExperienceView.swift */,
+				967AD49D260FD0AE008E8175 /* OSlideWhenTakingView.swift */,
+				96155B742689F89100228151 /* OSlideMinutesAtTimeView.swift */,
+				96B67A9626295AC40048DAB9 /* OSlideTopicsView.swift */,
+				969679C0265CE3690070E7F7 /* OSlideLocaleView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2815,7 +2815,7 @@
 				CODE_SIGN_ENTITLEMENTS = CDL/CDL.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 37;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = "$(SRCROOT)/CDL/Resource/Info.plist";
@@ -2824,7 +2824,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.13.1;
+				MARKETING_VERSION = 1.13.2;
 				PRODUCT_BUNDLE_IDENTIFIER = prep.cdl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "CDL AppStore Profile";
@@ -2844,7 +2844,7 @@
 				CODE_SIGN_ENTITLEMENTS = CDL/CDL.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = "$(SRCROOT)/CDL/Resource/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -2852,7 +2852,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.13.1;
+				MARKETING_VERSION = 1.13.2;
 				PRODUCT_BUNDLE_IDENTIFIER = prep.cdl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "CDL AppStore Profile";
@@ -2870,7 +2870,7 @@
 				CODE_SIGN_ENTITLEMENTS = StatsWidgetsExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = StatsWidgets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -2879,7 +2879,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.13.1;
+				MARKETING_VERSION = 1.13.2;
 				PRODUCT_BUNDLE_IDENTIFIER = prep.cdl.stats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "CDL StatsWidgets AppStore Profile";
@@ -2897,7 +2897,7 @@
 				CODE_SIGN_ENTITLEMENTS = StatsWidgetsExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = StatsWidgets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -2906,7 +2906,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.13.1;
+				MARKETING_VERSION = 1.13.2;
 				PRODUCT_BUNDLE_IDENTIFIER = prep.cdl.stats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "CDL StatsWidgets AppStore Profile";
