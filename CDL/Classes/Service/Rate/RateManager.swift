@@ -8,5 +8,6 @@
 import Foundation
 
 protocol RateManager {
+    func showAlert()
     func showFirstAfterPassRateAlert()
 }

@@ -101,7 +101,7 @@ private extension SettingsViewController {
                 .amplitudeManager
                 .logEvent(name: "Settings Tap", parameters: ["what": "unlock premium"])
         case .rateUs:
-            RateUs.requestReview()
+            open(path: GlobalDefinitions.appStoreUrl)
             
             SDKStorage.shared
                 .amplitudeManager

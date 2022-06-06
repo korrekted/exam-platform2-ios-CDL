@@ -175,7 +175,6 @@
 		967AD508260FD0AF008E8175 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD417260FD0AE008E8175 /* SessionManager.swift */; };
 		967AD509260FD0AF008E8175 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD41A260FD0AE008E8175 /* SettingsView.swift */; };
 		967AD50A260FD0AF008E8175 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD41B260FD0AE008E8175 /* SettingsViewModel.swift */; };
-		967AD50B260FD0AF008E8175 /* RateUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD41D260FD0AE008E8175 /* RateUs.swift */; };
 		967AD50C260FD0AF008E8175 /* STLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD420260FD0AE008E8175 /* STLinkView.swift */; };
 		967AD50D260FD0AF008E8175 /* STLinksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD421260FD0AE008E8175 /* STLinksCell.swift */; };
 		967AD50F260FD0AF008E8175 /* STUnlockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD423260FD0AE008E8175 /* STUnlockCell.swift */; };
@@ -560,7 +559,6 @@
 		967AD417260FD0AE008E8175 /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		967AD41A260FD0AE008E8175 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		967AD41B260FD0AE008E8175 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
-		967AD41D260FD0AE008E8175 /* RateUs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateUs.swift; sourceTree = "<group>"; };
 		967AD420260FD0AE008E8175 /* STLinkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STLinkView.swift; sourceTree = "<group>"; };
 		967AD421260FD0AE008E8175 /* STLinksCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STLinksCell.swift; sourceTree = "<group>"; };
 		967AD423260FD0AE008E8175 /* STUnlockCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STUnlockCell.swift; sourceTree = "<group>"; };
@@ -1457,7 +1455,6 @@
 		967AD41C260FD0AE008E8175 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				967AD41D260FD0AE008E8175 /* RateUs.swift */,
 				9613EC8E2634AEFD00DAEB9A /* SettingsOpener.swift */,
 			);
 			path = Utils;
@@ -2591,7 +2588,6 @@
 				DEADEAF02834DF790057AA44 /* SplashActivity.swift in Sources */,
 				967AD54F260FD0AF008E8175 /* TestStatsProgressView.swift in Sources */,
 				96F92A082690688C006331D7 /* TestMode.swift in Sources */,
-				967AD50B260FD0AF008E8175 /* RateUs.swift in Sources */,
 				96E36029267203BD00D49D4E /* FlashcardTopic.swift in Sources */,
 				DE95A8E828338B0F00809171 /* SSlideView.swift in Sources */,
 				9673817726792DB100230FB6 /* PaygateViewController.swift in Sources */,

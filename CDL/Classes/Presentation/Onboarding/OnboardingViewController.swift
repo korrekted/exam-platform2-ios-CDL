@@ -97,6 +97,6 @@ private extension OnboardingViewController {
     }
     
     func goToCourse() {
-        UIApplication.shared.keyWindow?.rootViewController = CourseViewController.make()
+        UIApplication.shared.keyWindow?.rootViewController = CourseViewController.make(needRequestReview: true)
     }
 }

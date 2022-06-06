@@ -17,6 +17,7 @@ final class GlobalDefinitions {
     static let amplitudeApiKey = "b503251969f4b1d7901d2f7d1388d476"
     static let appsFlyerApiKey = "DCciCfYXjMQ8QnkdCg8qzk"
     
+    static let appStoreUrl = "https://apps.apple.com/app/cdl-practice-2022-permit-test/id1566343337"
     static let appStoreId = "1566343337"
     
     static let termsOfServiceUrl = "https://mapo.la/prep/terms.html"

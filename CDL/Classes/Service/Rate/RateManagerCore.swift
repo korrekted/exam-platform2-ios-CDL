@@ -14,6 +14,10 @@ final class RateManagerCore: RateManager {
 
 // MARK: API
 extension RateManagerCore {
+    func showAlert() {
+        SKStoreReviewController.requestReview()
+    }
+    
     func showFirstAfterPassRateAlert() {
         let isFirstAfterPass = UserDefaults.standard.bool(forKey: Constants.showFirstAfterPass)
         
