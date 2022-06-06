@@ -43,9 +43,6 @@ protocol ProfileManager {
                    testNumber: Int?,
                    testWhen: [Int]?,
                    notificationKey: String?,
-                   country: String?,
-                   state: String?,
-                   language: String?,
                    testMode: Int?,
                    topicsIds: [Int]?) -> Single<Void>
 }

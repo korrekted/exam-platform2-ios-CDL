@@ -203,9 +203,6 @@ extension ProfileManagerCore {
                    testNumber: Int?,
                    testWhen: [Int]?,
                    notificationKey: String?,
-                   country: String?,
-                   state: String?,
-                   language: String?,
                    testMode: Int?,
                    topicsIds: [Int]?) -> Single<Void> {
         guard let userToken = SessionManagerCore().getSession()?.userToken else {
@@ -213,9 +210,6 @@ extension ProfileManagerCore {
         }
         
         let request = SetRequest(userToken: userToken,
-                                 country: country,
-                                 state: state,
-                                 language: language,
                                  topicsIds: topicsIds,
                                  level: level,
                                  assetsPreferences: assetsPreferences,

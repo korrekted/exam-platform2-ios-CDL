@@ -72,9 +72,6 @@ private extension OSlidePlanView {
                                    testNumber: self.scope.testNumber,
                                    testWhen: self.scope.testWhen,
                                    notificationKey: self.scope.notificationKey,
-                                   country: self.scope.country,
-                                   state: self.scope.state,
-                                   language: self.scope.language,
                                    testMode: self.scope.testMode,
                                    topicsIds: self.scope.topicsIds)
                 }

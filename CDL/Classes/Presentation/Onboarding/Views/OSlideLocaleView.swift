@@ -10,14 +10,20 @@ import RxSwift
 import RxCocoa
 
 final class OSlideLocaleView: OSlideView {
+    weak var vc: UIViewController?
+    
     lazy var scrollView = makeScrollView()
     lazy var countryView = LocaleCountryView()
     lazy var languageView = LocaleLanguageView()
     lazy var stateView = LocaleStateView()
+    lazy var preloader = makePreloader()
     
     private lazy var manager = ProfileManagerCore()
     
+    private lazy var activity = RxActivityIndicator()
     private lazy var disposeBag = DisposeBag()
+    
+    private lazy var observableRetrySingle = ObservableRetrySingle()
     
     private lazy var countries = [Country]()
     
@@ -78,20 +84,33 @@ private extension OSlideLocaleView {
                 self?.countries = countries
             })
             .disposed(by: disposeBag)
-        
+
         completeTrigger
-            .subscribe(onNext: { [weak self] in
+            .flatMapFirst { [weak self] void -> Observable<Void> in
                 guard let self = self else {
-                    return
+                    return .never()
                 }
                 
-                self.scope.country = self.getSelectedCountry()
-                self.scope.state = self.getSelectedState()
-                self.scope.language = self.getSelectedLanguage()
+                func source() -> Single<Void> {
+                    self.manager
+                        .set(country: self.getSelectedCountry(),
+                             state: self.getSelectedState(),
+                             language: self.getSelectedLanguage())
+                }
                 
-                self.onNext()
-            }, onError: { _ in
-                Toast.notify(with: "Onboarding.FailedToSave".localized, style: .danger)
+                return self.observableRetrySingle
+                    .retry(source: { source() },
+                           trigger: { error in self.openError() })
+                    .trackActivity(self.activity)
+            }
+            .subscribe(onNext: { [weak self] in
+                self?.onNext()
+            })
+            .disposed(by: disposeBag)
+        
+        activity
+            .drive(onNext: { [weak self] activity in
+                self?.activity(activity)
             })
             .disposed(by: disposeBag)
     }
@@ -194,6 +213,30 @@ private extension OSlideLocaleView {
         
         scrollView.scrollRectToVisible(frame, animated: true)
     }
+    
+    func openError() -> Observable<Void> {
+        Observable<Void>
+            .create { [weak self] observe in
+                guard let self = self else {
+                    return Disposables.create()
+                }
+                
+                let vc = TryAgainViewController.make {
+                    observe.onNext(())
+                }
+                self.vc?.present(vc, animated: true)
+                
+                return Disposables.create()
+            }
+    }
+    
+    func activity(_ activity: Bool) {
+        countryView.button.isHidden = activity
+        languageView.button.isHidden = activity
+        stateView.button.isHidden = activity
+        
+        activity ? preloader.startAnimating() : preloader.stopAnimating()
+    }
 }
 
 // MARK: Make constraints
@@ -204,6 +247,11 @@ private extension OSlideLocaleView {
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
             scrollView.topAnchor.constraint(equalTo: topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            preloader.centerXAnchor.constraint(equalTo: centerXAnchor),
+            preloader.bottomAnchor.constraint(equalTo: bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -85.scale : -55.scale)
         ])
     }
 }
@@ -218,6 +266,13 @@ private extension OSlideLocaleView {
         view.showsVerticalScrollIndicator = false
         view.showsHorizontalScrollIndicator = false
         view.contentInsetAdjustmentBehavior = .never
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }
+    
+    func makePreloader() -> Spinner {
+        let view = Spinner(size: CGSize(width: 24.scale, height: 24.scale), color: .white)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
