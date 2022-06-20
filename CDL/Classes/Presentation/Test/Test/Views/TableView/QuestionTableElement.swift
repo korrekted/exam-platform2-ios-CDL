@@ -1,11 +1,18 @@
 //
-//  TestElement.swift
-//  Nursing
+//  QuestionTableElement.swift
+//  CDL
 //
-//  Created by Vitaliy Zagorodnov on 31.01.2021.
+//  Created by Андрей Чернышев on 20.06.2022.
 //
 
 import Foundation
+
+enum TestingCellType {
+    case content([QuestionContentType])
+    case question(String, html: String)
+    case answer(AnswerElement)
+    case explanation(String)
+}
 
 struct AnswerElement {
     let id: Int
@@ -18,7 +25,6 @@ struct AnswerElement {
 enum AnswerState {
     case initial, correct, warning, error
 }
-
 
 struct QuestionElement {
     let id: Int

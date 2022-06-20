@@ -218,7 +218,7 @@ private extension TestViewModel {
             .asSignal(onErrorSignalWith: .empty())
     }
     
-    func makeTestStatsElement() -> Observable<TestStatsElement> {
+    func makeTestStatsElement() -> Observable<TestFinishElement> {
         let didFinishTest = timer
             .compactMap { $0 == 0 ? () : nil }
             .withLatestFrom(currentTestElement)
@@ -239,9 +239,9 @@ private extension TestViewModel {
         
         return Observable.merge(didFinishTest, submit)
             .withLatestFrom(currentTestType) { ($0, $1) }
-            .compactMap { [weak self] userTestId, testType -> TestStatsElement? in
+            .compactMap { [weak self] userTestId, testType -> TestFinishElement? in
                 guard let self = self else { return nil }
-                return TestStatsElement(userTestId: userTestId, testType: testType, isEnableNext: !self.testTypes.isEmpty)
+                return TestFinishElement(userTestId: userTestId, testType: testType, isEnableNext: !self.testTypes.isEmpty)
             }
     }
     

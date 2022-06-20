@@ -18,7 +18,7 @@ final class TestViewController: UIViewController {
     
     private lazy var viewModel = TestViewModel()
     
-    var didTapSubmit: ((TestStatsElement) -> Void)?
+    var didTapSubmit: ((TestFinishElement) -> Void)?
     
     override func loadView() {
         view = mainView
@@ -359,37 +359,4 @@ private extension TestViewController {
                                                          "mode": name,
                                                          "what": what])
     }
-}
-
-class ZoomImageViewController: UIViewController {
-    
-    var imageScrollView: ImageScrollView!
-    
-    private var image: UIImage?
-    
-    convenience init(image: UIImage) {
-        self.init()
-        self.image = image
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        imageScrollView = ImageScrollView(frame: view.bounds)
-        view.addSubview(imageScrollView)
-        setupImageScrollView()
-        if let image = image {
-            imageScrollView.set(image: image)
-        }
-    }
-    
-    func setupImageScrollView() {
-        imageScrollView.translatesAutoresizingMaskIntoConstraints = false
-        imageScrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        imageScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        imageScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        imageScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-    }
-
-
 }

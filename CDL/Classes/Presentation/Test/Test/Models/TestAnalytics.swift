@@ -19,7 +19,7 @@ final class TestAnalytics {
         case .tenSet:
             return "10 questions"
         case .timedQuizz:
-            return ""
+            return "timed"
         }
     }
 }

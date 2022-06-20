@@ -1,8 +1,8 @@
 //
 //  ImageScrollView.swift
-//  Nursing
+//  CDL
 //
-//  Created by Vitaliy Zagorodnov on 30.01.2021.
+//  Created by Андрей Чернышев on 20.06.2022.
 //
 
 import UIKit
@@ -82,7 +82,7 @@ class ImageScrollView: UIScrollView, UIScrollViewDelegate {
     
     func centerImage() {
         let boundsSize = self.bounds.size
-        var frameToCenter = imageZoomView.frame
+        var frameToCenter = imageZoomView?.frame ?? .zero
         
         if frameToCenter.size.width < boundsSize.width {
             frameToCenter.origin.x = (boundsSize.width - frameToCenter.size.width) / 2
@@ -96,7 +96,7 @@ class ImageScrollView: UIScrollView, UIScrollViewDelegate {
             frameToCenter.origin.y = 0
         }
         
-        imageZoomView.frame = frameToCenter
+        imageZoomView?.frame = frameToCenter
     }
     
     // gesture

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TestStatsElement {
+struct TestFinishElement {
     let userTestId: Int
     let testType: TestType
     let isEnableNext: Bool

@@ -97,7 +97,7 @@ class TestStatsViewController: UIViewController {
 
 // MARK: Make
 extension TestStatsViewController {
-    static func make(element: TestStatsElement, closeAfterDismiss: @escaping () -> Void) -> TestStatsViewController {
+    static func make(element: TestFinishElement, closeAfterDismiss: @escaping () -> Void) -> TestStatsViewController {
         let controller = TestStatsViewController()
         controller.closeAfterDismiss = closeAfterDismiss
         controller.modalPresentationStyle = .fullScreen
