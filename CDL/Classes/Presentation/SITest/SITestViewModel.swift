@@ -30,7 +30,7 @@ final class SITestViewModel {
     lazy var isSavedQuestion = makeIsSavedQuestion()
     lazy var questionProgress = makeQuestionProgress()
     
-    private lazy var questionManager = QuestionManagerCore()
+    private lazy var questionManager = QuestionManager()
     private lazy var courseManager = CoursesManagerCore()
     
     private lazy var testElement = loadTest().share(replay: 1, scope: .forever)
@@ -103,9 +103,9 @@ private extension SITestViewModel {
                     
                     switch type {
                     case .saved:
-                        test = self.questionManager.retrieveSaved(courseId: courseId)
+                        test = self.questionManager.obtainSaved(courseId: courseId)
                     case .incorrect:
-                        test = self.questionManager.retrieveIncorrect(courseId: courseId)
+                        test = self.questionManager.obtainIncorrect(courseId: courseId)
                     }
                     
                     return test.flatMap { test -> Single<SITest> in
@@ -234,7 +234,8 @@ private extension SITestViewModel {
                         : self.questionManager.saveQuestion(questionId: questionId)
 
                     return request
-                        .andThen(Observable.just(!isSaved))
+                        .map { !isSaved }
+                        .asObservable()
                 }
                 
                 func trigger(error: Error) -> Observable<Void> {

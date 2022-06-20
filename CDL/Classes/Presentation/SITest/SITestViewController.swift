@@ -222,7 +222,7 @@ extension SITestViewController {
 // MARK: Private
 private extension SITestViewController {
     @objc func popAction() {
-        QuestionManagerMediator.shared.testClosed()
+//        QuestionMediator.shared.testClosed() // TODO
         navigationController?.popViewController(animated: true)
     }
     

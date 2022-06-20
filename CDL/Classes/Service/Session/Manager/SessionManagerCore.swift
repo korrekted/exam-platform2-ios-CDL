@@ -41,6 +41,7 @@ extension SessionManagerCore {
         store(session: session)
     }
     
+    // TODO
     func getSession() -> Session? {
         guard
             let data = UserDefaults.standard.data(forKey: Constants.sessionCacheKey),
@@ -49,6 +50,9 @@ extension SessionManagerCore {
             return nil
         }
         
-        return session
+        return Session(userId: session.userId,
+                       userToken: session.userToken,
+                       activeSubscription: true,
+                       usedProducts: [])
     }
 }

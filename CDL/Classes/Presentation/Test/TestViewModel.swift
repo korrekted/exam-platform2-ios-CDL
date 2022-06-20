@@ -41,7 +41,7 @@ final class TestViewModel {
     private(set) lazy var currentTestType = makeCurrentTestType().share(replay: 1, scope: .forever)
     private(set) var testType: TestType? = nil
     
-    private lazy var questionManager = QuestionManagerCore()
+    private lazy var questionManager = QuestionManager()
     private lazy var courseManager = CoursesManagerCore()
     private lazy var scoreRelay = PublishRelay<Bool>()
     
@@ -59,13 +59,11 @@ final class TestViewModel {
 // MARK: Private
 private extension TestViewModel {
     func makeCourseName() -> Driver<String> {
-        testElement
-            .map { $0.element?.name }
-            .withLatestFrom(courseManager.rxGetSelectedCourse()) { ($0, $1) }
-            .compactMap { name, course -> String? in
-                guard let name = name, !name.isEmpty else { return course?.name }
-                    return name
-                }
+        courseManager
+            .rxGetSelectedCourse()
+            .map { course -> String in
+                course?.name ?? ""
+            }
             .asDriver(onErrorDriveWith: .empty())
     }
     
@@ -103,9 +101,8 @@ private extension TestViewModel {
     func tryAgainTest() -> Observable<Event<Test>> {
         tryAgainSignal
             .withLatestFrom(testElement)
-            .withLatestFrom(courseId) { ($0, $1) }
-            .flatMapLatest { [weak self] value, courseId -> Observable<Event<Test>> in
-                guard let self = self, let userTestId = value.element?.userTestId, let courseId = courseId else { return .empty() }
+            .flatMapLatest { [weak self] value -> Observable<Event<Test>> in
+                guard let self = self, let userTestId = value.element?.userTestId else { return .empty() }
                 
                 func trigger(error: Error) -> Observable<Void> {
                     guard let tryAgain = self.tryAgain?(error) else {
@@ -116,7 +113,7 @@ private extension TestViewModel {
                 }
                 
                 return self.questionManager
-                    .againTest(courseId: courseId, testId: userTestId, activeSubscription: self.activeSubscription)
+                    .obtainAgainTest(userTestId: userTestId)
                     .compactMap { $0 }
                     .asObservable()
                     .trackActivity(self.loadTestActivityIndicator)
@@ -148,21 +145,22 @@ private extension TestViewModel {
                     
                     switch type {
                     case let .get(testId), let .timedQuizz(testId):
-                        test = self.questionManager.retrieve(courseId: courseId,
-                                                             testId: testId,
-                                                             activeSubscription: self.activeSubscription)
+                        test = self.questionManager.obtain(courseId: courseId,
+                                                           testId: testId,
+                                                           time: nil,
+                                                           activeSubscription: self.activeSubscription)
                     case .tenSet:
-                        test = self.questionManager.retrieveTenSet(courseId: courseId,
-                                                                   activeSubscription: self.activeSubscription)
-                    case .failedSet:
-                        test = self.questionManager.retrieveFailedSet(courseId: courseId,
-                                                                      activeSubscription: self.activeSubscription)
-                    case .qotd:
-                        test = self.questionManager.retrieveQotd(courseId: courseId,
+                        test = self.questionManager.obtainTenSet(courseId: courseId,
                                                                  activeSubscription: self.activeSubscription)
+                    case .failedSet:
+                        test = self.questionManager.obtainFailedSet(courseId: courseId,
+                                                                    activeSubscription: self.activeSubscription)
+                    case .qotd:
+                        test = self.questionManager.obtainQotd(courseId: courseId,
+                                                               activeSubscription: self.activeSubscription)
                     case .randomSet:
-                        test = self.questionManager.retrieveRandomSet(courseId: courseId,
-                                                                      activeSubscription: self.activeSubscription)
+                        test = self.questionManager.obtainRandomSet(courseId: courseId,
+                                                                    activeSubscription: self.activeSubscription)
                     }
                     
                     return test
@@ -225,10 +223,14 @@ private extension TestViewModel {
             .compactMap { $0 == 0 ? () : nil }
             .withLatestFrom(currentTestElement)
             .flatMap { [weak self] value -> Observable<Int> in
-                guard let self = self, let userTestId  = value.element?.userTestId else { return .empty() }
+                guard let self = self, let userTestId  = value.element?.userTestId else {
+                    return .empty()
+                }
+                
                 return self.questionManager
                     .finishTest(userTestId: userTestId)
-                    .andThen(.just(userTestId))
+                    .map { userTestId }
+                    .asObservable()
             }
         
         let submit = didTapSubmit
@@ -387,7 +389,8 @@ private extension TestViewModel {
                         : self.questionManager.saveQuestion(questionId: questionId)
 
                     return request
-                        .andThen(Observable.just(!isSaved))
+                        .map { !isSaved }
+                        .asObservable()
                 }
                 
                 func trigger(error: Error) -> Observable<Void> {
@@ -433,7 +436,7 @@ private extension TestViewModel {
         return { questions in
             return questions.enumerated().map { index, question -> QuestionElement in
                 let answers: [TestingCellType] = question.answers
-                    .map { .answer(AnswerElement(id: $0.id, answer: $0.answer, image: $0.image, state: .initial, isCorrect: $0.isCorrect)) }
+                    .map { .answer(AnswerElement(id: $0.id, answer: $0.answer ?? "", image: $0.image, state: .initial, isCorrect: $0.isCorrect)) }
                 
                 let content: [QuestionContentType] = [
                     question.image.map { .image($0) },

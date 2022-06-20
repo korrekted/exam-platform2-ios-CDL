@@ -70,10 +70,11 @@ final class TestViewController: UIViewController {
             .withLatestFrom(viewModel.currentTestType) { ($0, $1) }
             .bind(to: Binder(self) { base, tuple in
                 let (id, type) = tuple
-                if case .timedQuizz = type, let id = id {
-                    QuestionManagerMediator.shared.timedTestClosed(userTestId: id)
-                }
-                QuestionManagerMediator.shared.testClosed()
+                // TODO
+//                if case .timedQuizz = type, let id = id {
+//                    QuestionMediator.shared.timedTestClosed(userTestId: id)
+//                }
+//                QuestionMediator.shared.testClosed()
                     base.navigationController?.popViewController(animated: true)
                 })
             .disposed(by: disposeBag)
