@@ -5,16 +5,16 @@
 //  Created by Vitaliy Zagorodnov on 04.02.2021.
 //
 
-import Foundation
+import UIKit
 
-class QuestionContentCell: UITableViewCell {
-    
-    private lazy var collectionView = makeCollectionView()
+final class QuestionTableContentCell: UITableViewCell {
+    lazy var collectionView = makeCollectionView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        initialize()
+        
         makeConstraints()
+        initialize()
     }
     
     required init?(coder: NSCoder) {
@@ -23,42 +23,47 @@ class QuestionContentCell: UITableViewCell {
 }
 
 // MARK: Public
-extension QuestionContentCell {
-    func configure(content: [QuestionContentType], didTapExpand: @escaping (QuestionContentType) -> Void) {
+extension QuestionTableContentCell {
+    func configure(content: [QuestionContentCollectionType], didTapExpand: @escaping (QuestionContentCollectionType) -> Void) {
         collectionView.setup(elements: content)
         collectionView.expandContent = didTapExpand
     }
 }
 
 // MARK: Private
-private extension QuestionContentCell {
+private extension QuestionTableContentCell {
     func initialize() {
-        backgroundColor = .clear
+        backgroundColor = UIColor.clear
+        contentView.backgroundColor = UIColor.clear
+        
         selectionStyle = .none
     }
 }
 
 // MARK: Make constraints
-private extension QuestionContentCell {
+private extension QuestionTableContentCell {
     func makeConstraints() {
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16.scale),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20.scale),
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            collectionView.heightAnchor.constraint(equalToConstant: 200.scale)
         ])
     }
 }
 
 // MARK: Lazy initialization
-private extension QuestionContentCell {
+private extension QuestionTableContentCell {
     func makeCollectionView() -> QuestionContentCollectionView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 15.scale
         layout.minimumInteritemSpacing = 0.scale
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20.scale, bottom: 0, right: 20.scale)
+        
         let view = QuestionContentCollectionView(frame: .zero, collectionViewLayout: layout)
+        view.backgroundColor = UIColor.clear
         view.showsHorizontalScrollIndicator = false
         view.isPagingEnabled = true
         view.translatesAutoresizingMaskIntoConstraints = false

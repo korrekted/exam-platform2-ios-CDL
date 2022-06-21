@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum QuestionContentType {
+enum QuestionContentCollectionType {
     case image(URL)
     case video(URL)
 }

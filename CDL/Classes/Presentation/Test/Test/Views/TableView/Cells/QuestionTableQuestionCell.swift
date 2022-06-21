@@ -7,14 +7,14 @@
 
 import UIKit
 
-class QuestionCell: UITableViewCell {
-    
-    private lazy var questionLabel = makeQuestionLabel()
+final class QuestionTableQuestionCell: UITableViewCell {
+    lazy var questionLabel = makeQuestionLabel()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        initialize()
+        
         makeConstraints()
+        initialize()
     }
     
     required init?(coder: NSCoder) {
@@ -23,7 +23,7 @@ class QuestionCell: UITableViewCell {
 }
 
 // MARK: Public
-extension QuestionCell {
+extension QuestionTableQuestionCell {
     func configure(question: String, questionHtml: String) {
         let attr = TextAttributes()
             .font(Fonts.SFProRounded.bold(size: 18.scale))
@@ -32,17 +32,30 @@ extension QuestionCell {
         
         questionLabel.attributedText = attributedString(for: questionHtml) ?? question.attributed(with: attr)
     }
+}
+
+// MARK: Private
+private extension QuestionTableQuestionCell {
+    func initialize() {
+        backgroundColor = UIColor.clear
+        contentView.backgroundColor = UIColor.clear
+        
+        selectionStyle = .none
+    }
     
     func attributedString(for htmlString: String) -> NSAttributedString? {
-        guard !htmlString.isEmpty else { return nil }
+        guard !htmlString.isEmpty else {
+            return nil
+        }
         
-        let font = Fonts.Lato.bold(size: 18.scale)
-        let htmlWithStyle = "<span style=\"font-family: \(font.fontName); font-style: bold; font-size: \(font.pointSize); line-height: 30px;\">\(htmlString)</span>"
+        let font = Fonts.SFProRounded.semiBold(size: 18.scale)
+        let htmlWithStyle = "<span style=\"font-family: \(font.fontName); font-style: semiBold; font-size: \(font.pointSize)px; line-height: \(25.2.scale)px;\">\(htmlString)</span>"
         let data = Data(htmlWithStyle.utf8)
         
         let attributedString = try? NSAttributedString(
             data: data,
-            options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue],
+            options: [.documentType: NSAttributedString.DocumentType.html,
+                      .characterEncoding: String.Encoding.utf8.rawValue],
             documentAttributes: nil
         )
         
@@ -50,16 +63,8 @@ extension QuestionCell {
     }
 }
 
-// MARK: Private
-private extension QuestionCell {
-    func initialize() {
-        backgroundColor = .clear
-        selectionStyle = .none
-    }
-}
-
 // MARK: Make constraints
-private extension QuestionCell {
+private extension QuestionTableQuestionCell {
     func makeConstraints() {
         NSLayoutConstraint.activate([
             questionLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16.scale),
@@ -71,7 +76,7 @@ private extension QuestionCell {
 }
 
 // MARK: Lazy initialization
-private extension QuestionCell {
+private extension QuestionTableQuestionCell {
     func makeQuestionLabel() -> UILabel {
         let view = UILabel()
         view.numberOfLines = 0

@@ -11,7 +11,7 @@ import RxCocoa
 class SITestTableView: UITableView {
     private lazy var elements = [SITestCellType]()
     let selectedAnswers = PublishRelay<[SIAnswerElement]>()
-    let expandContent = PublishRelay<QuestionContentType>()
+    let expandContent = PublishRelay<QuestionContentCollectionType>()
     
     private var selectedCells: Set<IndexPath> = [] {
         didSet {
@@ -100,7 +100,7 @@ extension SITestTableView: UITableViewDataSource {
         
         switch element {
         case let .content(content):
-            let cell = dequeueReusableCell(withIdentifier: String(describing: QuestionContentCell.self), for: indexPath) as! QuestionContentCell
+            let cell = dequeueReusableCell(withIdentifier: String(describing: QuestionTableContentCell.self), for: indexPath) as! QuestionTableContentCell
             cell.configure(content: content) { [weak self] in
                 self?.expandContent.accept($0)
             }
@@ -114,8 +114,8 @@ extension SITestTableView: UITableViewDataSource {
             cell.setup(element: answer)
             return cell
         case let .explanation(explanation):
-            let cell = dequeueReusableCell(withIdentifier: String(describing: ExplanationCell.self), for: indexPath) as! ExplanationCell
-            cell.confugure(explanation: explanation)
+            let cell = dequeueReusableCell(withIdentifier: String(describing: QuestionTableExplanationTextCell.self), for: indexPath) as! QuestionTableExplanationTextCell
+            cell.confugure(explanation: explanation, html: "")
             return cell
         }
     }
@@ -124,10 +124,10 @@ extension SITestTableView: UITableViewDataSource {
 // MARK: Private
 private extension SITestTableView {
     func initialize() {
-        register(QuestionContentCell.self, forCellReuseIdentifier: String(describing: QuestionContentCell.self))
+        register(QuestionTableContentCell.self, forCellReuseIdentifier: String(describing: QuestionTableContentCell.self))
         register(SIAnswerCell.self, forCellReuseIdentifier: String(describing: SIAnswerCell.self))
         register(SIQuestionCell.self, forCellReuseIdentifier: String(describing: SIQuestionCell.self))
-        register(ExplanationCell.self, forCellReuseIdentifier: String(describing: ExplanationCell.self))
+        register(QuestionTableExplanationTextCell.self, forCellReuseIdentifier: String(describing: QuestionTableExplanationTextCell.self))
         separatorStyle = .none
         
         dataSource = self

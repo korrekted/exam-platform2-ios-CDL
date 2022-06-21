@@ -8,7 +8,7 @@
 import Foundation
 
 enum SITestCellType {
-    case content([QuestionContentType])
+    case content([QuestionContentCollectionType])
     case question(String, html: String)
     case answer(SIAnswerElement)
     case explanation(String)

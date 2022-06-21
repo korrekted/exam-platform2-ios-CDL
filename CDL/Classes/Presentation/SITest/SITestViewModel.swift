@@ -284,7 +284,7 @@ private extension SITestViewModel {
                 let answers: [SITestCellType] = question.answers
                     .map { .answer(SIAnswerElement(id: $0.id, answer: $0.answer, image: $0.image, state: .initial, isCorrect: $0.isCorrect)) }
                 
-                let content: [QuestionContentType] = [
+                let content: [QuestionContentCollectionType] = [
                     question.image.map { .image($0) },
                     question.video.map { .video($0) }
                 ].compactMap { $0 }

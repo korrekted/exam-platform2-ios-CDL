@@ -84,12 +84,8 @@ class TestStatsViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.activity
-            .drive(onNext: { [weak self] activity in
-                guard let self = self else {
-                    return
-                }
-                
-                self.activity(activity)
+            .drive(Binder(self) { base, activity in
+                base.activity(activity)
             })
             .disposed(by: disposeBag)
     }

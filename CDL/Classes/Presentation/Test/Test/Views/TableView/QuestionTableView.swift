@@ -11,7 +11,7 @@ import RxCocoa
 final class QuestionTableView: UITableView {
     private lazy var elements = [TestingCellType]()
     let selectedAnswers = PublishRelay<[AnswerElement]>()
-    let expandContent = PublishRelay<QuestionContentType>()
+    let expandContent = PublishRelay<QuestionContentCollectionType>()
     
     private var selectedCells: Set<IndexPath> = [] {
         didSet {
@@ -63,22 +63,21 @@ extension QuestionTableView: UITableViewDataSource {
         let element = elements[indexPath.row]
         switch element {
         case let .content(content):
-            let cell = dequeueReusableCell(withIdentifier: String(describing: QuestionContentCell.self), for: indexPath) as! QuestionContentCell
+            let cell = dequeueReusableCell(withIdentifier: String(describing: QuestionTableContentCell.self), for: indexPath) as! QuestionTableContentCell
             cell.configure(content: content) { [weak self] in
                 self?.expandContent.accept($0)
             }
             return cell
         case let .question(question, html):
-            let cell = dequeueReusableCell(withIdentifier: String(describing: QuestionCell.self), for: indexPath) as! QuestionCell
+            let cell = dequeueReusableCell(withIdentifier: String(describing: QuestionTableQuestionCell.self), for: indexPath) as! QuestionTableQuestionCell
             cell.configure(question: question, questionHtml: html)
             return cell
         case let .answer(answer):
-            let cell = dequeueReusableCell(withIdentifier: String(describing: AnswerCell.self), for: indexPath) as! AnswerCell
-            cell.setup(element: answer)
+            let cell = dequeueReusableCell(withIdentifier: String(describing: QuestionTableAnswersCell.self), for: indexPath) as! QuestionTableAnswersCell
             return cell
         case let .explanation(explanation):
-            let cell = dequeueReusableCell(withIdentifier: String(describing: ExplanationCell.self), for: indexPath) as! ExplanationCell
-            cell.confugure(explanation: explanation)
+            let cell = dequeueReusableCell(withIdentifier: String(describing: QuestionTableExplanationTextCell.self), for: indexPath) as! QuestionTableExplanationTextCell
+            cell.confugure(explanation: explanation, html: "")
             return cell
         }
     }
@@ -87,11 +86,11 @@ extension QuestionTableView: UITableViewDataSource {
 // MARK: UITableViewDelegate
 extension QuestionTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        tableView.cellForRow(at: indexPath) is AnswerCell ? indexPath : nil
+        tableView.cellForRow(at: indexPath) is QuestionTableAnswersCell ? indexPath : nil
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? AnswerCell else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) as? QuestionTableAnswersCell else { return }
         
         if selectedCells.contains(indexPath) {
             selectedCells.remove(indexPath)
@@ -107,7 +106,7 @@ extension QuestionTableView: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if cell is AnswerCell, selectedCells.contains(indexPath) {
+        if cell is QuestionTableAnswersCell, selectedCells.contains(indexPath) {
             cell.setSelected(true, animated: false)
         }
     }
@@ -116,9 +115,7 @@ extension QuestionTableView: UITableViewDelegate {
         switch elements[indexPath.row] {
         case .content:
             return 213.scale
-        case let .answer(element):
-            return AnswerCell.height(for: element, with: tableView.bounds.width)
-        case .explanation, .question:
+        case .explanation, .question, .answer:
             return UITableView.automaticDimension
         }
     }
@@ -127,10 +124,10 @@ extension QuestionTableView: UITableViewDelegate {
 // MARK: Private
 private extension QuestionTableView {
     func initialize() {
-        register(QuestionContentCell.self, forCellReuseIdentifier: String(describing: QuestionContentCell.self))
-        register(AnswerCell.self, forCellReuseIdentifier: String(describing: AnswerCell.self))
-        register(QuestionCell.self, forCellReuseIdentifier: String(describing: QuestionCell.self))
-        register(ExplanationCell.self, forCellReuseIdentifier: String(describing: ExplanationCell.self))
+        register(QuestionTableContentCell.self, forCellReuseIdentifier: String(describing: QuestionTableContentCell.self))
+        register(QuestionTableAnswersCell.self, forCellReuseIdentifier: String(describing: QuestionTableAnswersCell.self))
+        register(QuestionTableQuestionCell.self, forCellReuseIdentifier: String(describing: QuestionTableQuestionCell.self))
+        register(QuestionTableExplanationTextCell.self, forCellReuseIdentifier: String(describing: QuestionTableExplanationTextCell.self))
         separatorStyle = .none
         
         dataSource = self

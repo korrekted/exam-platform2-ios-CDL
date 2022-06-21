@@ -8,15 +8,15 @@
 import UIKit
 import AVFoundation
 import RxSwift
-import RxCocoa
 import Kingfisher
 
-class QuestionCollectionCell: UICollectionViewCell {
-    private lazy var questionImageView = makeImageView()
+final class QuestionContentCollectionCell: UICollectionViewCell {
+    lazy var questionImageView = makeImageView()
     lazy var videoView = makeVideoView()
     lazy var expandButton = makeExpandButton()
     lazy var preloader = makePreloader()
-    private var disposeBag = DisposeBag()
+   
+    private lazy var disposeBag = DisposeBag()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,8 +42,8 @@ class QuestionCollectionCell: UICollectionViewCell {
 }
 
 // MARK: Public
-extension QuestionCollectionCell {
-    func setup(content: QuestionContentType, didTapExpand: @escaping () -> Void) {
+extension QuestionContentCollectionCell {
+    func setup(content: QuestionContentCollectionType, didTapExpand: @escaping () -> Void) {
         switch content {
         case let .image(url):
             videoView.isHidden = true
@@ -55,10 +55,11 @@ extension QuestionCollectionCell {
                 self?.preloader.stopAnimating()
             })
         case let .video(url):
-            let player = AVPlayer(url: url)
-            videoView.player = player
             videoView.isHidden = false
             questionImageView.isHidden = true
+            
+            let player = AVPlayer(url: url)
+            videoView.player = player
             player.play()
         }
         
@@ -69,14 +70,19 @@ extension QuestionCollectionCell {
 }
 
 // MARK: Private
-private extension QuestionCollectionCell {
+private extension QuestionContentCollectionCell {
     func initialize() {
-        backgroundColor = .clear
+        backgroundColor = UIColor.clear
+        contentView.backgroundColor = UIColor.clear
+        
+        let selectedView = UIView()
+        selectedView.backgroundColor = UIColor.clear
+        selectedBackgroundView = selectedView
     }
 }
 
 // MARK: Make constraints
-private extension QuestionCollectionCell {
+private extension QuestionContentCollectionCell {
     func makeConstraints() {
         NSLayoutConstraint.activate([
             questionImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -93,10 +99,10 @@ private extension QuestionCollectionCell {
         ])
         
         NSLayoutConstraint.activate([
-            expandButton.heightAnchor.constraint(equalToConstant: 15.scale),
-            expandButton.widthAnchor.constraint(equalTo: expandButton.heightAnchor),
-            expandButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -15.scale),
-            expandButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15.scale)
+            expandButton.heightAnchor.constraint(equalToConstant: 24.scale),
+            expandButton.widthAnchor.constraint(equalToConstant: 24.scale),
+            expandButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20.scale),
+            expandButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20.scale)
         ])
         
         NSLayoutConstraint.activate([
@@ -107,13 +113,13 @@ private extension QuestionCollectionCell {
 }
 
 // MARK: Lazy initialization
-private extension QuestionCollectionCell {
+private extension QuestionContentCollectionCell {
     func makeImageView() -> UIImageView {
         let view = UIImageView()
         view.layer.cornerRadius = 20.scale
         view.contentMode = .scaleAspectFill
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(view)
         return view
     }
@@ -121,8 +127,8 @@ private extension QuestionCollectionCell {
     func makeVideoView() -> AVPlayerView {
         let view = AVPlayerView()
         view.layer.cornerRadius = 20.scale
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(view)
         return view
     }
@@ -130,7 +136,6 @@ private extension QuestionCollectionCell {
     func makeExpandButton() -> TapAreaButton {
         let view = TapAreaButton()
         view.setImage(UIImage(named: "Question.Expand"), for: .normal)
-        view.tintColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(view)
         return view
