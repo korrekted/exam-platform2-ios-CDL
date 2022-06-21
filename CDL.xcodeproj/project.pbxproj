@@ -347,6 +347,7 @@
 		DE40719D2861D3F5001DA029 /* QuestionTableExplanationImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE40719C2861D3F5001DA029 /* QuestionTableExplanationImageCell.swift */; };
 		DE40719F2861D413001DA029 /* QuestionTableExplanationTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE40719E2861D412001DA029 /* QuestionTableExplanationTitleCell.swift */; };
 		DE4071A12861D4A3001DA029 /* QuestionTableQuestionReferenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071A02861D4A3001DA029 /* QuestionTableQuestionReferenceCell.swift */; };
+		DE4071A32861D70E001DA029 /* TestBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071A22861D70E001DA029 /* TestBottomView.swift */; };
 		DE93780A27BA63910073F27C /* XOREncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE93780927BA63910073F27C /* XOREncryption.swift */; };
 		DE93780C27BA71880073F27C /* RestApiTransportExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE93780B27BA71880073F27C /* RestApiTransportExtension.swift */; };
 		DE95A8DA2833805E00809171 /* DefaultRequestWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8D92833805E00809171 /* DefaultRequestWrapper.swift */; };
@@ -735,6 +736,7 @@
 		DE40719C2861D3F5001DA029 /* QuestionTableExplanationImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTableExplanationImageCell.swift; sourceTree = "<group>"; };
 		DE40719E2861D412001DA029 /* QuestionTableExplanationTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTableExplanationTitleCell.swift; sourceTree = "<group>"; };
 		DE4071A02861D4A3001DA029 /* QuestionTableQuestionReferenceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTableQuestionReferenceCell.swift; sourceTree = "<group>"; };
+		DE4071A22861D70E001DA029 /* TestBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBottomView.swift; sourceTree = "<group>"; };
 		DE93780927BA63910073F27C /* XOREncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XOREncryption.swift; sourceTree = "<group>"; };
 		DE93780B27BA71880073F27C /* RestApiTransportExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApiTransportExtension.swift; sourceTree = "<group>"; };
 		DE95A8D92833805E00809171 /* DefaultRequestWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRequestWrapper.swift; sourceTree = "<group>"; };
@@ -1608,6 +1610,7 @@
 				DE4071952860B28D001DA029 /* TableView */,
 				8631825B2610E8000098797B /* TestProgressView.swift */,
 				DE95A8F32833F8C000809171 /* TestBottomSpinner.swift */,
+				DE4071A22861D70E001DA029 /* TestBottomView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2439,6 +2442,7 @@
 				8659FCAC26342BF00029598C /* CourseDetailsTableElement.swift in Sources */,
 				967AD4F0260FD0AF008E8175 /* GetQotdRequest.swift in Sources */,
 				96155B7A2689FB1A00228151 /* MinutesAtTimeElement.swift in Sources */,
+				DE4071A32861D70E001DA029 /* TestBottomView.swift in Sources */,
 				969679DF265E9AF20070E7F7 /* STChangeLocaleView.swift in Sources */,
 				86CE87202621B5D900FC7091 /* SIBottomButtonState.swift in Sources */,
 				967AD56A260FD0AF008E8175 /* OSlideWhenTakingView.swift in Sources */,

@@ -4,26 +4,19 @@
 //
 //  Created by Vitaliy Zagorodnov on 31.01.2021.
 //
+
 import UIKit
 import RxSwift
 import RxCocoa
 
 final class QuestionTableView: UITableView {
-    private lazy var elements = [TestingCellType]()
-    let selectedAnswers = PublishRelay<[AnswerElement]>()
+    let selectedAnswersRelay = PublishRelay<AnswerElement>()
     let expandContent = PublishRelay<QuestionContentCollectionType>()
     
-    private var selectedCells: Set<IndexPath> = [] {
-        didSet {
-            let answers = selectedCells
-                .compactMap { indexPath -> AnswerElement? in
-                    guard case let .answer(answer) = elements[safe: indexPath.row] else { return nil }
-                    return answer
-                }
-            
-            selectedAnswers.accept(answers)
-        }
-    }
+    private lazy var elements = [TestingCellType]()
+    
+    private var selectedIds: (([Int]) -> Void)?
+    private var isMultiple = false
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -36,20 +29,28 @@ final class QuestionTableView: UITableView {
     }
 }
 
-// MARK: API
+// MARK: Public
 extension QuestionTableView {
     func setup(question: QuestionElement) {
-        elements = question.elements
-        allowsMultipleSelection = question.isMultiple
-        allowsSelection = !question.isResult
-        selectedCells = []
-        CATransaction.setCompletionBlock { [weak self] in
-            let indexPath = IndexPath(row: question.isResult ? question.elements.count - 1 : 0, section: 0)
-            self?.scrollToRow(at: indexPath, at: .top, animated: true)
+        selectedIds = { [weak self] elements in
+            let element = AnswerElement(questionId: question.id, answerIds: elements, isMultiple: question.isMultiple)
+            self?.selectedAnswersRelay.accept(element)
         }
-        CATransaction.begin()
+        elements = question.elements
+        isMultiple = question.isMultiple
+        
         reloadData()
-        CATransaction.commit()
+        
+        let isBottomScroll = question.elements.contains(where: { element -> Bool in
+            guard case .result = element else {
+                return false
+            }
+            
+            return true
+        })
+        
+        let indexPath = IndexPath(row: isBottomScroll ? question.elements.count - 1 : 0, section: 0)
+        scrollToRow(at: indexPath, at: .top, animated: true)
     }
 }
 
@@ -72,12 +73,28 @@ extension QuestionTableView: UITableViewDataSource {
             let cell = dequeueReusableCell(withIdentifier: String(describing: QuestionTableQuestionCell.self), for: indexPath) as! QuestionTableQuestionCell
             cell.configure(question: question, questionHtml: html)
             return cell
-        case let .answer(answer):
+        case let .answers(answers):
             let cell = dequeueReusableCell(withIdentifier: String(describing: QuestionTableAnswersCell.self), for: indexPath) as! QuestionTableAnswersCell
+            cell.configure(answers: answers, isMultiple: isMultiple, didTap: selectedIds)
             return cell
-        case let .explanation(explanation):
+        case .explanationTitle:
+            let cell = dequeueReusableCell(withIdentifier: String(describing: QuestionTableExplanationTitleCell.self), for: indexPath) as! QuestionTableExplanationTitleCell
+            return cell
+        case let .explanationImage(url):
+            let cell = dequeueReusableCell(withIdentifier: String(describing: QuestionTableExplanationImageCell.self), for: indexPath) as! QuestionTableExplanationImageCell
+            cell.confugure(image: url)
+            return cell
+        case let .explanationText(explanation, html):
             let cell = dequeueReusableCell(withIdentifier: String(describing: QuestionTableExplanationTextCell.self), for: indexPath) as! QuestionTableExplanationTextCell
-            cell.confugure(explanation: explanation, html: "")
+            cell.confugure(explanation: explanation, html: html)
+            return cell
+        case let .result(elements):
+            let cell = dequeueReusableCell(withIdentifier: String(describing: QuestionTableAnswersCell.self), for: indexPath) as! QuestionTableAnswersCell
+            cell.configure(result: elements)
+            return cell
+        case let .reference(reference):
+            let cell = dequeueReusableCell(withIdentifier: String(describing: QuestionTableQuestionReferenceCell.self), for: indexPath) as! QuestionTableQuestionReferenceCell
+            cell.confugure(reference: reference)
             return cell
         }
     }
@@ -85,39 +102,12 @@ extension QuestionTableView: UITableViewDataSource {
 
 // MARK: UITableViewDelegate
 extension QuestionTableView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        tableView.cellForRow(at: indexPath) is QuestionTableAnswersCell ? indexPath : nil
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? QuestionTableAnswersCell else { return }
+        guard case let .explanationImage(url) = elements[indexPath.row] else {
+            return
+        }
         
-        if selectedCells.contains(indexPath) {
-            selectedCells.remove(indexPath)
-            cell.setSelected(false, animated: false)
-        } else {
-            if allowsMultipleSelection {
-                selectedCells.insert(indexPath)
-            } else {
-                selectedCells = [indexPath]
-            }
-            cell.setSelected(true, animated: false)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if cell is QuestionTableAnswersCell, selectedCells.contains(indexPath) {
-            cell.setSelected(true, animated: false)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch elements[indexPath.row] {
-        case .content:
-            return 213.scale
-        case .explanation, .question, .answer:
-            return UITableView.automaticDimension
-        }
+        expandContent.accept(.image(url))
     }
 }
 
@@ -125,13 +115,14 @@ extension QuestionTableView: UITableViewDelegate {
 private extension QuestionTableView {
     func initialize() {
         register(QuestionTableContentCell.self, forCellReuseIdentifier: String(describing: QuestionTableContentCell.self))
-        register(QuestionTableAnswersCell.self, forCellReuseIdentifier: String(describing: QuestionTableAnswersCell.self))
         register(QuestionTableQuestionCell.self, forCellReuseIdentifier: String(describing: QuestionTableQuestionCell.self))
+        register(QuestionTableAnswersCell.self, forCellReuseIdentifier: String(describing: QuestionTableAnswersCell.self))
+        register(QuestionTableExplanationImageCell.self, forCellReuseIdentifier: String(describing: QuestionTableExplanationImageCell.self))
         register(QuestionTableExplanationTextCell.self, forCellReuseIdentifier: String(describing: QuestionTableExplanationTextCell.self))
-        separatorStyle = .none
+        register(QuestionTableExplanationTitleCell.self, forCellReuseIdentifier: String(describing: QuestionTableExplanationTitleCell.self))
+        register(QuestionTableQuestionReferenceCell.self, forCellReuseIdentifier: String(describing: QuestionTableQuestionReferenceCell.self))
         
         dataSource = self
         delegate = self
     }
 }
-

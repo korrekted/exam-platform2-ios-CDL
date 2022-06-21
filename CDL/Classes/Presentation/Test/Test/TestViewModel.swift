@@ -259,7 +259,7 @@ private extension TestViewModel {
                         .sendAnswer(
                             questionId: question.id,
                             userTestId: userTestId,
-                            answerIds: answers.map { $0.id }
+                            answerIds: answers.map { _ in 1 }
                         )
                 }
                 
@@ -436,7 +436,14 @@ private extension TestViewModel {
         return { questions in
             return questions.enumerated().map { index, question -> QuestionElement in
                 let answers: [TestingCellType] = question.answers
-                    .map { .answer(AnswerElement(id: $0.id, answer: $0.answer ?? "", image: $0.image, state: .initial, isCorrect: $0.isCorrect)) }
+                    .map {
+                        TestingCellType.answers([
+                            PossibleAnswerElement(id: $0.id,
+                                                  answer: $0.answer,
+                                                  answerHtml: $0.answerHtml,
+                                                  image: $0.image)
+                        ])
+                    }
                 
                 let content: [QuestionContentCollectionType] = [
                     question.image.map { .image($0) },
@@ -455,8 +462,7 @@ private extension TestViewModel {
                     index: index + 1,
                     isAnswered: question.isAnswered,
                     questionsCount: questions.count,
-                    explanation: question.explanation,
-                    isResult: false
+                    isSaved: question.isSaved
                 )
             }
         }
@@ -486,49 +492,7 @@ private extension TestViewModel {
     
     var answerQuestionAccumulator: (QuestionElement?, TestAction) -> QuestionElement? {
         return { [weak self] old, action -> QuestionElement? in
-            switch action {
-            case let .question(question):
-                return question
-            case let .answer(answers, testMode):
-                guard let currentQuestion = old else { return old }
-                var answersState: [AnswerState] = []
-                let answerIds = answers.map { $0.id }
-                let newElements = testMode == .onAnExam
-                    ? currentQuestion.elements
-                    : currentQuestion.elements
-                        .map { element -> TestingCellType in
-                            guard case var .answer(value) = element else { return element }
-                            
-                            let state: AnswerState = answerIds.contains(value.id)
-                                ? value.isCorrect ? .correct : .error
-                                : value.isCorrect ? currentQuestion.isMultiple ? .warning : .correct : .initial
-                            
-                            value.state = state
-                            answersState.append(state)
-                            
-                            return .answer(value)
-                        }
-                
-                let isIncorrect = answersState
-                    .contains(where: { $0 == .warning || $0 == .error })
-                
-                self?.scoreRelay.accept(!isIncorrect)
-                
-                let explanation: [TestingCellType] = [.none, .fullComplect].contains(testMode)
-                    ? currentQuestion.explanation.map { [.explanation($0)] } ?? []
-                    : []
-                
-                return QuestionElement(
-                    id: currentQuestion.id,
-                    elements: newElements + explanation,
-                    isMultiple: currentQuestion.isMultiple,
-                    index: currentQuestion.index,
-                    isAnswered: currentQuestion.isAnswered,
-                    questionsCount: currentQuestion.questionsCount,
-                    explanation: currentQuestion.explanation,
-                    isResult: true
-                )
-            }
+            nil
         }
     }
 }

@@ -36,254 +36,216 @@ final class TestViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mainView.tableView
-            .expandContent
-            .bind(to: Binder(self) { base, content in
-                switch content {
-                case let .image(url):
-                    let imageView = UIImageView()
-                    imageView.contentMode = .scaleAspectFit
-                    do {
-                        try imageView.image = UIImage(data: Data(contentsOf: url))
-                        let controller = UIViewController()
-                        controller.view.backgroundColor = .black
-                        controller.view.addSubview(imageView)
-                        imageView.frame = controller.view.bounds
-                        base.present(controller, animated: true)
-                    } catch {
-                        
-                    }
-                case let .video(url):
-                    let controller = AVPlayerViewController()
-                    controller.view.backgroundColor = .black
-                    let player = AVPlayer(url: url)
-                    controller.player = player
-                    base.present(controller, animated: true) { [weak player] in
-                        player?.play()
-                    }
-                }
-            })
-            .disposed(by: disposeBag)
-        
-        mainView.navigationView.leftAction.rx.tap
-            .withLatestFrom(viewModel.userTestId)
-            .withLatestFrom(viewModel.currentTestType) { ($0, $1) }
-            .bind(to: Binder(self) { base, tuple in
-                let (id, type) = tuple
-                // TODO
-//                if case .timedQuizz = type, let id = id {
-//                    QuestionMediator.shared.timedTestClosed(userTestId: id)
-//                }
-//                QuestionMediator.shared.testClosed()
-                    base.navigationController?.popViewController(animated: true)
-                })
-            .disposed(by: disposeBag)
-        
-        let courseName = viewModel.courseName
-        
-        viewModel.question
-            .drive(Binder(self) { base, element in
-                base.mainView.tableView.setup(question: element)
-            })
-            .disposed(by: disposeBag)
-        
-        mainView.tableView
-            .selectedAnswers
-            .withLatestFrom(courseName) { ($0, $1) }
-            .subscribe(onNext: { [weak self] stub in
-                let (answers, name) = stub
-                
-                self?.viewModel.selectedAnswersRelay.accept(answers)
-                self?.logTapAnalytics(courseName: name, what: "answer")
-            })
-            .disposed(by: disposeBag)
-        
-        let currentButtonState = mainView.bottomButton.rx.tap
-            .withLatestFrom(viewModel.bottomViewState)
-            .share()
-        
-        currentButtonState
-            .compactMap { $0 == .confirm ? () : nil }
-            .bind(to: viewModel.didTapConfirm)
-            .disposed(by: disposeBag)
-        
-        currentButtonState
-            .compactMap { $0 == .submit ? () : nil }
-            .bind(to: viewModel.didTapSubmit)
-            .disposed(by: disposeBag)
-        
-        currentButtonState
-            .filter { $0 == .back }
-            .bind(to: Binder(self) { base, _ in
-                base.navigationController?.popViewController(animated: true)
-            })
-            .disposed(by: disposeBag)
-        
-        mainView.nextButton.rx.tap
-            .withLatestFrom(courseName)
-            .subscribe(onNext: { [weak self] name in
-                self?.viewModel.didTapNext.accept(Void())
-                self?.logTapAnalytics(courseName: name, what: "continue")
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.question
-            .map { $0.questionsCount == 1 }
-            .distinctUntilChanged()
-            .drive(Binder(mainView) {
-                $0.needAddingCounter(isOne: $1)
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.rightCounterValue
-            .drive(Binder(mainView) { base, element in
-                base.counter.setRightContent(value: element.value, isError: element.isError)
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.leftCounterValue
-            .drive(Binder(mainView) { base, element in
-                base.counter.setLeftContent(value: element)
-            })
-            .disposed(by: disposeBag)
-        
-        let isHiddenNext = Driver
-            .merge(
-                viewModel.isEndOfTest,
-                mainView.nextButton.rx.tap.asDriver().map { _ in true },
-                viewModel.loadNextTestSignal.asDriver(onErrorDriveWith: .empty()).map { _ in true }
-            )
-            .startWith(true)
-        
-        isHiddenNext
-            .drive(mainView.nextButton.rx.isHidden)
-            .disposed(by: disposeBag)
-        
-        let nextOffset = isHiddenNext
-            .map { [weak mainView] isHidden -> CGFloat in
-                let bottomOffset = mainView.map { $0.bounds.height - $0.nextButton.frame.minY + 9.scale } ?? 0
-                return isHidden ? 32.scale : bottomOffset
-            }
-        
-        Observable
-            .combineLatest(nextOffset.asObservable(), viewModel.bottomViewState.asObservable()) { nextOffset, bottomState in
-                bottomState == .hidden ? nextOffset : 195.scale
-            }
-            .distinctUntilChanged()
-            .bind(to: Binder(mainView.tableView) {
-                $0.contentInset.bottom = $1
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.testStatsElement
-            .withLatestFrom(courseName) { ($0, $1) }
-            .bind(to: Binder(self) { base, stub in
-                let (element, name) = stub
-                let testStatsController = TestStatsViewController.make(element: element) { [weak base] in
-                    base?.navigationController?.popViewController(animated: false)
-                }
-                testStatsController.didTapNext = base.loadNext
-                testStatsController.didTapTryAgain = base.tryAgain
-                UIApplication.shared.keyWindow?.rootViewController?.present(testStatsController, animated: true)
-                base.logTapAnalytics(courseName: name, what: "finish test")
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.bottomViewState
-            .drive(Binder(mainView) {
-                $0.setupBottomButton(for: $1)
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.errorMessage
-            .emit { [weak self] message in
-                Toast.notify(with: message, style: .danger)
-                self?.dismiss(animated: true)
-            }
-            .disposed(by: disposeBag)
+        self.mainView.bottomView.setup(state: .next)
 
-        viewModel.needPayment
-            .filter { $0 }
-            .emit { [weak self] _ in
-                UIApplication.shared.keyWindow?.rootViewController?.present(PaygateViewController.make(), animated: true) { [weak self] in
-                    // Без задержки контроллер не попается
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-                        self?.navigationController?.popViewController(animated: false)
-                    }
-                }
-            }
-            .disposed(by: disposeBag)
-            
-        viewModel.needPayment
-            .filter(!)
-            .withLatestFrom(courseName)
-            .emit(onNext: { [weak self] name in
-                self?.logAnalytics(courseName: name)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+            self.mainView.bottomView.setup(state: .confirm)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                self.mainView.bottomView.setup(state: .next)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                    self.mainView.bottomView.setup(state: .hidden)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                        self.mainView.bottomView.setup(state: .next)
+                    })
+                })
             })
-            .disposed(by: disposeBag)
+        })
         
-        viewModel.currentTestType
-            .bind(to: Binder(mainView) { base, testType in
-                let leftCounterTitle: String
-                let rightCounterTitle: String
-                
-                switch testType {
-                case .timedQuizz:
-                    leftCounterTitle = "Question.Counter.Question".localized
-                    rightCounterTitle = "Question.Counter.RemainingTime".localized
-                default:
-                    leftCounterTitle = "Question.Counter.Score".localized
-                    rightCounterTitle = "Question.Counter.Question".localized
-                }
-                
-                base.navigationView.setTitle(title: testType.title)
-                base.counter.setup(leftTitle: leftCounterTitle, rightTitle: rightCounterTitle)
-            })
-            .disposed(by: disposeBag)
+//        mainView.navigationView.leftAction.rx.tap
+//            .withLatestFrom(viewModel.userTestId)
+//            .withLatestFrom(viewModel.currentTestType) { ($0, $1) }
+//            .bind(to: Binder(self) { base, tuple in
+//                let (id, type) = tuple
+//                // TODO
+////                if case .timedQuizz = type, let id = id {
+////                    QuestionMediator.shared.timedTestClosed(userTestId: id)
+////                }
+////                QuestionMediator.shared.testClosed()
+//                    base.navigationController?.popViewController(animated: true)
+//                })
+//            .disposed(by: disposeBag)
+//
+//        let courseName = viewModel.courseName
+//
+//        viewModel.question
+//            .drive(Binder(self) { base, element in
+//                base.mainView.tableView.setup(question: element)
+//            })
+//            .disposed(by: disposeBag)
+//
+//        let currentButtonState = mainView.bottomView.button.rx.tap
+//            .withLatestFrom(viewModel.bottomViewState)
+//            .share()
+//
+//        currentButtonState
+//            .compactMap { $0 == .confirm ? () : nil }
+//            .bind(to: viewModel.didTapConfirm)
+//            .disposed(by: disposeBag)
+//
+//        currentButtonState
+//            .compactMap { $0 == .submit ? () : nil }
+//            .bind(to: viewModel.didTapSubmit)
+//            .disposed(by: disposeBag)
+//
+//        currentButtonState
+//            .filter { $0 == .back }
+//            .bind(to: Binder(self) { base, _ in
+//                base.navigationController?.popViewController(animated: true)
+//            })
+//            .disposed(by: disposeBag)
+//
+//        mainView.bottomView.button.rx.tap
+//            .withLatestFrom(courseName)
+//            .subscribe(onNext: { [weak self] name in
+//                self?.viewModel.didTapNext.accept(Void())
+//                self?.logTapAnalytics(courseName: name, what: "continue")
+//            })
+//            .disposed(by: disposeBag)
+//
+//        viewModel.question
+//            .map { $0.questionsCount == 1 }
+//            .distinctUntilChanged()
+//            .drive(Binder(mainView) {
+//                $0.needAddingCounter(isOne: $1)
+//            })
+//            .disposed(by: disposeBag)
+//
+//        viewModel.rightCounterValue
+//            .drive(Binder(mainView) { base, element in
+//                base.counter.setRightContent(value: element.value, isError: element.isError)
+//            })
+//            .disposed(by: disposeBag)
+//
+//        viewModel.leftCounterValue
+//            .drive(Binder(mainView) { base, element in
+//                base.counter.setLeftContent(value: element)
+//            })
+//            .disposed(by: disposeBag)
+//
+//        let isHiddenNext = Driver
+//            .merge(
+//                viewModel.isEndOfTest,
+//                mainView.bottomView.button.rx.tap.asDriver().map { _ in true },
+//                viewModel.loadNextTestSignal.asDriver(onErrorDriveWith: .empty()).map { _ in true }
+//            )
+//            .startWith(true)
+//
+//        isHiddenNext
+//            .drive(mainView.bottomView.button.rx.isHidden)
+//            .disposed(by: disposeBag)
+//
+//        let nextOffset = isHiddenNext
+//            .map { [weak mainView] isHidden -> CGFloat in
+//                0
+//            }
+//
+//        Observable
+//            .combineLatest(nextOffset.asObservable(), viewModel.bottomViewState.asObservable()) { nextOffset, bottomState in
+//                bottomState == .hidden ? nextOffset : 195.scale
+//            }
+//            .distinctUntilChanged()
+//            .bind(to: Binder(mainView.tableView) {
+//                $0.contentInset.bottom = $1
+//            })
+//            .disposed(by: disposeBag)
+//
+//        viewModel.testStatsElement
+//            .withLatestFrom(courseName) { ($0, $1) }
+//            .bind(to: Binder(self) { base, stub in
+//                let (element, name) = stub
+//                let testStatsController = TestStatsViewController.make(element: element) { [weak base] in
+//                    base?.navigationController?.popViewController(animated: false)
+//                }
+//                testStatsController.didTapNext = base.loadNext
+//                testStatsController.didTapTryAgain = base.tryAgain
+//                UIApplication.shared.keyWindow?.rootViewController?.present(testStatsController, animated: true)
+//                base.logTapAnalytics(courseName: name, what: "finish test")
+//            })
+//            .disposed(by: disposeBag)
+//
+//
+//
+//        viewModel.errorMessage
+//            .emit { [weak self] message in
+//                Toast.notify(with: message, style: .danger)
+//                self?.dismiss(animated: true)
+//            }
+//            .disposed(by: disposeBag)
+
+//        viewModel.needPayment
+//            .filter { $0 }
+//            .emit { [weak self] _ in
+//                UIApplication.shared.keyWindow?.rootViewController?.present(PaygateViewController.make(), animated: true) { [weak self] in
+//                    // Без задержки контроллер не попается
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+//                        self?.navigationController?.popViewController(animated: false)
+//                    }
+//                }
+//            }
+//            .disposed(by: disposeBag)
+//
+//        viewModel.needPayment
+//            .filter(!)
+//            .withLatestFrom(courseName)
+//            .emit(onNext: { [weak self] name in
+//                self?.logAnalytics(courseName: name)
+//            })
+//            .disposed(by: disposeBag)
+//
+//        viewModel.currentTestType
+//            .bind(to: Binder(mainView) { base, testType in
+//                let leftCounterTitle: String
+//                let rightCounterTitle: String
+//
+//                switch testType {
+//                case .timedQuizz:
+//                    leftCounterTitle = "Question.Counter.Question".localized
+//                    rightCounterTitle = "Question.Counter.RemainingTime".localized
+//                default:
+//                    leftCounterTitle = "Question.Counter.Score".localized
+//                    rightCounterTitle = "Question.Counter.Question".localized
+//                }
+//
+//                base.navigationView.setTitle(title: testType.title)
+//                base.counter.setup(leftTitle: leftCounterTitle, rightTitle: rightCounterTitle)
+//            })
+//            .disposed(by: disposeBag)
+//
+//        viewModel.isSavedQuestion
+//            .drive(Binder(mainView) {
+//                $0.saveQuestion($1)
+//            })
+//            .disposed(by: disposeBag)
+//
+//        mainView.navigationView.rightAction.rx.tap
+//            .withLatestFrom(viewModel.isSavedQuestion)
+//            .bind(to: viewModel.didTapMark)
+//            .disposed(by: disposeBag)
+//
+//        currentButtonState
+//            .filter { [.submit, .back].contains($0) }
+//            .withLatestFrom(viewModel.needPayment)
+//            .subscribe(onNext: { needPayment in
+//                guard !needPayment else { return }
+//                RateManagerCore().showFirstAfterPassRateAlert()
+//            })
+//            .disposed(by: disposeBag)
+//
+//        viewModel.tryAgain = { [weak self] error -> Observable<Void> in
+//            guard let self = self else {
+//                return .never()
+//            }
+//
+//            return self.openError()
+//        }
+//
+//        viewModel.loadTestActivityIndicator
+//            .drive(onNext: { [weak self] activity in
+//                self?.activity(activity)
+//            })
+//            .disposed(by: disposeBag)
+//
         
-        viewModel.isSavedQuestion
-            .drive(Binder(mainView) {
-                $0.saveQuestion($1)
-            })
-            .disposed(by: disposeBag)
-        
-        mainView.navigationView.rightAction.rx.tap
-            .withLatestFrom(viewModel.isSavedQuestion)
-            .bind(to: viewModel.didTapMark)
-            .disposed(by: disposeBag)
-        
-        currentButtonState
-            .filter { [.submit, .back].contains($0) }
-            .withLatestFrom(viewModel.needPayment)
-            .subscribe(onNext: { needPayment in
-                guard !needPayment else { return }
-                RateManagerCore().showFirstAfterPassRateAlert()
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.tryAgain = { [weak self] error -> Observable<Void> in
-            guard let self = self else {
-                return .never()
-            }
-            
-            return self.openError()
-        }
-        
-        viewModel.loadTestActivityIndicator
-            .drive(onNext: { [weak self] activity in
-                self?.activity(activity)
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.sendAnswerActivityIndicator
-            .drive(onNext: { [weak self] activity in
-                guard let self = self else {
-                    return
-                }
-                
-                activity ? self.mainView.buttonPreloader.start() : self.mainView.buttonPreloader.stop()
-            })
-            .disposed(by: disposeBag)
     }
 }
 

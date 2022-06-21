@@ -7,17 +7,17 @@
 
 import UIKit
 
-class TestProgressView: UIView {
+final class TestProgressView: UIView {
+    lazy var leftTitle = makeTitleLabel()
+    lazy var rightTitle = makeTitleLabel()
+    lazy var leftContent = makeContentLabel()
+    lazy var rightContent = makeContentLabel()
+    lazy var leftContentView = makeBackgroundView()
+    lazy var rightContentView = makeBackgroundView()
     
-    private lazy var leftTitle = makeTitleLabel()
-    private lazy var rightTitle = makeTitleLabel()
-    private lazy var leftContent = makeContentLabel()
-    private lazy var rightContent = makeContentLabel()
-    private lazy var leftContentView = makeBackgroundView()
-    private lazy var rightContentView = makeBackgroundView()
-    
-    private override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
+        
         initialize()
         makeConstraints()
     }
@@ -27,7 +27,7 @@ class TestProgressView: UIView {
     }
 }
 
-// MARK: API
+// MARK: Public
 extension TestProgressView {
     func setRightContent(value: String, isError: Bool) {
         rightContent.attributedText = value.attributed(with: .contentAttr(isError))
@@ -54,8 +54,6 @@ private extension TestProgressView {
     func initialize() {
         leftContentView.addSubview(leftContent)
         rightContentView.addSubview(rightContent)
-        backgroundColor = ScorePalette.background
-        layer.cornerRadius = 12.scale
     }
 }
 
@@ -107,9 +105,9 @@ private extension TestProgressView {
 private extension TestProgressView {
     func makeBackgroundView() -> UIView {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 12.scale
         view.backgroundColor = ScorePalette.containerBackground
+        view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
     }

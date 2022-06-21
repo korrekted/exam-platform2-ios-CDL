@@ -12,25 +12,20 @@ struct QuestionElement {
     let elements: [TestingCellType]
     let isMultiple: Bool
     let index: Int
-    let isAnswered: Bool
+    var isAnswered: Bool
     let questionsCount: Int
-    let explanation: String?
-    let isResult: Bool
+    let isSaved: Bool
 }
 
 enum TestingCellType {
     case content([QuestionContentCollectionType])
     case question(String, html: String)
-    case answer(AnswerElement)
-    case explanation(String)
-}
-
-struct AnswerElement {
-    let id: Int
-    let answer: String
-    let image: URL?
-    var state: AnswerState
-    let isCorrect: Bool
+    case answers([PossibleAnswerElement])
+    case result([AnswerResultElement])
+    case explanationTitle
+    case explanationText(String, html: String)
+    case explanationImage(URL)
+    case reference(String)
 }
 
 struct PossibleAnswerElement: Hashable {
@@ -49,4 +44,10 @@ struct AnswerResultElement {
 
 enum AnswerState {
     case initial, correct, warning, error
+}
+
+struct AnswerElement {
+    let questionId: Int
+    let answerIds: [Int]
+    let isMultiple: Bool
 }
