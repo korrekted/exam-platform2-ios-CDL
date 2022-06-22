@@ -24,3 +24,10 @@ struct SIAnswerElement {
     var state: AnswerState
     let isCorrect: Bool
 }
+
+enum SITestCellType {
+    case content([QuestionContentCollectionType])
+    case question(String, html: String)
+    case answer(SIAnswerElement)
+    case explanation(String)
+}

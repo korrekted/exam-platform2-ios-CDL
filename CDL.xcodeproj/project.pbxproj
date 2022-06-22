@@ -51,7 +51,6 @@
 		86CD1CE1261EBCDA000A2F49 /* SIProgressElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CD1CE0261EBCDA000A2F49 /* SIProgressElement.swift */; };
 		86CD1E12261F5D2C000A2F49 /* SITestProgressCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CD1E11261F5D2C000A2F49 /* SITestProgressCollectionCell.swift */; };
 		86CE870626216C8100FC7091 /* SITestTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE870526216C8100FC7091 /* SITestTableView.swift */; };
-		86CE870926216CFD00FC7091 /* SITestCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE870826216CFD00FC7091 /* SITestCellType.swift */; };
 		86CE871026216D6E00FC7091 /* SIAnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE870F26216D6E00FC7091 /* SIAnswerCell.swift */; };
 		86CE8719262177D900FC7091 /* SITestElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE8718262177D900FC7091 /* SITestElement.swift */; };
 		86CE871C2621A39300FC7091 /* SIQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE871B2621A39300FC7091 /* SIQuestionCell.swift */; };
@@ -442,7 +441,6 @@
 		86CD1CE0261EBCDA000A2F49 /* SIProgressElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIProgressElement.swift; sourceTree = "<group>"; };
 		86CD1E11261F5D2C000A2F49 /* SITestProgressCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SITestProgressCollectionCell.swift; sourceTree = "<group>"; };
 		86CE870526216C8100FC7091 /* SITestTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SITestTableView.swift; sourceTree = "<group>"; };
-		86CE870826216CFD00FC7091 /* SITestCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SITestCellType.swift; sourceTree = "<group>"; };
 		86CE870F26216D6E00FC7091 /* SIAnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIAnswerCell.swift; sourceTree = "<group>"; };
 		86CE8718262177D900FC7091 /* SITestElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SITestElement.swift; sourceTree = "<group>"; };
 		86CE871B2621A39300FC7091 /* SIQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIQuestionCell.swift; sourceTree = "<group>"; };
@@ -891,7 +889,6 @@
 				DE4071B128631B6A001DA029 /* Observer */,
 				86BB25A2261E26BC00C6D2FA /* Models */,
 				86BB25AF261E2F4400C6D2FA /* Views */,
-				86CD1E10261F5D00000A2F49 /* Cells */,
 				86BB2599261E245000C6D2FA /* SITestViewModel.swift */,
 				86BB259C261E246000C6D2FA /* SITestView.swift */,
 				86BB259F261E246F00C6D2FA /* SITestViewController.swift */,
@@ -903,9 +900,6 @@
 			isa = PBXGroup;
 			children = (
 				86BB25A8261E2BF700C6D2FA /* SITestType.swift */,
-				86CD1CE0261EBCDA000A2F49 /* SIProgressElement.swift */,
-				86CE870826216CFD00FC7091 /* SITestCellType.swift */,
-				86CE8718262177D900FC7091 /* SITestElement.swift */,
 				86CE871F2621B5D900FC7091 /* SIBottomButtonState.swift */,
 			);
 			path = Models;
@@ -914,8 +908,8 @@
 		86BB25AF261E2F4400C6D2FA /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				86CE870526216C8100FC7091 /* SITestTableView.swift */,
-				86BB25B0261E2F8D00C6D2FA /* SIProgressCollectionView.swift */,
+				DE4071B728637EC5001DA029 /* TableView */,
+				DE4071B628637E18001DA029 /* CollectionView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -923,7 +917,6 @@
 		86CD1E10261F5D00000A2F49 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				86CD1E11261F5D2C000A2F49 /* SITestProgressCollectionCell.swift */,
 				86CE870F26216D6E00FC7091 /* SIAnswerCell.swift */,
 				86CE871B2621A39300FC7091 /* SIQuestionCell.swift */,
 			);
@@ -2241,6 +2234,26 @@
 			path = Observer;
 			sourceTree = "<group>";
 		};
+		DE4071B628637E18001DA029 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				86BB25B0261E2F8D00C6D2FA /* SIProgressCollectionView.swift */,
+				86CD1CE0261EBCDA000A2F49 /* SIProgressElement.swift */,
+				86CD1E11261F5D2C000A2F49 /* SITestProgressCollectionCell.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		DE4071B728637EC5001DA029 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				86CD1E10261F5D00000A2F49 /* Cells */,
+				86CE870526216C8100FC7091 /* SITestTableView.swift */,
+				86CE8718262177D900FC7091 /* SITestElement.swift */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
 		DE95A8D82833805400809171 /* RequestWrapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -2616,7 +2629,6 @@
 				967AD4BC260FD0AE008E8175 /* UIDeviceExtension.swift in Sources */,
 				96B67AD7262970390048DAB9 /* LocaleLanguageView.swift in Sources */,
 				969679B4265CC4210070E7F7 /* GetCountriesResponseMapper.swift in Sources */,
-				86CE870926216CFD00FC7091 /* SITestCellType.swift in Sources */,
 				967AD4E6260FD0AE008E8175 /* TestStatsManagerCore.swift in Sources */,
 				96B67AF5262A06900048DAB9 /* OPreloaderCell.swift in Sources */,
 				967AD4C7260FD0AE008E8175 /* Toast.swift in Sources */,

@@ -5,6 +5,8 @@
 //  Created by Vitaliy Zagorodnov on 07.04.2021.
 //
 
+import UIKit
+
 final class SITestView: UIView {
     lazy var bottomButton = makeBottomButton()
     lazy var nextButton = makeNextButton()
