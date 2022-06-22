@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import RushSDK
 
 final class StudyViewController: UIViewController {
     lazy var mainView = StudyView()
@@ -24,8 +25,6 @@ final class StudyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
-        
-        let activeSubscription = viewModel.activeSubscription
         
         viewModel.tryAgain = { [weak self] error -> Observable<Void> in
             guard let self = self else {
@@ -93,7 +92,7 @@ final class StudyViewController: UIViewController {
                     types = [type]
                 }
                 
-                base.openTest(types: types, activeSubscription: activeSubscription, courseId: course.id)
+                base.openTest(types: types, course: course)
                 
                 SDKStorage.shared
                     .amplitudeManager
@@ -113,11 +112,10 @@ final class StudyViewController: UIViewController {
         
         mainView.collectionView
             .selectedMode
-            .withLatestFrom(activeSubscription) { ($0, $1) }
-            .withLatestFrom(viewModel.course) { ($0.0, $0.1, $1) }
+            .withLatestFrom(viewModel.course) { ($0, $1) }
             .bind(to: Binder(self) { base, tuple in
-                let (mode, activeSubscription, course) = tuple
-                base.tapped(mode: mode, activeSubscription: activeSubscription, courseId: course.id)
+                let (mode, course) = tuple
+                base.tapped(mode: mode, course: course)
             })
             .disposed(by: disposeBag)
         
@@ -185,40 +183,39 @@ private extension StudyViewController {
             .logEvent(name: "Study Tap", parameters: ["what": "settings"])
     }
     
-    func tapped(mode: SCEMode.Mode, activeSubscription: Bool, courseId: Int) {
+    func tapped(mode: SCEMode.Mode, course: Course) {
         switch mode {
         case .ten:
-            openTest(types: [.tenSet], activeSubscription: activeSubscription, courseId: courseId)
+            openTest(types: [.tenSet], course: course)
             
             SDKStorage.shared
                 .amplitudeManager
                 .logEvent(name: "Study Tap", parameters: ["what": "10 questions"])
         case .random:
-            openTest(types: [.randomSet], activeSubscription: activeSubscription, courseId: courseId)
+            openTest(types: [.randomSet], course: course)
             
             SDKStorage.shared
                 .amplitudeManager
                 .logEvent(name: "Study Tap", parameters: ["what": "random set"])
         case .missed:
-            openTest(types: [.failedSet], activeSubscription: activeSubscription, courseId: courseId)
+            openTest(types: [.failedSet], course: course)
             
             SDKStorage.shared
                 .amplitudeManager
                 .logEvent(name: "Study Tap", parameters: ["what": "missed questions"])
         case .today:
-            openTest(types: [.qotd], activeSubscription: activeSubscription, courseId: courseId)
+            openTest(types: [.qotd], course: course)
             
             SDKStorage.shared
                 .amplitudeManager
                 .logEvent(name: "Study Tap", parameters: ["what": "question of the day"])
         case .time:
-            openTest(types: [.timedQuizz(testId: nil)], activeSubscription: activeSubscription, courseId: courseId)
+            openTest(types: [.timed(minutes: 60)], course: course)
         }
     }
     
-    func openTest(types: [TestType], activeSubscription: Bool, courseId: Int) {
-        let controller = TestViewController.make(testTypes: types, activeSubscription: activeSubscription, courseId: courseId)
-        parent?.navigationController?.pushViewController(controller, animated: true)
+    func openTest(types: [TestType], course: Course) {
+        TestCoordinator.shared.start(testTypes: types, course: course, from: self)
     }
     
     func openCourseDetails(course: Course) {

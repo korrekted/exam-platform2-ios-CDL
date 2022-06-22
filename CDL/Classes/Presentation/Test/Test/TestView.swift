@@ -43,11 +43,6 @@ extension TestView {
             navigationView.setNeedsDisplay()
         }
     }
-    
-    func saveQuestion(_ isSave: Bool) {
-        let image = isSave ? UIImage(named: "Question.Bookmark.Check") : UIImage(named: "Question.Bookmark.Uncheck")
-        navigationView.rightAction.setImage(image, for: .normal)
-    }
 }
 
 // MARK: Private
@@ -113,9 +108,11 @@ private extension TestView {
     
     func makeTableView() -> QuestionTableView {
         let view = QuestionTableView()
+        view.separatorStyle = .none
+        view.contentInset = UIEdgeInsets(top: 32.scale, left: 0, bottom: ScreenSize.isIphoneXFamily ? 177.scale : 140.scale, right: 0)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.showsVerticalScrollIndicator = false
-        view.backgroundColor = .clear
+        view.backgroundColor = UIColor.clear
         view.contentInsetAdjustmentBehavior = .never
         addSubview(view)
         return view

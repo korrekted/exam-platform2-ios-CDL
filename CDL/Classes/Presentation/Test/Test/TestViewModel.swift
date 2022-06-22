@@ -1,108 +1,92 @@
 //
 //  TestViewModel.swift
-//  Nursing
+//  CDL
 //
-//  Created by Vitaliy Zagorodnov on 30.01.2021.
+//  Created by Андрей Чернышев on 21.06.2022.
 //
 
 import RxSwift
 import RxCocoa
+import RushSDK
 
 final class TestViewModel {
     var tryAgain: ((Error) -> (Observable<Void>))?
     
-    var activeSubscription = true
-    
-    lazy var loadTestActivityIndicator = RxActivityIndicator()
-    lazy var sendAnswerActivityIndicator = RxActivityIndicator()
-
-    var testTypes = [TestType]()
-    let courseId = BehaviorRelay<Int?>(value: nil)
+    let didTapMark = PublishRelay<Bool>()
     let didTapNext = PublishRelay<Void>()
     let didTapConfirm = PublishRelay<Void>()
     let didTapSubmit = PublishRelay<Void>()
-    let loadNextTestSignal = PublishRelay<Void>()
-    let tryAgainSignal = PublishRelay<Void>()
-    let didTapMark = PublishRelay<Bool>()
-    let selectedAnswersRelay = BehaviorRelay<[AnswerElement]>(value: [])
+    let didTapRestart = PublishRelay<Int>()
+    let didTapNextQuestion = PublishRelay<Void>()
+    let didTapPreviousQuestion = PublishRelay<Void>()
+    let answers = BehaviorRelay<AnswerElement?>(value: nil)
     
     lazy var courseName = makeCourseName()
+    lazy var isSavedQuestion = makeIsSavedQuestion()
+    lazy var progress = makeProgress()
+    lazy var score = makeScore()
+    lazy var testFinishElement = makeTestFinishElement()
+    lazy var questions = makeQuestions()
     lazy var question = makeQuestion()
     lazy var isEndOfTest = endOfTest()
+    lazy var userTestId = makeUserTestId()
     lazy var bottomViewState = makeBottomState()
-    lazy var errorMessage = makeErrorMessage()
+    lazy var testMode = makeTestMode()
     lazy var needPayment = makeNeedPayment()
-    lazy var leftCounterValue = makeLeftCounterContent()
-    lazy var rightCounterValue = makeRightCounterContent()
-    lazy var testStatsElement = makeTestStatsElement()
-    lazy var isSavedQuestion = makeIsSavedQuestion()
-    lazy var userTestId = currentTestElement.map { $0.element?.userTestId }
     
-    private(set) lazy var currentTestType = makeCurrentTestType().share(replay: 1, scope: .forever)
-    private(set) var testType: TestType? = nil
-    
-    private lazy var questionManager = QuestionManager()
-    private lazy var courseManager = CoursesManagerCore()
-    private lazy var scoreRelay = PublishRelay<Bool>()
-    
-    private lazy var testElement = loadTest().share(replay: 1, scope: .forever)
-    private lazy var currentTestElement = Observable.merge(testElement, tryAgainTest()).share(replay: 1, scope: .forever)
-    
-    private lazy var selectedAnswers = makeSelectedAnswers().share(replay: 1, scope: .forever)
-    
-    private lazy var questionProgress = makeQuestionProgress().share(replay: 1, scope: .forever)
-    private lazy var timer = makeTimer().share(replay: 1, scope: .forever)
+    lazy var loadTestActivityIndicator = RxActivityIndicator()
+    lazy var sendAnswerActivityIndicator = RxActivityIndicator()
     
     private lazy var observableRetrySingle = ObservableRetrySingle()
+    
+    private lazy var testElement = makeTest()
+    private lazy var selectedAnswers = makeSelectedAnswers()
+    private lazy var currentAnswers = makeCurrentAnswers()
+    private lazy var timer = makeTimer()
+    
+    private let course: BehaviorRelay<Course>
+    private let testType: BehaviorRelay<TestType>
+    
+    private lazy var questionManager = QuestionManager()
+    private lazy var profileManager = ProfileManagerCore()
+    private lazy var sessionManager = SessionManagerCore()
+    
+    private let answeredQuestionId = PublishRelay<Int>()
+    
+    init(course: Course, testType: TestType) {
+        self.course = BehaviorRelay(value: course)
+        self.testType = BehaviorRelay(value: testType)
+    }
 }
 
 // MARK: Private
 private extension TestViewModel {
     func makeCourseName() -> Driver<String> {
-        courseManager
-            .rxGetSelectedCourse()
-            .map { course -> String in
-                course?.name ?? ""
-            }
-            .asDriver(onErrorDriveWith: .empty())
+        course
+            .asDriver()
+            .map { $0.name }
     }
     
-    func makeQuestion() -> Driver<QuestionElement> {
-        let questions = currentTestElement
-            .compactMap { $0.element?.questions }
-            .map(questionElementMapper)
+    func makeIsSavedQuestion() -> Driver<Bool> {
+        let initial = question
+            .asObservable()
+            .map { $0.isSaved }
         
-        let currentQuestion = Observable<Action>
-            .merge(questions.map { .elements($0) }, didTapNext.map { _ in .next })
-            .scan((nil, []),accumulator: currentQuestionAccumulator)
-            .compactMap { $0.0.map { TestAction.question($0) } }
-        
-        let selectedElements = selectedAnswers
-            .withLatestFrom(ProfileManagerCore().obtainTestMode()) { TestAction.answer($0, $1) }
-        
-        let test = Observable
-            .merge(currentQuestion, selectedElements)
-            .scan(nil, accumulator: answerQuestionAccumulator)
-            .compactMap { $0 }
-        
-        return test.asDriver(onErrorDriveWith: .empty())
-    }
-    
-    func makeSelectedAnswers() -> Observable<[AnswerElement]> {
-        Observable
-            .merge(
-                didTapConfirm.withLatestFrom(selectedAnswersRelay),
-                loadNextTestSignal.map { _ in [] },
-                tryAgainSignal.map { _ in [] }
-            )
-            .startWith([])
-    }
-    
-    func tryAgainTest() -> Observable<Event<Test>> {
-        tryAgainSignal
-            .withLatestFrom(testElement)
-            .flatMapLatest { [weak self] value -> Observable<Event<Test>> in
-                guard let self = self, let userTestId = value.element?.userTestId else { return .empty() }
+        let isSavedQuestion = didTapMark
+            .withLatestFrom(question) { ($0, $1.id) }
+            .flatMapFirst { [weak self] isSaved, questionId -> Observable<Bool> in
+                guard let self = self else {
+                    return .empty()
+                }
+                
+                func source() -> Single<Bool> {
+                    let request = isSaved
+                        ? self.questionManager.removeSavedQuestion(questionId: questionId)
+                        : self.questionManager.saveQuestion(questionId: questionId)
+
+                    return request
+                        .map { !isSaved }
+                }
                 
                 func trigger(error: Error) -> Observable<Void> {
                     guard let tryAgain = self.tryAgain?(error) else {
@@ -111,9 +95,182 @@ private extension TestViewModel {
                     
                     return tryAgain
                 }
+
+                return self.observableRetrySingle
+                    .retry(source: { source() },
+                           trigger: { trigger(error: $0) })
+            }
+        
+        return Observable
+            .merge(initial, isSavedQuestion)
+            .asDriver(onErrorJustReturn: false)
+    }
+    
+    func makeProgress() -> Driver<String> {
+        testType
+            .flatMapLatest { [weak self] type -> Driver<String> in
+                guard let self = self else {
+                    return .just("")
+                }
+                
+                let result: Driver<String>
+                if case .timed = type {
+                    result = self.timer
+                        .map { $0.secondsToString() }
+                        .asDriver(onErrorDriveWith: .never())
+                } else {
+                    result = self.question
+                        .map { String(format: "Question.QuestionProgress".localized, $0.index, $0.questionsCount) }
+                }
+                
+                return result
+            }
+            .asDriver(onErrorDriveWith: .empty())
+    }
+    
+    func makeScore() -> Driver<Float> {
+        question
+            .map { questionElement -> Float in
+                Float(questionElement.index) / Float(questionElement.questionsCount)
+            }
+    }
+    
+    func makeTestFinishElement() -> Driver<TestFinishElement> {
+        let didFinishTest = timer
+            .compactMap { $0 == 0 ? () : nil }
+            .withLatestFrom(userTestId)
+            .flatMap { [weak self] userTestId -> Single<Int> in
+                guard let self = self else {
+                    return .never()
+                }
                 
                 return self.questionManager
-                    .obtainAgainTest(userTestId: userTestId)
+                    .finishTest(userTestId: userTestId)
+                    .map { userTestId }
+            }
+        
+        let submit = didTapSubmit
+            .withLatestFrom(userTestId)
+        
+        return Observable.merge(didFinishTest, submit)
+            .withLatestFrom(courseName) { ($0, $1) }
+            .withLatestFrom(testType) { ($0.0, $0.1, $1) }
+            .compactMap { userTestId, courseName, testType -> TestFinishElement? in
+                TestFinishElement(userTestId: userTestId,
+                                  courseName: courseName,
+                                  testType: testType)
+            }
+            .asDriver(onErrorDriveWith: .never())
+    }
+    
+    func makeQuestion() -> Driver<QuestionElement> {
+        Observable<Action>
+            .merge(
+                self.didTapNext.debounce(.microseconds(500), scheduler: MainScheduler.instance).map { .continue },
+                self.didTapNextQuestion.map { .next },
+                self.didTapPreviousQuestion.map { .previous },
+                self.questions.map { .elements($0) },
+                self.didTapRestart.map { _ in .restart }
+            )
+            .scan((nil, []), accumulator: currentQuestionAccumulator)
+            .compactMap { $0.0 }
+            .asDriver(onErrorDriveWith: .empty())
+    }
+    
+    func makeQuestions() -> Observable<[QuestionElement]> {
+        let questions = testElement
+            .compactMap { $0.questions }
+            .asObservable()
+            .share(replay: 1)
+
+        let mode = testMode.asObservable()
+        let courseName = courseName.asObservable()
+        
+        return questions
+            .flatMapLatest { [weak self] questions -> Observable<[QuestionElement]> in
+                guard let self = self else {
+                    return .never()
+                }
+                
+                let elements = Observable
+                    .combineLatest(self.selectedAnswers, mode, courseName) {
+                        QuestionAction.elements(questions, $0, $1, $2)
+                    }
+                let answered = self.answeredQuestionId
+                    .map { QuestionAction.answered(questionId: $0)}
+                
+                return Observable
+                    .merge(elements, answered)
+                    .scan([], accumulator: self.questionAccumulator)
+            }
+    }
+    
+    func makeSelectedAnswers() -> Observable<AnswerElement?> {
+        didTapConfirm
+            .withLatestFrom(currentAnswers)
+            .startWith(nil)
+    }
+    
+    func makeTest() -> Driver<Test> {
+        let load = loadTest().asDriver(onErrorDriveWith: .never())
+        let restart = restartTest().asDriver(onErrorDriveWith: .never())
+        
+        return Driver.merge(load, restart)
+    }
+    
+    func loadTest() -> Observable<Test> {
+        func trigger(error: Error) -> Observable<Void> {
+            guard let tryAgain = self.tryAgain?(error) else {
+                return .empty()
+            }
+            
+            return tryAgain
+        }
+        
+        let courseId = course
+            .map { $0.id }
+            .asObservable()
+        let type = testType
+            .compactMap { $0 }
+            .asObservable()
+        
+        return Observable
+            .combineLatest(courseId, type)
+            .flatMapLatest { [weak self] courseId, type -> Observable<Test> in
+                guard let self = self else {
+                    return .empty()
+                }
+                
+                let test: Single<Test?>
+                
+                let activeSubscription = self.sessionManager.getSession()?.activeSubscription ?? false
+                
+                switch type {
+                case let .get(testId):
+                    test = self.questionManager.obtain(courseId: courseId,
+                                                       testId: testId,
+                                                       time: nil,
+                                                       activeSubscription: activeSubscription)
+                case .tenSet:
+                    test = self.questionManager.obtainTenSet(courseId: courseId,
+                                                             activeSubscription: activeSubscription)
+                case .failedSet:
+                    test = self.questionManager.obtainFailedSet(courseId: courseId,
+                                                                activeSubscription: activeSubscription)
+                case .qotd:
+                    test = self.questionManager.obtainQotd(courseId: courseId,
+                                                           activeSubscription: activeSubscription)
+                case .randomSet:
+                    test = self.questionManager.obtainRandomSet(courseId: courseId,
+                                                                activeSubscription: activeSubscription)
+                case .timed(let minutes):
+                    test = self.questionManager.obtain(courseId: courseId,
+                                                       testId: nil,
+                                                       time: minutes,
+                                                       activeSubscription: activeSubscription)
+                }
+                
+                return test
                     .compactMap { $0 }
                     .asObservable()
                     .trackActivity(self.loadTestActivityIndicator)
@@ -122,48 +279,19 @@ private extension TestViewModel {
                             trigger(error: error)
                         }
                     })
-                    .materialize()
-                    .filter {
-                        guard case .completed = $0 else { return true }
-                        return false
-                    }
             }
     }
     
-    func loadTest() -> Observable<Event<Test>> {
-        Observable.combineLatest(courseId, currentTestType)
-            .flatMapLatest { [weak self] courseId, type -> Observable<Event<Test>> in
-                guard
-                    let self = self,
-                    let courseId = courseId
-                else {
+    func restartTest() -> Observable<Test> {
+        didTapRestart
+            .flatMapLatest { [weak self] userTestId -> Observable<Test> in
+                guard let self = self else {
                     return .empty()
                 }
                 
                 func source() -> Single<Test> {
-                    let test: Single<Test?>
-                    
-                    switch type {
-                    case let .get(testId), let .timedQuizz(testId):
-                        test = self.questionManager.obtain(courseId: courseId,
-                                                           testId: testId,
-                                                           time: nil,
-                                                           activeSubscription: self.activeSubscription)
-                    case .tenSet:
-                        test = self.questionManager.obtainTenSet(courseId: courseId,
-                                                                 activeSubscription: self.activeSubscription)
-                    case .failedSet:
-                        test = self.questionManager.obtainFailedSet(courseId: courseId,
-                                                                    activeSubscription: self.activeSubscription)
-                    case .qotd:
-                        test = self.questionManager.obtainQotd(courseId: courseId,
-                                                               activeSubscription: self.activeSubscription)
-                    case .randomSet:
-                        test = self.questionManager.obtainRandomSet(courseId: courseId,
-                                                                    activeSubscription: self.activeSubscription)
-                    }
-                    
-                    return test
+                    self.questionManager
+                        .obtainAgainTest(userTestId: userTestId)
                         .flatMap { test -> Single<Test> in
                             guard let test = test else {
                                 return .error(ContentError(.notContent))
@@ -185,82 +313,59 @@ private extension TestViewModel {
                     .retry(source: { source() },
                            trigger: { trigger(error: $0) })
                     .trackActivity(self.loadTestActivityIndicator)
-                    .materialize()
-                    .filter {
-                        guard case .completed = $0 else { return true }
-                        return false
-                    }
             }
-    }
-    
-    func makeCurrentTestType() -> Observable<TestType> {
-        loadNextTestSignal
-            .startWith(())
-            .compactMap { [weak self] _ -> TestType? in
-                guard let self = self, !self.testTypes.isEmpty else { return nil }
-                self.testType = self.testTypes.removeFirst()
-                return self.testType
-            }
-    }
-    
-    func makeErrorMessage() -> Signal<String> {
-        currentTestElement
-            .compactMap { $0.error?.localizedDescription }
-            .asSignal(onErrorSignalWith: .empty())
     }
     
     func makeNeedPayment() -> Signal<Bool> {
-        currentTestElement
-            .map { [weak self] event in
-                guard let self = self, let element = event.element else { return false }
-                return self.activeSubscription ? false : element.paid
+        testElement
+            .map { [weak self] element in
+                guard let self = self else {
+                    return false
+                }
+                
+                let activeSubscription = self.sessionManager.getSession()?.activeSubscription ?? false
+                return activeSubscription ? false : element.paid ? true : false
             }
             .asSignal(onErrorSignalWith: .empty())
     }
-    
-    func makeTestStatsElement() -> Observable<TestFinishElement> {
-        let didFinishTest = timer
-            .compactMap { $0 == 0 ? () : nil }
-            .withLatestFrom(currentTestElement)
-            .flatMap { [weak self] value -> Observable<Int> in
-                guard let self = self, let userTestId  = value.element?.userTestId else {
-                    return .empty()
-                }
-                
-                return self.questionManager
-                    .finishTest(userTestId: userTestId)
-                    .map { userTestId }
-                    .asObservable()
-            }
-        
-        let submit = didTapSubmit
-            .withLatestFrom(currentTestElement)
-            .compactMap { $0.element?.userTestId }
-        
-        return Observable.merge(didFinishTest, submit)
-            .withLatestFrom(currentTestType) { ($0, $1) }
-            .compactMap { [weak self] userTestId, testType -> TestFinishElement? in
-                guard let self = self else { return nil }
-                return TestFinishElement(userTestId: userTestId, testType: testType, isEnableNext: !self.testTypes.isEmpty)
-            }
+
+    func makeUserTestId() -> Observable<Int> {
+        testElement
+            .compactMap { $0.userTestId }
+            .asObservable()
     }
     
-    func endOfTest() -> Driver<Bool> {
+    func makeCurrentAnswers() -> Observable<AnswerElement?> {
+        Observable
+            .merge(answers.asObservable(),
+                   didTapRestart.map { _ in nil },
+                   didTapNext.map { nil },
+                   didTapNextQuestion.map { nil },
+                   didTapPreviousQuestion.map { nil }
+            )
+    }
+    
+    func endOfTest() -> Observable<Bool> {
         selectedAnswers
-            .withLatestFrom(question) { ($0, $1) }
-            .withLatestFrom(testElement) { ($0.0, $0.1, $1.element?.userTestId) }
-            .flatMapLatest { [weak self] answers, question, userTestId -> Observable<Bool> in
-                guard let self = self, let userTestId = userTestId, !answers.isEmpty else {
-                    return .just(false)
+            .compactMap { $0 }
+            .withLatestFrom(testElement) {
+                ($0, $1.userTestId)
+            }
+            .flatMapLatest { [weak self] element, userTestId -> Observable<Bool> in
+                guard let self = self else {
+                    return .never()
                 }
                 
                 func source() -> Single<Bool?> {
                     self.questionManager
                         .sendAnswer(
-                            questionId: question.id,
+                            questionId: element.questionId,
                             userTestId: userTestId,
-                            answerIds: answers.map { _ in 1 }
+                            answerIds: element.answerIds
                         )
+                        .do(onSuccess: { [weak self] _ in
+                            self?.answeredQuestionId.accept(element.questionId)
+                        })
                 }
                 
                 func trigger(error: Error) -> Observable<Void> {
@@ -278,54 +383,49 @@ private extension TestViewModel {
                     .compactMap { $0 }
                     .asObservable()
             }
-            .asDriver(onErrorJustReturn: false)
+            .catchAndReturn(false)
     }
     
-    func makeBottomState() -> Driver<TestBottomButtonState> {
-        let bottomState = Driver
+    func makeBottomState() -> Driver<TestBottomView.State> {
+        Driver
             .combineLatest(
-                isEndOfTest.startWith(false),
                 question,
-                selectedAnswersRelay.asDriver(onErrorJustReturn: [])
+                currentAnswers.asDriver(onErrorJustReturn: nil),
+                testMode
             )
-            .map { isEndOfTest, question, answers -> TestBottomButtonState in
-                if isEndOfTest {
-                    return question.questionsCount == 1 ? .back : .submit
+            .map { question, answers, testMode -> TestBottomView.State in
+                
+                if question.elements.contains(where: { $0.isResult }) {
+                    if question.isLast {
+                        return question.questionsCount == 1 ? .back : .submit
+                    } else {
+                        return testMode == .onAnExam ? .hidden : .next
+                    }
                 } else {
-                    return answers.isEmpty ? .hidden : .confirm
+                    return answers?.answerIds.isEmpty == false ? .confirm : .hidden
                 }
             }
             .startWith(.hidden)
             .distinctUntilChanged()
-        
-        return loadNextTestSignal
-            .startWith(())
-            .flatMapLatest { _ in bottomState }
-            .asDriver(onErrorJustReturn: .hidden)
     }
     
-    func makeScore() -> Observable<String> {
-        Observable
-            .merge(tryAgainSignal.asObservable(), loadNextTestSignal.asObservable())
-            .startWith(())
-            .flatMapLatest { [scoreRelay] _ in
-                scoreRelay
-                    .scan(0) { $1 ? $0 + 1 : $0 }
-                    .map { score -> String in
-                        score < 10 ? "0\(score)" : "\(score)"
-                    }
-                    .startWith("00")
-                    .distinctUntilChanged()
-            }
+    func makeTestMode() -> Driver<TestMode?> {
+        profileManager
+            .obtainTestMode()
+            .asDriver(onErrorJustReturn: nil)
     }
     
     func makeTimer() -> Observable<Int> {
-        currentTestElement
-            .compactMap { $0.element }
-            .withLatestFrom(currentTestType) { ($0.timeLeft, $1) }
-            .flatMapLatest { seconds, testType -> Observable<Int> in
-                guard let seconds = seconds, case .timedQuizz = testType else { return .empty() }
+        testElement
+            .asObservable()
+            .withLatestFrom(testType)
+            .flatMapLatest { testType -> Observable<Int> in
+                guard case let .timed(minutes) = testType else {
+                    return .empty()
+                }
+                
                 let startTime = CFAbsoluteTimeGetCurrent()
+                let seconds = minutes * 60
                 
                 return Observable<Int>
                     .timer(.seconds(0), period: .seconds(1), scheduler: MainScheduler.instance)
@@ -335,135 +435,155 @@ private extension TestViewModel {
                     .distinctUntilChanged()
             }
     }
-    
-    func makeLeftCounterContent() -> Driver<String> {
-        currentTestType
-            .flatMapLatest { [weak self] type -> Observable<String> in
-                guard let self = self else { return .just("00") }
-                
-                let result: Observable<String>
-                if case .timedQuizz = type {
-                    result = self.questionProgress
-                } else {
-                    result = self.makeScore()
-                }
-                
-                return result
-            }
-            .asDriver(onErrorDriveWith: .empty())
-    }
-    
-    func makeRightCounterContent() -> Driver<(value:String, isError: Bool)> {
-        currentTestType
-            .flatMapLatest { [weak self] type -> Observable<(value: String, isError: Bool)> in
-                guard let self = self else { return .just((value: "00", isError: false)) }
-                
-                let result: Observable<(value: String, isError: Bool)>
-                if case .timedQuizz = type {
-                    result = self.timer
-                        .map { (value: $0.secondsToString(), isError: $0 < 10) }
-                } else {
-                    result = self.questionProgress.map { (value: $0, isError: false) }
-                }
-                
-                return result
-            }
-            .asDriver(onErrorDriveWith: .empty())
-    }
-    
-    func makeQuestionProgress() -> Observable<String> {
-        question
-            .map { "\($0.index)/\($0.questionsCount)" }
-            .asObservable()
-    }
-    
-    func makeIsSavedQuestion() -> Driver<Bool> {
-        let isSavedQuestion = didTapMark
-            .withLatestFrom(question.map { $0.id }) { ($0, $1) }
-            .flatMapFirst { [weak self] isSaved, questionId -> Observable<Bool> in
-                guard let self = self else { return .empty() }
-                
-                func source() -> Observable<Bool> {
-                    let request = isSaved
-                        ? self.questionManager.removeSavedQuestion(questionId: questionId)
-                        : self.questionManager.saveQuestion(questionId: questionId)
-
-                    return request
-                        .map { !isSaved }
-                        .asObservable()
-                }
-                
-                func trigger(error: Error) -> Observable<Void> {
-                    guard let tryAgain = self.tryAgain?(error) else {
-                        return .empty()
-                    }
-                    
-                    return tryAgain
-                }
-
-                return source()
-                    .retry { err in
-                        err.flatMapLatest { error in
-                            trigger(error: error)
-                        }
-                    }
-            }
-        
-        let nextQuestion = didTapNext
-            .map { _ in false }
-        
-        return Observable
-            .merge(isSavedQuestion, nextQuestion)
-            .startWith(false)
-            .asDriver(onErrorJustReturn: false)
-    }
 }
 
 // MARK: Additional
 private extension TestViewModel {
     enum Action {
         case next
-        case previos
+        case previous
+        case `continue`
         case elements([QuestionElement])
+        case restart
     }
     
-    enum TestAction {
-        case question(QuestionElement)
-        case answer([AnswerElement], TestMode?)
+    enum QuestionAction {
+        case elements([Question], AnswerElement?, TestMode?, String)
+        case answered(questionId: Int)
     }
     
-    var questionElementMapper: ([Question]) -> [QuestionElement] {
-        return { questions in
-            return questions.enumerated().map { index, question -> QuestionElement in
-                let answers: [TestingCellType] = question.answers
-                    .map {
-                        TestingCellType.answers([
-                            PossibleAnswerElement(id: $0.id,
-                                                  answer: $0.answer,
-                                                  answerHtml: $0.answerHtml,
-                                                  image: $0.image)
-                        ])
+    var questionAccumulator: ([QuestionElement], QuestionAction) -> [QuestionElement] {
+        return { [weak self] old, action in
+            switch action {
+            case let .elements(questions, answers, testMode, courseName):
+                
+                guard !old.isEmpty else {
+                    return questions.enumerated().map { index, question in
+                        let answers = question.answers.map { PossibleAnswerElement(id: $0.id,
+                                                                                   answer: $0.answer,
+                                                                                   answerHtml: $0.answerHtml,
+                                                                                   image: $0.image) }
+                        
+                        let content: [QuestionContentCollectionType] = [
+                            question.image.map { .image($0) },
+                            question.video.map { .video($0) }
+                        ].compactMap { $0 }
+                        
+                        let elements: [TestingCellType] = [
+                            !content.isEmpty ? .content(content) : nil,
+                            .question(question.question, html: question.questionHtml),
+                            .answers(answers)
+                        ].compactMap { $0 }
+                        
+                        var referenceCellType = [TestingCellType]()
+                        if let reference = question.reference, !reference.isEmpty {
+                            referenceCellType.append(.reference(reference))
+                        }
+                        
+                        return QuestionElement(
+                            id: question.id,
+                            elements: elements + referenceCellType,
+                            isMultiple: question.multiple,
+                            index: index + 1,
+                            isAnswered: question.isAnswered,
+                            questionsCount: questions.count,
+                            isSaved: question.isSaved
+                        )
                     }
+                }
                 
-                let content: [QuestionContentCollectionType] = [
-                    question.image.map { .image($0) },
-                    question.video.map { .video($0) }
-                ].compactMap { $0 }
+                guard let currentAnswers = answers, let currentQuestion = questions.first(where: { $0.id == currentAnswers.questionId }) else {
+                    return old
+                }
                 
-                let elements: [TestingCellType] = [
-                    !content.isEmpty ? .content(content) : nil,
-                    .question(question.question, html: question.questionHtml)
-                ].compactMap { $0 } + answers
+                let currentMode = questions.count > 1 ? testMode : .fullComplect
                 
-                return QuestionElement(
-                    id: question.id,
-                    elements: elements,
-                    isMultiple: question.multiple,
-                    index: index + 1,
-                    isAnswered: question.isAnswered,
-                    questionsCount: questions.count,
-                    isSaved: question.isSaved
+                guard let index = old.firstIndex(where: { $0.id == currentAnswers.questionId }) else {
+                    return old
+                }
+                let currentElement = old[index]
+                let newElements = currentElement.elements.compactMap { value -> TestingCellType? in
+                    if case .reference = value { return nil }
+                    
+                    guard case .answers = value else { return value }
+                    
+                    let result = currentQuestion.answers.map { answer -> AnswerResultElement in
+                        let state: AnswerState
+                        
+                        if currentMode == .onAnExam {
+                            state = .initial
+                        } else {
+                            state = currentAnswers.answerIds.contains(answer.id)
+                                ? answer.isCorrect ? .correct : .error
+                                : answer.isCorrect ? currentQuestion.multiple ? .warning : .correct : .initial
+                        }
+                        
+                        return AnswerResultElement(answer: answer.answer,
+                                                   answerHtml: answer.answerHtml,
+                                                   image: answer.image,
+                                                   state: state)
+                    }
+                    
+                    if currentQuestion.multiple {
+                        let isCorrect = !result.contains(where: { $0.state == .warning || $0.state == .error })
+                        self?.logAnswerAnalitycs(isCorrect: isCorrect, courseName: courseName)
+                    } else {
+                        let isCorrect = result.contains(where: { $0.state == .correct })
+                        self?.logAnswerAnalitycs(isCorrect: isCorrect, courseName: courseName)
+                    }
+                    
+                    return .result(result)
+                }
+                
+                let explanation: [TestingCellType]
+                
+                if [.none, .fullComplect].contains(testMode) {
+                    let explanationText: TestingCellType?
+                    if (currentQuestion.explanation != nil || currentQuestion.explanationHtml != nil) {
+                        explanationText = .explanationText(currentQuestion.explanation ?? "", html: currentQuestion.explanationHtml ?? "")
+                    } else {
+                        explanationText = nil
+                    }
+                    
+                    let explanationImages = currentQuestion.media.map { TestingCellType.explanationImage($0)}
+                    
+                    if explanationText != nil || !explanationImages.isEmpty {
+                        explanation = [.explanationTitle] + explanationImages + [explanationText].compactMap { $0 }
+                    } else {
+                        explanation = []
+                    }
+                    
+                } else {
+                    explanation = []
+                }
+                
+                var referenceCellType = [TestingCellType]()
+                if let reference = currentQuestion.reference, !reference.isEmpty {
+                    referenceCellType.append(.reference(reference))
+                }
+                
+                let newElement = QuestionElement(
+                    id: currentElement.id,
+                    elements: newElements + explanation + referenceCellType,
+                    isMultiple: currentElement.isMultiple,
+                    index: currentElement.index,
+                    isAnswered: currentElement.isAnswered,
+                    questionsCount: currentElement.questionsCount,
+                    isSaved: currentElement.isSaved
                 )
+                var result = old
+                result[index] = newElement
+                return result
+            case let .answered(questionId):
+                guard let index = old.firstIndex(where: { $0.id == questionId }) else {
+                    return old
+                }
+                
+                var currentElement = old[index]
+                currentElement.isAnswered = true
+                var result = old
+                result[index] = currentElement
+                return result
             }
         }
     }
@@ -471,40 +591,49 @@ private extension TestViewModel {
     var currentQuestionAccumulator: ((QuestionElement?, [QuestionElement]), Action) -> (QuestionElement?, [QuestionElement]) {
         return { old, action -> (QuestionElement?, [QuestionElement]) in
             let (currentElement, elements) = old
-            let withoutAnswered = elements.filter { !$0.isAnswered }
+            
             switch action {
             case let .elements(questions):
                 // Проверка для вопроса дня, чтобы была возможность отобразить вопрос,
                 // если юзер уже на него отвечал
                 guard questions.count > 1 else { return (questions.first, questions) }
                 
-                let withoutAnswered = questions.filter { !$0.isAnswered }
-                return (withoutAnswered.first, questions)
+                // Флаг isAnswered проставлен в true либо бэком либо локально,
+                // при успешной отправке ответа, в этом случае игнорм всю логику
+                // и возвращаем предыдущее значение, переключение на следцющий вопрос
+                // вызовет другой кейс
+                if let current = questions.first(where: { $0.id == currentElement?.id }), current.isAnswered {
+                    return (current, questions)
+                } else {
+                    let withoutAnswered = questions.filter { !$0.isAnswered }
+                    let index = withoutAnswered.firstIndex(where: { $0.id == currentElement?.id }) ?? 0
+                    return (withoutAnswered[safe: index], questions)
+                }
             case .next:
+                let index = elements.firstIndex(where: { $0.id == currentElement?.id }).map { $0 + 1 } ?? 0
+                return (elements[safe: index] ?? currentElement, elements)
+            case .previous:
+                let index = elements.firstIndex(where: { $0.id == currentElement?.id }).map { $0 - 1 } ?? 0
+                return (elements[safe: index] ?? currentElement, elements)
+            case .continue:
+                let currentIndex = elements.firstIndex(where: { $0.id == currentElement?.id }) ?? 0
+                // Из массива элементов получаем подмассив, где первый елемент - текущий, затем фильтруем.
+                // Нужно для кейса, когда юзер пропустил вопрос, а на следующий ответил, чтобы автоперход
+                // на следующий вопрос был на следующий по порядку, а не на первый неотвеченный
+                let withoutAnswered = elements.suffix(from: currentIndex).filter { !$0.isAnswered }
                 let index = withoutAnswered.firstIndex(where: { $0.id == currentElement?.id }).map { $0 + 1 } ?? 0
                 return (withoutAnswered[safe: index] ?? currentElement, elements)
-            case .previos:
-                let index = withoutAnswered.firstIndex(where: { $0.id == currentElement?.id }).map { $0 - 1 } ?? 0
-                return (withoutAnswered[safe: index] ?? currentElement, elements)
+            case .restart:
+                return (nil, elements)
             }
-        }
-    }
-    
-    var answerQuestionAccumulator: (QuestionElement?, TestAction) -> QuestionElement? {
-        return { [weak self] old, action -> QuestionElement? in
-            nil
         }
     }
 }
 
 private extension TestViewModel {
-    
-    func logAnswerAnalitycs(isCorrect: Bool) {
-        guard let type = testType, let courseName = courseManager.getSelectedCourse()?.name else {
-            return
-        }
+    func logAnswerAnalitycs(isCorrect: Bool, courseName: String) {
         let name = isCorrect ? "Question Answered Correctly" : "Question Answered Incorrectly"
-        let mode = TestAnalytics.name(mode: type)
+        let mode = TestAnalytics.name(mode: testType.value)
         
         SDKStorage.shared
             .amplitudeManager
@@ -524,4 +653,18 @@ private extension Int {
         
         return String(format: "%02d:%02d", mins, secs)
     }
+}
+
+private extension TestingCellType {
+    var isResult: Bool {
+        if case .result = self {
+            return true
+        } else {
+            return false
+        }
+    }
+}
+
+private extension QuestionElement {
+    var isLast: Bool { index == questionsCount }
 }

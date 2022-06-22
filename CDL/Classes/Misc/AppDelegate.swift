@@ -8,6 +8,7 @@
 import UIKit
 import RxCocoa
 import Firebase
+import RushSDK
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         FirebaseApp.configure()
+        TestCloseObserver.shared.startObserve()
         
         addDelegates()
         

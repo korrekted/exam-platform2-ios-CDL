@@ -9,6 +9,6 @@ import Foundation
 
 struct TestFinishElement {
     let userTestId: Int
+    let courseName: String
     let testType: TestType
-    let isEnableNext: Bool
 }

@@ -100,7 +100,8 @@ extension TestStatsViewController {
         controller.viewModel.userTestId.accept(element.userTestId)
         controller.viewModel.testType.accept(element.testType)
         if case .get = element.testType {
-            controller.mainView.configureAddingButtons(isNextEnabled: element.isEnableNext)
+            // TODO
+//            controller.mainView.configureAddingButtons(isNextEnabled: element.isEnableNext)
         }
         return controller
     }

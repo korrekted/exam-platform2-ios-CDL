@@ -198,13 +198,12 @@
 		967AD52A260FD0AF008E8175 /* QuestionTableQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD449260FD0AE008E8175 /* QuestionTableQuestionCell.swift */; };
 		967AD52B260FD0AF008E8175 /* QuestionTableExplanationTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD44A260FD0AE008E8175 /* QuestionTableExplanationTextCell.swift */; };
 		967AD52C260FD0AF008E8175 /* QuestionTableAnswersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD44B260FD0AE008E8175 /* QuestionTableAnswersCell.swift */; };
-		967AD52F260FD0AF008E8175 /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD44F260FD0AE008E8175 /* TestViewModel.swift */; };
-		967AD530260FD0AF008E8175 /* TestBottomButtonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD451260FD0AE008E8175 /* TestBottomButtonState.swift */; };
+		967AD52F260FD0AF008E8175 /* OldTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD44F260FD0AE008E8175 /* OldTestViewModel.swift */; };
 		967AD532260FD0AF008E8175 /* TestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD453260FD0AE008E8175 /* TestType.swift */; };
 		967AD533260FD0AF008E8175 /* TestAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD454260FD0AE008E8175 /* TestAnalytics.swift */; };
 		967AD534260FD0AF008E8175 /* QuestionContentCollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD455260FD0AE008E8175 /* QuestionContentCollectionType.swift */; };
 		967AD536260FD0AF008E8175 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD457260FD0AE008E8175 /* TestView.swift */; };
-		967AD537260FD0AF008E8175 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD458260FD0AE008E8175 /* TestViewController.swift */; };
+		967AD537260FD0AF008E8175 /* OldTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD458260FD0AE008E8175 /* OldTestViewController.swift */; };
 		967AD538260FD0AF008E8175 /* QuestionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD45A260FD0AE008E8175 /* QuestionTableView.swift */; };
 		967AD539260FD0AF008E8175 /* QuestionContentCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD45B260FD0AE008E8175 /* QuestionContentCollectionView.swift */; };
 		967AD53A260FD0AF008E8175 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD45C260FD0AE008E8175 /* AnswerView.swift */; };
@@ -348,6 +347,11 @@
 		DE40719F2861D413001DA029 /* QuestionTableExplanationTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE40719E2861D412001DA029 /* QuestionTableExplanationTitleCell.swift */; };
 		DE4071A12861D4A3001DA029 /* QuestionTableQuestionReferenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071A02861D4A3001DA029 /* QuestionTableQuestionReferenceCell.swift */; };
 		DE4071A32861D70E001DA029 /* TestBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071A22861D70E001DA029 /* TestBottomView.swift */; };
+		DE4071A52861FA81001DA029 /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071A42861FA81001DA029 /* TestViewModel.swift */; };
+		DE4071A728620555001DA029 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071A628620555001DA029 /* TestViewController.swift */; };
+		DE4071A92862075B001DA029 /* TestCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071A82862075B001DA029 /* TestCoordinator.swift */; };
+		DE4071AC2862EF76001DA029 /* TestCloseObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071AB2862EF76001DA029 /* TestCloseObserver.swift */; };
+		DE4071AE2862EF86001DA029 /* TestCloseMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071AD2862EF86001DA029 /* TestCloseMediator.swift */; };
 		DE93780A27BA63910073F27C /* XOREncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE93780927BA63910073F27C /* XOREncryption.swift */; };
 		DE93780C27BA71880073F27C /* RestApiTransportExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE93780B27BA71880073F27C /* RestApiTransportExtension.swift */; };
 		DE95A8DA2833805E00809171 /* DefaultRequestWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8D92833805E00809171 /* DefaultRequestWrapper.swift */; };
@@ -588,13 +592,12 @@
 		967AD449260FD0AE008E8175 /* QuestionTableQuestionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionTableQuestionCell.swift; sourceTree = "<group>"; };
 		967AD44A260FD0AE008E8175 /* QuestionTableExplanationTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionTableExplanationTextCell.swift; sourceTree = "<group>"; };
 		967AD44B260FD0AE008E8175 /* QuestionTableAnswersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionTableAnswersCell.swift; sourceTree = "<group>"; };
-		967AD44F260FD0AE008E8175 /* TestViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
-		967AD451260FD0AE008E8175 /* TestBottomButtonState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestBottomButtonState.swift; sourceTree = "<group>"; };
+		967AD44F260FD0AE008E8175 /* OldTestViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldTestViewModel.swift; sourceTree = "<group>"; };
 		967AD453260FD0AE008E8175 /* TestType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestType.swift; sourceTree = "<group>"; };
 		967AD454260FD0AE008E8175 /* TestAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAnalytics.swift; sourceTree = "<group>"; };
 		967AD455260FD0AE008E8175 /* QuestionContentCollectionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionContentCollectionType.swift; sourceTree = "<group>"; };
 		967AD457260FD0AE008E8175 /* TestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
-		967AD458260FD0AE008E8175 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		967AD458260FD0AE008E8175 /* OldTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldTestViewController.swift; sourceTree = "<group>"; };
 		967AD45A260FD0AE008E8175 /* QuestionTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionTableView.swift; sourceTree = "<group>"; };
 		967AD45B260FD0AE008E8175 /* QuestionContentCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionContentCollectionView.swift; sourceTree = "<group>"; };
 		967AD45C260FD0AE008E8175 /* AnswerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
@@ -737,6 +740,11 @@
 		DE40719E2861D412001DA029 /* QuestionTableExplanationTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTableExplanationTitleCell.swift; sourceTree = "<group>"; };
 		DE4071A02861D4A3001DA029 /* QuestionTableQuestionReferenceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTableQuestionReferenceCell.swift; sourceTree = "<group>"; };
 		DE4071A22861D70E001DA029 /* TestBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBottomView.swift; sourceTree = "<group>"; };
+		DE4071A42861FA81001DA029 /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
+		DE4071A628620555001DA029 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		DE4071A82862075B001DA029 /* TestCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoordinator.swift; sourceTree = "<group>"; };
+		DE4071AB2862EF76001DA029 /* TestCloseObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCloseObserver.swift; sourceTree = "<group>"; };
+		DE4071AD2862EF86001DA029 /* TestCloseMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCloseMediator.swift; sourceTree = "<group>"; };
 		DE93780927BA63910073F27C /* XOREncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XOREncryption.swift; sourceTree = "<group>"; };
 		DE93780B27BA71880073F27C /* RestApiTransportExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApiTransportExtension.swift; sourceTree = "<group>"; };
 		DE95A8D92833805E00809171 /* DefaultRequestWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRequestWrapper.swift; sourceTree = "<group>"; };
@@ -1595,7 +1603,6 @@
 		967AD450260FD0AE008E8175 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				967AD451260FD0AE008E8175 /* TestBottomButtonState.swift */,
 				967AD453260FD0AE008E8175 /* TestType.swift */,
 				967AD454260FD0AE008E8175 /* TestAnalytics.swift */,
 				86227287261A2932008449C7 /* TestFinishElement.swift */,
@@ -2135,10 +2142,14 @@
 		DE40718B2860B19F001DA029 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				967AD458260FD0AE008E8175 /* OldTestViewController.swift */,
+				967AD44F260FD0AE008E8175 /* OldTestViewModel.swift */,
+				DE4071AA2862EF65001DA029 /* Observer */,
 				967AD450260FD0AE008E8175 /* Models */,
 				967AD459260FD0AE008E8175 /* Views */,
-				967AD458260FD0AE008E8175 /* TestViewController.swift */,
-				967AD44F260FD0AE008E8175 /* TestViewModel.swift */,
+				DE4071A82862075B001DA029 /* TestCoordinator.swift */,
+				DE4071A628620555001DA029 /* TestViewController.swift */,
+				DE4071A42861FA81001DA029 /* TestViewModel.swift */,
 				967AD457260FD0AE008E8175 /* TestView.swift */,
 			);
 			path = Test;
@@ -2211,6 +2222,15 @@
 				967AD45C260FD0AE008E8175 /* AnswerView.swift */,
 			);
 			path = Atoms;
+			sourceTree = "<group>";
+		};
+		DE4071AA2862EF65001DA029 /* Observer */ = {
+			isa = PBXGroup;
+			children = (
+				DE4071AB2862EF76001DA029 /* TestCloseObserver.swift */,
+				DE4071AD2862EF86001DA029 /* TestCloseMediator.swift */,
+			);
+			path = Observer;
 			sourceTree = "<group>";
 		};
 		DE95A8D82833805400809171 /* RequestWrapper */ = {
@@ -2475,6 +2495,7 @@
 				967AD515260FD0AF008E8175 /* SplashView.swift in Sources */,
 				96E360342672093000D49D4E /* GetFlashcardsRequest.swift in Sources */,
 				DE93780A27BA63910073F27C /* XOREncryption.swift in Sources */,
+				DE4071AC2862EF76001DA029 /* TestCloseObserver.swift in Sources */,
 				9673819A26792DC000230FB6 /* MonetizationManagerCore.swift in Sources */,
 				969679D8265E31B60070E7F7 /* GetLocaleResponseMapper.swift in Sources */,
 				96054C542681201900E0F0B0 /* OModeCollectionElement.swift in Sources */,
@@ -2491,6 +2512,7 @@
 				96F44FC62631EF9C000B77E3 /* ProfileManager.swift in Sources */,
 				967AD4D4260FD0AE008E8175 /* RateManager.swift in Sources */,
 				967AD4C2260FD0AE008E8175 /* ScreenSize.swift in Sources */,
+				DE4071AE2862EF86001DA029 /* TestCloseMediator.swift in Sources */,
 				96E360192671EC4600D49D4E /* CourseConfig.swift in Sources */,
 				86BB259A261E245000C6D2FA /* SITestViewModel.swift in Sources */,
 				967AD529260FD0AF008E8175 /* QuestionContentCollectionCell.swift in Sources */,
@@ -2558,6 +2580,7 @@
 				967AD4CD260FD0AE008E8175 /* GradientButton.swift in Sources */,
 				9613EF1D263974A700DAEB9A /* GetTopicsRequest.swift in Sources */,
 				9613EF212639767800DAEB9A /* GetTopicsResponseMapper.swift in Sources */,
+				DE4071A728620555001DA029 /* TestViewController.swift in Sources */,
 				96E3603B26720CC400D49D4E /* FlashcardsManager.swift in Sources */,
 				967AD54A260FD0AF008E8175 /* TestStatsAnswer.swift in Sources */,
 				96F44FC22631EF29000B77E3 /* SpecificTopic.swift in Sources */,
@@ -2640,6 +2663,7 @@
 				96F44FBD26319E2E000B77E3 /* TopicsCollectionLayout.swift in Sources */,
 				86B8E79826446710004F5BB0 /* ColorsPalette.swift in Sources */,
 				967AD4C1260FD0AE008E8175 /* TextAttributes.swift in Sources */,
+				DE4071A92862075B001DA029 /* TestCoordinator.swift in Sources */,
 				96E3602F2672078C00D49D4E /* GetFlashcardsTopicsRequest.swift in Sources */,
 				86BB2593261E14D700C6D2FA /* GetSavedRequest.swift in Sources */,
 				96155B81268B634400228151 /* OExperienceProgressView.swift in Sources */,
@@ -2648,7 +2672,6 @@
 				967AD55F260FD0AF008E8175 /* StatsView.swift in Sources */,
 				86BB259D261E246000C6D2FA /* SITestView.swift in Sources */,
 				967AD577260FD0AF008E8175 /* OSlideGoalsView.swift in Sources */,
-				967AD530260FD0AF008E8175 /* TestBottomButtonState.swift in Sources */,
 				967AD518260FD0AF008E8175 /* SCTitleCell.swift in Sources */,
 				9673819826792DC000230FB6 /* GetPaygateRequest.swift in Sources */,
 				967AD4ED260FD0AE008E8175 /* GetTestConfigRequest.swift in Sources */,
@@ -2723,7 +2746,7 @@
 				967AD55A260FD0AF008E8175 /* StatsViewModel.swift in Sources */,
 				9650402F267F1AF5003D5167 /* WelcomeSlide3View.swift in Sources */,
 				967AD4F1260FD0AF008E8175 /* SendAnswerRequest.swift in Sources */,
-				967AD52F260FD0AF008E8175 /* TestViewModel.swift in Sources */,
+				967AD52F260FD0AF008E8175 /* OldTestViewModel.swift in Sources */,
 				967AD4BF260FD0AE008E8175 /* GlobalDefinitions.swift in Sources */,
 				96155B752689F89100228151 /* OSlideMinutesAtTimeView.swift in Sources */,
 				967AD511260FD0AF008E8175 /* SettingsTableSection.swift in Sources */,
@@ -2732,7 +2755,7 @@
 				9673817926792DB100230FB6 /* PaygateMainInfoCell.swift in Sources */,
 				9673818F26792DC000230FB6 /* MonetizationManager.swift in Sources */,
 				96F44FB62631788D000B77E3 /* TopicsCollectionElement.swift in Sources */,
-				967AD537260FD0AF008E8175 /* TestViewController.swift in Sources */,
+				967AD537260FD0AF008E8175 /* OldTestViewController.swift in Sources */,
 				DE95A8F42833F8C000809171 /* TestBottomSpinner.swift in Sources */,
 				86BB25B1261E2F8D00C6D2FA /* SIProgressCollectionView.swift in Sources */,
 				967AD4CC260FD0AE008E8175 /* PaddingPickerView.swift in Sources */,
@@ -2742,6 +2765,7 @@
 				967AD53B260FD0AF008E8175 /* AVPlayerView.swift in Sources */,
 				8667C2BB2614DEF90090CBFF /* TrophyView.swift in Sources */,
 				967AD4BA260FD0AE008E8175 /* Collection+Extension.swift in Sources */,
+				DE4071A52861FA81001DA029 /* TestViewModel.swift in Sources */,
 				96E3603826720C6300D49D4E /* MarkFlashcardRequest.swift in Sources */,
 				967AD508260FD0AF008E8175 /* SessionManager.swift in Sources */,
 				967AD568260FD0AF008E8175 /* MainStatsView.swift in Sources */,

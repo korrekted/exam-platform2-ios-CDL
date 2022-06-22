@@ -13,7 +13,7 @@ enum TestType {
     case failedSet
     case qotd
     case randomSet
-    case timedQuizz(testId: Int?)
+    case timed(minutes: Int)
 }
 
 extension TestType {
@@ -29,7 +29,7 @@ extension TestType {
             return "Study.Mode.TodaysQuestion".localized
         case .randomSet:
             return "Study.Mode.RandomSet".localized
-        case .timedQuizz:
+        case .timed:
             return "Study.Mode.TimedQuizz".localized
         }
     }
@@ -46,7 +46,7 @@ extension TestType {
             return "Question.Title.TodaysQuestion".localized
         case .randomSet:
             return "Question.Title.RandomSet".localized
-        case .timedQuizz:
+        case .timed:
             return "Question.Title.TimedQuizz".localized
         }
     }

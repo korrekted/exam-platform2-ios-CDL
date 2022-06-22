@@ -55,6 +55,8 @@ extension TestBottomView {
         case .hidden:
             button.isHidden = true
         }
+        
+        bringSubviewToFront(preloader)
     }
 }
 
@@ -118,8 +120,8 @@ private extension TestBottomView {
         
         buttonWidthConstraint = button.widthAnchor.constraint(equalToConstant: 40.scale)
         buttonHeightConstraint = button.heightAnchor.constraint(equalToConstant: 40.scale)
-        buttonTrailingConstraint = button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale)
-        buttonTopConstraint = button.topAnchor.constraint(equalTo: topAnchor, constant: 78.scale)
+        buttonTrailingConstraint = button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24.scale)
+        buttonTopConstraint = button.topAnchor.constraint(equalTo: topAnchor, constant: 70.scale)
         
         NSLayoutConstraint.activate([
             buttonWidthConstraint,

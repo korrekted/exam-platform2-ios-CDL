@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import RushSDK
 
 final class CourseDetailsViewModel {
     var tryAgain: ((Error) -> (Observable<Void>))?
