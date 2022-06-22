@@ -4,6 +4,7 @@
 //
 //  Created by Vitaliy Zagorodnov on 30.01.2021.
 //
+
 import UIKit
 
 final class TestView: UIView {
@@ -13,10 +14,12 @@ final class TestView: UIView {
     lazy var bottomView = makeBottomView()
     lazy var preloader = makePreloader()
     
-    private var navigationHeightConstraint: NSLayoutConstraint?
+    private let testType: TestType
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(testType: TestType) {
+        self.testType = testType
+        
+        super.init(frame: .zero)
         
         makeConstraints()
         initialize()
@@ -24,24 +27,6 @@ final class TestView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-//MARK: Public
-extension TestView {
-    func needAddingCounter(isOne: Bool) {
-        if !isOne {
-            addSubview(counter)
-            NSLayoutConstraint.activate([
-                counter.leftAnchor.constraint(equalTo: leftAnchor, constant: 16.scale),
-                counter.bottomAnchor.constraint(equalTo: navigationView.bottomAnchor, constant: 36)
-            ])
-            
-            tableView.contentInset.top = 35.scale
-            
-            navigationHeightConstraint?.constant = 167.scale
-            navigationView.setNeedsDisplay()
-        }
     }
 }
 
@@ -59,16 +44,19 @@ private extension TestView {
             navigationView.topAnchor.constraint(equalTo: topAnchor),
             navigationView.leadingAnchor.constraint(equalTo: leadingAnchor),
             navigationView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            navigationView.bottomAnchor.constraint(equalTo: tableView.topAnchor)
+            navigationView.heightAnchor.constraint(equalToConstant: testType.isQotd() ? 125.scale : 167.scale)
         ])
-        
-        navigationHeightConstraint = navigationView.heightAnchor.constraint(equalToConstant: 125.scale)
-        navigationHeightConstraint?.isActive = true
         
         NSLayoutConstraint.activate([
             tableView.leftAnchor.constraint(equalTo: leftAnchor),
             tableView.rightAnchor.constraint(equalTo: rightAnchor),
+            tableView.topAnchor.constraint(equalTo: navigationView.bottomAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            counter.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
+            counter.bottomAnchor.constraint(equalTo: navigationView.bottomAnchor, constant: 36.scale)
         ])
         
         NSLayoutConstraint.activate([
@@ -89,31 +77,36 @@ private extension TestView {
 private extension TestView {
     func makeNavigationView() -> NavigationBar {
         let view = NavigationBar()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = NavigationPalette.navigationBackground
         view.leftAction.setImage(UIImage(named: "General.Pop"), for: .normal)
         view.leftAction.tintColor = NavigationPalette.navigationTint
         view.rightAction.tintColor = NavigationPalette.navigationTint
+        view.backgroundColor = NavigationPalette.navigationBackground
+        view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
     }
     
     func makeCounterView() -> TestProgressView {
         let view = TestProgressView()
+        view.isHidden = testType.isQotd()
         view.backgroundColor = ScorePalette.background
         view.layer.cornerRadius = 12.scale
         view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
         return view
     }
     
     func makeTableView() -> QuestionTableView {
         let view = QuestionTableView()
         view.separatorStyle = .none
-        view.contentInset = UIEdgeInsets(top: 32.scale, left: 0, bottom: ScreenSize.isIphoneXFamily ? 177.scale : 140.scale, right: 0)
-        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentInset = UIEdgeInsets(top: testType.isQotd() ? 0 : 36.scale,
+                                         left: 0,
+                                         bottom: ScreenSize.isIphoneXFamily ? 177.scale : 140.scale,
+                                         right: 0)
         view.showsVerticalScrollIndicator = false
         view.backgroundColor = UIColor.clear
         view.contentInsetAdjustmentBehavior = .never
+        view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
     }

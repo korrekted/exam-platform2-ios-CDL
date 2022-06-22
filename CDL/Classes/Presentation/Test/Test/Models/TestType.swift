@@ -16,7 +16,16 @@ enum TestType {
     case timed(minutes: Int)
 }
 
+// MARK: Public
 extension TestType {
+    func isQotd() -> Bool {
+        guard case .qotd = self else {
+            return false
+        }
+        
+        return true
+    }
+    
     var name: String {
         switch self {
         case .get:
@@ -31,23 +40,6 @@ extension TestType {
             return "Study.Mode.RandomSet".localized
         case .timed:
             return "Study.Mode.TimedQuizz".localized
-        }
-    }
-    
-    var title: String {
-        switch self {
-        case .get:
-            return "Study.TakeTest".localized
-        case .tenSet:
-            return "Question.Title.TenQuestions".localized
-        case .failedSet:
-            return "Question.Title.MissedQuestions".localized
-        case .qotd:
-            return "Question.Title.TodaysQuestion".localized
-        case .randomSet:
-            return "Question.Title.RandomSet".localized
-        case .timed:
-            return "Question.Title.TimedQuizz".localized
         }
     }
 }

@@ -22,7 +22,7 @@ protocol TestViewControllerDelegate: AnyObject {
 final class TestViewController: UIViewController {
     weak var delegate: TestViewControllerDelegate?
     
-    lazy var mainView = TestView()
+    lazy var mainView = TestView(testType: testType)
     
     private lazy var disposeBag = DisposeBag()
     
@@ -80,15 +80,21 @@ final class TestViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        viewModel.progress
-            .drive(Binder(self) { base, progress in
-                base.update(progress: progress)
-            })
-            .disposed(by: disposeBag)
-        
         viewModel.question
             .drive(Binder(self) { base, element in
                 base.mainView.tableView.setup(question: element)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.rightCounterValue
+            .drive(Binder(mainView) { base, element in
+                base.counter.setRightContent(value: element.value, isError: element.isError)
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.leftCounterValue
+            .drive(Binder(mainView) { base, element in
+                base.counter.setLeftContent(value: element)
             })
             .disposed(by: disposeBag)
         
@@ -223,6 +229,8 @@ final class TestViewController: UIViewController {
                 base.delegate?.testViewController(finish: element)
             })
             .disposed(by: disposeBag)
+        
+        setupTitles()
     }
 }
 
@@ -244,26 +252,26 @@ extension TestViewController {
 
 // MARK: Private
 private extension TestViewController {
+    func setupTitles() {
+        let leftCounterTitle: String
+        let rightCounterTitle: String
+        
+        switch testType {
+        case .timed:
+            leftCounterTitle = "Question.Counter.Question".localized
+            rightCounterTitle = "Question.Counter.RemainingTime".localized
+        default:
+            leftCounterTitle = "Question.Counter.Score".localized
+            rightCounterTitle = "Question.Counter.Question".localized
+        }
+        
+        mainView.navigationView.setTitle(title: testType.name)
+        mainView.counter.setup(leftTitle: leftCounterTitle, rightTitle: rightCounterTitle)
+    }
+    
     func update(favorite: Bool) {
         let image = favorite ? UIImage(named: "Question.Bookmark.Check") : UIImage(named: "Question.Bookmark.Uncheck")
         mainView.navigationView.rightAction.setImage(image, for: .normal)
-    }
-    
-    func update(progress: String) {
-//        let attrs = TextAttributes()
-//            .textColor(Appearance.whiteColor)
-//            .font(Fonts.Inter.semiBold(size: 17.scale))
-//            .lineHeight(20.4.scale)
-//            .textAlignment(.center)
-//
-//        switch testType {
-//        case .qotd:
-//            mainView.titleLabel.attributedText = "Question.TodayTitle".localized.attributed(with: attrs)
-//        case .timed:
-//            mainView.titleLabel.attributedText = progress.attributed(with: attrs)
-//        default:
-//            mainView.titleLabel.attributedText = progress.attributed(with: attrs)
-//        }
     }
     
     func logAnalytics(courseName: String) {

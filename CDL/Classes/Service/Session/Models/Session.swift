@@ -5,6 +5,8 @@
 //  Created by Andrey Chernyshev on 17.01.2021.
 //
 
+import RushSDK
+
 struct Session: Codable {
     let userId: Int?
     let userToken: String?

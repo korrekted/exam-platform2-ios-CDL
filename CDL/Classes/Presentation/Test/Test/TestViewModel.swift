@@ -23,8 +23,8 @@ final class TestViewModel {
     
     lazy var courseName = makeCourseName()
     lazy var isSavedQuestion = makeIsSavedQuestion()
-    lazy var progress = makeProgress()
-    lazy var score = makeScore()
+    lazy var leftCounterValue = makeLeftCounterContent()
+    lazy var rightCounterValue = makeRightCounterContent()
     lazy var testFinishElement = makeTestFinishElement()
     lazy var questions = makeQuestions()
     lazy var question = makeQuestion()
@@ -43,6 +43,7 @@ final class TestViewModel {
     private lazy var selectedAnswers = makeSelectedAnswers()
     private lazy var currentAnswers = makeCurrentAnswers()
     private lazy var timer = makeTimer()
+    private lazy var scoreRelay = PublishRelay<Bool>()
     
     private let course: BehaviorRelay<Course>
     private let testType: BehaviorRelay<TestType>
@@ -106,33 +107,74 @@ private extension TestViewModel {
             .asDriver(onErrorJustReturn: false)
     }
     
-    func makeProgress() -> Driver<String> {
+    func makeLeftCounterContent() -> Driver<String> {
         testType
+            .asDriver()
             .flatMapLatest { [weak self] type -> Driver<String> in
                 guard let self = self else {
-                    return .just("")
+                    return .just("00")
                 }
                 
                 let result: Driver<String>
                 if case .timed = type {
-                    result = self.timer
-                        .map { $0.secondsToString() }
-                        .asDriver(onErrorDriveWith: .never())
+                    result = self.makeProgress()
                 } else {
-                    result = self.question
-                        .map { String(format: "Question.QuestionProgress".localized, $0.index, $0.questionsCount) }
+                    result = self.makeScore()
                 }
                 
                 return result
             }
-            .asDriver(onErrorDriveWith: .empty())
     }
     
-    func makeScore() -> Driver<Float> {
-        question
-            .map { questionElement -> Float in
-                Float(questionElement.index) / Float(questionElement.questionsCount)
+    func makeRightCounterContent() -> Driver<(value:String, isError: Bool)> {
+        testType
+            .asDriver()
+            .flatMapLatest { [weak self] type -> Driver<(value: String, isError: Bool)> in
+                guard let self = self else {
+                    return .just((value: "00", isError: false))
+                }
+
+                let result: Driver<(value: String, isError: Bool)>
+                if case .timed = type {
+                    result = self.timer
+                        .map { (value: $0.secondsToString(), isError: $0 < 10) }
+                        .asDriver(onErrorDriveWith: .never())
+                } else {
+                    result = self.makeProgress()
+                        .map { (value: $0, isError: false) }
+                }
+
+                return result
             }
+    }
+    
+    func makeProgress() -> Driver<String> {
+        question
+            .map { question -> String in
+                String(format: "%u/%u", question.index, question.questionsCount)
+            }
+    }
+    
+    func makeScore() -> Driver<String> {
+        didTapRestart
+            .mapToVoid()
+            .startWith(Void())
+            .flatMapLatest { [weak self] void -> Observable<String> in
+                guard let self = self else {
+                    return .never()
+                }
+                
+                return self.scoreRelay
+                    .scan(0) { score, isCorrect -> Int in
+                        isCorrect ? score + 1 : score
+                    }
+                    .map { score -> String in
+                        score < 10 ? "0\(score)" : "\(score)"
+                    }
+                    .startWith("00")
+                    .distinctUntilChanged()
+            }
+            .asDriver(onErrorDriveWith: .never())
     }
     
     func makeTestFinishElement() -> Driver<TestFinishElement> {
@@ -394,7 +436,6 @@ private extension TestViewModel {
                 testMode
             )
             .map { question, answers, testMode -> TestBottomView.State in
-                
                 if question.elements.contains(where: { $0.isResult }) {
                     if question.isLast {
                         return question.questionsCount == 1 ? .back : .submit
@@ -456,7 +497,6 @@ private extension TestViewModel {
         return { [weak self] old, action in
             switch action {
             case let .elements(questions, answers, testMode, courseName):
-                
                 guard !old.isEmpty else {
                     return questions.enumerated().map { index, question in
                         let answers = question.answers.map { PossibleAnswerElement(id: $0.id,
@@ -526,9 +566,11 @@ private extension TestViewModel {
                     
                     if currentQuestion.multiple {
                         let isCorrect = !result.contains(where: { $0.state == .warning || $0.state == .error })
+                        self?.scoreRelay.accept(isCorrect)
                         self?.logAnswerAnalitycs(isCorrect: isCorrect, courseName: courseName)
                     } else {
-                        let isCorrect = result.contains(where: { $0.state == .correct })
+                        let isCorrect = !result.contains(where: { $0.state == .error })
+                        self?.scoreRelay.accept(isCorrect)
                         self?.logAnswerAnalitycs(isCorrect: isCorrect, courseName: courseName)
                     }
                     

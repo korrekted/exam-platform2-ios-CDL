@@ -198,12 +198,10 @@
 		967AD52A260FD0AF008E8175 /* QuestionTableQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD449260FD0AE008E8175 /* QuestionTableQuestionCell.swift */; };
 		967AD52B260FD0AF008E8175 /* QuestionTableExplanationTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD44A260FD0AE008E8175 /* QuestionTableExplanationTextCell.swift */; };
 		967AD52C260FD0AF008E8175 /* QuestionTableAnswersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD44B260FD0AE008E8175 /* QuestionTableAnswersCell.swift */; };
-		967AD52F260FD0AF008E8175 /* OldTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD44F260FD0AE008E8175 /* OldTestViewModel.swift */; };
 		967AD532260FD0AF008E8175 /* TestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD453260FD0AE008E8175 /* TestType.swift */; };
 		967AD533260FD0AF008E8175 /* TestAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD454260FD0AE008E8175 /* TestAnalytics.swift */; };
 		967AD534260FD0AF008E8175 /* QuestionContentCollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD455260FD0AE008E8175 /* QuestionContentCollectionType.swift */; };
 		967AD536260FD0AF008E8175 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD457260FD0AE008E8175 /* TestView.swift */; };
-		967AD537260FD0AF008E8175 /* OldTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD458260FD0AE008E8175 /* OldTestViewController.swift */; };
 		967AD538260FD0AF008E8175 /* QuestionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD45A260FD0AE008E8175 /* QuestionTableView.swift */; };
 		967AD539260FD0AF008E8175 /* QuestionContentCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD45B260FD0AE008E8175 /* QuestionContentCollectionView.swift */; };
 		967AD53A260FD0AF008E8175 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967AD45C260FD0AE008E8175 /* AnswerView.swift */; };
@@ -592,12 +590,10 @@
 		967AD449260FD0AE008E8175 /* QuestionTableQuestionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionTableQuestionCell.swift; sourceTree = "<group>"; };
 		967AD44A260FD0AE008E8175 /* QuestionTableExplanationTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionTableExplanationTextCell.swift; sourceTree = "<group>"; };
 		967AD44B260FD0AE008E8175 /* QuestionTableAnswersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionTableAnswersCell.swift; sourceTree = "<group>"; };
-		967AD44F260FD0AE008E8175 /* OldTestViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldTestViewModel.swift; sourceTree = "<group>"; };
 		967AD453260FD0AE008E8175 /* TestType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestType.swift; sourceTree = "<group>"; };
 		967AD454260FD0AE008E8175 /* TestAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAnalytics.swift; sourceTree = "<group>"; };
 		967AD455260FD0AE008E8175 /* QuestionContentCollectionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionContentCollectionType.swift; sourceTree = "<group>"; };
 		967AD457260FD0AE008E8175 /* TestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
-		967AD458260FD0AE008E8175 /* OldTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldTestViewController.swift; sourceTree = "<group>"; };
 		967AD45A260FD0AE008E8175 /* QuestionTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionTableView.swift; sourceTree = "<group>"; };
 		967AD45B260FD0AE008E8175 /* QuestionContentCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionContentCollectionView.swift; sourceTree = "<group>"; };
 		967AD45C260FD0AE008E8175 /* AnswerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
@@ -2142,8 +2138,6 @@
 		DE40718B2860B19F001DA029 /* Test */ = {
 			isa = PBXGroup;
 			children = (
-				967AD458260FD0AE008E8175 /* OldTestViewController.swift */,
-				967AD44F260FD0AE008E8175 /* OldTestViewModel.swift */,
 				DE4071AA2862EF65001DA029 /* Observer */,
 				967AD450260FD0AE008E8175 /* Models */,
 				967AD459260FD0AE008E8175 /* Views */,
@@ -2746,7 +2740,6 @@
 				967AD55A260FD0AF008E8175 /* StatsViewModel.swift in Sources */,
 				9650402F267F1AF5003D5167 /* WelcomeSlide3View.swift in Sources */,
 				967AD4F1260FD0AF008E8175 /* SendAnswerRequest.swift in Sources */,
-				967AD52F260FD0AF008E8175 /* OldTestViewModel.swift in Sources */,
 				967AD4BF260FD0AE008E8175 /* GlobalDefinitions.swift in Sources */,
 				96155B752689F89100228151 /* OSlideMinutesAtTimeView.swift in Sources */,
 				967AD511260FD0AF008E8175 /* SettingsTableSection.swift in Sources */,
@@ -2755,7 +2748,6 @@
 				9673817926792DB100230FB6 /* PaygateMainInfoCell.swift in Sources */,
 				9673818F26792DC000230FB6 /* MonetizationManager.swift in Sources */,
 				96F44FB62631788D000B77E3 /* TopicsCollectionElement.swift in Sources */,
-				967AD537260FD0AF008E8175 /* OldTestViewController.swift in Sources */,
 				DE95A8F42833F8C000809171 /* TestBottomSpinner.swift in Sources */,
 				86BB25B1261E2F8D00C6D2FA /* SIProgressCollectionView.swift in Sources */,
 				967AD4CC260FD0AE008E8175 /* PaddingPickerView.swift in Sources */,
