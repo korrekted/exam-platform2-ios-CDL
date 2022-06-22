@@ -1592,6 +1592,7 @@
 			children = (
 				DE40718B2860B19F001DA029 /* Test */,
 				967AD468260FD0AE008E8175 /* TestStats */,
+				DE4071A82862075B001DA029 /* TestCoordinator.swift */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -2141,7 +2142,6 @@
 				DE4071AA2862EF65001DA029 /* Observer */,
 				967AD450260FD0AE008E8175 /* Models */,
 				967AD459260FD0AE008E8175 /* Views */,
-				DE4071A82862075B001DA029 /* TestCoordinator.swift */,
 				DE4071A628620555001DA029 /* TestViewController.swift */,
 				DE4071A42861FA81001DA029 /* TestViewModel.swift */,
 				967AD457260FD0AE008E8175 /* TestView.swift */,

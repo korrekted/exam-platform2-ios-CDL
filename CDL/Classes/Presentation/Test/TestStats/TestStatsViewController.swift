@@ -8,21 +8,30 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RushSDK
 
-class TestStatsViewController: UIViewController {
+protocol TestStatsViewControllerDelegate: AnyObject {
+    func testStatsViewControllerDidTapped(event: TestStatsViewController.Event)
+}
+
+final class TestStatsViewController: UIViewController {
+    enum Event {
+        case close
+        case restart(Int)
+        case nextTest
+    }
+    
+    weak var delegate: TestStatsViewControllerDelegate?
+    
     lazy var mainView = TestStatsView()
     
     private lazy var disposeBag = DisposeBag()
     
     private lazy var viewModel = TestStatsViewModel()
-    private var closeAfterDismiss: (() -> Void)?
     
     override func loadView() {
         view = mainView
     }
-    
-    var didTapNext: (() -> Void)?
-    var didTapTryAgain: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +47,12 @@ class TestStatsViewController: UIViewController {
         viewModel.elements.startWith([])
             .drive(Binder(mainView.tableView) {
                 $0.setup(elements: $1)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.activity
+            .drive(Binder(self) { base, activity in
+                base.activity(activity)
             })
             .disposed(by: disposeBag)
         
@@ -58,22 +73,22 @@ class TestStatsViewController: UIViewController {
         
         mainView.navigationView.rightAction.rx.tap
             .bind(to: Binder(self) { base, _ in
-                base.closeAfterDismiss?()
-                base.dismiss(animated: true)
+                base.delegate?.testStatsViewControllerDidTapped(event: .close)
             })
             .disposed(by: disposeBag)
         
         mainView.nextTestButton.rx.tap
             .bind(to: Binder(self) { base, _ in
-                base.didTapNext?()
-                base.dismiss(animated: true)
+                base.delegate?.testStatsViewControllerDidTapped(event: .nextTest)
             })
             .disposed(by: disposeBag)
         
         mainView.tryAgainButton.rx.tap
-            .bind(to: Binder(self) { base, _ in
-                base.didTapTryAgain?()
-                base.dismiss(animated: true)
+            .withLatestFrom(viewModel.userTestId)
+            .bind(to: Binder(self) { base, userTestId in
+                if let userTestId = userTestId {
+                    base.delegate?.testStatsViewControllerDidTapped(event: .restart(userTestId))
+                }
             })
             .disposed(by: disposeBag)
         
@@ -82,27 +97,19 @@ class TestStatsViewController: UIViewController {
                 self?.logAnalytics(courseName: name)
             })
             .disposed(by: disposeBag)
-        
-        viewModel.activity
-            .drive(Binder(self) { base, activity in
-                base.activity(activity)
-            })
-            .disposed(by: disposeBag)
     }
 }
 
 // MARK: Make
 extension TestStatsViewController {
-    static func make(element: TestFinishElement, closeAfterDismiss: @escaping () -> Void) -> TestStatsViewController {
+    static func make(userTestId: Int,
+                     testType: TestType,
+                     isEnableNext: Bool) -> TestStatsViewController {
         let controller = TestStatsViewController()
-        controller.closeAfterDismiss = closeAfterDismiss
         controller.modalPresentationStyle = .fullScreen
-        controller.viewModel.userTestId.accept(element.userTestId)
-        controller.viewModel.testType.accept(element.testType)
-        if case .get = element.testType {
-            // TODO
-//            controller.mainView.configureAddingButtons(isNextEnabled: element.isEnableNext)
-        }
+        controller.viewModel.userTestId.accept(userTestId)
+        controller.viewModel.testType.accept(testType)
+        controller.mainView.configureAddingButtons(isNextEnabled: isEnableNext)
         return controller
     }
 }

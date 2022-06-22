@@ -35,10 +35,10 @@ extension TestCoordinator: TestViewControllerDelegate {
     }
     
     func testViewControllerClose(finish: TestFinishElement) {
-//        testVC?.dismiss(animated: true) {
-//            TestCloseMediator.shared.notifyAboudTestClosed(with: finish)
-//        }
-//        testVC = nil
+        testVC?.dismiss(animated: true) {
+            TestCloseMediator.shared.notifyAboudTestClosed(with: finish)
+        }
+        testVC = nil
     }
     
     func testViewControllerNeedPayment() {
@@ -50,12 +50,41 @@ extension TestCoordinator: TestViewControllerDelegate {
     }
     
     func testViewController(finish: TestFinishElement) {
-//        testStatsVC = TestStatsViewController.make(finish: finish)
-//        testStatsVC?.delegate = self
-//
-//        testVC?.dismiss(animated: true) {
-//            Self.shared.from?.present(Self.shared.testStatsVC!, animated: true)
-//        }
+        testStatsVC = TestStatsViewController.make(userTestId: finish.userTestId,
+                                                   testType: finish.testType,
+                                                   isEnableNext: true) // TODO
+        testStatsVC?.delegate = self
+
+        testVC?.dismiss(animated: true) {
+            Self.shared.from?.present(Self.shared.testStatsVC!, animated: true)
+        }
+    }
+}
+
+// MARK: TestStatsViewControllerDelegate
+extension TestCoordinator: TestStatsViewControllerDelegate {
+    func testStatsViewControllerDidTapped(event: TestStatsViewController.Event) {
+        testStatsVC?.dismiss(animated: true) { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            switch event {
+            case .close:
+                self.testVC = nil
+            case .restart(let userTestId):
+                if let testVC = self.testVC {
+                    self.from?.present(testVC, animated: true) {
+                        testVC.restart(userTestId: userTestId)
+                    }
+                }
+            case .nextTest:
+                break // TODO
+//                self.testVC = nil
+//                self.openTest(with: .get(testId: nil))
+            }
+        }
+        testStatsVC = nil
     }
 }
 
