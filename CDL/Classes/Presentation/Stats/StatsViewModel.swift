@@ -42,8 +42,9 @@ private extension StatsViewModel {
         
         let elements = Signal
             .merge(
-                QuestionMediator.shared.testPassed
-//                QuestionMediator.shared.rxTestClosed // TODO
+                QuestionMediator.shared.testPassed,
+                TestCloseMediator.shared.testClosed.map { _ in () },
+                SITestCloseMediator.shared.testClosed
             )
             .asObservable()
             .startWith(())

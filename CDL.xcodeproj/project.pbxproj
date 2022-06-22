@@ -350,6 +350,7 @@
 		DE4071A92862075B001DA029 /* TestCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071A82862075B001DA029 /* TestCoordinator.swift */; };
 		DE4071AC2862EF76001DA029 /* TestCloseObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071AB2862EF76001DA029 /* TestCloseObserver.swift */; };
 		DE4071AE2862EF86001DA029 /* TestCloseMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071AD2862EF86001DA029 /* TestCloseMediator.swift */; };
+		DE4071B328631B76001DA029 /* SITestCloseMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071B228631B76001DA029 /* SITestCloseMediator.swift */; };
 		DE93780A27BA63910073F27C /* XOREncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE93780927BA63910073F27C /* XOREncryption.swift */; };
 		DE93780C27BA71880073F27C /* RestApiTransportExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE93780B27BA71880073F27C /* RestApiTransportExtension.swift */; };
 		DE95A8DA2833805E00809171 /* DefaultRequestWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8D92833805E00809171 /* DefaultRequestWrapper.swift */; };
@@ -741,6 +742,7 @@
 		DE4071A82862075B001DA029 /* TestCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoordinator.swift; sourceTree = "<group>"; };
 		DE4071AB2862EF76001DA029 /* TestCloseObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCloseObserver.swift; sourceTree = "<group>"; };
 		DE4071AD2862EF86001DA029 /* TestCloseMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCloseMediator.swift; sourceTree = "<group>"; };
+		DE4071B228631B76001DA029 /* SITestCloseMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SITestCloseMediator.swift; sourceTree = "<group>"; };
 		DE93780927BA63910073F27C /* XOREncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XOREncryption.swift; sourceTree = "<group>"; };
 		DE93780B27BA71880073F27C /* RestApiTransportExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApiTransportExtension.swift; sourceTree = "<group>"; };
 		DE95A8D92833805E00809171 /* DefaultRequestWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRequestWrapper.swift; sourceTree = "<group>"; };
@@ -884,6 +886,7 @@
 		86BB2598261E241700C6D2FA /* SITest */ = {
 			isa = PBXGroup;
 			children = (
+				DE4071B128631B6A001DA029 /* Observer */,
 				86BB25A2261E26BC00C6D2FA /* Models */,
 				86BB25AF261E2F4400C6D2FA /* Views */,
 				86CD1E10261F5D00000A2F49 /* Cells */,
@@ -2227,6 +2230,14 @@
 			path = Observer;
 			sourceTree = "<group>";
 		};
+		DE4071B128631B6A001DA029 /* Observer */ = {
+			isa = PBXGroup;
+			children = (
+				DE4071B228631B76001DA029 /* SITestCloseMediator.swift */,
+			);
+			path = Observer;
+			sourceTree = "<group>";
+		};
 		DE95A8D82833805400809171 /* RequestWrapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -2680,6 +2691,7 @@
 				8686722B26120D7700B42D41 /* TestComunityResultLineView.swift in Sources */,
 				967AD55C260FD0AF008E8175 /* StatsCellType.swift in Sources */,
 				96155B7D268A127E00228151 /* CountCircleView.swift in Sources */,
+				DE4071B328631B76001DA029 /* SITestCloseMediator.swift in Sources */,
 				9667BB1D264EA48E0029ED86 /* ProfileMediatorDelegate.swift in Sources */,
 				DE40717F2860A856001DA029 /* QuestionMapper.swift in Sources */,
 				9673817526792DB000230FB6 /* PaygateViewControllerDelegate.swift in Sources */,

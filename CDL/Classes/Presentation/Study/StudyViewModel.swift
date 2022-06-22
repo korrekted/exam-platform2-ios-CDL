@@ -7,6 +7,7 @@
 
 import RxSwift
 import RxCocoa
+import RushSDK
 
 final class StudyViewModel {
     var tryAgain: ((Error) -> (Observable<Void>))?
@@ -88,7 +89,8 @@ private extension StudyViewModel {
     func makeCoursesElements() -> Driver<StudyCollectionSection> {
         let courses = Signal.merge(
             QuestionMediator.shared.testPassed,
-//            QuestionMediator.shared.rxTestClosed, // TODO
+            TestCloseMediator.shared.testClosed.map { _ in () },
+            SITestCloseMediator.shared.testClosed,
             ProfileMediator.shared.rxSelectedTopics.map { _ in () },
             ProfileMediator.shared.rxUpdatedProfileLocale.map { _ in () }
         )
@@ -137,8 +139,9 @@ private extension StudyViewModel {
     func makeBrief() -> Driver<SCEBrief> {
         let testPassed = Signal
             .merge(
-                QuestionMediator.shared.testPassed
-//                QuestionMediator.shared.rxTestClosed // TODO
+                QuestionMediator.shared.testPassed,
+                TestCloseMediator.shared.testClosed.map { _ in () },
+                SITestCloseMediator.shared.testClosed
             )
             .asObservable()
             .startWith(())
