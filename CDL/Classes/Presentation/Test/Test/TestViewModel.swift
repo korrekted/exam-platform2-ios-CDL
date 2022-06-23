@@ -53,6 +53,7 @@ final class TestViewModel {
     private lazy var sessionManager = SessionManagerCore()
     
     private let answeredQuestionId = PublishRelay<Int>()
+    private let savedQuestionRelay = PublishRelay<(Int, Bool)>()
     
     init(course: Course, testType: TestType) {
         self.course = BehaviorRelay(value: course)
@@ -74,16 +75,16 @@ private extension TestViewModel {
             .map { $0.isSaved }
         
         let isSavedQuestion = didTapMark
-            .withLatestFrom(question) { ($0, $1.id) }
-            .flatMapFirst { [weak self] isSaved, questionId -> Observable<Bool> in
+            .withLatestFrom(question) { ($0, $1) }
+            .flatMapFirst { [weak self] isSaved, question -> Observable<Bool> in
                 guard let self = self else {
                     return .empty()
                 }
                 
                 func source() -> Single<Bool> {
                     let request = isSaved
-                        ? self.questionManager.removeSavedQuestion(questionId: questionId)
-                        : self.questionManager.saveQuestion(questionId: questionId)
+                    ? self.questionManager.removeSavedQuestion(questionId: question.id)
+                    : self.questionManager.saveQuestion(questionId: question.id)
 
                     return request
                         .map { !isSaved }
@@ -100,6 +101,9 @@ private extension TestViewModel {
                 return self.observableRetrySingle
                     .retry(source: { source() },
                            trigger: { trigger(error: $0) })
+                    .do(onNext: { isSaved in
+                        self.savedQuestionRelay.accept((question.id, isSaved))
+                    })
             }
         
         return Observable
@@ -238,8 +242,12 @@ private extension TestViewModel {
                     .combineLatest(self.selectedAnswers, mode, courseName) {
                         QuestionAction.elements(questions, $0, $1, $2)
                     }
+                
                 let answered = self.answeredQuestionId
                     .map { QuestionAction.answered(questionId: $0)}
+                
+                let saved = self.savedQuestionRelay
+                    .map { QuestionAction.saved(questionId: $0, isSaved: $1) }
                 
                 return Observable
                     .merge(elements, answered)
@@ -491,6 +499,7 @@ private extension TestViewModel {
     enum QuestionAction {
         case elements([Question], AnswerElement?, TestMode?, String)
         case answered(questionId: Int)
+        case saved(questionId: Int, isSaved: Bool)
     }
     
     var questionAccumulator: ([QuestionElement], QuestionAction) -> [QuestionElement] {
@@ -623,6 +632,16 @@ private extension TestViewModel {
                 
                 var currentElement = old[index]
                 currentElement.isAnswered = true
+                var result = old
+                result[index] = currentElement
+                return result
+            case let .saved(questionId, isSaved):
+                guard let index = old.firstIndex(where: { $0.id == questionId }) else {
+                    return old
+                }
+                
+                var currentElement = old[index]
+                currentElement.isSaved = isSaved
                 var result = old
                 result[index] = currentElement
                 return result
