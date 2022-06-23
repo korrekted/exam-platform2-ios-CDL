@@ -11,3 +11,14 @@ enum SITestType {
     case saved
     case incorrect
 }
+
+extension SITestType {
+    var name: String {
+        switch self {
+        case .saved:
+            return "Saved".localized
+        case .incorrect:
+            return "Incorrect".localized
+        }
+    }
+}

@@ -94,8 +94,8 @@ class CourseDetailsViewController: UIViewController {
             .bind(to: Binder(self) { base, tuple in
                 let (testType, (course, activeSubscription)) = tuple
                 if activeSubscription {
-                    let controller = SITestViewController.make(testType: testType, activeSubscription: activeSubscription, courseId: course.id)
-                    base.parent?.navigationController?.pushViewController(controller, animated: true)
+                    let vc = SITestViewController.make(course: course, testType: testType)
+                    base.present(vc, animated: true)
                 } else {
                     UIApplication.shared.keyWindow?.rootViewController?.present(PaygateViewController.make(), animated: true)
                 }

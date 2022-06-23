@@ -2,7 +2,7 @@
 //  SITestViewController.swift
 //  CDL
 //
-//  Created by Vitaliy Zagorodnov on 07.04.2021.
+//  Created by Андрей Чернышев on 23.06.2022.
 //
 
 import UIKit
@@ -10,187 +10,129 @@ import RxSwift
 import RxCocoa
 import AVFoundation
 import AVKit
+import RushSDK
 
 final class SITestViewController: UIViewController {
     lazy var mainView = SITestView()
     
     private lazy var disposeBag = DisposeBag()
     
-    private lazy var viewModel = SITestViewModel()
+    private let viewModel: SITestViewModel
+    
+    init(course: Course, testType: SITestType) {
+        self.viewModel = SITestViewModel(course: course, testType: testType)
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = mainView
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        mainView.navigationView.leftAction.addTarget(self, action: #selector(popAction), for: .touchUpInside)
-        
-        let courseName = viewModel.courseName
-        
+
         viewModel.tryAgain = { [weak self] error -> Observable<Void> in
             guard let self = self else {
-                return .never()
+                return .empty()
             }
-            
+
             return self.openError()
         }
+
+        viewModel.loadTestActivityIndicator
+            .drive(Binder(self) { base, activity in
+                activity ? base.mainView.preloader.startAnimating() : base.mainView.preloader.stopAnimating()
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.sendAnswerActivityIndicator
+            .drive(Binder(mainView.bottomView.preloader) { base, activity in
+                activity ? base.start() : base.stop()
+            })
+            .disposed(by: disposeBag)
         
+        viewModel.questionProgress
+            .drive(Binder(mainView.collectionView) {
+                $0.setup(elements: $1)
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.collectionView
+            .selectedIndex
+            .bind(to: viewModel.didTapIndexQuestion)
+            .disposed(by: disposeBag)
+
+        mainView.navigationView.rightAction.rx.tap
+            .withLatestFrom(viewModel.isSavedQuestion)
+            .bind(to: viewModel.didTapMark)
+            .disposed(by: disposeBag)
+
+        viewModel.isSavedQuestion
+            .drive(Binder(self) { base, isSaved in
+                base.update(favorite: isSaved)
+            })
+            .disposed(by: disposeBag)
+
         viewModel.question
             .drive(Binder(self) { base, element in
                 base.mainView.tableView.setup(question: element)
             })
             .disposed(by: disposeBag)
-        
-        let isLoading = viewModel.question
-            .map { _ in false }
-            .startWith(true)
-        
-        isLoading
-            .drive(onNext: { [weak self] activity in
-                self?.activity(activity)
+
+        mainView.tableView
+            .selectedAnswersRelay
+            .bind(to: viewModel.answers)
+            .disposed(by: disposeBag)
+
+        viewModel.bottomViewState
+            .startWith(.hidden)
+            .drive(Binder(mainView.bottomView) {
+                $0.setup(state: $1)
             })
             .disposed(by: disposeBag)
-        
-        isLoading
-            .drive(mainView.tableView.rx.isHidden)
-            .disposed(by: disposeBag)
-        
-        mainView.tableView
-            .selectedAnswers
-            .bind(to: viewModel.selectedSIAnswers)
-            .disposed(by: disposeBag)
-        
-        mainView.progressView
-            .selectedIndex
-            .bind(to: viewModel.selectedIndex)
-            .disposed(by: disposeBag)
-        
-        let currentButtonState = mainView.bottomButton.rx.tap
+
+        let currentButtonState = mainView.bottomView.button.rx.tap
             .withLatestFrom(viewModel.bottomViewState)
             .share()
-        
+
         currentButtonState
             .compactMap { $0 == .confirm ? () : nil }
             .bind(to: viewModel.didTapConfirm)
             .disposed(by: disposeBag)
+
+        currentButtonState
+            .compactMap { $0 == .next ? () : nil }
+            .bind(to: viewModel.didTapNext)
+            .disposed(by: disposeBag)
         
         currentButtonState
-            .filter { $0 == .finish }
-            .bind(to: Binder(self) { base, _ in
-                base.navigationController?.popViewController(animated: true)
+            .compactMap { $0 == .finish ? () : nil }
+            .bind(to: Binder(self) { base, void in
+                base.dismiss(animated: true)
             })
-            .disposed(by: disposeBag)
-        
-        mainView.nextButton.rx.tap
-            .withLatestFrom(courseName)
-            .subscribe(onNext: { [weak self] name in
-                self?.viewModel.didTapNext.accept(Void())
-            })
-            .disposed(by: disposeBag)
-        
-        let isHiddenNext = Driver
-            .merge(
-                viewModel.isEndOfTest,
-                mainView.nextButton.rx.tap.asDriver().map { _ in true },
-                mainView.progressView.selectedIndex.map { _ in true }.asDriver(onErrorDriveWith: .empty())
-            )
-        
-        isHiddenNext
-            .drive(mainView.nextButton.rx.isHidden)
-            .disposed(by: disposeBag)
-        
-        let nextOffset = isHiddenNext
-            .compactMap { [weak mainView] isHidden -> CGFloat? in
-                let bottomOffset = mainView.map { $0.bounds.height - $0.nextButton.frame.minY + 9.scale }
-                return isHidden ? 32.scale : bottomOffset
-            }
-        
-        Observable
-            .combineLatest(nextOffset.asObservable(), viewModel.bottomViewState.asObservable()) { nextOffset, bottomState in
-                bottomState == .hidden ? nextOffset : 195.scale
-            }
-            .distinctUntilChanged()
-            .bind(to: Binder(mainView.tableView) {
-                $0.contentInset.bottom = $1
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.bottomViewState
-            .drive(Binder(mainView) {
-                $0.setupBottomButton(for: $1)
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.bottomViewState
-            .drive(Binder(mainView) {
-                $0.setupBottomButton(for: $1)
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.errorMessage
-            .emit { [weak self] message in
-                Toast.notify(with: message, style: .danger)
-                self?.dismiss(animated: true)
-            }
             .disposed(by: disposeBag)
 
-        viewModel.needPayment
-            .filter { $0 }
-            .emit { [weak self] _ in
-                UIApplication.shared.keyWindow?.rootViewController?.present(PaygateViewController.make(), animated: true) { [weak self] in
-                    // Без задержки контроллер не попается
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-                        self?.navigationController?.popViewController(animated: false)
-                    }
+        viewModel.isEndOfTest
+            .filter(!)
+            .withLatestFrom(viewModel.testMode)
+            .bind(with: self, onNext: { base, testMode in
+                if testMode == .onAnExam {
+                    base.viewModel.didTapNext.accept(Void())
                 }
-            }
-            .disposed(by: disposeBag)
-        
-        viewModel.isSavedQuestion
-            .drive(Binder(mainView) {
-                $0.saveQuestion($1)
             })
             .disposed(by: disposeBag)
-        
-        viewModel.questionProgress
-            .drive(Binder(mainView.progressView) {
-                $0.setup(elements: $1)
-            })
-            .disposed(by: disposeBag)
-        
-        mainView.navigationView.rightAction.rx.tap
-            .withLatestFrom(viewModel.isSavedQuestion)
-            .bind(to: viewModel.didTapMark)
-            .disposed(by: disposeBag)
-        
-        mainView.tableView
-            .expandContent
+
+        mainView.tableView.expandContent
             .bind(to: Binder(self) { base, content in
                 switch content {
                 case let .image(url):
-                    let imageView = UIImageView()
-                    imageView.contentMode = .scaleAspectFit
-                    do {
-                        try imageView.image = UIImage(data: Data(contentsOf: url))
-                        let controller = UIViewController()
-                        controller.view.backgroundColor = .black
-                        controller.view.addSubview(imageView)
-                        imageView.frame = controller.view.bounds
-                        base.present(controller, animated: true)
-                    } catch {
-                        
-                    }
+                    let controller = PhotoViewController.make(imageURL: url)
+                    base.present(controller, animated: true)
                 case let .video(url):
                     let controller = AVPlayerViewController()
                     controller.view.backgroundColor = .black
@@ -202,29 +144,33 @@ final class SITestViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
+        
+        mainView.navigationView.leftAction.rx.tap
+            .bind(to: Binder(self) { base, void in
+                SITestCloseMediator.shared.notifyAboudTestClosed()
+                
+                base.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
 // MARK: Make
 extension SITestViewController {
-    static func make(testType: SITestType, activeSubscription: Bool, courseId: Int) -> SITestViewController {
-        let controller = SITestViewController()
+    static func make(course: Course, testType: SITestType) -> SITestViewController {
+        let controller = SITestViewController(course: course, testType: testType)
         controller.modalPresentationStyle = .fullScreen
-        controller.mainView.navigationView.setTitle(title: testType.testName)
+        controller.mainView.navigationView.setTitle(title: testType.name)
         controller.mainView.navigationView.rightAction.isHidden = testType == .incorrect
-        controller.viewModel.activeSubscription = activeSubscription
-        controller.viewModel.testType.accept(testType)
-        controller.viewModel.courseId.accept(courseId)
         return controller
     }
 }
 
 // MARK: Private
 private extension SITestViewController {
-    @objc func popAction() {
-        SITestCloseMediator.shared.notifyAboudTestClosed()
-        
-        navigationController?.popViewController(animated: true)
+    func update(favorite: Bool) {
+        let image = favorite ? UIImage(named: "Question.Bookmark.Check") : UIImage(named: "Question.Bookmark.Uncheck")
+        mainView.navigationView.rightAction.setImage(image, for: .normal)
     }
     
     func openError() -> Observable<Void> {
@@ -241,20 +187,5 @@ private extension SITestViewController {
                 
                 return Disposables.create()
             }
-    }
-    
-    func activity(_ activity: Bool) {
-        activity ? mainView.preloader.startAnimating() : mainView.preloader.stopAnimating()
-    }
-}
-
-private extension SITestType {
-    var testName: String {
-        switch self {
-        case .saved:
-            return "Saved"
-        case .incorrect:
-            return "Incorrect"
-        }
     }
 }

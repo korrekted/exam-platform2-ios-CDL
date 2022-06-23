@@ -13,14 +13,14 @@ protocol QuestionManagerProtocol: AnyObject {
     func obtainFailedSet(courseId: Int, activeSubscription: Bool) -> Single<Test?>
     func obtainQotd(courseId: Int, activeSubscription: Bool) -> Single<Test?>
     func obtainRandomSet(courseId: Int, activeSubscription: Bool) -> Single<Test?>
+    func obtainSaved(courseId: Int) -> Single<Test?>
+    func obtainIncorrect(courseId: Int) -> Single<Test?>
     func obtainAgainTest(userTestId: Int) -> Single<Test?>
     func finishTest(userTestId: Int) -> Single<Void>
     func sendAnswer(questionId: Int, userTestId: Int, answerIds: [Int]) -> Single<Bool?>
     func saveQuestion(questionId: Int) -> Single<Void>
     func removeSavedQuestion(questionId: Int) -> Single<Void>
     func obtainConfig(courseId: Int) -> Single<CourseConfig?>
-    func obtainSaved(courseId: Int) -> Single<SITest?>
-    func obtainIncorrect(courseId: Int) -> Single<SITest?>
 }
 
 final class QuestionManager: QuestionManagerProtocol {
@@ -103,6 +103,30 @@ extension QuestionManager {
         return xorRequestWrapper
             .callServerStringApi(requestBody: request)
             .map { try GetTestResponseMapper.map(from: $0, isEncryption: true) }
+    }
+    
+    func obtainSaved(courseId: Int) -> Single<Test?> {
+        guard let userToken = SessionManagerCore().getSession()?.userToken else {
+            return .error(SignError.tokenNotFound)
+        }
+        
+        let request = GetSavedRequest(userToken: userToken, courseId: courseId)
+        
+        return defaultRequestWrapper
+            .callServerApi(requestBody: request)
+            .map { try GetTestResponseMapper.map(from: $0, isEncryption: false) }
+    }
+    
+    func obtainIncorrect(courseId: Int) -> Single<Test?> {
+        guard let userToken = SessionManagerCore().getSession()?.userToken else {
+            return .error(SignError.tokenNotFound)
+        }
+        
+        let request = GetIncorrectRequest(userToken: userToken, courseId: courseId)
+        
+        return defaultRequestWrapper
+            .callServerApi(requestBody: request)
+            .map { try GetTestResponseMapper.map(from: $0, isEncryption: false) }
     }
     
     func obtainAgainTest(userTestId: Int) -> Single<Test?> {
@@ -190,29 +214,5 @@ extension QuestionManager {
         return defaultRequestWrapper
             .callServerApi(requestBody: request)
             .map(GetTestConfigResponseMapper.from(response:))
-    }
-    
-    func obtainSaved(courseId: Int) -> Single<SITest?> {
-        guard let userToken = SessionManagerCore().getSession()?.userToken else {
-            return .error(SignError.tokenNotFound)
-        }
-        
-        let request = GetSavedRequest(userToken: userToken, courseId: courseId)
-        
-        return defaultRequestWrapper
-            .callServerApi(requestBody: request)
-            .map(GetSavedAndIncorrectResponseMapper.map(from:))
-    }
-    
-    func obtainIncorrect(courseId: Int) -> Single<SITest?> {
-        guard let userToken = SessionManagerCore().getSession()?.userToken else {
-            return .error(SignError.tokenNotFound)
-        }
-        
-        let request = GetIncorrectRequest(userToken: userToken, courseId: courseId)
-        
-        return defaultRequestWrapper
-            .callServerApi(requestBody: request)
-            .map(GetSavedAndIncorrectResponseMapper.map(from:))
     }
 }

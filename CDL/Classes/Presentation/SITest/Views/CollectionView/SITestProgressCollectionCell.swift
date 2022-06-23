@@ -7,9 +7,8 @@
 
 import UIKit
 
-class SITestProgressCollectionCell: UICollectionViewCell {
-    
-    private lazy var label = makeLabel()
+final class SITestProgressCollectionCell: UICollectionViewCell {
+    lazy var label = makeLabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,7 +22,7 @@ class SITestProgressCollectionCell: UICollectionViewCell {
     }
 }
 
-// MARK: API
+// MARK: Public
 extension SITestProgressCollectionCell {
     func setup(element: SIProgressElement) {
         var attr: TextAttributes = .attr
@@ -62,8 +61,8 @@ private extension SITestProgressCollectionCell {
 private extension SITestProgressCollectionCell {
     func makeLabel() -> UILabel {
         let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.numberOfLines = 1
+        view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(view)
         return view
     }

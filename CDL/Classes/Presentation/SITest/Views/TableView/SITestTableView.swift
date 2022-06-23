@@ -106,7 +106,7 @@ extension SITestTableView: UITableViewDataSource {
             }
             return cell
         case let .question(question, html):
-            let cell = dequeueReusableCell(withIdentifier: String(describing: SIQuestionCell.self), for: indexPath) as! SIQuestionCell
+            let cell = dequeueReusableCell(withIdentifier: String(describing: QuestionTableQuestionCell.self), for: indexPath) as! QuestionTableQuestionCell
             cell.configure(question: question, questionHtml: html)
             return cell
         case let .answer(answer):
@@ -126,7 +126,7 @@ private extension SITestTableView {
     func initialize() {
         register(QuestionTableContentCell.self, forCellReuseIdentifier: String(describing: QuestionTableContentCell.self))
         register(SIAnswerCell.self, forCellReuseIdentifier: String(describing: SIAnswerCell.self))
-        register(SIQuestionCell.self, forCellReuseIdentifier: String(describing: SIQuestionCell.self))
+        register(QuestionTableQuestionCell.self, forCellReuseIdentifier: String(describing: QuestionTableQuestionCell.self))
         register(QuestionTableExplanationTextCell.self, forCellReuseIdentifier: String(describing: QuestionTableExplanationTextCell.self))
         separatorStyle = .none
         

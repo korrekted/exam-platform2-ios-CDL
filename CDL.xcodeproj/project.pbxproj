@@ -40,21 +40,15 @@
 		86BB2590261E0C8B00C6D2FA /* SaveQuestionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB258F261E0C8B00C6D2FA /* SaveQuestionRequest.swift */; };
 		86BB2593261E14D700C6D2FA /* GetSavedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB2592261E14D700C6D2FA /* GetSavedRequest.swift */; };
 		86BB2596261E1B3C00C6D2FA /* RemoveSavedQuestionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB2595261E1B3C00C6D2FA /* RemoveSavedQuestionRequest.swift */; };
-		86BB259A261E245000C6D2FA /* SITestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB2599261E245000C6D2FA /* SITestViewModel.swift */; };
 		86BB259D261E246000C6D2FA /* SITestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB259C261E246000C6D2FA /* SITestView.swift */; };
-		86BB25A0261E246F00C6D2FA /* SITestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB259F261E246F00C6D2FA /* SITestViewController.swift */; };
 		86BB25A9261E2BF700C6D2FA /* SITestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB25A8261E2BF700C6D2FA /* SITestType.swift */; };
 		86BB25AD261E2CB200C6D2FA /* GetIncorrectRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB25AC261E2CB200C6D2FA /* GetIncorrectRequest.swift */; };
 		86BB25B1261E2F8D00C6D2FA /* SIProgressCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB25B0261E2F8D00C6D2FA /* SIProgressCollectionView.swift */; };
-		86CD1CD7261EBAD5000A2F49 /* SITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CD1CD6261EBAD5000A2F49 /* SITest.swift */; };
-		86CD1CDA261EBB2D000A2F49 /* GetSavedAndIncorrectResponseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CD1CD9261EBB2D000A2F49 /* GetSavedAndIncorrectResponseMapper.swift */; };
 		86CD1CE1261EBCDA000A2F49 /* SIProgressElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CD1CE0261EBCDA000A2F49 /* SIProgressElement.swift */; };
 		86CD1E12261F5D2C000A2F49 /* SITestProgressCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CD1E11261F5D2C000A2F49 /* SITestProgressCollectionCell.swift */; };
 		86CE870626216C8100FC7091 /* SITestTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE870526216C8100FC7091 /* SITestTableView.swift */; };
 		86CE871026216D6E00FC7091 /* SIAnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE870F26216D6E00FC7091 /* SIAnswerCell.swift */; };
 		86CE8719262177D900FC7091 /* SITestElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE8718262177D900FC7091 /* SITestElement.swift */; };
-		86CE871C2621A39300FC7091 /* SIQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE871B2621A39300FC7091 /* SIQuestionCell.swift */; };
-		86CE87202621B5D900FC7091 /* SIBottomButtonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE871F2621B5D900FC7091 /* SIBottomButtonState.swift */; };
 		86CE87282621F8A400FC7091 /* CourseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE87272621F8A400FC7091 /* CourseCollectionView.swift */; };
 		86CE872C2621F8E800FC7091 /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE872B2621F8E800FC7091 /* CourseCell.swift */; };
 		86CE87312621FBEE00FC7091 /* CourseFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE87302621FBEE00FC7091 /* CourseFlowLayout.swift */; };
@@ -351,6 +345,11 @@
 		DE4071AE2862EF86001DA029 /* TestCloseMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071AD2862EF86001DA029 /* TestCloseMediator.swift */; };
 		DE4071B328631B76001DA029 /* SITestCloseMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071B228631B76001DA029 /* SITestCloseMediator.swift */; };
 		DE4071B528631F16001DA029 /* TestSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071B428631F15001DA029 /* TestSequence.swift */; };
+		DE4071B928643B3C001DA029 /* SITestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071B828643B3C001DA029 /* SITestViewModel.swift */; };
+		DE4071BB28643B43001DA029 /* SITestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071BA28643B43001DA029 /* SITestViewController.swift */; };
+		DE4071BD28643E65001DA029 /* SITestBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071BC28643E65001DA029 /* SITestBottomView.swift */; };
+		DE4071BF28645B39001DA029 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071BE28645B39001DA029 /* Question.swift */; };
+		DE4071C128645B4C001DA029 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4071C028645B4C001DA029 /* Answer.swift */; };
 		DE93780A27BA63910073F27C /* XOREncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE93780927BA63910073F27C /* XOREncryption.swift */; };
 		DE93780C27BA71880073F27C /* RestApiTransportExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE93780B27BA71880073F27C /* RestApiTransportExtension.swift */; };
 		DE95A8DA2833805E00809171 /* DefaultRequestWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8D92833805E00809171 /* DefaultRequestWrapper.swift */; };
@@ -430,21 +429,15 @@
 		86BB258F261E0C8B00C6D2FA /* SaveQuestionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveQuestionRequest.swift; sourceTree = "<group>"; };
 		86BB2592261E14D700C6D2FA /* GetSavedRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSavedRequest.swift; sourceTree = "<group>"; };
 		86BB2595261E1B3C00C6D2FA /* RemoveSavedQuestionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveSavedQuestionRequest.swift; sourceTree = "<group>"; };
-		86BB2599261E245000C6D2FA /* SITestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SITestViewModel.swift; sourceTree = "<group>"; };
 		86BB259C261E246000C6D2FA /* SITestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SITestView.swift; sourceTree = "<group>"; };
-		86BB259F261E246F00C6D2FA /* SITestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SITestViewController.swift; sourceTree = "<group>"; };
 		86BB25A8261E2BF700C6D2FA /* SITestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SITestType.swift; sourceTree = "<group>"; };
 		86BB25AC261E2CB200C6D2FA /* GetIncorrectRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetIncorrectRequest.swift; sourceTree = "<group>"; };
 		86BB25B0261E2F8D00C6D2FA /* SIProgressCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIProgressCollectionView.swift; sourceTree = "<group>"; };
-		86CD1CD6261EBAD5000A2F49 /* SITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SITest.swift; sourceTree = "<group>"; };
-		86CD1CD9261EBB2D000A2F49 /* GetSavedAndIncorrectResponseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSavedAndIncorrectResponseMapper.swift; sourceTree = "<group>"; };
 		86CD1CE0261EBCDA000A2F49 /* SIProgressElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIProgressElement.swift; sourceTree = "<group>"; };
 		86CD1E11261F5D2C000A2F49 /* SITestProgressCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SITestProgressCollectionCell.swift; sourceTree = "<group>"; };
 		86CE870526216C8100FC7091 /* SITestTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SITestTableView.swift; sourceTree = "<group>"; };
 		86CE870F26216D6E00FC7091 /* SIAnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIAnswerCell.swift; sourceTree = "<group>"; };
 		86CE8718262177D900FC7091 /* SITestElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SITestElement.swift; sourceTree = "<group>"; };
-		86CE871B2621A39300FC7091 /* SIQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIQuestionCell.swift; sourceTree = "<group>"; };
-		86CE871F2621B5D900FC7091 /* SIBottomButtonState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIBottomButtonState.swift; sourceTree = "<group>"; };
 		86CE87272621F8A400FC7091 /* CourseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCollectionView.swift; sourceTree = "<group>"; };
 		86CE872B2621F8E800FC7091 /* CourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
 		86CE87302621FBEE00FC7091 /* CourseFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseFlowLayout.swift; sourceTree = "<group>"; };
@@ -743,6 +736,11 @@
 		DE4071AD2862EF86001DA029 /* TestCloseMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCloseMediator.swift; sourceTree = "<group>"; };
 		DE4071B228631B76001DA029 /* SITestCloseMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SITestCloseMediator.swift; sourceTree = "<group>"; };
 		DE4071B428631F15001DA029 /* TestSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSequence.swift; sourceTree = "<group>"; };
+		DE4071B828643B3C001DA029 /* SITestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SITestViewModel.swift; sourceTree = "<group>"; };
+		DE4071BA28643B43001DA029 /* SITestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SITestViewController.swift; sourceTree = "<group>"; };
+		DE4071BC28643E65001DA029 /* SITestBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SITestBottomView.swift; sourceTree = "<group>"; };
+		DE4071BE28645B39001DA029 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		DE4071C028645B4C001DA029 /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		DE93780927BA63910073F27C /* XOREncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XOREncryption.swift; sourceTree = "<group>"; };
 		DE93780B27BA71880073F27C /* RestApiTransportExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApiTransportExtension.swift; sourceTree = "<group>"; };
 		DE95A8D92833805E00809171 /* DefaultRequestWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRequestWrapper.swift; sourceTree = "<group>"; };
@@ -889,9 +887,9 @@
 				DE4071B128631B6A001DA029 /* Observer */,
 				86BB25A2261E26BC00C6D2FA /* Models */,
 				86BB25AF261E2F4400C6D2FA /* Views */,
-				86BB2599261E245000C6D2FA /* SITestViewModel.swift */,
+				DE4071BA28643B43001DA029 /* SITestViewController.swift */,
+				DE4071B828643B3C001DA029 /* SITestViewModel.swift */,
 				86BB259C261E246000C6D2FA /* SITestView.swift */,
-				86BB259F261E246F00C6D2FA /* SITestViewController.swift */,
 			);
 			path = SITest;
 			sourceTree = "<group>";
@@ -900,7 +898,6 @@
 			isa = PBXGroup;
 			children = (
 				86BB25A8261E2BF700C6D2FA /* SITestType.swift */,
-				86CE871F2621B5D900FC7091 /* SIBottomButtonState.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -908,8 +905,9 @@
 		86BB25AF261E2F4400C6D2FA /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DE4071B728637EC5001DA029 /* TableView */,
 				DE4071B628637E18001DA029 /* CollectionView */,
+				DE4071B728637EC5001DA029 /* TableView */,
+				DE4071BC28643E65001DA029 /* SITestBottomView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -918,7 +916,6 @@
 			isa = PBXGroup;
 			children = (
 				86CE870F26216D6E00FC7091 /* SIAnswerCell.swift */,
-				86CE871B2621A39300FC7091 /* SIQuestionCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1292,8 +1289,9 @@
 			children = (
 				967AD3E9260FD0AE008E8175 /* TestConfig.swift */,
 				967AD3EA260FD0AE008E8175 /* Test.swift */,
-				86CD1CD6261EBAD5000A2F49 /* SITest.swift */,
 				96E360182671EC4600D49D4E /* CourseConfig.swift */,
+				DE4071BE28645B39001DA029 /* Question.swift */,
+				DE4071C028645B4C001DA029 /* Answer.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1303,7 +1301,6 @@
 			children = (
 				DE4071862860A903001DA029 /* GetTestConfig */,
 				DE4071852860A8DF001DA029 /* SendAnswer */,
-				DE4071842860A8C2001DA029 /* GetSI */,
 				DE40717D2860A83B001DA029 /* GetTest */,
 				86E38DEB2613997200DFBAD8 /* FinishTestRequest.swift */,
 				8687B553261AE96600D6235D /* AgainTestRequest.swift */,
@@ -2103,18 +2100,10 @@
 				967AD3F5260FD0AE008E8175 /* GetTenSetRequest.swift */,
 				967AD3F0260FD0AE008E8175 /* GetFailedSetRequest.swift */,
 				967AD3F1260FD0AE008E8175 /* GetRandomSetRequest.swift */,
-			);
-			path = GetTest;
-			sourceTree = "<group>";
-		};
-		DE4071842860A8C2001DA029 /* GetSI */ = {
-			isa = PBXGroup;
-			children = (
 				86BB2592261E14D700C6D2FA /* GetSavedRequest.swift */,
 				86BB25AC261E2CB200C6D2FA /* GetIncorrectRequest.swift */,
-				86CD1CD9261EBB2D000A2F49 /* GetSavedAndIncorrectResponseMapper.swift */,
 			);
-			path = GetSI;
+			path = GetTest;
 			sourceTree = "<group>";
 		};
 		DE4071852860A8DF001DA029 /* SendAnswer */ = {
@@ -2473,8 +2462,6 @@
 				967AD53A260FD0AF008E8175 /* AnswerView.swift in Sources */,
 				967AD4F9260FD0AF008E8175 /* GetCourcesRequest.swift in Sources */,
 				9613EC8B2634A19600DAEB9A /* State.swift in Sources */,
-				86CD1CDA261EBB2D000A2F49 /* GetSavedAndIncorrectResponseMapper.swift in Sources */,
-				86CE871C2621A39300FC7091 /* SIQuestionCell.swift in Sources */,
 				9673819726792DC000230FB6 /* PaygateSpecialOffer.swift in Sources */,
 				967AD56B260FD0AF008E8175 /* OSlideCountView.swift in Sources */,
 				967AD552260FD0AF008E8175 /* TestStatsFilterView.swift in Sources */,
@@ -2485,7 +2472,6 @@
 				96155B7A2689FB1A00228151 /* MinutesAtTimeElement.swift in Sources */,
 				DE4071A32861D70E001DA029 /* TestBottomView.swift in Sources */,
 				969679DF265E9AF20070E7F7 /* STChangeLocaleView.swift in Sources */,
-				86CE87202621B5D900FC7091 /* SIBottomButtonState.swift in Sources */,
 				967AD56A260FD0AF008E8175 /* OSlideWhenTakingView.swift in Sources */,
 				967AD4E4260FD0AE008E8175 /* GetTestStatsRequest.swift in Sources */,
 				967AD520260FD0AF008E8175 /* StudyCollectionView.swift in Sources */,
@@ -2493,8 +2479,10 @@
 				967AD546260FD0AF008E8175 /* TestStatsProgressCell.swift in Sources */,
 				967AD548260FD0AF008E8175 /* TestStatsFilterCell.swift in Sources */,
 				DE4071A12861D4A3001DA029 /* QuestionTableQuestionReferenceCell.swift in Sources */,
+				DE4071C128645B4C001DA029 /* Answer.swift in Sources */,
 				9673819426792DC000230FB6 /* ProductPrice.swift in Sources */,
 				967AD4F2260FD0AF008E8175 /* GetTestRequest.swift in Sources */,
+				DE4071BD28643E65001DA029 /* SITestBottomView.swift in Sources */,
 				8667C2BE2614E6E60090CBFF /* TrophyCell.swift in Sources */,
 				96F44FC92631F0FC000B77E3 /* ProfileManagerCore.swift in Sources */,
 				DE40719F2861D413001DA029 /* QuestionTableExplanationTitleCell.swift in Sources */,
@@ -2535,7 +2523,6 @@
 				967AD4C2260FD0AE008E8175 /* ScreenSize.swift in Sources */,
 				DE4071AE2862EF86001DA029 /* TestCloseMediator.swift in Sources */,
 				96E360192671EC4600D49D4E /* CourseConfig.swift in Sources */,
-				86BB259A261E245000C6D2FA /* SITestViewModel.swift in Sources */,
 				967AD529260FD0AF008E8175 /* QuestionContentCollectionCell.swift in Sources */,
 				86E38DEC2613997200DFBAD8 /* FinishTestRequest.swift in Sources */,
 				967AD561260FD0AF008E8175 /* CourseProgressCell.swift in Sources */,
@@ -2612,7 +2599,6 @@
 				967AD516260FD0AF008E8175 /* StudyViewModel.swift in Sources */,
 				967AD4CB260FD0AE008E8175 /* PaddingLabel.swift in Sources */,
 				967AD502260FD0AF008E8175 /* GetStatsResponseMapper.swift in Sources */,
-				86BB25A0261E246F00C6D2FA /* SITestViewController.swift in Sources */,
 				967AD4BB260FD0AE008E8175 /* UITapGestureRecognizerExtension.swift in Sources */,
 				967AD521260FD0AF008E8175 /* StudyView.swift in Sources */,
 				967AD4E3260FD0AE008E8175 /* TestStats.swift in Sources */,
@@ -2633,6 +2619,7 @@
 				96B67AF5262A06900048DAB9 /* OPreloaderCell.swift in Sources */,
 				967AD4C7260FD0AE008E8175 /* Toast.swift in Sources */,
 				DE40718F2860B1FA001DA029 /* PhotoViewController.swift in Sources */,
+				DE4071BB28643B43001DA029 /* SITestViewController.swift in Sources */,
 				967AD509260FD0AF008E8175 /* SettingsView.swift in Sources */,
 				96E360202671F6D300D49D4E /* FlashcardsTopicsView.swift in Sources */,
 				967AD4BE260FD0AE008E8175 /* StringExtension.swift in Sources */,
@@ -2692,6 +2679,7 @@
 				967AD503260FD0AF008E8175 /* GetStatsRequest.swift in Sources */,
 				967AD55F260FD0AF008E8175 /* StatsView.swift in Sources */,
 				86BB259D261E246000C6D2FA /* SITestView.swift in Sources */,
+				DE4071B928643B3C001DA029 /* SITestViewModel.swift in Sources */,
 				967AD577260FD0AF008E8175 /* OSlideGoalsView.swift in Sources */,
 				967AD518260FD0AF008E8175 /* SCTitleCell.swift in Sources */,
 				9673819826792DC000230FB6 /* GetPaygateRequest.swift in Sources */,
@@ -2720,6 +2708,7 @@
 				967AD4E9260FD0AE008E8175 /* Test.swift in Sources */,
 				96155B772689F97700228151 /* OMinutesAtTimeCell.swift in Sources */,
 				967AD4BD260FD0AE008E8175 /* UIEdgeInsets+Extension.swift in Sources */,
+				DE4071BF28645B39001DA029 /* Question.swift in Sources */,
 				967AD569260FD0AF008E8175 /* OnboardingViewController.swift in Sources */,
 				967AD4C3260FD0AE008E8175 /* Fonts.swift in Sources */,
 				967AD52A260FD0AF008E8175 /* QuestionTableQuestionCell.swift in Sources */,
@@ -2753,7 +2742,6 @@
 				DE93780C27BA71880073F27C /* RestApiTransportExtension.swift in Sources */,
 				967AD50C260FD0AF008E8175 /* STLinkView.swift in Sources */,
 				96E3601C2671F3E600D49D4E /* FlashcardsTopicsViewController.swift in Sources */,
-				86CD1CD7261EBAD5000A2F49 /* SITest.swift in Sources */,
 				967AD527260FD0AF008E8175 /* QuestionTableContentCell.swift in Sources */,
 				967AD51D260FD0AF008E8175 /* SCBriefDayView.swift in Sources */,
 				967AD525260FD0AF008E8175 /* TabItemView.swift in Sources */,
