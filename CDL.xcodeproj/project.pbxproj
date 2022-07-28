@@ -362,6 +362,7 @@
 		DE6836AF2892BB9600FAEF96 /* SplashReceiptValidationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6836AE2892BB9600FAEF96 /* SplashReceiptValidationObserver.swift */; };
 		DE6836B12892BEAC00FAEF96 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6836B02892BEAB00FAEF96 /* LoginRequest.swift */; };
 		DE6836B32892BEBB00FAEF96 /* SyncTokensRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6836B22892BEBB00FAEF96 /* SyncTokensRequest.swift */; };
+		DE6836B52892C96E00FAEF96 /* PaygateInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6836B42892C96E00FAEF96 /* PaygateInteractor.swift */; };
 		DE93780A27BA63910073F27C /* XOREncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE93780927BA63910073F27C /* XOREncryption.swift */; };
 		DE93780C27BA71880073F27C /* RestApiTransportExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE93780B27BA71880073F27C /* RestApiTransportExtension.swift */; };
 		DE95A8DA2833805E00809171 /* DefaultRequestWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95A8D92833805E00809171 /* DefaultRequestWrapper.swift */; };
@@ -765,6 +766,7 @@
 		DE6836AE2892BB9600FAEF96 /* SplashReceiptValidationObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashReceiptValidationObserver.swift; sourceTree = "<group>"; };
 		DE6836B02892BEAB00FAEF96 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		DE6836B22892BEBB00FAEF96 /* SyncTokensRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncTokensRequest.swift; sourceTree = "<group>"; };
+		DE6836B42892C96E00FAEF96 /* PaygateInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaygateInteractor.swift; sourceTree = "<group>"; };
 		DE93780927BA63910073F27C /* XOREncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XOREncryption.swift; sourceTree = "<group>"; };
 		DE93780B27BA71880073F27C /* RestApiTransportExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApiTransportExtension.swift; sourceTree = "<group>"; };
 		DE95A8D92833805E00809171 /* DefaultRequestWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRequestWrapper.swift; sourceTree = "<group>"; };
@@ -987,11 +989,12 @@
 		9673816A26792DB000230FB6 /* Paygate */ = {
 			isa = PBXGroup;
 			children = (
+				9673816F26792DB000230FB6 /* Views */,
 				9673816B26792DB000230FB6 /* PaygateViewModel.swift */,
 				9673816C26792DB000230FB6 /* PaygateViewControllerDelegate.swift */,
 				9673816D26792DB000230FB6 /* PaygateView.swift */,
 				9673816E26792DB000230FB6 /* PaygateViewController.swift */,
-				9673816F26792DB000230FB6 /* Views */,
+				DE6836B42892C96E00FAEF96 /* PaygateInteractor.swift */,
 			);
 			path = Paygate;
 			sourceTree = "<group>";
@@ -2831,6 +2834,7 @@
 				96155B86268B924900228151 /* OWhenStudyView.swift in Sources */,
 				967AD4FC260FD0AF008E8175 /* CoursesManager.swift in Sources */,
 				967AD500260FD0AF008E8175 /* GetBriefRequest.swift in Sources */,
+				DE6836B52892C96E00FAEF96 /* PaygateInteractor.swift in Sources */,
 				967AD55A260FD0AF008E8175 /* StatsViewModel.swift in Sources */,
 				9650402F267F1AF5003D5167 /* WelcomeSlide3View.swift in Sources */,
 				967AD4F1260FD0AF008E8175 /* SendAnswerRequest.swift in Sources */,
@@ -3035,7 +3039,7 @@
 				CODE_SIGN_ENTITLEMENTS = CDL/CDL.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = "$(SRCROOT)/CDL/Resource/Info.plist";
@@ -3064,7 +3068,7 @@
 				CODE_SIGN_ENTITLEMENTS = CDL/CDL.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = "$(SRCROOT)/CDL/Resource/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -3090,7 +3094,7 @@
 				CODE_SIGN_ENTITLEMENTS = StatsWidgetsExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = StatsWidgets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -3117,7 +3121,7 @@
 				CODE_SIGN_ENTITLEMENTS = StatsWidgetsExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = StatsWidgets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
