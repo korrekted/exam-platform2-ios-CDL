@@ -52,7 +52,7 @@ final class FlashcardsTopicsViewController: UIViewController {
                 let (topic, activeSubscription) = stub
                 
                 if topic.paid && !activeSubscription {
-                    UIApplication.shared.keyWindow?.rootViewController?.present(PaygateViewController.make(), animated: true)
+                    UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController?.present(PaygateViewController.make(), animated: true)
                 } else {
                     let vc = FlashcardsViewController.make(topic: topic)
                     self?.parent?.navigationController?.pushViewController(vc, animated: true)
@@ -102,7 +102,7 @@ private extension FlashcardsTopicsViewController {
     
     @objc
     func popAction() {
-        SDKStorage.shared.amplitudeManager.logEvent(name: "Flashcards Set Tap", parameters: ["what": "back"])
+        AmplitudeManager.shared.logEvent(name: "Flashcards Set Tap", parameters: ["what": "back"])
         navigationController?.popViewController(animated: true)
     }
 }

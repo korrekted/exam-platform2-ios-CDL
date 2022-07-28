@@ -14,7 +14,7 @@ final class SettingsViewModel {
     lazy var activity = RxActivityIndicator()
     
     private lazy var coursesManager = CoursesManagerCore()
-    private lazy var sessionManager = SessionManagerCore()
+    private lazy var sessionManager = SessionManager()
     private lazy var profileManager = ProfileManagerCore()
     
     lazy var sections = makeSections()
@@ -135,7 +135,7 @@ private extension SettingsViewModel {
                     return .never()
                 }
                 
-                let activeSubscription = this.sessionManager.getSession()?.activeSubscription ?? false
+                let activeSubscription = this.sessionManager.hasActiveSubscriptions()
                 
                 return .just(activeSubscription)
             }

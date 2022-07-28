@@ -15,7 +15,7 @@ final class StudyViewModel {
     lazy var activity = RxActivityIndicator()
     
     private lazy var courseManager = CoursesManagerCore()
-    private lazy var sessionManager = SessionManagerCore()
+    private lazy var sessionManager = SessionManager()
     private lazy var questionManager = QuestionManager()
     private lazy var statsManager = StatsManagerCore()
     private lazy var flashcardsManager = FlashcardsManagerCore()
@@ -269,7 +269,7 @@ private extension StudyViewModel {
                     return .never()
                 }
                 
-                let activeSubscription = this.sessionManager.getSession()?.activeSubscription ?? false
+                let activeSubscription = this.sessionManager.hasActiveSubscriptions()
                 
                 return .just(activeSubscription)
             }

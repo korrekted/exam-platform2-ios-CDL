@@ -16,11 +16,14 @@ final class SplashSDKInitialize {
     
     private var handler: ((Progress) -> Void)?
     
+    private lazy var disposeBag = DisposeBag()
     private var combineDisposable: Disposable?
     
     private lazy var refreshRushProviderTrigger = PublishRelay<Void>()
     
-    private lazy var initializeCompleted = makeRushSDKComplete()
+    private lazy var validationObserver = SplashReceiptValidationObserver()
+    
+    private lazy var initializeCompleted = combine()
     
     private weak var vc: UIViewController?
     private let rushSDKSignal: Signal<Bool>
@@ -58,6 +61,14 @@ extension SplashSDKInitialize {
 
 // MARK: Private
 private extension SplashSDKInitialize {
+    func combine() -> Signal<Bool> {
+        let rushSDKComplete = makeRushSDKComplete()
+        let validationObserve = makeValidationObserve()
+        
+        return Signal.combineLatest(validationObserve, rushSDKComplete)
+            .map { $0 && $1 }
+    }
+    
     func makeRushSDKComplete() -> Signal<Bool> {
         let refresh = refreshRushProviderTrigger
             .flatMapLatest { _ -> Single<Bool> in
@@ -78,6 +89,22 @@ private extension SplashSDKInitialize {
             .asSignal(onErrorJustReturn: false)
         
         return Signal.merge(rushSDKSignal, refresh)
+    }
+    
+    func makeValidationObserve() -> Signal<Bool> {
+        Single<Bool>
+            .create { [weak self] event in
+                guard let self = self else {
+                    return Disposables.create()
+                }
+                
+                self.validationObserver.observe {
+                    event(.success(true))
+                }
+                
+                return Disposables.create()
+            }
+            .asSignal(onErrorJustReturn: false)
     }
     
     func openError() {

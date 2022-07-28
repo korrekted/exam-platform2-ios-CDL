@@ -13,7 +13,7 @@ final class StatsViewModel {
     
     private lazy var statsManager = StatsManagerCore()
     private lazy var courseManager = CoursesManagerCore()
-    private lazy var sessionManager = SessionManagerCore()
+    private lazy var sessionManager = SessionManager()
     private lazy var progressRelay = BehaviorRelay<Int>(value: 0)
     private lazy var activeSubscription = makeActiveSubscription()
     
@@ -98,7 +98,7 @@ private extension StatsViewModel {
                     return .never()
                 }
                 
-                let activeSubscription = this.sessionManager.getSession()?.activeSubscription ?? false
+                let activeSubscription = this.sessionManager.hasActiveSubscriptions()
                 
                 return .just(activeSubscription)
             }

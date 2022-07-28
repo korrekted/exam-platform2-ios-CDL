@@ -43,8 +43,7 @@ final class SettingsViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        SDKStorage.shared
-            .amplitudeManager
+        AmplitudeManager.shared
             .logEvent(name: "Settings Screen", parameters: [:])
         
         viewModel
@@ -95,34 +94,29 @@ private extension SettingsViewController {
     func tapped(_ tapped: SettingsTableView.Tapped) {
         switch tapped {
         case .unlock:
-            UIApplication.shared.keyWindow?.rootViewController?.present(PaygateViewController.make(), animated: true)
+            UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController?.present(PaygateViewController.make(), animated: true)
             
-            SDKStorage.shared
-                .amplitudeManager
+            AmplitudeManager.shared
                 .logEvent(name: "Settings Tap", parameters: ["what": "unlock premium"])
         case .rateUs:
             open(path: GlobalDefinitions.appStoreUrl)
             
-            SDKStorage.shared
-                .amplitudeManager
+            AmplitudeManager.shared
                 .logEvent(name: "Settings Tap", parameters: ["what": "rate us"])
         case .contactUs:
             open(path: GlobalDefinitions.contactUsUrl)
             
-            SDKStorage.shared
-                .amplitudeManager
+            AmplitudeManager.shared
                 .logEvent(name: "Settings Tap", parameters: ["what": "contact us"])
         case .termsOfUse:
             open(path: GlobalDefinitions.termsOfServiceUrl)
             
-            SDKStorage.shared
-                .amplitudeManager
+            AmplitudeManager.shared
                 .logEvent(name: "Settings Tap", parameters: ["what": "terms of use"])
         case .privacyPoliicy:
             open(path: GlobalDefinitions.privacyPolicyUrl)
             
-            SDKStorage.shared
-                .amplitudeManager
+            AmplitudeManager.shared
                 .logEvent(name: "Settings Tap", parameters: ["what": "privacy policy"])
         case .locale:
             screenOpener.open(screen: .locale, from: self)

@@ -42,7 +42,7 @@ final class SITestViewModel {
     
     private lazy var questionManager = QuestionManager()
     private lazy var profileManager = ProfileManagerCore()
-    private lazy var sessionManager = SessionManagerCore()
+    private lazy var sessionManager = SessionManager()
     
     private let answeredQuestionId = PublishRelay<Int>()
     

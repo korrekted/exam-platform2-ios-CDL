@@ -16,7 +16,7 @@ final class CourseDetailsViewModel {
     let course = BehaviorRelay<Course?>(value: nil)
     
     private lazy var questionManager = QuestionManager()
-    private lazy var sessionManager = SessionManagerCore()
+    private lazy var sessionManager = SessionManager()
     
     lazy var passRate = course.asDriver().compactMap { $0?.progress }
     lazy var courseId = course.asDriver().compactMap { $0?.id }
@@ -107,7 +107,7 @@ extension CourseDetailsViewModel {
                     return .never()
                 }
                 
-                let activeSubscription = this.sessionManager.getSession()?.activeSubscription ?? false
+                let activeSubscription = this.sessionManager.hasActiveSubscriptions()
                 
                 return .just(activeSubscription)
             }

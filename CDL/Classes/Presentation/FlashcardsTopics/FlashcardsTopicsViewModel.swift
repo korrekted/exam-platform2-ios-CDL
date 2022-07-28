@@ -19,7 +19,7 @@ final class FlashcardsTopicsViewModel {
     lazy var activity = RxActivityIndicator()
     
     private lazy var flashcardsManager = FlashcardsManagerCore()
-    private lazy var sessionManager = SessionManagerCore()
+    private lazy var sessionManager = SessionManager()
     
     private lazy var observableRetrySingle = ObservableRetrySingle()
 }
@@ -70,7 +70,7 @@ private extension FlashcardsTopicsViewModel {
                     return .never()
                 }
                 
-                let activeSubscription = this.sessionManager.getSession()?.activeSubscription ?? false
+                let activeSubscription = this.sessionManager.hasActiveSubscriptions()
                 
                 return .just(activeSubscription)
             }

@@ -1,31 +1,31 @@
 PODS:
-  - Alamofire (5.6.1)
+  - Alamofire (5.6.2)
   - Amplitude-iOS (4.10.0)
-  - AppsFlyerFramework (6.6.1):
-    - AppsFlyerFramework/Main (= 6.6.1)
-  - AppsFlyerFramework/Main (6.6.1)
-  - Branch (1.42.0)
-  - FBAEMKit (13.2.0):
-    - FBSDKCoreKit_Basics (= 13.2.0)
-  - FBSDKCoreKit (13.2.0):
-    - FBAEMKit (= 13.2.0)
-    - FBSDKCoreKit_Basics (= 13.2.0)
-  - FBSDKCoreKit_Basics (13.2.0)
-  - Firebase/Analytics (9.1.0):
+  - AppsFlyerFramework (6.8.0):
+    - AppsFlyerFramework/Main (= 6.8.0)
+  - AppsFlyerFramework/Main (6.8.0)
+  - Branch (1.43.1)
+  - FBAEMKit (14.1.0):
+    - FBSDKCoreKit_Basics (= 14.1.0)
+  - FBSDKCoreKit (14.1.0):
+    - FBAEMKit (= 14.1.0)
+    - FBSDKCoreKit_Basics (= 14.1.0)
+  - FBSDKCoreKit_Basics (14.1.0)
+  - Firebase/Analytics (9.3.0):
     - Firebase/Core
-  - Firebase/Core (9.1.0):
+  - Firebase/Core (9.3.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (~> 9.1.0)
-  - Firebase/CoreOnly (9.1.0):
-    - FirebaseCore (= 9.1.0)
-  - Firebase/Crashlytics (9.1.0):
+    - FirebaseAnalytics (~> 9.3.0)
+  - Firebase/CoreOnly (9.3.0):
+    - FirebaseCore (= 9.3.0)
+  - Firebase/Crashlytics (9.3.0):
     - Firebase/CoreOnly
-    - FirebaseCrashlytics (~> 9.1.0)
-  - Firebase/Messaging (9.1.0):
+    - FirebaseCrashlytics (~> 9.3.0)
+  - Firebase/Messaging (9.3.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 9.1.0)
-  - FirebaseAnalytics (9.1.0):
-    - FirebaseAnalytics/AdIdSupport (= 9.1.0)
+    - FirebaseMessaging (~> 9.3.0)
+  - FirebaseAnalytics (9.3.0):
+    - FirebaseAnalytics/AdIdSupport (= 9.3.0)
     - FirebaseCore (~> 9.0)
     - FirebaseInstallations (~> 9.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
@@ -33,40 +33,40 @@ PODS:
     - GoogleUtilities/Network (~> 7.7)
     - "GoogleUtilities/NSData+zlib (~> 7.7)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - FirebaseAnalytics/AdIdSupport (9.1.0):
+  - FirebaseAnalytics/AdIdSupport (9.3.0):
     - FirebaseCore (~> 9.0)
     - FirebaseInstallations (~> 9.0)
-    - GoogleAppMeasurement (= 9.1.0)
+    - GoogleAppMeasurement (= 9.3.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
     - GoogleUtilities/MethodSwizzler (~> 7.7)
     - GoogleUtilities/Network (~> 7.7)
     - "GoogleUtilities/NSData+zlib (~> 7.7)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - FirebaseCore (9.1.0):
+  - FirebaseCore (9.3.0):
     - FirebaseCoreDiagnostics (~> 9.0)
     - FirebaseCoreInternal (~> 9.0)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/Logger (~> 7.7)
-  - FirebaseCoreDiagnostics (9.1.0):
+  - FirebaseCoreDiagnostics (9.3.0):
     - GoogleDataTransport (< 10.0.0, >= 9.1.4)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/Logger (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - FirebaseCoreInternal (9.1.0):
+  - FirebaseCoreInternal (9.3.0):
     - "GoogleUtilities/NSData+zlib (~> 7.7)"
-  - FirebaseCrashlytics (9.1.0):
+  - FirebaseCrashlytics (9.3.0):
     - FirebaseCore (~> 9.0)
     - FirebaseInstallations (~> 9.0)
     - GoogleDataTransport (< 10.0.0, >= 9.1.4)
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesObjC (~> 2.1)
-  - FirebaseInstallations (9.1.0):
+  - FirebaseInstallations (9.3.0):
     - FirebaseCore (~> 9.0)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/UserDefaults (~> 7.7)
     - PromisesObjC (~> 2.1)
-  - FirebaseMessaging (9.1.0):
+  - FirebaseMessaging (9.3.0):
     - FirebaseCore (~> 9.0)
     - FirebaseInstallations (~> 9.0)
     - GoogleDataTransport (< 10.0.0, >= 9.1.4)
@@ -75,27 +75,27 @@ PODS:
     - GoogleUtilities/Reachability (~> 7.7)
     - GoogleUtilities/UserDefaults (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - GoogleAppMeasurement (9.1.0):
-    - GoogleAppMeasurement/AdIdSupport (= 9.1.0)
+  - GoogleAppMeasurement (9.3.0):
+    - GoogleAppMeasurement/AdIdSupport (= 9.3.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
     - GoogleUtilities/MethodSwizzler (~> 7.7)
     - GoogleUtilities/Network (~> 7.7)
     - "GoogleUtilities/NSData+zlib (~> 7.7)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - GoogleAppMeasurement/AdIdSupport (9.1.0):
-    - GoogleAppMeasurement/WithoutAdIdSupport (= 9.1.0)
+  - GoogleAppMeasurement/AdIdSupport (9.3.0):
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 9.3.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
     - GoogleUtilities/MethodSwizzler (~> 7.7)
     - GoogleUtilities/Network (~> 7.7)
     - "GoogleUtilities/NSData+zlib (~> 7.7)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - GoogleAppMeasurement/WithoutAdIdSupport (9.1.0):
+  - GoogleAppMeasurement/WithoutAdIdSupport (9.3.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
     - GoogleUtilities/MethodSwizzler (~> 7.7)
     - GoogleUtilities/Network (~> 7.7)
     - "GoogleUtilities/NSData+zlib (~> 7.7)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - GoogleDataTransport (9.1.4):
+  - GoogleDataTransport (9.2.0):
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
@@ -118,8 +118,8 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.7.0):
     - GoogleUtilities/Logger
-  - Kingfisher (7.2.2)
-  - lottie-ios (3.3.0)
+  - Kingfisher (7.3.0)
+  - lottie-ios (3.4.1)
   - MarqueeLabel (4.0.5)
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
@@ -129,8 +129,9 @@ PODS:
   - NotificationBannerSwift (3.1.0):
     - MarqueeLabel (~> 4.0.5)
     - SnapKit (~> 5.0.1)
-  - PromisesObjC (2.1.0)
-  - RushSDK (2.11.4):
+  - OtterScaleiOS (1.17)
+  - PromisesObjC (2.1.1)
+  - RushSDK (2.12.1):
     - Alamofire
     - Amplitude-iOS
     - AppsFlyerFramework
@@ -155,6 +156,7 @@ DEPENDENCIES:
   - Kingfisher
   - lottie-ios
   - NotificationBannerSwift
+  - OtterScaleiOS (from `https://github.com/AgentChe/OtterScaleiOS.git`)
   - RushSDK (from `https://github.com/AgentChe/RushSDK.git`)
 
 SPEC REPOS:
@@ -190,46 +192,52 @@ SPEC REPOS:
     - SwiftyStoreKit
 
 EXTERNAL SOURCES:
+  OtterScaleiOS:
+    :git: https://github.com/AgentChe/OtterScaleiOS.git
   RushSDK:
     :git: https://github.com/AgentChe/RushSDK.git
 
 CHECKOUT OPTIONS:
+  OtterScaleiOS:
+    :commit: 5fccf8108b60d8528c72be55e3e05bc00d4093e1
+    :git: https://github.com/AgentChe/OtterScaleiOS.git
   RushSDK:
-    :commit: d38fba713d12d6972786e91a480529fbac6e103e
+    :commit: 687506667844921a08a5f34c8e7cc1446a75c232
     :git: https://github.com/AgentChe/RushSDK.git
 
 SPEC CHECKSUMS:
-  Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
+  Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
   Amplitude-iOS: 7d8cdc3408ba35c2e68368fc7c692cd104606b94
-  AppsFlyerFramework: 5e4b385a27dc6179e132b1617f76809412eb2f88
-  Branch: a6f1d597dc7c027360f386d05e8d109043b207d8
-  FBAEMKit: c2b2895363b7e57192013d1dc49fdf498b28624c
-  FBSDKCoreKit: 58139803d861e72c7661dc875611a759352a55ac
-  FBSDKCoreKit_Basics: 1ffc68326a5ece051d85574f02a0adcf27c2a5f2
-  Firebase: 91c243d75573ac6e7c9735ec859b72bffb61347d
-  FirebaseAnalytics: bf11064790ac96804df1df9ddc0ae45af950d9fc
-  FirebaseCore: b7bfc258e996eada23b3666bd6b9a22ca092acb8
-  FirebaseCoreDiagnostics: 2dabba3412b23b524823325739f45e520f67d1e7
-  FirebaseCoreInternal: f3c838ae0b41cd840bbf34f90debfede78d352e5
-  FirebaseCrashlytics: 8e21736dcf15d814b79229eb7e79ba3a5eec5f30
-  FirebaseInstallations: a91c74276b544524ce144c8315d8cdbce2dbe30b
-  FirebaseMessaging: 0bf5caa621182ccc66ba3be3b15e68d800d98e9f
-  GoogleAppMeasurement: 8ecc717f2abe3f9ee95a5d38db08827852894acc
-  GoogleDataTransport: 5fffe35792f8b96ec8d6775f5eccd83c998d5a3b
+  AppsFlyerFramework: a8de532f81b1d3c1dfc451f0ecded91ebb6a0e47
+  Branch: b5b57fc2e6f098916fd2ea26c9b66f52ffe7e293
+  FBAEMKit: a899515e45476027f73aef377b5cffadcd56ca3a
+  FBSDKCoreKit: 24f8bc8d3b5b2a8c5c656a1329492a12e8efa792
+  FBSDKCoreKit_Basics: 6e578c9bdc7aa1365dbbbde633c9ebb536bcaa98
+  Firebase: ef75abb1cdbc746d5a38f4e26c422c807b189b8c
+  FirebaseAnalytics: bf46f5163f44097ce2c789de0b3e6f87f1da834a
+  FirebaseCore: c088995ece701a021a48a1348ea0174877de2a6a
+  FirebaseCoreDiagnostics: 060eb57cc56dfaf40b1b1b5874a5c17c41ce79f8
+  FirebaseCoreInternal: 635d1c9a612a6502b6377a0c92af83758076ffff
+  FirebaseCrashlytics: 65a5b349e664e986e6c7486b0a9b5ed8c11d0491
+  FirebaseInstallations: 54b40022cb06e462740c9f2b9fbe38b5e78a825a
+  FirebaseMessaging: 2f6e38b6133059eb796ec224104f09379298a8c3
+  GoogleAppMeasurement: b907bdad775b6975a8108762345b2cfbf1a93c37
+  GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
-  Kingfisher: 184d4d1a8c36666e663caf8e08abe87898595c53
-  lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
+  Kingfisher: cdb1189a9223b1bc028816bd47c8b8101a58831c
+  lottie-ios: 016449b5d8be0c3dcbcfa0a9988469999cd04c5d
   MarqueeLabel: 00cc0bcd087111dca575878b3531af980559707d
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   NotificationBannerSwift: 49912a48b37e2f55d1cef4e8a38f15394f66a70a
-  PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
-  RushSDK: 2fae01e4aec3a65d856f94a859b00dad1435df8c
+  OtterScaleiOS: ebfe203a01ec56882e660f0be43b959ce8bb65fb
+  PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
+  RushSDK: ca616376865570bae125331c2f5280267dd2acb4
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
 
-PODFILE CHECKSUM: 79431ba4e0c0f93f1d26e4318bd16fa1dd99782d
+PODFILE CHECKSUM: 75253a71e1214147e843ccff3be3b7d0bbf8b5f6
 
 COCOAPODS: 1.11.2

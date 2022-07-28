@@ -16,9 +16,9 @@ final class SplashViewController: UIViewController {
     
     private lazy var viewModel = SplashViewModel()
     
-    private lazy var sdkInitialize = SplashSDKInitialize(vc: self, rushSDKSignal: generateStep)
-    
     private let generateStep: Signal<Bool>
+    
+    private lazy var sdkInitialize = SplashSDKInitialize(vc: self, rushSDKSignal: generateStep)
     
     private init(generateStep: Signal<Bool>) {
         self.generateStep = generateStep

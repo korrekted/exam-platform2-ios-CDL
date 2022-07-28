@@ -45,4 +45,7 @@ protocol ProfileManager {
                    notificationKey: String?,
                    testMode: Int?,
                    topicsIds: [Int]?) -> Single<Void>
+    
+    func syncTokens(oldToken: String, newToken: String) -> Single<Void>
+    func login(userToken: String) -> Single<Void>
 }
