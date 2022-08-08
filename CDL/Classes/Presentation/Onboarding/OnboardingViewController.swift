@@ -98,6 +98,6 @@ private extension OnboardingViewController {
     }
     
     func goToCourse() {
-        UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController = CourseViewController.make(needRequestReview: true)
+        UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController = CourseViewController.make()
     }
 }
