@@ -25,7 +25,7 @@ final class TestStatsViewModel {
     private lazy var stats = makeStats()
     
     private lazy var testStatsManager = TestStatsManagerCore()
-    private lazy var courseManager = CoursesManagerCore()
+    private lazy var profileManager = ProfileManager()
     private lazy var tryAgainIsHiddenRelay = BehaviorRelay<Bool>(value: true)
     
     private lazy var observableRetrySingle = ObservableRetrySingle()
@@ -34,8 +34,8 @@ final class TestStatsViewModel {
 // MARK: Private
 private extension TestStatsViewModel {
     func makeCourseName() -> Driver<String> {
-        courseManager
-            .rxGetSelectedCourse()
+        profileManager
+            .obtainSelectedCourse(forceUpdate: false)
             .compactMap { $0?.name }
             .asDriver(onErrorDriveWith: .empty())
     }

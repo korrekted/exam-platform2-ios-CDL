@@ -14,7 +14,7 @@ final class SSlideModeView: SSlideView {
     lazy var modesView = makeModesView()
     lazy var button = makeButton()
     
-    private lazy var manager = ProfileManagerCore()
+    private lazy var manager = ProfileManager()
     
     private lazy var activity = RxActivityIndicator()
     
@@ -72,17 +72,17 @@ private extension SSlideModeView {
         modesView.setup(elements: [
             .init(title: "Onboarding.Mode.Cell2.Title".localized,
                   subtitle: "Onboarding.Mode.Cell2.Subtitle".localized,
-                  code: 0,
+                  code: TestMode.fullComplect,
                   isSelected: true),
             
             .init(title: "Onboarding.Mode.Cell1.Title".localized,
                   subtitle: "Onboarding.Mode.Cell1.Subtitle".localized,
-                  code: 2,
+                  code: TestMode.noExplanations,
                   isSelected: false),
             
             .init(title: "Onboarding.Mode.Cell3.Title".localized,
                   subtitle: "Onboarding.Mode.Cell3.Subtitle".localized,
-                  code: 1,
+                  code: TestMode.onAnExam,
                   isSelected: false)
         ], isNeedScroll: false)
     }

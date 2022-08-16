@@ -11,17 +11,17 @@ import RxCocoa
 final class StatsViewModel {
     var tryAgain: ((Error) -> (Observable<Void>))?
     
-    private lazy var statsManager = StatsManagerCore()
-    private lazy var courseManager = CoursesManagerCore()
-    private lazy var sessionManager = SessionManager()
-    private lazy var progressRelay = BehaviorRelay<Int>(value: 0)
-    private lazy var activeSubscription = makeActiveSubscription()
-    
     lazy var courseName = makeCourseName()
     lazy var elements = makeElements()
     lazy var passRate = progressRelay.asDriver()
-    
     lazy var activity = RxActivityIndicator()
+    
+    private lazy var progressRelay = BehaviorRelay<Int>(value: 0)
+    private lazy var activeSubscription = makeActiveSubscription()
+    
+    private lazy var statsManager = StatsManagerCore()
+    private lazy var profileManager = ProfileManager()
+    private lazy var sessionManager = SessionManager()
     
     private lazy var observableRetrySingle = ObservableRetrySingle()
 }
@@ -29,17 +29,13 @@ final class StatsViewModel {
 // MARK: Private
 private extension StatsViewModel {
     func makeCourseName() -> Driver<String> {
-        courseManager
-            .rxGetSelectedCourse()
+        profileManager
+            .obtainSelectedCourse(forceUpdate: false)
             .compactMap { $0?.name }
             .asDriver(onErrorDriveWith: .empty())
     }
     
     func makeElements() -> Driver<[StatsCellType]> {
-        guard let courseId = courseManager.getSelectedCourse()?.id else {
-            return .just([])
-        }
-        
         let elements = Signal
             .merge(
                 QuestionMediator.shared.testPassed,
@@ -54,8 +50,16 @@ private extension StatsViewModel {
                 }
                 
                 func source() -> Single<[StatsCellType]> {
-                    self.statsManager
-                        .retrieveStats(courseId: courseId)
+                    self.profileManager
+                        .obtainSelectedCourse(forceUpdate: false)
+                        .flatMap { selectedCourse -> Single<Stats?> in
+                            guard let courseId = selectedCourse?.id else {
+                                return .just(nil)
+                            }
+                            
+                            return self.statsManager
+                                .retrieveStats(courseId: courseId)
+                        }
                         .map { [weak self] stats -> [StatsCellType] in
                             guard let stats = stats else { return [] }
                             self?.progressRelay.accept(stats.passRate)

@@ -32,10 +32,10 @@ extension TopicsCollectionCell {
         let subtitleAttr = TextAttributes().font(Fonts.Lato.regular(size: 18.scale)).textColor(textColor)
         
         let attrs = NSMutableAttributedString()
-        attrs.append((element.topic.title + "\n").attributed(with: titleAttr))
+        attrs.append((element.course.name + "\n").attributed(with: titleAttr))
         
-        if element.topic.isMain {
-            attrs.append(element.topic.description.attributed(with: subtitleAttr))
+        if element.course.isMain {
+            attrs.append(element.course.subTitle.attributed(with: subtitleAttr))
         }
         
         label.attributedText = attrs

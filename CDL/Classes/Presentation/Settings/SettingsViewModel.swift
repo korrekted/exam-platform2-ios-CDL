@@ -13,9 +13,8 @@ final class SettingsViewModel {
     
     lazy var activity = RxActivityIndicator()
     
-    private lazy var coursesManager = CoursesManagerCore()
     private lazy var sessionManager = SessionManager()
-    private lazy var profileManager = ProfileManagerCore()
+    private lazy var profileManager = ProfileManager()
     
     lazy var sections = makeSections()
     
@@ -63,7 +62,7 @@ private extension SettingsViewModel {
     func getProfieLocale() -> Driver<ProfileLocale?> {
         func source() -> Single<ProfileLocale?> {
             profileManager
-                .obtainProfileLocale()
+                .obtainLocale(forceUpdate: false)
         }
         
         func trigger(error: Error) -> Observable<Void> {
@@ -81,7 +80,7 @@ private extension SettingsViewModel {
             .asDriver(onErrorJustReturn: nil)
         
         let updated = ProfileMediator.shared
-            .rxUpdatedProfileLocale
+            .changedProfileLocale
             .asDriver(onErrorDriveWith: .never())
             .map { locale -> ProfileLocale? in locale }
         
@@ -91,7 +90,7 @@ private extension SettingsViewModel {
     func getTestMode() -> Driver<TestMode?> {
         func source() -> Single<TestMode?> {
             profileManager
-                .obtainTestMode()
+                .obtainTestMode(forceUpdate: false)
         }
         
         func trigger(error: Error) -> Observable<Void> {
@@ -109,7 +108,7 @@ private extension SettingsViewModel {
             .asDriver(onErrorJustReturn: nil)
         
         let updated = ProfileMediator.shared
-            .rxUpdatedTestMode
+            .changedTestMode
             .asDriver(onErrorDriveWith: .never())
             .map { locale -> TestMode? in locale }
         
@@ -118,7 +117,7 @@ private extension SettingsViewModel {
     
     func getCountries() -> Driver<[Country]> {
         profileManager
-            .retrieveCountries(forceUpdate: false)
+            .obtainCountries(forceUpdate: false)
             .asDriver(onErrorJustReturn: [])
     }
     
@@ -145,8 +144,8 @@ private extension SettingsViewModel {
     }
     
     func getCourse() -> Driver<Course> {
-        coursesManager
-            .rxGetSelectedCourse()
+        profileManager
+            .obtainSelectedCourse(forceUpdate: false)
             .compactMap { $0 }
             .asDriver(onErrorDriveWith: .empty())
     }

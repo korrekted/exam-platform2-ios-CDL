@@ -1,13 +1,13 @@
 //
-//  GetLocaleRequest.swift
+//  GetProfileRequest.swift
 //  CDL
 //
-//  Created by Andrey Chernyshev on 26.05.2021.
+//  Created by Андрей Чернышев on 16.08.2022.
 //
 
 import Alamofire
 
-struct GetLocaleRequest: APIRequestBody {
+struct GetProfileRequest: APIRequestBody {
     let userToken: String
     
     var url: String {

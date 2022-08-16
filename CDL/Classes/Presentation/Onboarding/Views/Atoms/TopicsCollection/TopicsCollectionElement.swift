@@ -8,11 +8,11 @@
 import UIKit
 
 final class TopicsCollectionElement {
-    let topic: SpecificTopic
+    let course: Course
     var isSelected: Bool
     
-    init(topic: SpecificTopic, isSelected: Bool) {
-        self.topic = topic
+    init(course: Course, isSelected: Bool) {
+        self.course = course
         self.isSelected = isSelected
     }
 }

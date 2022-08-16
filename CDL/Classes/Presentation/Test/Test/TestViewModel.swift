@@ -49,7 +49,7 @@ final class TestViewModel {
     private let testType: BehaviorRelay<TestType>
     
     private lazy var questionManager = QuestionManager()
-    private lazy var profileManager = ProfileManagerCore()
+    private lazy var profileManager = ProfileManager()
     private lazy var sessionManager = SessionManager()
     
     private let answeredQuestionId = PublishRelay<Int>()
@@ -478,7 +478,7 @@ private extension TestViewModel {
     
     func makeTestMode() -> Driver<TestMode?> {
         profileManager
-            .obtainTestMode()
+            .obtainTestMode(forceUpdate: false)
             .asDriver(onErrorJustReturn: nil)
     }
     

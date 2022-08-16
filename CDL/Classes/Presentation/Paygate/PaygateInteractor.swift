@@ -22,7 +22,7 @@ final class PaygateInteractor {
     
     private lazy var iapManager = IAPManager()
     private lazy var sessionManager = SessionManager()
-    private lazy var profileManager = ProfileManagerCore()
+    private lazy var profileManager = ProfileManager()
     private lazy var validationObserver = PurchaseValidationObserver.shared
     
     private lazy var disposables = [Disposable]()

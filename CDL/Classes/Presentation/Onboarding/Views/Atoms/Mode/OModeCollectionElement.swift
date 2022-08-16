@@ -8,12 +8,12 @@
 final class OModeCollectionElement {
     let title: String
     let subtitle: String
-    let code: Int
+    let code: TestMode
     var isSelected: Bool
     
     init(title: String,
          subtitle: String,
-         code: Int,
+         code: TestMode,
          isSelected: Bool) {
         self.title = title
         self.subtitle = subtitle

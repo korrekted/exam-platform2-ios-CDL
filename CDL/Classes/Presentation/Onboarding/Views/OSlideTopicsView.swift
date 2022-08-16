@@ -17,7 +17,7 @@ final class OSlideTopicsView: OSlideView {
     lazy var button = makeButton()
     lazy var preloader = makePreloader()
     
-    private lazy var manager = ProfileManagerCore()
+    private lazy var manager = CoursesManager()
     
     private lazy var activity = RxActivityIndicator()
     
@@ -45,13 +45,11 @@ final class OSlideTopicsView: OSlideView {
                     return .never()
                 }
                 
-                return Single
-                    .zip(
-                        self.manager.obtainSpecificTopics(),
-                        self.manager.obtainSelectedSpecificTopics()
-                    ) { topics, selectedTopics -> [TopicsCollectionElement] in
-                        topics.map { topic -> TopicsCollectionElement in
-                            TopicsCollectionElement(topic: topic, isSelected: selectedTopics.contains(topic))
+                return self.manager
+                    .obtainCourses()
+                    .map { courses -> [TopicsCollectionElement] in
+                        courses.map { course -> TopicsCollectionElement in
+                            TopicsCollectionElement(course: course, isSelected: course.selected)
                         }
                     }
                     .catchAndReturn([])
@@ -85,30 +83,21 @@ extension OSlideTopicsView: TopicsCollectionViewDelegate {
 private extension OSlideTopicsView {
     func initialize() {
         button.rx.tap
-            .map { [weak self] _ -> [SpecificTopic] in
+            .map { [weak self] _ -> [Course] in
                 guard let self = self else {
                     return []
                 }
                 
                 return self.topicsView.elements
                     .filter { $0.isSelected }
-                    .map { $0.topic }
+                    .map { $0.course }
             }
-            .flatMapLatest { [weak self] topics -> Single<[SpecificTopic]> in
-                guard let self = self else {
-                    return .never()
-                }
-                
-                return self.manager
-                    .saveSelected(specificTopics: topics)
-                    .map { topics }
-            }
-            .subscribe(onNext: { [weak self] topics in
+            .subscribe(onNext: { [weak self] courses in
                 guard let self = self else {
                     return
                 }
                 
-                self.scope.topicsIds = topics.map { $0.id }
+                self.scope.selectedCourses = courses
                 
                 self.onNext()
             })

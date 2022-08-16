@@ -18,7 +18,7 @@ final class OSlideLocaleView: OSlideView {
     lazy var stateView = LocaleStateView()
     lazy var preloader = makePreloader()
     
-    private lazy var manager = ProfileManagerCore()
+    private lazy var manager = ProfileManager()
     
     private lazy var activity = RxActivityIndicator()
     private lazy var disposeBag = DisposeBag()
@@ -78,7 +78,7 @@ private extension OSlideLocaleView {
                                         height: UIScreen.main.bounds.height)
         
         manager
-            .retrieveCountries(forceUpdate: false)
+            .obtainCountries(forceUpdate: false)
             .asDriver(onErrorJustReturn: [])
             .drive(onNext: { [weak self] countries in
                 self?.countries = countries

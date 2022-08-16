@@ -15,7 +15,8 @@ final class SSlideTopicsView: SSlideView {
     lazy var button = makeButton()
     lazy var preloader = makePreloader()
     
-    private lazy var manager = ProfileManagerCore()
+    private lazy var coursesManager = CoursesManager()
+    private lazy var profileManager = ProfileManager()
     
     private lazy var activity = RxActivityIndicator()
     
@@ -37,13 +38,11 @@ final class SSlideTopicsView: SSlideView {
     
     override func moveToThis() {
         func source() -> Single<[TopicsCollectionElement]> {
-            Single
-                .zip(
-                    manager.obtainSpecificTopics(),
-                    manager.obtainSelectedSpecificTopics()
-                ) { topics, selectedTopics -> [TopicsCollectionElement] in
-                    topics.map { topic -> TopicsCollectionElement in
-                        TopicsCollectionElement(topic: topic, isSelected: selectedTopics.contains(topic))
+            coursesManager
+                .obtainCourses()
+                .map { courses -> [TopicsCollectionElement] in
+                    courses.map { course -> TopicsCollectionElement in
+                        TopicsCollectionElement(course: course, isSelected: course.selected)
                     }
                 }
         }
@@ -75,20 +74,27 @@ extension SSlideTopicsView: TopicsCollectionViewDelegate {
 private extension SSlideTopicsView {
     func initialize() {
         button.rx.tap
-            .flatMapLatest { [weak self] _ -> Single<Void> in
+            .flatMapLatest { [weak self] _ -> Observable<Void> in
                 guard let self = self else {
                     return .never()
                 }
                 
-                let selectedTopics = self.topicsView.elements
+                let selectedCoursesIds = self.topicsView.elements
                     .filter { $0.isSelected }
-                    .map { $0.topic }
+                    .map { $0.course.id }
                 
-                return self.manager
-                    .set(topicsIds: selectedTopics.map { $0.id })
-                    .flatMap {
-                        self.manager.saveSelected(specificTopics: selectedTopics)
-                    }
+                func source() -> Single<Void> {
+                    self.profileManager
+                        .set(selectedCoursesIds: selectedCoursesIds)
+                }
+                
+                func trigger(error: Error) -> Observable<Void> {
+                    self.openError()
+                }
+                
+                return self.observableRetrySingle
+                    .retry(source: { source() },
+                           trigger: { trigger(error: $0) })
             }
             .asDriver(onErrorDriveWith: .never())
             .drive(onNext: { [weak self] in
