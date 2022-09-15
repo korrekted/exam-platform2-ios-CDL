@@ -8,6 +8,7 @@
 import RxSwift
 import RxCocoa
 import OtterScaleiOS
+import RushSDK
 
 final class PaygateInteractor {
     enum Action {
@@ -23,7 +24,6 @@ final class PaygateInteractor {
     private lazy var iapManager = IAPManager()
     private lazy var sessionManager = SessionManager()
     private lazy var profileManager = ProfileManager()
-    private lazy var validationObserver = PurchaseValidationObserver.shared
     
     private lazy var disposables = [Disposable]()
     
@@ -98,8 +98,19 @@ extension PaygateInteractor: OtterScaleReceiptValidationDelegate {
             self.sessionManager.store(session: session)
             
             let hasActiveSubscriptions = self.sessionManager.hasActiveSubscriptions()
-            let result = PurchaseActionResult.completed(hasActiveSubscriptions)
-            self.callback.accept(result)
+            let callbackResult = PurchaseActionResult.completed(hasActiveSubscriptions)
+            self.callback.accept(callbackResult)
+            
+            // TODO: Удалить при полном отказе от RushSDK
+            ////
+            let sdkResponse = ReceiptValidateResponse(userId: otterScaleID,
+                                                      userToken: otterScaleID,
+                                                      activeSubscription: self.sessionManager.hasActiveSubscriptions(),
+                                                      accessValidTill: result?.accessValidTill ?? "",
+                                                      usedProducts: [],
+                                                      userSince: result?.userSince ?? "")
+            SDKStorage.shared.purchaseMediator.notifyAboutValidateReceiptCompleted(with: sdkResponse)
+            ////
         })
         
         disposables.append(disposable)
@@ -117,6 +128,19 @@ private extension PaygateInteractor {
                 }
                 
                 self.callback.accept(.cancelled)
+                
+                // TODO: Удалить при полном отказе от RushSDK
+                ////
+                func mapToSDK(result: IAPActionResult) -> RushSDK.IAPActionResult {
+                    switch result {
+                    case .cancelled:
+                        return .cancelled
+                    case .completed(let value):
+                        return .completed(value)
+                    }
+                }
+                SDKStorage.shared.iapMediator.notifyAboutBiedProduct(with: mapToSDK(result: result))
+                ////
             })
     }
     

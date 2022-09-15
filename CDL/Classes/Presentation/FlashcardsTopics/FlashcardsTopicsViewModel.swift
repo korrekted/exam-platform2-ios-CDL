@@ -58,24 +58,10 @@ private extension FlashcardsTopicsViewModel {
     }
     
     func makeActiveSubscription() -> Driver<Bool> {
-        let updated = SDKStorage.shared
-            .purchaseMediator
-            .rxPurchaseMediatorDidValidateReceipt
-            .compactMap { $0?.activeSubscription }
+        PurchaseValidationObserver.shared
+            .didValidatedWithActiveSubscription
+            .map { SessionManager().hasActiveSubscriptions() }
             .asDriver(onErrorJustReturn: false)
-        
-        let initial = Driver<Bool>
-            .deferred { [weak self] in
-                guard let this = self else {
-                    return .never()
-                }
-                
-                let activeSubscription = this.sessionManager.hasActiveSubscriptions()
-                
-                return .just(activeSubscription)
-            }
-        
-        return Driver
-            .merge(initial, updated)
+            .startWith(SessionManager().hasActiveSubscriptions())
     }
 }

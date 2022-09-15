@@ -94,25 +94,10 @@ extension CourseDetailsViewModel {
     }
     
     func makeActiveSubscription() -> Observable<Bool> {
-        let updated = SDKStorage.shared
-            .purchaseMediator
-            .rxPurchaseMediatorDidValidateReceipt
-            .compactMap { $0?.activeSubscription }
+        PurchaseValidationObserver.shared
+            .didValidatedWithActiveSubscription
+            .map { SessionManager().hasActiveSubscriptions() }
+            .startWith(SessionManager().hasActiveSubscriptions())
             .asObservable()
-            .catchAndReturn(false)
-        
-        let initial = Observable<Bool>
-            .deferred { [weak self] in
-                guard let this = self else {
-                    return .never()
-                }
-                
-                let activeSubscription = this.sessionManager.hasActiveSubscriptions()
-                
-                return .just(activeSubscription)
-            }
-        
-        return Observable
-            .merge(initial, updated)
     }
 }
