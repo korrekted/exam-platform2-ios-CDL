@@ -109,8 +109,8 @@ private extension OSlidePlanView {
 private extension OSlidePlanView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.scale),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: ScreenSize.isIphoneXFamily ? 84.scale : 40.scale)
         ])
         
@@ -180,8 +180,8 @@ private extension OSlidePlanView {
     func makeTitleLabel() -> UILabel {
         let attrs = TextAttributes()
             .textColor(Onboarding.primaryText)
-            .font(Fonts.Lato.bold(size: 32.scale))
-            .lineHeight(38.scale)
+            .font(Fonts.Lato.bold(size: 24.scale))
+            .lineHeight(33.6.scale)
             .textAlignment(.center)
         
         let view = UILabel()

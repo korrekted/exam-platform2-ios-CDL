@@ -25,12 +25,12 @@
 "Onboarding.Next" = "Next";
 "Onboarding.Yes" = "Yes";
 "Onboarding.No" = "No";
-"Onboarding.Welcome.Title1" = "Personal study plan";
-"Onboarding.Welcome.Subtitle1" = "Your study plan is prepared by the algorithms, which rely on thousands of similar cases";
-"Onboarding.Welcome.Title2" = "98% pass rate";
-"Onboarding.Welcome.Subtitle2" = "Prepare for your CDL exam efficiently. Study all the required topics one by one.";
-"Onboarding.Welcome.Title3" = "Pass first time";
-"Onboarding.Welcome.Subtitle3" = "A special AI-supported study plan to help you ace your CDL exam on the first take";
+"Onboarding.Welcome.Title1" = "Efficient study plan";
+"Onboarding.Welcome.Subtitle1" = "The question bank is divided into bite-sized sets to keep you motivated";
+"Onboarding.Welcome.Title2" = "Learn in 5 different\nways";
+"Onboarding.Welcome.Subtitle2" = "Save time. Study efficiently with 5 different exam modes";
+"Onboarding.Welcome.Title3" = "Over 300,000\nstudents";
+"Onboarding.Welcome.Subtitle3" = "Students claim to feel more confident with the real exam after using our app";
 "Onboarding.Welcome.GetStarted" = "Get started";
 "Onboarding.SlideTopics.Title" = "Select all\nrequired topics";
 "Onboarding.SlideCountry.Title" = "Choose\nyour country";
@@ -50,7 +50,7 @@
 "Onboarding.Preloader.Cell1" = "Analyzing your skill level  %i%%";
 "Onboarding.Preloader.Cell2" = "Analyzing your goals  %i%%";
 "Onboarding.Preloader.Cell3" = "Processing required exams %i%%";
-"Onboarding.SlidePlan.Title" = "Your personal 98%\npass rate study plan is\nready!";
+"Onboarding.SlidePlan.Title" = "Your personal study plan is\nready!";
 "Onboarding.SlidePlan.CellsTitle" = "Your individual plan:";
 "Onboarding.SlidePlan.Cell1.Title" = "2000+ individual questions";
 "Onboarding.SlidePlan.Cell1.Subtitle" = "Up-to-date questions, which reflect your territory-specific rules";
@@ -152,7 +152,7 @@
 "Paygate.Main.Title" = "KNOW THE QUESTIONS\nBEFOREHAND";
 "Paygate.Main.Cell1" = "Don’t spend hours learning";
 "Paygate.Main.Cell2" = "Train yourself with %i+ questions";
-"Paygate.Main.Cell3" = "98% pass rate on the first attempt!";
+"Paygate.Main.Cell3" = "Track your stats to motivate yourself";
 "Paygate.Main.Info" = "Secured with iTunes. Cancel anytime.";
 "Paygate.Main.TermsOfUse" = "Terms of use";
 "Paygate.Main.And" = " and ";

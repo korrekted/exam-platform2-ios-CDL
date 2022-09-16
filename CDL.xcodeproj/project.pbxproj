@@ -62,7 +62,6 @@
 		96155B84268B708300228151 /* OExperienceCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B83268B708300228151 /* OExperienceCursor.swift */; };
 		96155B86268B924900228151 /* OWhenStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B85268B924900228151 /* OWhenStudyView.swift */; };
 		96155B89268B969B00228151 /* OPushView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B88268B969B00228151 /* OPushView.swift */; };
-		96155B8B268BC9B300228151 /* Onboarding.Chart.json in Resources */ = {isa = PBXBuildFile; fileRef = 96155B8A268BC9B300228151 /* Onboarding.Chart.json */; };
 		9650402B267F1851003D5167 /* WelcomeSlide1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650402A267F1851003D5167 /* WelcomeSlide1View.swift */; };
 		9650402D267F1AEB003D5167 /* WelcomeSlide2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650402C267F1AEB003D5167 /* WelcomeSlide2View.swift */; };
 		9650402F267F1AF5003D5167 /* WelcomeSlide3View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650402E267F1AF5003D5167 /* WelcomeSlide3View.swift */; };
@@ -345,6 +344,7 @@
 		DE4FA10128D367F000085483 /* APIRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4FA0FD28D367F000085483 /* APIRequestBody.swift */; };
 		DE4FA10228D367F000085483 /* RestAPITransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4FA0FE28D367F000085483 /* RestAPITransport.swift */; };
 		DE4FA10428D3681900085483 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4FA10328D3681900085483 /* NetworkError.swift */; };
+		DE4FA11C28D48FEA00085483 /* Onboarding.Chart.json in Resources */ = {isa = PBXBuildFile; fileRef = DE4FA11B28D48FEA00085483 /* Onboarding.Chart.json */; };
 		DE6836982892B72100FAEF96 /* BranchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6836972892B72100FAEF96 /* BranchManager.swift */; };
 		DE68369A2892B72B00FAEF96 /* AmplitudeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6836992892B72B00FAEF96 /* AmplitudeManager.swift */; };
 		DE68369C2892B73500FAEF96 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE68369B2892B73500FAEF96 /* FirebaseManager.swift */; };
@@ -458,7 +458,6 @@
 		96155B85268B924900228151 /* OWhenStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OWhenStudyView.swift; sourceTree = "<group>"; };
 		96155B87268B953100228151 /* CDL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CDL.entitlements; sourceTree = "<group>"; };
 		96155B88268B969B00228151 /* OPushView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPushView.swift; sourceTree = "<group>"; };
-		96155B8A268BC9B300228151 /* Onboarding.Chart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Onboarding.Chart.json; sourceTree = "<group>"; };
 		9650402A267F1851003D5167 /* WelcomeSlide1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSlide1View.swift; sourceTree = "<group>"; };
 		9650402C267F1AEB003D5167 /* WelcomeSlide2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSlide2View.swift; sourceTree = "<group>"; };
 		9650402E267F1AF5003D5167 /* WelcomeSlide3View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSlide3View.swift; sourceTree = "<group>"; };
@@ -742,6 +741,7 @@
 		DE4FA0FD28D367F000085483 /* APIRequestBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequestBody.swift; sourceTree = "<group>"; };
 		DE4FA0FE28D367F000085483 /* RestAPITransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestAPITransport.swift; sourceTree = "<group>"; };
 		DE4FA10328D3681900085483 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		DE4FA11B28D48FEA00085483 /* Onboarding.Chart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Onboarding.Chart.json; sourceTree = "<group>"; };
 		DE6836972892B72100FAEF96 /* BranchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchManager.swift; sourceTree = "<group>"; };
 		DE6836992892B72B00FAEF96 /* AmplitudeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeManager.swift; sourceTree = "<group>"; };
 		DE68369B2892B73500FAEF96 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
@@ -1739,7 +1739,7 @@
 		967AD4A2260FD0AE008E8175 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				96155B8A268BC9B300228151 /* Onboarding.Chart.json */,
+				DE4FA11B28D48FEA00085483 /* Onboarding.Chart.json */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -2388,7 +2388,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96155B8B268BC9B300228151 /* Onboarding.Chart.json in Resources */,
+				DE4FA11C28D48FEA00085483 /* Onboarding.Chart.json in Resources */,
 				967DA11F266FCD15002251D7 /* lato.italic.ttf in Resources */,
 				9696796B265BCF4C0070E7F7 /* GoogleService-Info.plist in Resources */,
 				967AD58B260FD0F9008E8175 /* SF-Pro-Rounded-Regular.otf in Resources */,
@@ -2987,7 +2987,7 @@
 				CODE_SIGN_ENTITLEMENTS = CDL/CDL.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 50;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = "$(SRCROOT)/CDL/Resource/Info.plist";
@@ -2996,7 +2996,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3.0;
+				MARKETING_VERSION = 2.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = prep.cdl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "CDL AppStore Profile";
@@ -3016,7 +3016,7 @@
 				CODE_SIGN_ENTITLEMENTS = CDL/CDL.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = "$(SRCROOT)/CDL/Resource/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -3024,7 +3024,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3.0;
+				MARKETING_VERSION = 2.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = prep.cdl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "CDL AppStore Profile";
@@ -3042,7 +3042,7 @@
 				CODE_SIGN_ENTITLEMENTS = StatsWidgetsExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = StatsWidgets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -3051,7 +3051,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.3.0;
+				MARKETING_VERSION = 2.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = prep.cdl.stats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "CDL StatsWidgets AppStore Profile";
@@ -3069,7 +3069,7 @@
 				CODE_SIGN_ENTITLEMENTS = StatsWidgetsExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = GL587QW8T3;
 				INFOPLIST_FILE = StatsWidgets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -3078,7 +3078,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.3.0;
+				MARKETING_VERSION = 2.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = prep.cdl.stats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "CDL StatsWidgets AppStore Profile";
